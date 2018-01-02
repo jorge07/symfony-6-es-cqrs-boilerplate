@@ -1,0 +1,56 @@
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+        bind:
+          $commandBus: '@tactician.commandbus.command'
+          $eventBus: '@tactician.commandbus.event'
+          $eventStore: '@Broadway\EventStore\Dbal\DBALEventStore'
+          $broadwayBusBridge: '@App\Infrastructure\Share\Bus\CommandBusBroadwayAdapter'
+
+    _instanceof:
+
+        App\Application\Command\CommandHandlerInterface:
+          public: true
+          tags:
+              - { name: tactician.handler, typehints: true, bus: command }
+
+        App\Application\Query\QueryHandlerInterface:
+          public: true
+          tags:
+              - { name: tactician.handler, typehints: true, bus: query }
+
+        App\Infrastructure\Share\Event\EventCollectorHandler:
+          public: true
+          tags:
+              - { name: tactician.handler, typehints: true, bus: event }
+
+    App\:
+        resource: '../src/*'
+        exclude: '../src/**/{Migrations,EventSubscriber}'
+
+    App\UI\Cli\Command\:
+        resource: '../src/UI/Cli/Command'
+
+    App\UI\Http\Rest\Controller\:
+        resource: '../src/UI/Http/Rest/Controller/*'
+        tags: [ 'controller.service_arguments' ]
+
+    Broadway\EventStore\Dbal\DBALEventStore:
+        public: true
+        arguments:
+          - '@doctrine.dbal.default_connection'
+          - '@broadway.serializer.payload'
+          - '@broadway.serializer.metadata'
+          - 'events'
+          - 'false'
+          - '@broadway.uuid.converter'
+
+    App\UI\Http\Rest\EventSubscriber\ExceptionSubscriber:
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.exception' }

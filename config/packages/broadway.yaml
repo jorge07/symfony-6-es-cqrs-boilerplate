@@ -1,0 +1,2 @@
+broadway:
+    event_store: 'Broadway\EventStore\Dbal\DBALEventStore'
