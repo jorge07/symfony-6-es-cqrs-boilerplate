@@ -20,7 +20,9 @@ class UserEmailChanged implements Serializable
     }
 
     /**
-     * @return mixed The object instance
+     * @param array $data
+     *
+     * @return UserEmailChanged
      */
     public static function deserialize(array $data)
     {
