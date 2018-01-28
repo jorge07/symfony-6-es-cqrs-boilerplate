@@ -14,6 +14,9 @@ services:
 
   php:
     image: jorge07/alpine-php:7.1-dev-sf
+    ports:
+      - "2323:22"
+      - "9000:9000"
     volumes:
       - .:/app
     depends_on:

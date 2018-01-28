@@ -24,7 +24,7 @@ class User extends EventSourcedAggregateRoot
 
     public function changeEmail(Email $email): void
     {
-        $this->apply(new UserEmailChanged($email));
+        $this->apply(new UserEmailChanged($this->uuid, $email));
     }
 
     protected function applyUserWasCreated(UserWasCreated $event)

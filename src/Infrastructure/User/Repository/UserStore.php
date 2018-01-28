@@ -41,6 +41,4 @@ class UserStore extends EventSourcingRepository implements UserRepositoryInterfa
             $eventStreamDecorators
         );
     }
-
-
 }

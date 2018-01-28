@@ -1,3 +1,5 @@
 services:
     _defaults:
         public: true
+
+    App\Tests\Infrastructure\Share\Bus\EventCollectorMiddleware: ~

@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\UI\Http\Rest\Controller\User;
 
 use App\Domain\User\Event\UserEmailChanged;
-use App\Infrastructure\Share\Event\EventCollectorHandler;
+use App\Tests\Infrastructure\Share\Bus\EventCollectorMiddleware;
+
 use Broadway\Domain\DomainMessage;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -44,23 +45,19 @@ class ChangeEmailControllerTest extends WebTestCase
 
         self::assertEquals(201, $this->client->getResponse()->getStatusCode());
 
-        $this->request('/api/users/'.$uuid.'/email', [
+        $this->request('/api/users/' . $uuid . '/email', [
             'email' => 'weba@jo.com'
         ]);
 
         self::assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        /** @var EventCollectorHandler $eventCollector */
-        $eventCollector = $this->client->getContainer()->get(EventCollectorHandler::class);
+        /** @var EventCollectorMiddleware $eventCollector */
+        $eventCollector = $this->client->getContainer()->get(EventCollectorMiddleware::class);
 
         /** @var DomainMessage[] $events */
         $events = $eventCollector->popEvents();
 
-        self::assertCount(1, $events);
-
-        $userEmailChangedEvent = $events[0];
-
-        self::assertInstanceOf(UserEmailChanged::class, $userEmailChangedEvent->getPayload());
+        self::assertInstanceOf(UserEmailChanged::class, $events[0]->getPayload());
     }
 
     /**
@@ -77,7 +74,7 @@ class ChangeEmailControllerTest extends WebTestCase
 
         self::assertEquals(201, $this->client->getResponse()->getStatusCode());
 
-        $this->request('/api/users/'.$uuid.'/email', [
+        $this->request('/api/users/' . $uuid . '/email', [
             'email' => 'webajo.com'
         ]);
 

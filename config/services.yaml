@@ -8,6 +8,7 @@ services:
         autoconfigure: true
         public: false
         bind:
+          $queryBus: '@tactician.commandbus.query'
           $commandBus: '@tactician.commandbus.command'
           $eventBus: '@tactician.commandbus.event'
           $eventStore: '@Broadway\EventStore\Dbal\DBALEventStore'
@@ -25,7 +26,7 @@ services:
           tags:
               - { name: tactician.handler, typehints: true, bus: query }
 
-        App\Infrastructure\Share\Event\EventCollectorHandler:
+        Broadway\ReadModel\Projector:
           public: true
           tags:
               - { name: tactician.handler, typehints: true, bus: event }

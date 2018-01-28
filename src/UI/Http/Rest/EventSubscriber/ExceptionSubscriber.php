@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace App\UI\Http\Rest\EventSubscriber;
 
+use App\Domain\Shared\Query\Exception\NotFoundException;
 use Broadway\Repository\AggregateNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -99,7 +100,7 @@ class ExceptionSubscriber
             $statusCode = $exception->getStatusCode();
         } elseif ($exception instanceof \InvalidArgumentException) {
             $statusCode = 400;
-        } elseif ($exception instanceof AggregateNotFoundException) {
+        } elseif ($exception instanceof AggregateNotFoundException || $exception instanceof NotFoundException) {
             $statusCode = 404;
         }
 

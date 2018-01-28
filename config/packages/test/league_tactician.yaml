@@ -13,4 +13,5 @@ tactician:
         event:
             method_inflector: tactician.handler.method_name_inflector.handle
             middleware:
+                - App\Tests\Infrastructure\Share\Bus\EventCollectorMiddleware
                 - tactician.commandbus.event.middleware.command_handler

@@ -20,7 +20,10 @@ doctrine:
         password: "%env(DATABASE_PASS)%"
         charset:  UTF8
         server_version: '5.7'
-
+        types:
+          uuid_binary: Ramsey\Uuid\Doctrine\UuidBinaryType
+        mapping_types:
+          uuid_binary: binary
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
         naming_strategy: doctrine.orm.naming_strategy.underscore
@@ -29,7 +32,6 @@ doctrine:
             Domain:
                 is_bundle: false
                 type: yml
-                dir: '%kernel.project_dir%/src/Domain'
+                dir: '%kernel.project_dir%/config/mapping/orm/query'
                 prefix: 'App\Domain'
                 alias: Domain
-

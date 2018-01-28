@@ -1,0 +1,13 @@
+App\Domain\User\Query\UserRead:
+  type: entity
+  table: users
+  indexes:
+    name_index:
+      columns: [ email ]
+  id:
+    uuid:
+      type: uuid_binary
+  fields:
+    email:
+      type: string
+      unique: true

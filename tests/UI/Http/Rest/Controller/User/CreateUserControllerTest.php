@@ -3,7 +3,7 @@
 namespace App\Tests\UI\Http\Rest\Controller\User;
 
 use App\Domain\User\Event\UserWasCreated;
-use App\Infrastructure\Share\Event\EventCollectorHandler;
+use App\Tests\Infrastructure\Share\Bus\EventCollectorMiddleware;
 use Broadway\Domain\DomainMessage;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -44,14 +44,14 @@ class CreateUserControllerTest extends WebTestCase
 
         self::assertEquals(201, $this->client->getResponse()->getStatusCode());
 
-        /** @var EventCollectorHandler $eventCollector */
-        $eventCollector = $this->client->getContainer()->get(EventCollectorHandler::class);
+        /** @var EventCollectorMiddleware $eventCollector */
+        $eventCollector = $this->client->getContainer()->get(EventCollectorMiddleware::class);
 
+        /** @var DomainMessage[] $events */
         $events = $eventCollector->popEvents();
 
         self::assertCount(1, $events);
-
-        /** @var DomainMessage $userWasCreatedEvent */
+        
         $userWasCreatedEvent = $events[0];
 
         self::assertInstanceOf(UserWasCreated::class, $userWasCreatedEvent->getPayload());
@@ -73,8 +73,8 @@ class CreateUserControllerTest extends WebTestCase
 
         self::assertEquals(400, $this->client->getResponse()->getStatusCode());
 
-        /** @var EventCollectorHandler $eventCollector */
-        $eventCollector = $this->client->getContainer()->get(EventCollectorHandler::class);
+        /** @var EventCollectorMiddleware $eventCollector */
+        $eventCollector = $this->client->getContainer()->get(EventCollectorMiddleware::class);
 
         $events = $eventCollector->popEvents();
 
