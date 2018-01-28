@@ -17,18 +17,23 @@
 ## Project Setup
 
 Up environment:
+
 `docker-compose up -d`
 
 Run database migrations:
+
 `docker-compose exec php sh -lc 'dev d:m:m -n'`
 
 Execute tests:
+
 `docker-compose exec php sh -lc './bin/phpunit'`
 
 Enter in php container:
+
 `docker-compose exec php sh -l`
 
 Disable\Enable Xdebug:
+
 `docker-compose exec php sh -lc 'xoff'`
 
 `docker-compose exec php sh -lc 'xon'`
