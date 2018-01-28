@@ -38,6 +38,7 @@ Disable\Enable Xdebug:
 Use ssh remote connection.
 
 HOST: 
+
 	- docker4mac: `localhost`
 	- docker machine|| dinghy: `192.168.99.100`
 
