@@ -38,10 +38,10 @@ class EventPublisherTest extends TestCase
 
         $this->publisher->publish();
 
-        self::assertInstanceOf(UserWasCreated::class, $this->consumer->getMessage());
-
         /** @var UserWasCreated $event */
-        $event = $this->consumer->getMessage();
+        $event = $this->consumer->getMessage()->getPayload();
+
+        self::assertInstanceOf(UserWasCreated::class, $event);
 
         self::assertEquals($data, $event->serialize(), 'Check that its the same event');
     }
@@ -50,9 +50,10 @@ class EventPublisherTest extends TestCase
     {
         return $this->consumer = new class implements ConsumerInterface {
 
+            /** @var DomainMessage|null */
             private $message;
 
-            public function getMessage()
+            public function getMessage(): ?DomainMessage
             {
                 return $this->message;
             }

@@ -2,14 +2,21 @@ old_sound_rabbit_mq:
     connections:
         default:
             url: '%env(RABBITMQ_URL)%'
-#    producers:
-#        # use 'old_sound_rabbit_mq.task_producer' service to send data.
-#        task:
-#            connection:       default
-#            exchange_options: { name: 'task', type: direct }
-#    consumers:
-#        task:
-#            connection:       default
-#            exchange_options: { name: 'task', type: direct }
-#            queue_options:    { name: 'task'}
-#            callback:         App\Consumer\TaskConsumer
+            keepalive: false
+
+    producers:
+        events:
+            connection:       default
+            exchange_options: { name: 'events', type: topic }
+
+
+    multiple_consumers:
+        events:
+            connection:       default
+            exchange_options: { name: 'events', type: topic }
+            queues:
+                projections_mysql:
+                    name: projections_mysql
+                    routing_keys:
+                        - 'App.Domain.#'
+                    callback: App\Infrastructure\Share\Event\Consumer\EventQueueConsumer

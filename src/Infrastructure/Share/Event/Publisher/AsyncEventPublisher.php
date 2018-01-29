@@ -16,7 +16,7 @@ final class AsyncEventPublisher implements EventPublisher, EventSubscriberInterf
     {
         foreach ($this->events as $event) {
 
-            $this->eventProducer->publish(serialize($event->getPayload()), $event->getType());
+            $this->eventProducer->publish(serialize($event), $event->getType());
         }
     }
 
