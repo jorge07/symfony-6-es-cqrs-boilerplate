@@ -1,10 +1,11 @@
 # Symfony 4 ES CQRS Boilerplate
 
-- [x] Command Bus, Query Bus & Event Bus
+- [x] Command Bus, Query Bus ,Event Bus & Async Event Bus
 - [x] Event Store
 - [x] Rest API
+- [x] Async Command-> Query subsystems communication
 - [x] Read Model
-- [ ] Event Rest API 
+- [ ] Event Store Rest API 
 
 
 ### Use Cases
@@ -27,6 +28,9 @@ Run database migrations:
 Execute tests:
 
 `docker-compose exec php sh -lc './bin/phpunit'`
+
+Execute rabbitmq workers:
+`docker-compose exec php sh -lc './bin/console r:multiple events'`
 
 Enter in php container:
 
