@@ -22,6 +22,10 @@
         <!-- Configure your db driver and server_version in config/packages/doctrine.yaml -->
         <env name="DATABASE_URL" value="mysql://db_user:db_password@127.0.0.1:3306/db_name"/>
         <!-- ###- doctrine/doctrine-bundle ### -->
+
+        <!-- ###+ php-amqplib/rabbitmq-bundle ### -->
+        <env name="RABBITMQ_URL" value="amqp://guest:guest@localhost:5672"/>
+        <!-- ###- php-amqplib/rabbitmq-bundle ### -->
     </php>
 
     <testsuites>

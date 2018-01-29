@@ -119,6 +119,18 @@
     "phar-io/version": {
         "version": "1.0.1"
     },
+    "php-amqplib/php-amqplib": {
+        "version": "v2.7.0"
+    },
+    "php-amqplib/rabbitmq-bundle": {
+        "version": "1.12",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.12",
+            "ref": "ce3ca2e4577270c4f518539aa6b9e878998fcfef"
+        }
+    },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
     },
