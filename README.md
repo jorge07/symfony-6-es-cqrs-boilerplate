@@ -18,7 +18,7 @@
 
 ### Architecture
 
-![Architecture](https://i.imgur.com/7kyZG1x.jpg)
+![Architecture](https://i.imgur.com/073sXBV.jpg)
 
 ## Project Setup
 
