@@ -9,6 +9,7 @@
         "broadway/broadway-bundle": "^0.4.1",
         "broadway/event-store-dbal": "^0.2.1",
         "league/tactician-bundle": "^1.1",
+        "php-amqplib/rabbitmq-bundle": "^1.14",
         "ramsey/uuid": "^3.7",
         "ramsey/uuid-doctrine": "^1.4",
         "sensio/framework-extra-bundle": "^5.1",

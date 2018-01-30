@@ -26,19 +26,11 @@ class UserEmailChanged implements Serializable
         $this->uuid = $uuid;
     }
 
-    /**
-     * @param array $data
-     *
-     * @return UserEmailChanged
-     */
-    public static function deserialize(array $data)
+    public static function deserialize(array $data): self
     {
         return new self(Uuid::fromString($data['uuid']), Email::fromString($data['email']));
     }
 
-    /**
-     * @return array
-     */
     public function serialize(): array
     {
         return [

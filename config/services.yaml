@@ -11,9 +11,12 @@ services:
           $queryBus: '@tactician.commandbus.query'
           $commandBus: '@tactician.commandbus.command'
           $eventBus: '@tactician.commandbus.event'
+          $asyncEventBus: '@tactician.commandbus.asyncEvent'
+
           $eventStore: '@Broadway\EventStore\Dbal\DBALEventStore'
           $broadwayBusBridge: '@App\Infrastructure\Share\Bus\CommandBusBroadwayAdapter'
-
+          $eventProducer: '@old_sound_rabbit_mq.events_producer'
+          
     _instanceof:
 
         App\Application\Command\CommandHandlerInterface:
@@ -26,10 +29,15 @@ services:
           tags:
               - { name: tactician.handler, typehints: true, bus: query }
 
-        Broadway\ReadModel\Projector:
+        App\Infrastructure\Share\Event\Publisher\EventPublisher:
           public: true
           tags:
               - { name: tactician.handler, typehints: true, bus: event }
+
+        Broadway\ReadModel\Projector:
+          public: true
+          tags:
+              - { name: tactician.handler, typehints: true, bus: asyncEvent }
 
     App\:
         resource: '../src/*'
@@ -55,3 +63,7 @@ services:
     App\UI\Http\Rest\EventSubscriber\ExceptionSubscriber:
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.exception' }
+
+    App\UI\Http\Rest\EventSubscriber\JsonBodyParserSubscriber:
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.request', method: 'onKernelRequest', priority: 100 }

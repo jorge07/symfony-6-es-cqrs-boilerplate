@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Query\Mysql;
 
-use App\Domain\User\Query\UserRead;
-use App\Domain\User\Query\UserReadModelRepositoryInterface;
+use App\Domain\User\Query\UserView;
+use App\Domain\User\Query\Repository\UserReadModelRepositoryInterface;
 use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\Share\Query\Repository\MysqlRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,7 +13,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class MysqlUserReadModelRepository extends MysqlRepository implements UserReadModelRepositoryInterface
 {
-    public function oneByUuid(UuidInterface $uuid): UserRead
+    public function oneByUuid(UuidInterface $uuid): UserView
     {
         $qb = $this->repository
             ->createQueryBuilder('user')
@@ -24,7 +24,7 @@ class MysqlUserReadModelRepository extends MysqlRepository implements UserReadMo
         return $this->oneOrException($qb);
     }
 
-    public function oneByEmail(Email $email): UserRead
+    public function oneByEmail(Email $email): UserView
     {
         $qb = $this->repository
             ->createQueryBuilder('user')
@@ -35,7 +35,7 @@ class MysqlUserReadModelRepository extends MysqlRepository implements UserReadMo
         return $this->oneOrException($qb);
     }
 
-    public function add(UserRead $userRead): void
+    public function add(UserView $userRead): void
     {
         $this->register($userRead);
     }
@@ -44,6 +44,6 @@ class MysqlUserReadModelRepository extends MysqlRepository implements UserReadMo
     {
         parent::__construct($entityManager);
 
-        $this->setRepository(UserRead::class);
+        $this->setRepository(UserView::class);
     }
 }

@@ -4,30 +4,12 @@ namespace App\Tests\UI\Http\Rest\Controller\User;
 
 use App\Domain\User\Event\UserWasCreated;
 use App\Tests\Infrastructure\Share\Bus\EventCollectorMiddleware;
+use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
 use Broadway\Domain\DomainMessage;
 use Ramsey\Uuid\Uuid;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\BrowserKit\Client;
 
-class CreateUserControllerTest extends WebTestCase
+class CreateUserControllerTest extends JsonApiTestCase
 {
-    /** @var Client */
-    private $client;
-
-    public function setUp()
-    {
-        $this->client = static::createClient();
-    }
-
-    private function request(array $params)
-    {
-        $this->client->request(
-            'POST',
-            '/api/users',
-            $params
-        );
-    }
-
     /**
      * @test
      *
@@ -36,7 +18,7 @@ class CreateUserControllerTest extends WebTestCase
     public function given_a_valid_uuid_and_email_should_return_a_201_status_code()
     {
 
-        $this->request([
+        $this->post('/api/users', [
             'uuid' => Uuid::uuid4()->toString(),
             'email' => 'jo@jo.com'
         ]);
@@ -64,12 +46,10 @@ class CreateUserControllerTest extends WebTestCase
      */
     public function invalid_input_parameters_should_return_400_status_code()
     {
-        $this->request(
-            [
-                'uuid' => Uuid::uuid4()->toString(),
-                'email' => 'invalid email'
-            ]
-        );
+        $this->post('/api/users', [
+            'uuid' => Uuid::uuid4()->toString(),
+            'email' => 'invalid email'
+        ]);
 
         self::assertEquals(400, $this->client->getResponse()->getStatusCode());
 

@@ -27,10 +27,7 @@ class UserWasCreated implements Serializable
         $this->email = $email;
     }
 
-    /**
-     * @return mixed The object instance
-     */
-    public static function deserialize(array $data)
+    public static function deserialize(array $data): self
     {
         return new self(
             Uuid::fromString($data['uuid']),
@@ -38,9 +35,6 @@ class UserWasCreated implements Serializable
         );
     }
 
-    /**
-     * @return array
-     */
     public function serialize(): array
     {
         return [

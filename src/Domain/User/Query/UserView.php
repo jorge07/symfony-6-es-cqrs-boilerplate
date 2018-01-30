@@ -9,7 +9,7 @@ use Broadway\Serializer\Serializable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class UserRead implements SerializableReadModel
+class UserView implements SerializableReadModel
 {
     /** @var UuidInterface */
     public $uuid;

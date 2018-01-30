@@ -7,6 +7,8 @@ namespace App\Tests\Application\Command;
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpKernel\KernelEvents;
 
 abstract class ApplicationTestCase extends KernelTestCase
 {
@@ -23,6 +25,14 @@ abstract class ApplicationTestCase extends KernelTestCase
     protected function service(string $serviceId)
     {
         return $this->container->get($serviceId);
+    }
+
+    protected function fireTerminateEvent()
+    {
+        /** @var EventDispatcherInterface $dispatcher */
+        $dispatcher = $this->service('event_dispatcher');
+
+        $dispatcher->dispatch(KernelEvents::TERMINATE);
     }
 
     protected function setUp()
