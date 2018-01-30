@@ -21,6 +21,12 @@ services:
     depends_on:
       - mysql
 
+  workers:
+    image: jorge07/alpine-php:7.1-dev-sf
+    volumes:
+      - .:/app
+    command: ['./bin/console', 'rabbitmq:multiple-consumer', 'events']
+
   mysql:
     image: mysql:5.7
     ports:

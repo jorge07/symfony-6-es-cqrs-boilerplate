@@ -3,13 +3,12 @@
 namespace App\Application\Query\User\FindByEmail;
 
 use App\Application\Query\QueryHandlerInterface;
-use App\Domain\User\Query\UserRead;
-use App\Domain\User\Query\UserReadModelRepositoryInterface;
+use App\Domain\User\Query\UserView;
+use App\Domain\User\Query\Repository\UserReadModelRepositoryInterface;
 
 class FindByEmailHandler implements QueryHandlerInterface
 {
-
-    public function __invoke(FindByEmailQuery $query): UserRead
+    public function __invoke(FindByEmailQuery $query): UserView
     {
         return $this->repository->oneByEmail($query->email);
     }

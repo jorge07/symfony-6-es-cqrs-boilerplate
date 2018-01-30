@@ -8,7 +8,6 @@ use Assert\Assertion;
 
 class Email
 {
-
     public static function fromString(string $email): self
     {
         Assertion::email($email, 'Not a valid email');

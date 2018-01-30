@@ -63,3 +63,7 @@ services:
     App\UI\Http\Rest\EventSubscriber\ExceptionSubscriber:
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.exception' }
+
+    App\UI\Http\Rest\EventSubscriber\JsonBodyParserSubscriber:
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.request', method: 'onKernelRequest', priority: 100 }

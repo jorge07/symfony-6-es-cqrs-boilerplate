@@ -6,32 +6,15 @@ namespace App\UI\Http\Rest\EventSubscriber;
 
 use App\Domain\Shared\Query\Exception\NotFoundException;
 use Broadway\Repository\AggregateNotFoundException;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Symfony\Component\HttpKernel\KernelEvents;
 
-class ExceptionSubscriber
+class ExceptionSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var string
-     */
-    private $environment;
-
-    public function __construct()
-    {
-        $this->environment = \getenv('APP_ENV');
-    }
-
-    /**
-     * Method to handle kernel exception.
-     *
-     * @param GetResponseForExceptionEvent $event
-     *
-     * @throws \InvalidArgumentException
-     * @throws \UnexpectedValueException
-     * @throws \LogicException
-     */
     public function onKernelException(GetResponseForExceptionEvent $event): void
     {
         $exception = $event->getException();
@@ -53,7 +36,7 @@ class ExceptionSubscriber
     {
         $error = [
             'errors'=> [
-                'title'   => get_class($exception),
+                'title'   => strtr(get_class($exception), '\\', '.'),
                 'detail'   => $this->getExceptionMessage($exception),
                 'code'      => $exception->getCode(),
                 'status'    => $response->getStatusCode(),
@@ -62,16 +45,18 @@ class ExceptionSubscriber
 
         if ($this->environment === 'dev') {
 
-            $error['errors'] = [
-                'meta' => [
-                    'error' => '',
-                    'file'          => $exception->getFile(),
-                    'line'          => $exception->getLine(),
-                    'message'       => $exception->getMessage(),
-                    'trace'         => $exception->getTrace(),
-                    'traceString'   => $exception->getTraceAsString(),
-                ],
-            ];
+            $error = array_merge(
+                $error,
+                [
+                    'meta' => [
+                        'file'          => $exception->getFile(),
+                        'line'          => $exception->getLine(),
+                        'message'       => $exception->getMessage(),
+                        'trace'         => $exception->getTrace(),
+                        'traceString'   => $exception->getTraceAsString(),
+                    ],
+                ]
+            );
         }
 
         return $error;
@@ -106,4 +91,22 @@ class ExceptionSubscriber
 
         return $statusCode;
     }
+
+    public static function getSubscribedEvents()
+    {
+        return [
+            KernelEvents::EXCEPTION => 'onKernelException'
+        ];
+    }
+
+
+    public function __construct()
+    {
+        $this->environment = \getenv('APP_ENV');
+    }
+
+    /**
+     * @var string
+     */
+    private $environment;
 }

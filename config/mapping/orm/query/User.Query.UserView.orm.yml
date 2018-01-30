@@ -1,4 +1,4 @@
-App\Domain\User\Query\UserRead:
+App\Domain\User\Query\UserView:
   type: entity
   table: users
   indexes:

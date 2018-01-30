@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\UI\Http\Rest\Controller\User;
 
 use App\Application\Command\User\Create\CreateUserCommand;
+use Assert\Assertion;
 use League\Tactician\CommandBus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,8 +17,11 @@ class CreateUserController
      * @Route(
      *     "/api/users",
      *     name="user_create",
-     *     methods={"POST"}
-     * )
+     *     methods={"POST"},
+     *     requirements={
+     *      "uuid": "\d+",
+     *      "email": "\w+"
+     * })
      *
      * @param Request $request
      *
@@ -25,7 +29,13 @@ class CreateUserController
      */
     public function __invoke(Request $request): JsonResponse
     {
-        $commandRequest = new CreateUserCommand($request->get('uuid'), $request->get('email'));
+        $uuid = $request->get('uuid');
+        $email = $request->get('email');
+
+        Assertion::notNull($uuid, "Uuid can\'t be null");
+        Assertion::notNull($email, "Email can\'t be null");
+
+        $commandRequest = new CreateUserCommand($uuid, $email);
 
         $this->commandBus->handle($commandRequest);
 

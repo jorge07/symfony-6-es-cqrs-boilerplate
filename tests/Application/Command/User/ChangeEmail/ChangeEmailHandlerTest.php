@@ -8,7 +8,7 @@ use App\Application\Command\User\ChangeEmail\ChangeEmailCommand;
 use App\Application\Command\User\Create\CreateUserCommand;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
 use App\Domain\User\Event\UserEmailChanged;
-use App\Domain\User\Query\UserRead;
+use App\Domain\User\Query\UserView;
 use App\Tests\Application\Command\ApplicationTestCase;
 use App\Tests\Infrastructure\Share\Bus\EventCollectorMiddleware;
 use Broadway\Domain\DomainMessage;

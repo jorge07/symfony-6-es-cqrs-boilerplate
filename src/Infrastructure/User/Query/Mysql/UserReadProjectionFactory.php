@@ -6,15 +6,15 @@ namespace App\Infrastructure\User\Query\Mysql;
 
 use App\Domain\User\Event\UserEmailChanged;
 use App\Domain\User\Event\UserWasCreated;
-use App\Domain\User\Query\UserRead;
-use App\Domain\User\Query\UserReadModelRepositoryInterface;
+use App\Domain\User\Query\UserView;
+use App\Domain\User\Query\Repository\UserReadModelRepositoryInterface;
 use Broadway\ReadModel\Projector;
 
 class UserReadProjectionFactory extends Projector
 {
     protected function applyUserWasCreated(UserWasCreated $userWasCreated)
     {
-        $userReadModel = UserRead::fromSerializable($userWasCreated);
+        $userReadModel = UserView::fromSerializable($userWasCreated);
 
         $this->repository->add($userReadModel);
     }

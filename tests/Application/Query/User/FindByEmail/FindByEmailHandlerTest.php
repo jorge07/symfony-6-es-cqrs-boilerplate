@@ -6,7 +6,7 @@ namespace App\Tests\Application\Query\User\FindByEmail;
 
 use App\Application\Command\User\Create\CreateUserCommand;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
-use App\Domain\User\Query\UserRead;
+use App\Domain\User\Query\UserView;
 use App\Tests\Application\Command\ApplicationTestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -26,7 +26,7 @@ class FindByEmailHandlerTest extends ApplicationTestCase
 
         $userRead = $this->ask(new FindByEmailQuery($email));
 
-        self::assertInstanceOf(UserRead::class, $userRead);
+        self::assertInstanceOf(UserView::class, $userRead);
     }
 
     private function createUserRead(): string
