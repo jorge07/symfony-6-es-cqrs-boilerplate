@@ -23,24 +23,27 @@
 ## Project Setup
 
 Up environment:
+
 `docker-compose up -d`
 
 Install deps:
+
 `docker-compose exec php sh -lc 'composer install'`
 
 Run database migrations:
+
 `docker-compose exec php sh -lc 'dev d:m:m -n'`
 
 Execute tests:
+
 `docker-compose exec php sh -lc './bin/phpunit'`
 
-Execute rabbitmq workers:
-`docker-compose exec php sh -lc './bin/console r:multiple events'`
-
 Enter in php container:
+
 `docker-compose exec php sh -l`
 
 Disable\Enable Xdebug:
+
 `docker-compose exec php sh -lc 'xoff'`
 
 `docker-compose exec php sh -lc 'xon'`
