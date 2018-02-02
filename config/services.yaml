@@ -1,7 +1,12 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+  elastic:
+    hosts:
+      - '%env(ELASTIC_HOST)%'
 
+  env(ELASTIC_HOST): 'elasticsearch:9200'
+  
 services:
     _defaults:
         autowire: true
@@ -16,6 +21,7 @@ services:
           $eventStore: '@Broadway\EventStore\Dbal\DBALEventStore'
           $broadwayBusBridge: '@App\Infrastructure\Share\Bus\CommandBusBroadwayAdapter'
           $eventProducer: '@old_sound_rabbit_mq.events_producer'
+          $elasticConfig: '%elastic%'
           
     _instanceof:
 

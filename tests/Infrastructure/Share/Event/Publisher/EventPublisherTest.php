@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Infrastructure\Share\Event;
+namespace App\Tests\Infrastructure\Share\Event\Publisher;
 
 use App\Domain\User\Event\UserWasCreated;
 use App\Infrastructure\Share\Event\Publisher\AsyncEventPublisher;
@@ -66,7 +66,7 @@ class EventPublisherTest extends TestCase
         };
     }
 
-    public function setup()
+    protected function setup()
     {
         $producer = new InMemoryProducer();
 
@@ -77,6 +77,12 @@ class EventPublisherTest extends TestCase
                     $this->createConsumer()
                 )
         );
+    }
+
+    protected function tearDown()
+    {
+        $this->publisher = null;
+        $this->consumer  = null;
     }
 
     /** @var ConsumerInterface|mixed */

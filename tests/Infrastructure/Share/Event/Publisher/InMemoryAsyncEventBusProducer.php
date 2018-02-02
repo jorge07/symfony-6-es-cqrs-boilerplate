@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Infrastructure\Share\Event;
+namespace App\Tests\Infrastructure\Share\Event\Publisher;
 
 use Broadway\Domain\DomainMessage;
 use League\Tactician\CommandBus;
