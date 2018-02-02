@@ -6,12 +6,14 @@ declare(strict_types=1);
 namespace App\UI\Http\Rest\Controller\User;
 
 use App\Application\Command\User\ChangeEmail\ChangeEmailCommand;
+use App\UI\Http\Rest\Controller\CommandController;
+use Assert\Assertion;
 use League\Tactician\CommandBus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class UserChangeEmailController
+final class UserChangeEmailController extends CommandController
 {
     /**
      * @Route(
@@ -27,20 +29,14 @@ class UserChangeEmailController
      */
     public function __invoke(string $uuid, Request $request): JsonResponse
     {
-        $command = new ChangeEmailCommand($uuid, $request->get('email'));
+        $email = $request->get('email');
 
-        $this->commandBus->handle($command);
+        Assertion::notNull($email, "Email can\'t be null");
+
+        $command = new ChangeEmailCommand($uuid, $email);
+
+        $this->exec($command);
 
         return JsonResponse::create();
     }
-
-    public function __construct(CommandBus $commandBus)
-    {
-        $this->commandBus = $commandBus;
-    }
-
-    /**
-     * @var CommandBus
-     */
-    private $commandBus;
 }

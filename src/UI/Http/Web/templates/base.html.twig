@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Hey!{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+        {% endblock %}
+    </head>
+    <body>
+        <nav class="navbar is-fixed-top">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                    <h2>DEMO</h2>
+                </a>
+                <div class="navbar-burger burger" data-target="nav">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div id="nav" class="navbar-menu">
+                <div class="navbar-start">
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            Docs
+                        </a>
+                        <div class="navbar-dropdown is-boxed">
+                            <a class="navbar-item" href="/">
+                                Overview
+                            </a>
+                            <a class="navbar-item" href="/">
+                                Modifiers
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="field is-grouped">
+                            <p class="control">
+                                <a class="button is-primary" href="/sign-up">Sign up</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <section class="section">
+            {% block body %}{% endblock %}
+        </section>
+        {% block javascripts %}{% endblock %}
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            // Get all "navbar-burger" elements
+            var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+            // Check if there are any navbar burgers
+            if ($navbarBurgers.length > 0) {
+              // Add a click event on each of them
+              $navbarBurgers.forEach(function ($el) {
+                $el.addEventListener('click', function () {
+                  var $target = document.getElementById($el.dataset.target);
+                  // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+                  $el.classList.toggle('is-active');
+                  $target.classList.toggle('is-active');
+                });
+              });
+            }
+          });
+        </script>
+    </body>
+</html>

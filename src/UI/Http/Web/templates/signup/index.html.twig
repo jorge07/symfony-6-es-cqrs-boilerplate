@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="columns">
+        <div class="column">
+            {% if error is defined %}
+                <div class="notification is-danger">{{ error }}</div>
+            {% endif %}
+            <form action="/sign-up" method="post">
+                <div class="field">
+                    <label for="email">Email</label>
+                    <div class="control">
+                        <input class="input" name="email" type="email" placeholder="asd@as.as" id="email">
+                    </div>
+                </div>
+                <div class="control">
+                    <input class="button is-link" type="submit" value="Sign up">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock body %}

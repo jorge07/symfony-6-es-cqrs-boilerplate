@@ -26,6 +26,7 @@
         "phpunit/phpunit": "^6.5",
         "symfony/browser-kit": "^4.0",
         "symfony/dotenv": "^4.0",
+        "symfony/profiler-pack": "^1.0",
         "symfony/phpunit-bridge": "^4.0"
     },
     "config": {

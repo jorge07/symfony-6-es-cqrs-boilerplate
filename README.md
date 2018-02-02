@@ -20,6 +20,13 @@
 
 ![Architecture](https://i.imgur.com/073sXBV.jpg)
 
+## Stack
+
+- PHP7.1
+- Mysql
+- Elastic & Kibana 5.6
+- RabbitMQ
+
 ## Project Setup
 
 Up environment:

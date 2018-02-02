@@ -63,9 +63,5 @@ services:
     ports:
       - "9200:9200"
 
-  elastic-head:
-    image: mobz/elasticsearch-head:5
-    ports:
-      - "9100:9100"
 volumes:
   db_data:

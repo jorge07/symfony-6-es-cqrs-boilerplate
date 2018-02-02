@@ -8,6 +8,7 @@ use App\Application\Query\User\FindByEmail\FindByEmailQuery;
 use App\Domain\User\Query\UserView;
 use App\UI\Http\Rest\Controller\QueryController;
 use App\UI\Http\Rest\Response\JsonApiFormatter;
+use Assert\Assertion;
 use League\Tactician\CommandBus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -28,12 +29,14 @@ class GetUserByEmailController extends QueryController
      */
     public function __invoke(Request $request): JsonResponse
     {
-        $command = new FindByEmailQuery($request->get('email'));
+        $email = $request->get('email');
+        Assertion::notNull($email, "Email can\'t be null");
+
+        $command = new FindByEmailQuery($email);
 
         /** @var UserView $user */
         $user = $this->ask($command);
 
         return $this->json($user);
     }
-
 }
