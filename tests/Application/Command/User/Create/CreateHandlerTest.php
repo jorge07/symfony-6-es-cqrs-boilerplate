@@ -5,7 +5,7 @@ namespace App\Tests\Application\Command\User\Create;
 use App\Application\Command\User\Create\CreateUserCommand;
 use App\Domain\User\Event\UserWasCreated;
 use App\Tests\Application\Command\ApplicationTestCase;
-use App\Tests\Infrastructure\Share\Bus\EventCollectorMiddleware;
+use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
 use Broadway\Domain\DomainMessage;
 use Ramsey\Uuid\Uuid;
 
@@ -21,14 +21,14 @@ class CreateHandlerTest extends ApplicationTestCase
         $uuid = Uuid::uuid4();
         $email = 'asd@asd.asd';
 
-        $command = new CreateUserCommand($uuid, $email);
+        $command = new CreateUserCommand($uuid->toString(), $email);
         $this
             ->handle($command);
 
-        /** @var EventCollectorMiddleware $collector */
-        $collector = $this->service(EventCollectorMiddleware::class);
+        /** @var EventCollectorListener $collector */
+        $collector = $this->service(EventCollectorListener::class);
 
-        /** @var DomainMessage $events */
+        /** @var DomainMessage[] $events */
         $events = $collector->popEvents();
 
         self::assertCount(1, $events);

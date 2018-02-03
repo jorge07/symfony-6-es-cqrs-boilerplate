@@ -46,24 +46,9 @@ class EventPublisherTest extends TestCase
         self::assertEquals($data, $event->serialize(), 'Check that its the same event');
     }
 
-    private function createConsumer(): ConsumerInterface
+    private function createConsumer(): Consumer
     {
-        return $this->consumer = new class implements ConsumerInterface {
-
-            /** @var DomainMessage|null */
-            private $message;
-
-            public function getMessage(): ?DomainMessage
-            {
-                return $this->message;
-            }
-
-            public function execute(AMQPMessage $msg)
-            {
-
-                $this->message = unserialize($msg->body);
-            }
-        };
+        return $this->consumer = new Consumer();
     }
 
     protected function setup()
@@ -85,9 +70,25 @@ class EventPublisherTest extends TestCase
         $this->consumer  = null;
     }
 
-    /** @var ConsumerInterface|mixed */
+    /** @var Consumer|null */
     private $consumer;
 
-    /** @var EventPublisher */
+    /** @var EventPublisher|null */
     private $publisher;
+}
+
+class Consumer implements ConsumerInterface {
+
+    /** @var DomainMessage|null */
+    private $message;
+
+    public function getMessage(): ?DomainMessage
+    {
+        return $this->message;
+    }
+
+    public function execute(AMQPMessage $msg)
+    {
+        $this->message = unserialize($msg->body);
+    }
 }

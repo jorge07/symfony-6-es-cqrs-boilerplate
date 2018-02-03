@@ -13,16 +13,16 @@ services:
         autoconfigure: true
         public: false
         bind:
+          $elasticConfig: '%elastic%'
+
           $queryBus: '@tactician.commandbus.query'
           $commandBus: '@tactician.commandbus.command'
-          $eventBus: '@tactician.commandbus.event'
-          $asyncEventBus: '@tactician.commandbus.asyncEvent'
+          $eventBus: '@broadway.event_handling.event_bus'
 
           $eventStore: '@Broadway\EventStore\Dbal\DBALEventStore'
-          $broadwayBusBridge: '@App\Infrastructure\Share\Bus\CommandBusBroadwayAdapter'
+
           $eventProducer: '@old_sound_rabbit_mq.events_producer'
-          $elasticConfig: '%elastic%'
-          
+
     _instanceof:
 
         App\Application\Command\CommandHandlerInterface:
@@ -35,15 +35,10 @@ services:
           tags:
               - { name: tactician.handler, typehints: true, bus: query }
 
-        App\Infrastructure\Share\Event\Publisher\EventPublisher:
+        Broadway\EventHandling\EventListener:
           public: true
           tags:
-              - { name: tactician.handler, typehints: true, bus: event }
-
-        Broadway\ReadModel\Projector:
-          public: true
-          tags:
-              - { name: tactician.handler, typehints: true, bus: asyncEvent }
+              - { name: broadway.domain.event_listener }
 
     App\:
         resource: '../src/*'

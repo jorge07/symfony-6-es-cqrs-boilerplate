@@ -11,6 +11,8 @@ abstract class ElasticRepository
 {
     public function search(array $query): array
     {
+        $finalQuery = [];
+
         $finalQuery['index'] = $this->index;
         $finalQuery['type']  = $this->index; // To be deleted in elastic 7
         $finalQuery['body']  = $query;

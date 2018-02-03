@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\UI\Http\Rest\Controller\User;
 
 use App\Domain\User\Event\UserEmailChanged;
-use App\Tests\Infrastructure\Share\Bus\EventCollectorMiddleware;
+use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
 
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
 use Broadway\Domain\DomainMessage;
@@ -34,8 +34,8 @@ class ChangeEmailControllerTest extends JsonApiTestCase
 
         self::assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        /** @var EventCollectorMiddleware $eventCollector */
-        $eventCollector = $this->client->getContainer()->get(EventCollectorMiddleware::class);
+        /** @var EventCollectorListener $eventCollector */
+        $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
 
         /** @var DomainMessage[] $events */
         $events = $eventCollector->popEvents();

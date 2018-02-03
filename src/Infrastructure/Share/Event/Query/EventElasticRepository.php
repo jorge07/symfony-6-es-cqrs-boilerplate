@@ -13,7 +13,8 @@ final class EventElasticRepository extends ElasticRepository
     {
         $document = [
             'type' => $message->getType(),
-            'payload' => $message->getPayload()->serialize()
+            'payload' => $message->getPayload()->serialize(),
+            'occurred_on' => $message->getRecordedOn()->toString()
         ];
 
         $this->add($document);

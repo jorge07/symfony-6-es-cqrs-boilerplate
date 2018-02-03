@@ -3,7 +3,7 @@
 namespace App\Tests\UI\Http\Rest\Controller\User;
 
 use App\Domain\User\Event\UserWasCreated;
-use App\Tests\Infrastructure\Share\Bus\EventCollectorMiddleware;
+use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
 use Broadway\Domain\DomainMessage;
 use Ramsey\Uuid\Uuid;
@@ -26,8 +26,8 @@ class CreateUserControllerTest extends JsonApiTestCase
 
         self::assertEquals(201, $this->client->getResponse()->getStatusCode());
 
-        /** @var EventCollectorMiddleware $eventCollector */
-        $eventCollector = $this->client->getContainer()->get(EventCollectorMiddleware::class);
+        /** @var EventCollectorListener $eventCollector */
+        $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
 
         /** @var DomainMessage[] $events */
         $events = $eventCollector->popEvents();
@@ -53,8 +53,8 @@ class CreateUserControllerTest extends JsonApiTestCase
 
         self::assertEquals(400, $this->client->getResponse()->getStatusCode());
 
-        /** @var EventCollectorMiddleware $eventCollector */
-        $eventCollector = $this->client->getContainer()->get(EventCollectorMiddleware::class);
+        /** @var EventCollectorListener $eventCollector */
+        $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
 
         $events = $eventCollector->popEvents();
 

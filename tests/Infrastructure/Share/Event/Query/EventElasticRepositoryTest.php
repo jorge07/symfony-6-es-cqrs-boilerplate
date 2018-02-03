@@ -63,6 +63,6 @@ class EventElasticRepositoryTest extends TestCase
         $this->repo = null;
     }
 
-    /** @var EventElasticRepository */
+    /** @var EventElasticRepository|null */
     private $repo;
 }

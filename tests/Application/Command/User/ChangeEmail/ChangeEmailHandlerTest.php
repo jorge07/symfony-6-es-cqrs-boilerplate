@@ -6,14 +6,11 @@ namespace App\Tests\Application\Command\User\ChangeEmail;
 
 use App\Application\Command\User\ChangeEmail\ChangeEmailCommand;
 use App\Application\Command\User\Create\CreateUserCommand;
-use App\Application\Query\User\FindByEmail\FindByEmailQuery;
 use App\Domain\User\Event\UserEmailChanged;
-use App\Domain\User\Query\UserView;
 use App\Tests\Application\Command\ApplicationTestCase;
-use App\Tests\Infrastructure\Share\Bus\EventCollectorMiddleware;
+use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
 use Broadway\Domain\DomainMessage;
 use Ramsey\Uuid\Uuid;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class ChangeEmailHandlerTest extends ApplicationTestCase
 {
@@ -36,8 +33,8 @@ class ChangeEmailHandlerTest extends ApplicationTestCase
         $this
             ->handle($command);
 
-        /** @var EventCollectorMiddleware $eventCollector */
-        $eventCollector = $this->service(EventCollectorMiddleware::class);
+        /** @var EventCollectorListener $eventCollector */
+        $eventCollector = $this->service(EventCollectorListener::class);
 
         /** @var DomainMessage[] $events */
         $events = $eventCollector->popEvents();
