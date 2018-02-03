@@ -28,10 +28,18 @@
     </testsuites>
 
     <filter>
-        <whitelist>
+        <whitelist processUncoveredFilesFromWhitelist="true">
             <directory>./src/</directory>
+            <exclude>
+                <directory>./src/Infrastructure/Share/Migrations/</directory>
+                <file>./src/Kernel.php</file>
+            </exclude>
         </whitelist>
     </filter>
+
+    <logging>
+        <log type="coverage-html" target="report/html" lowUpperBound="35" highLowerBound="70"/>
+    </logging>
 
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />

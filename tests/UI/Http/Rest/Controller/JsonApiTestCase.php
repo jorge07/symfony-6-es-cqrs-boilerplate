@@ -47,5 +47,4 @@ abstract class JsonApiTestCase extends WebTestCase
 
     /** @var Client|null */
     protected $client;
-
 }

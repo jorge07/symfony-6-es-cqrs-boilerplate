@@ -7,7 +7,7 @@
             {% if error is defined %}
                 <div class="notification is-danger">{{ error }}</div>
             {% endif %}
-            <form action="/sign-up" method="post">
+            <form name="signUp" action="/sign-up" method="post">
                 <div class="field">
                     <label for="email">Email</label>
                     <div class="control">
@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="control">
-                    <input class="button is-link" type="submit" value="Sign up">
+                    <input class="button is-link" type="submit" value="Send">
                 </div>
             </form>
         </div>

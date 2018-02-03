@@ -26,6 +26,7 @@
         "phpstan/phpstan": "^0.9.2",
         "phpunit/phpunit": "^6.5",
         "symfony/browser-kit": "^4.0",
+        "symfony/css-selector": "^4.0",
         "symfony/dotenv": "^4.0",
         "symfony/phpunit-bridge": "^4.0",
         "symfony/profiler-pack": "^1.0"
