@@ -9,19 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class JsonApiTestCase extends WebTestCase
 {
-    /** @var Client */
-    protected $client;
-
-    public function setUp()
-    {
-        $this->client = static::createClient();
-    }
-
-    protected function tearDown()
-    {
-        $this->client = null;
-    }
-
     protected function post(string $uri, array $params)
     {
         $this->client->request(
@@ -48,4 +35,16 @@ abstract class JsonApiTestCase extends WebTestCase
             ]
         );
     }
+    public function setUp()
+    {
+        $this->client = static::createClient();
+    }
+
+    protected function tearDown()
+    {
+        $this->client = null;
+    }
+
+    /** @var Client|null */
+    protected $client;
 }

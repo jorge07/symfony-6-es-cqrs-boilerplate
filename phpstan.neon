@@ -1,0 +1,3 @@
+parameters:
+	excludes_analyse:
+		- /app/src/Infrastructure/Share/Migrations/*

@@ -9,7 +9,6 @@ parameters:
     env(DATABASE_USER): 'root'
     env(DATABASE_PASS): 'api'
 
-
 doctrine:
     dbal:
         driver:   pdo_mysql

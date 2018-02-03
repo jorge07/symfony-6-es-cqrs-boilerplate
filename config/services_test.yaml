@@ -2,12 +2,12 @@ services:
     _defaults:
         public: true
 
-    App\Tests\Infrastructure\Share\Event\InMemoryAsyncEventBusProducer:
-        arguments:
-          $asyncEventBus: '@tactician.commandbus.asyncEvent'
+    App\Tests\Infrastructure\Share\Event\EventCollectorListener:
+      public: true
+      tags:
+          - { name: broadway.domain.event_listener }
 
-    App\Tests\Infrastructure\Share\Bus\EventCollectorMiddleware: ~
-
+    App\Tests\Infrastructure\Share\Event\Publisher\InMemoryProducer: ~
+    
     old_sound_rabbit_mq.events_producer:
-      alias: 'App\Tests\Infrastructure\Share\Event\InMemoryAsyncEventBusProducer'
-      
+      alias: 'App\Tests\Infrastructure\Share\Event\Publisher\InMemoryProducer'

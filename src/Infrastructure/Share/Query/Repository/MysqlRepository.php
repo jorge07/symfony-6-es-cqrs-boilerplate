@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Share\Query\Repository;
 
 use App\Domain\Shared\Query\Exception\NotFoundException;
+use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -37,15 +38,21 @@ abstract class MysqlRepository
         return $model;
     }
 
-    protected function setRepository(string $model): void
+    private function setRepository(string $model): void
     {
-        $this->repository = $this->entityManager->getRepository($model);
+        /** @var EntityRepository $objectRepository */
+        $objectRepository = $this->entityManager->getRepository($model);
+        $this->repository = $objectRepository;
     }
 
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
+        $this->setRepository($this->class);
     }
+
+    /** @var string */
+    protected $class;
 
     /** @var EntityRepository */
     protected $repository;

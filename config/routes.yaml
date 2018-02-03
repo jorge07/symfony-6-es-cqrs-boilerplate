@@ -1,3 +1,7 @@
-controllers:
+api_controllers:
     resource: '../src/UI/Http/Rest/Controller/'
+    type: annotation
+
+web_controllers:
+    resource: '../src/UI/Http/Web/Controller/'
     type: annotation

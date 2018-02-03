@@ -7,7 +7,6 @@
 - [x] Rest API
 - [ ] Event Store Rest API 
 
-
 ### Use Cases
 
 - [x] Register
@@ -15,10 +14,16 @@
 - [ ] Login
 - [ ] Logout
 
-
 ### Architecture
 
-![Architecture](https://i.imgur.com/073sXBV.jpg)
+![Architecture](https://i.imgur.com/uC39gIP.png)
+
+## Stack
+
+- PHP7.1
+- Mysql
+- Elastic & Kibana 5.6
+- RabbitMQ
 
 ## Project Setup
 
@@ -37,6 +42,10 @@ Run database migrations:
 Execute tests:
 
 `docker-compose exec php sh -lc './bin/phpunit'`
+
+Static code analysis:
+
+`docker-compose exec php sh -lc './vendor/bin/phpstan analyse -l 5 -c phpstan.neon src tests'`
 
 Enter in php container:
 

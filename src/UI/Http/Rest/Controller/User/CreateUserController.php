@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\UI\Http\Rest\Controller\User;
 
 use App\Application\Command\User\Create\CreateUserCommand;
+use App\UI\Http\Rest\Controller\CommandController;
 use Assert\Assertion;
 use League\Tactician\CommandBus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class CreateUserController
+final class CreateUserController extends CommandController
 {
     /**
      * @Route(
@@ -37,18 +38,9 @@ class CreateUserController
 
         $commandRequest = new CreateUserCommand($uuid, $email);
 
-        $this->commandBus->handle($commandRequest);
+        $this->exec($commandRequest);
 
         return JsonResponse::create([], JsonResponse::HTTP_CREATED);
     }
 
-    public function __construct(CommandBus $commandBus)
-    {
-        $this->commandBus = $commandBus;
-    }
-
-    /**
-     * @var CommandBus
-     */
-    private $commandBus;
 }

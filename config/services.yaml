@@ -1,22 +1,28 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+  elastic:
+    hosts:
+      - '%env(ELASTIC_HOST)%'
 
+  env(ELASTIC_HOST): 'elasticsearch:9200'
+  
 services:
     _defaults:
         autowire: true
         autoconfigure: true
         public: false
         bind:
+          $elasticConfig: '%elastic%'
+
           $queryBus: '@tactician.commandbus.query'
           $commandBus: '@tactician.commandbus.command'
-          $eventBus: '@tactician.commandbus.event'
-          $asyncEventBus: '@tactician.commandbus.asyncEvent'
+          $eventBus: '@broadway.event_handling.event_bus'
 
           $eventStore: '@Broadway\EventStore\Dbal\DBALEventStore'
-          $broadwayBusBridge: '@App\Infrastructure\Share\Bus\CommandBusBroadwayAdapter'
+
           $eventProducer: '@old_sound_rabbit_mq.events_producer'
-          
+
     _instanceof:
 
         App\Application\Command\CommandHandlerInterface:
@@ -29,15 +35,10 @@ services:
           tags:
               - { name: tactician.handler, typehints: true, bus: query }
 
-        App\Infrastructure\Share\Event\Publisher\EventPublisher:
+        Broadway\EventHandling\EventListener:
           public: true
           tags:
-              - { name: tactician.handler, typehints: true, bus: event }
-
-        Broadway\ReadModel\Projector:
-          public: true
-          tags:
-              - { name: tactician.handler, typehints: true, bus: asyncEvent }
+              - { name: broadway.domain.event_listener }
 
     App\:
         resource: '../src/*'
@@ -48,6 +49,10 @@ services:
 
     App\UI\Http\Rest\Controller\:
         resource: '../src/UI/Http/Rest/Controller/*'
+        tags: [ 'controller.service_arguments' ]
+
+    App\UI\Http\Web\Controller\:
+        resource: '../src/UI/Http/Web/Controller/*'
         tags: [ 'controller.service_arguments' ]
 
     Broadway\EventStore\Dbal\DBALEventStore:

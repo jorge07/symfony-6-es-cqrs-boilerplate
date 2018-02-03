@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Infrastructure\Share\Event\Publisher;
 
 use Broadway\Domain\DomainMessage;
+use Broadway\EventHandling\EventListener;
 use OldSound\RabbitMqBundle\RabbitMq\ProducerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-final class AsyncEventPublisher implements EventPublisher, EventSubscriberInterface
+final class AsyncEventPublisher implements EventPublisher, EventSubscriberInterface, EventListener
 {
-
     public function publish(): void
     {
         if (empty($this->events)) {

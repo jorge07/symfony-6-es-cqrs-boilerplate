@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\UI\Http\Rest\Response;
 
 use Broadway\ReadModel\SerializableReadModel;
+use Broadway\Serializer\Serializable;
 
 final class JsonApiFormatter
 {
@@ -22,11 +23,11 @@ final class JsonApiFormatter
      */
     public static function collection(array $serializables): array
     {
-        $resources = [];
+        $transformer = function (SerializableReadModel $serializable) {
+            return self::model($serializable);
+        };
 
-        foreach ($serializables as $serializable) {
-            $resources[] = self::model($serializable);
-        }
+        $resources = array_map($transformer, $serializables);
 
         return [
             'data' => $resources

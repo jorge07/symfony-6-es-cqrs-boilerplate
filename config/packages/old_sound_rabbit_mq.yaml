@@ -15,8 +15,8 @@ old_sound_rabbit_mq:
             connection:       default
             exchange_options: { name: 'events', type: topic }
             queues:
-                projections_mysql:
-                    name: projections_mysql
+                elastic_events:
+                    name: elastic_events
                     routing_keys:
                         - 'App.Domain.#'
-                    callback: App\Infrastructure\Share\Event\Consumer\EventQueueConsumer
+                    callback: App\Infrastructure\Share\Event\Consumer\SendEventsToElasticConsumer

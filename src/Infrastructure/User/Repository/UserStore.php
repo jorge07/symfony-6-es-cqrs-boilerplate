@@ -22,7 +22,7 @@ class UserStore extends EventSourcingRepository implements UserRepositoryInterfa
 
     public function get(UuidInterface $uuid): User
     {
-        /** @var AggregateRoot|User $user */
+        /** @var User $user */
         $user = $this->load((string) $uuid);
 
         return $user;
@@ -30,12 +30,12 @@ class UserStore extends EventSourcingRepository implements UserRepositoryInterfa
 
     public function __construct(
         EventStore $eventStore,
-        EventBus $broadwayBusBridge,
+        EventBus $eventBus,
         array $eventStreamDecorators = array()
     ) {
         parent::__construct(
             $eventStore,
-            $broadwayBusBridge,
+            $eventBus,
             User::class,
             new PublicConstructorAggregateFactory(),
             $eventStreamDecorators

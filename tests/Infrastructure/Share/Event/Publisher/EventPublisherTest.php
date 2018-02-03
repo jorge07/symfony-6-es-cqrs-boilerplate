@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Infrastructure\Share\Event;
+namespace App\Tests\Infrastructure\Share\Event\Publisher;
 
 use App\Domain\User\Event\UserWasCreated;
 use App\Infrastructure\Share\Event\Publisher\AsyncEventPublisher;
@@ -46,27 +46,12 @@ class EventPublisherTest extends TestCase
         self::assertEquals($data, $event->serialize(), 'Check that its the same event');
     }
 
-    private function createConsumer(): ConsumerInterface
+    private function createConsumer(): Consumer
     {
-        return $this->consumer = new class implements ConsumerInterface {
-
-            /** @var DomainMessage|null */
-            private $message;
-
-            public function getMessage(): ?DomainMessage
-            {
-                return $this->message;
-            }
-
-            public function execute(AMQPMessage $msg)
-            {
-
-                $this->message = unserialize($msg->body);
-            }
-        };
+        return $this->consumer = new Consumer();
     }
 
-    public function setup()
+    protected function setup()
     {
         $producer = new InMemoryProducer();
 
@@ -79,9 +64,31 @@ class EventPublisherTest extends TestCase
         );
     }
 
-    /** @var ConsumerInterface|mixed */
+    protected function tearDown()
+    {
+        $this->publisher = null;
+        $this->consumer  = null;
+    }
+
+    /** @var Consumer|null */
     private $consumer;
 
-    /** @var EventPublisher */
+    /** @var EventPublisher|null */
     private $publisher;
+}
+
+class Consumer implements ConsumerInterface {
+
+    /** @var DomainMessage|null */
+    private $message;
+
+    public function getMessage(): ?DomainMessage
+    {
+        return $this->message;
+    }
+
+    public function execute(AMQPMessage $msg)
+    {
+        $this->message = unserialize($msg->body);
+    }
 }

@@ -20,9 +20,12 @@ services:
       - .:/app
     depends_on:
       - mysql
+      - rmq
 
   workers:
     image: jorge07/alpine-php:7.1-dev-sf
+    depends_on:
+      - rmq
     volumes:
       - .:/app
     command: ['./bin/console', 'rabbitmq:multiple-consumer', 'events']
@@ -47,6 +50,18 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
+
+  kibana:
+    image: kibana:5.6
+    ports:
+      - 5601:5601
+    volumes:
+      - "./etc/dev/kibana/config:/usr/share/kibana/config"
+
+  elasticsearch:
+    image: elasticsearch:5.6
+    ports:
+      - "9200:9200"
 
 volumes:
   db_data:
