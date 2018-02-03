@@ -16,7 +16,7 @@
 
 ### Architecture
 
-![Architecture](https://i.imgur.com/uC39gIP.png)
+![Architecture](https://i.imgur.com/SzHgMft.png)
 
 ## Stack
 
