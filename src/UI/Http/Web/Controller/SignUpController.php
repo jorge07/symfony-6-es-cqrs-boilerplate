@@ -55,7 +55,7 @@ class SignUpController extends AbstractRenderController
 
             return $this->render('signup/index.html.twig', ['error' => 'Email already exists.'], 409);
 
-        }catch (\InvalidArgumentException $exception) {
+        } catch (\InvalidArgumentException $exception) {
 
             return $this->render('signup/index.html.twig', ['error' => $exception->getMessage()], 400);
         }

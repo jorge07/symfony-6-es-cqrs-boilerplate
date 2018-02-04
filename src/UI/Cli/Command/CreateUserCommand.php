@@ -14,7 +14,6 @@ use App\Application\Command\User\Create\CreateUserCommand as CreateUser;
 
 class CreateUserCommand extends Command
 {
-
     protected function configure()
     {
         $this

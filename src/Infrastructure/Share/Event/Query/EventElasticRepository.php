@@ -9,7 +9,7 @@ use Broadway\Domain\DomainMessage;
 
 final class EventElasticRepository extends ElasticRepository
 {
-    public function store(DomainMessage $message)
+    public function store(DomainMessage $message): void
     {
         $document = [
             'type' => $message->getType(),

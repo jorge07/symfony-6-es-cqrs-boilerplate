@@ -2,7 +2,6 @@
 
 namespace App\Tests\Domain\User;
 
-
 use App\Domain\User\Event\UserEmailChanged;
 use App\Domain\User\Event\UserWasCreated;
 use App\Domain\User\User;
@@ -13,7 +12,6 @@ use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 
 class UserTest extends TestCase
 {
-
     /**
      * @test
      *

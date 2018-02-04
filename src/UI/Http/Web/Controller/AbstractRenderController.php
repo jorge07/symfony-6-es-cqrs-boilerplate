@@ -16,9 +16,9 @@ class AbstractRenderController
         return new Response($content, $code);
     }
 
-    protected function exec($command)
+    protected function exec($command): void
     {
-        return $this->commandBus->handle($command);
+        $this->commandBus->handle($command);
     }
 
     protected function ask($query)

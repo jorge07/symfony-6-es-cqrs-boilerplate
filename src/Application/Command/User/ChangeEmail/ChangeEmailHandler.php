@@ -9,7 +9,7 @@ use App\Domain\User\Repository\UserRepositoryInterface;
 
 class ChangeEmailHandler implements CommandHandlerInterface
 {
-    public function __invoke(ChangeEmailCommand $command)
+    public function __invoke(ChangeEmailCommand $command): void
     {
         $user = $this->userRepository->get($command->userUuid);
 

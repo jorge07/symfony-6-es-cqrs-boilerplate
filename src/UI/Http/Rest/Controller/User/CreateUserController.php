@@ -7,7 +7,6 @@ namespace App\UI\Http\Rest\Controller\User;
 use App\Application\Command\User\Create\CreateUserCommand;
 use App\UI\Http\Rest\Controller\CommandController;
 use Assert\Assertion;
-use League\Tactician\CommandBus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,5 +41,4 @@ final class CreateUserController extends CommandController
 
         return JsonResponse::create([], JsonResponse::HTTP_CREATED);
     }
-
 }

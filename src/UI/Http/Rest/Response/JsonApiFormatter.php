@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\UI\Http\Rest\Response;
 
 use Broadway\ReadModel\SerializableReadModel;
-use Broadway\Serializer\Serializable;
 
 final class JsonApiFormatter
 {
@@ -43,7 +42,7 @@ final class JsonApiFormatter
         ];
     }
 
-    private static function type(SerializableReadModel $model):string
+    private static function type(SerializableReadModel $model): string
     {
         $path = explode('\\', get_class($model));
         

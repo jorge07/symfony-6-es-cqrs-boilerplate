@@ -12,14 +12,14 @@ use Broadway\ReadModel\Projector;
 
 class UserReadProjectionFactory extends Projector
 {
-    protected function applyUserWasCreated(UserWasCreated $userWasCreated)
+    protected function applyUserWasCreated(UserWasCreated $userWasCreated): void
     {
         $userReadModel = UserView::fromSerializable($userWasCreated);
 
         $this->repository->add($userReadModel);
     }
 
-    protected function applyUserEmailChanged(UserEmailChanged $emailChanged)
+    protected function applyUserEmailChanged(UserEmailChanged $emailChanged): void
     {
         $userReadModel = $this->repository->oneByUuid($emailChanged->uuid);
 

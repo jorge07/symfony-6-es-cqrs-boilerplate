@@ -10,12 +10,3 @@ tactician:
         command:
             middleware:
                 - tactician.commandbus.command.middleware.command_handler
-        event:
-            method_inflector: tactician.handler.method_name_inflector.handle
-            middleware:
-                - tactician.commandbus.event.middleware.command_handler
-
-        asyncEvent:
-            method_inflector: tactician.handler.method_name_inflector.handle
-            middleware:
-                - tactician.commandbus.asyncEvent.middleware.command_handler

@@ -8,7 +8,6 @@ namespace App\UI\Http\Rest\Controller\User;
 use App\Application\Command\User\ChangeEmail\ChangeEmailCommand;
 use App\UI\Http\Rest\Controller\CommandController;
 use Assert\Assertion;
-use League\Tactician\CommandBus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

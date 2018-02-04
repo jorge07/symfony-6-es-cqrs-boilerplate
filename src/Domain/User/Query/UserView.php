@@ -22,7 +22,7 @@ class UserView implements SerializableReadModel
         return self::deserialize($event->serialize());
     }
 
-    public static function deserialize(array $data)
+    public static function deserialize(array $data): self
     {
         $instance = new self;
 

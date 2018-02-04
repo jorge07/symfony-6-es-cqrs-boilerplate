@@ -10,7 +10,6 @@ use Broadway\Domain\DateTime;
 use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 
 class EventElasticRepositoryTest extends TestCase
 {

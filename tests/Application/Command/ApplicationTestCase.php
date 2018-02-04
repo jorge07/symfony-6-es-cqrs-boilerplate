@@ -30,7 +30,7 @@ abstract class ApplicationTestCase extends KernelTestCase
         return $this->container->get($serviceId);
     }
 
-    protected function fireTerminateEvent()
+    protected function fireTerminateEvent(): void
     {
         /** @var EventDispatcherInterface $dispatcher */
         $dispatcher = $this->service('event_dispatcher');
