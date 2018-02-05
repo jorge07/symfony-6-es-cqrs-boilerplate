@@ -7,9 +7,12 @@ namespace App\Tests\Domain\User\Factory;
 use App\Domain\User\Exception\EmailAlreadyExistException;
 use App\Domain\User\Factory\UserFactory;
 use App\Domain\User\Repository\UserCollectionInterface;
+use App\Domain\User\ValueObject\Auth\Credentials;
+use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class UserFactoryTest extends TestCase implements UserCollectionInterface
 {
@@ -25,7 +28,7 @@ class UserFactoryTest extends TestCase implements UserCollectionInterface
         $uuid = Uuid::uuid4();
         $email = Email::fromString('as@as.as');
 
-        $user = $factory->register($uuid, $email);
+        $user = $factory->register($uuid, new Credentials($email, HashedPassword::encode('password')));
 
         self::assertEquals($user->uuid(), $uuid->toString());
         self::assertEquals($user->email(), $email->toString());
@@ -40,21 +43,22 @@ class UserFactoryTest extends TestCase implements UserCollectionInterface
     {
         self::expectException(EmailAlreadyExistException::class);
 
-        $this->emailExist = true;
+        $this->emailExist = Uuid::uuid4();
 
         $factory = new UserFactory($this);
 
         $uuid = Uuid::uuid4();
         $email = Email::fromString('as@as.as');
 
-        $factory->register($uuid, $email);
+        $factory->register($uuid, new Credentials($email, HashedPassword::encode('password')));
     }
 
-    public function existsEmail(Email $email): bool
+    public function existsEmail(Email $email): ?UuidInterface
     {
         return $this->emailExist;
     }
 
-    private $emailExist = false;
+    /** @var UuidInterface|null */
+    private $emailExist;
 
 }

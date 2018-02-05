@@ -31,14 +31,7 @@ class SignUpControllerTest extends WebTestCase
      */
     public function sign_up_form_create_user_success()
     {
-        $client = self::createClient();
-        $crawler = $client->request('GET', '/sign-up');
-
-        $form = $crawler->selectButton('Send')->form();
-
-        $form['email'] = $email = 'jorge.arcoma@gmail.com';
-
-        $crawler = $client->submit($form);
+        $crawler = $this->createUser($email = 'ads@asd.asd');
 
         self::assertEquals(1, $crawler->filter('html:contains("Hello ' . $email .'")')->count());
         self::assertEquals(1, $crawler->filter('html:contains("Your id is ")')->count());
@@ -63,14 +56,13 @@ class SignUpControllerTest extends WebTestCase
      */
     public function sign_up_form_create_user_with_email_already_taken()
     {
-        $this->sign_up_form_create_user_success();
-
+        $this->createUser('jorge.arcoma@gmail.com');
         $crawler = $this->createUser('jorge.arcoma@gmail.com');
-        
+
         self::assertEquals(1, $crawler->filter('html:contains("Email already exists.")')->count());
     }
 
-    private function createUser(string $email): Crawler
+    private function createUser(string $email, string $password = 'crqs-demo'): Crawler
     {
         $client = self::createClient();
 
@@ -79,6 +71,7 @@ class SignUpControllerTest extends WebTestCase
         $form = $crawler->selectButton('Send')->form();
 
         $form->get('email')->setValue($email);
+        $form->get('password')->setValue($password);
 
         $crawler = $client->submit($form);
 

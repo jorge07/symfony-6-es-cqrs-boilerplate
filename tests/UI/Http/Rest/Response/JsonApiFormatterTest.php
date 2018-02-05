@@ -51,7 +51,10 @@ class JsonApiFormatterTest extends TestCase
     {
         $view = UserView::deserialize([
             'uuid' => $uuid->toString(),
-            'email' => $email->toString()
+            'credentials' => [
+                'email' => $email->toString(),
+                'password' => 'ljalsjdlajsdljlajsd'
+            ]
         ]);
 
         return $view;

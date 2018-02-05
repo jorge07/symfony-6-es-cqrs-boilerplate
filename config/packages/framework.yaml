@@ -5,9 +5,8 @@ framework:
     #http_method_override: true
 
     # uncomment this entire section to enable sessions
-    #session:
-    #    # With this config, PHP's native session handling is used
-    #    handler_id: ~
+    session:
+        handler_id: ~
 
     #esi: ~
     #fragments: ~

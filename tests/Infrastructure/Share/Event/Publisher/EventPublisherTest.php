@@ -24,7 +24,7 @@ class EventPublisherTest extends TestCase
      */
     public function messages_are_consumed_by_routing_key()
     {
-        $data = ['uuid' => $uuid = Uuid::uuid4()->toString(), 'email' => 'lol@lol.com'];
+        $data = ['uuid' => $uuid = Uuid::uuid4()->toString(), 'credentials' => ['email' => 'lol@lol.com', 'password' => 'lkasjbdalsjdbalsdbaljsdhbalsjbhd987']];
 
         $this->publisher->handle(
             new DomainMessage(

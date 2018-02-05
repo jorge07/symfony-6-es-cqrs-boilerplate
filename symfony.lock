@@ -350,6 +350,9 @@
     "symfony/http-kernel": {
         "version": "v4.0.2"
     },
+    "symfony/inflector": {
+        "version": "v4.0.4"
+    },
     "symfony/lts": {
         "version": "4-dev"
     },
@@ -374,6 +377,9 @@
     "symfony/profiler-pack": {
         "version": "v1.0.3"
     },
+    "symfony/property-access": {
+        "version": "v4.0.4"
+    },
     "symfony/routing": {
         "version": "3.3",
         "recipe": {
@@ -381,6 +387,18 @@
             "branch": "master",
             "version": "3.3",
             "ref": "a249484db698d1a847a30291c8f732414ac47e25"
+        }
+    },
+    "symfony/security": {
+        "version": "v4.0.4"
+    },
+    "symfony/security-bundle": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "34eb245ce4194e7ae713558084180e2c532e7afd"
         }
     },
     "symfony/stopwatch": {

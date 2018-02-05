@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\UI\Http\Rest\Controller\User;
 
 use App\Domain\User\Query\UserView;
+use App\Domain\User\ValueObject\Auth\Credentials;
+use App\Domain\User\ValueObject\Auth\HashedPassword;
+use App\Domain\User\ValueObject\Email;
 use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
 use Doctrine\ORM\EntityManagerInterface;
@@ -75,7 +78,10 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
     {
         $model = new UserView();
         $model->uuid = Uuid::uuid4();
-        $model->email = $emailString = 'lol@lo.com';
+        $model->credentials = new Credentials(
+            Email::fromString($emailString = 'lol@lo.com'),
+            HashedPassword::encode('1234567890')
+        );
 
         /** @var EntityManagerInterface $em */
         $em = $this->client->getContainer()->get('doctrine.orm.entity_manager');

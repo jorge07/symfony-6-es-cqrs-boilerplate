@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Query;
 
+use App\Domain\User\ValueObject\Auth\Credentials;
+use App\Domain\User\ValueObject\Auth\HashedPassword;
+use App\Domain\User\ValueObject\Email;
 use Broadway\ReadModel\SerializableReadModel;
 use Broadway\Serializer\Serializable;
 use Ramsey\Uuid\Uuid;
@@ -14,8 +17,8 @@ class UserView implements SerializableReadModel
     /** @var UuidInterface */
     public $uuid;
 
-    /** @var string */
-    public $email;
+    /** @var Credentials */
+    public $credentials;
 
     public static function fromSerializable(Serializable $event): self
     {
@@ -27,7 +30,10 @@ class UserView implements SerializableReadModel
         $instance = new self;
 
         $instance->uuid = Uuid::fromString($data['uuid']);
-        $instance->email = $data['email'];
+        $instance->credentials = new Credentials(
+            Email::fromString($data['credentials']['email']),
+            HashedPassword::fromHash($data['credentials']['password'])
+        );
 
         return $instance;
     }
@@ -36,7 +42,9 @@ class UserView implements SerializableReadModel
     {
         return [
             'uuid' => $this->getId(),
-            'email' => $this->email
+            'credentials' => [
+                'email' => $this->credentials->email->toString(),
+            ]
         ];
     }
 

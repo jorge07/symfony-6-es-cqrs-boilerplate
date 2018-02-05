@@ -20,6 +20,7 @@ class CreateUserCommand extends Command
             ->setName('app:create-user')
             ->setDescription('Given a uuid and email, generates a new user.')
             ->addArgument('email', InputArgument::REQUIRED, 'User email')
+            ->addArgument('password', InputArgument::REQUIRED, 'User password')
             ->addArgument('uuid', InputArgument::OPTIONAL, 'User Uuid')
         ;
     }
@@ -28,7 +29,8 @@ class CreateUserCommand extends Command
     {
         $command = new CreateUser(
             $uuid = ($input->getArgument('uuid') ?: Uuid::uuid4()->toString()),
-            $email = $input->getArgument('email')
+            $email = $input->getArgument('email'),
+            $password = $input->getArgument('password')
         );
 
         $this->commandBus->handle($command);

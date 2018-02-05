@@ -5,14 +5,15 @@
 - [x] Read Model
 - [x] Async Command->Query subsystems communication
 - [x] Rest API
+- [x] Web UI (Terrible UX)
 - [ ] Event Store Rest API 
 
 ### Use Cases
 
 - [x] Register
 - [x] Change Email
-- [ ] Login
-- [ ] Logout
+- [x] Login
+- [x] Logout
 
 ### Architecture
 

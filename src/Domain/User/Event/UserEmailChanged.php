@@ -11,21 +11,6 @@ use Ramsey\Uuid\UuidInterface;
 
 class UserEmailChanged implements Serializable
 {
-    /**
-     * @var UuidInterface
-     */
-    public $uuid;
-    /**
-     * @var Email
-     */
-    public $email;
-
-    public function __construct(UuidInterface $uuid, Email $email)
-    {
-        $this->email = $email;
-        $this->uuid = $uuid;
-    }
-
     public static function deserialize(array $data): self
     {
         return new self(Uuid::fromString($data['uuid']), Email::fromString($data['email']));
@@ -38,4 +23,22 @@ class UserEmailChanged implements Serializable
             'email' => $this->email->toString()
         ];
     }
+
+    public function __construct(UuidInterface $uuid, Email $email)
+    {
+        $this->email = $email;
+        $this->uuid = $uuid;
+    }
+
+    /**
+     * @var UuidInterface
+     */
+    public $uuid;
+
+    /**
+     * @var Email
+     */
+    public $email;
+
+
 }
