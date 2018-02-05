@@ -41,7 +41,13 @@
                     <div class="navbar-item">
                         <div class="field is-grouped">
                             <p class="control">
-                                <a class="button is-primary" href="/sign-up">Sign up</a>
+                                {% if not is_granted('ROLE_USER') %}
+                                    <a class="button is-primary" href="{{ path('sign-up') }}">Sign up</a>
+                                    <a class="button is-primary" href="{{ path('login') }}">Sign in</a>
+                                {% else %}
+                                    <b>{{ app.user.username }}</b> 
+                                    <a class="button is-danger" href="{{ path('logout') }}">Exit</a>
+                                {% endif %}
                             </p>
                         </div>
                     </div>

@@ -7,11 +7,15 @@
             {% if error is defined %}
                 <div class="notification is-danger">{{ error }}</div>
             {% endif %}
-            <form name="signUp" action="/sign-up" method="post">
+            <form name="signUp" action="{{ path('sign-up') }}" method="post">
                 <div class="field">
                     <label for="email">Email</label>
                     <div class="control">
                         <input class="input" name="email" type="email" placeholder="asd@as.as" id="email">
+                    </div>
+                    <label for="password">Password</label>
+                    <div class="control">
+                        <input class="input" name="password" type="password" placeholder="******" id="password">
                     </div>
                 </div>
                 <div class="control">

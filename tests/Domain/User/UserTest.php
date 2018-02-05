@@ -5,6 +5,8 @@ namespace App\Tests\Domain\User;
 use App\Domain\User\Event\UserEmailChanged;
 use App\Domain\User\Event\UserWasCreated;
 use App\Domain\User\User;
+use App\Domain\User\ValueObject\Auth\Credentials;
+use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
 use Broadway\Domain\DomainMessage;
 use Ramsey\Uuid\Uuid;
@@ -21,7 +23,13 @@ class UserTest extends TestCase
     {
         $emailString = 'lol@aso.maximo';
 
-        $user = User::create(Uuid::uuid4(), Email::fromString($emailString));
+        $user = User::create(
+            Uuid::uuid4(),
+            new Credentials(
+                Email::fromString($emailString),
+                HashedPassword::encode('password')
+            )
+        );
 
         self::assertEquals($emailString, $user->email());
         self::assertNotNull($user->uuid());
@@ -45,7 +53,13 @@ class UserTest extends TestCase
     {
         $emailString = 'lol@aso.maximo';
 
-        $user = User::create(Uuid::uuid4(), Email::fromString($emailString));
+        $user = User::create(
+            Uuid::uuid4(),
+            new Credentials(
+                Email::fromString($emailString),
+                HashedPassword::encode('password')
+            )
+        );
 
         $newEmail = 'weba@aso.maximo';
 

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Event;
 
+use App\Domain\User\ValueObject\Auth\Credentials;
+use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
 use Broadway\Serializer\Serializable;
 use Ramsey\Uuid\Uuid;
@@ -11,27 +13,14 @@ use Ramsey\Uuid\UuidInterface;
 
 class UserWasCreated implements Serializable
 {
-    /**
-     * @var UuidInterface
-     */
-    public $uuid;
-
-    /**
-     * @var Email
-     */
-    public $email;
-
-    public function __construct(UuidInterface $uuid, Email $email)
-    {
-        $this->uuid = $uuid;
-        $this->email = $email;
-    }
-
     public static function deserialize(array $data): self
     {
         return new self(
             Uuid::fromString($data['uuid']),
-            Email::fromString($data['email'])
+            new Credentials(
+                Email::fromString($data['credentials']['email']),
+                HashedPassword::fromHash($data['credentials']['password'])
+            )
         );
     }
 
@@ -39,7 +28,26 @@ class UserWasCreated implements Serializable
     {
         return [
             'uuid' => $this->uuid->toString(),
-            'email' => $this->email->toString()
+            'credentials' => [
+                'email' => $this->credentials->email->toString(),
+                'password' => $this->credentials->password->toString()
+            ]
         ];
     }
+
+    public function __construct(UuidInterface $uuid, Credentials $credentials)
+    {
+        $this->uuid = $uuid;
+        $this->credentials = $credentials;
+    }
+
+    /**
+     * @var UuidInterface
+     */
+    public $uuid;
+
+    /**
+     * @var Credentials
+     */
+    public $credentials;
 }

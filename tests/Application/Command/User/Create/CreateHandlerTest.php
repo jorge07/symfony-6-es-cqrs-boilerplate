@@ -23,7 +23,7 @@ class CreateHandlerTest extends ApplicationTestCase
         $uuid = Uuid::uuid4();
         $email = 'asd@asd.asd';
 
-        $command = new CreateUserCommand($uuid->toString(), $email);
+        $command = new CreateUserCommand($uuid->toString(), $email, 'password');
         $this
             ->handle($command);
 

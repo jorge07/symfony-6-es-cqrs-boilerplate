@@ -42,12 +42,14 @@ class SignUpController extends AbstractRenderController
     public function post(Request $request): Response
     {
         $email = $request->request->get('email');
+        $password = $request->request->get('password');
         $uuid = Uuid::uuid4()->toString();
 
         try {
             Assertion::notNull($email, 'Email can\'t be null');
+            Assertion::notNull($password, 'Password can\'t be null');
 
-            $this->exec(new CreateUserCommand($uuid, $email));
+            $this->exec(new CreateUserCommand($uuid, $email, $password));
 
             return $this->render('signup/user_created.html.twig', ['uuid' => $uuid, 'email' => $email]);
 

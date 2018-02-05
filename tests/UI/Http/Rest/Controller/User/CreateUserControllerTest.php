@@ -20,7 +20,8 @@ class CreateUserControllerTest extends JsonApiTestCase
 
         $this->post('/api/users', [
             'uuid' => Uuid::uuid4()->toString(),
-            'email' => 'jo@jo.com'
+            'email' => 'jo@jo.com',
+            'password' => 'oaisudaosudoaudo'
         ]);
 
 

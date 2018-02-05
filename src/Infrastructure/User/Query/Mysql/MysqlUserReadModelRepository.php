@@ -9,6 +9,7 @@ use App\Domain\User\Query\Repository\UserReadModelRepositoryInterface;
 use App\Domain\User\Repository\UserCollectionInterface;
 use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\Share\Query\Repository\MysqlRepository;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\UuidInterface;
 
@@ -27,23 +28,25 @@ class MysqlUserReadModelRepository extends MysqlRepository implements
         return $this->oneOrException($qb);
     }
 
-    public function existsEmail(Email $email): bool
+    public function existsEmail(Email $email): ?UuidInterface
     {
-        $user = $this->repository
+        $userId = $this->repository
             ->createQueryBuilder('user')
-            ->where('user.email = :email')
+            ->select('user.uuid')
+            ->where('user.credentials.email = :email')
             ->setParameter('email', $email->toString())
             ->getQuery()
-            ->getOneOrNullResult();
+            ->getOneOrNullResult()
+        ;
 
-        return null !== $user;
+        return $userId['uuid'] ?? null;
     }
 
     public function oneByEmail(Email $email): UserView
     {
         $qb = $this->repository
             ->createQueryBuilder('user')
-            ->where('user.email = :email')
+            ->where('user.credentials.email = :email')
             ->setParameter('email', $email->toString())
         ;
 

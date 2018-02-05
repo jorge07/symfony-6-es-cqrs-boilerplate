@@ -34,7 +34,7 @@ class FindByEmailHandlerTest extends ApplicationTestCase
         $uuid = Uuid::uuid4()->toString();
         $email = 'lol@lol.com';
 
-        $this->handle(new CreateUserCommand($uuid, $email));
+        $this->handle(new CreateUserCommand($uuid, $email, 'password'));
 
         return $email;
     }

@@ -1,0 +1,32 @@
+security:
+    providers:
+        users:
+            id: 'App\Infrastructure\User\Auth\AuthProvider'
+                
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        secured_area:
+            provider: users
+            anonymous: ~
+            guard:
+              entry_point: 'App\Infrastructure\User\Auth\Guard\LoginAuthenticator'
+              authenticators:
+                - 'App\Infrastructure\User\Auth\Guard\LoginAuthenticator'
+            form_login:
+              login_path: login
+              check_path: login
+            logout:
+              path: logout
+              target: home
+
+        api:
+            pattern: ^/api/*
+            anonymous: ~
+            stateless: true
+
+    access_control:
+        - { path: ^/profile/*, roles: ROLE_USER }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

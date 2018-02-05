@@ -31,11 +31,13 @@ final class CreateUserController extends CommandController
     {
         $uuid = $request->get('uuid');
         $email = $request->get('email');
+        $plainPassword = $request->get('password');
 
         Assertion::notNull($uuid, "Uuid can\'t be null");
         Assertion::notNull($email, "Email can\'t be null");
+        Assertion::notNull($plainPassword, "Password can\'t be null");
 
-        $commandRequest = new CreateUserCommand($uuid, $email);
+        $commandRequest = new CreateUserCommand($uuid, $email, $plainPassword);
 
         $this->exec($commandRequest);
 

@@ -33,7 +33,8 @@ class CreateUserCommandTest extends KernelTestCase
             'command'  => $command->getName(),
 
             'uuid' => Uuid::uuid4()->toString(),
-            'email' => 'jorge.arcoma@gmail.com'
+            'email' => 'jorge.arcoma@gmail.com',
+            'password' => 'jorgepass'
         ));
 
         $output = $commandTester->getDisplay();

@@ -1,13 +1,9 @@
 App\Domain\User\Query\UserView:
   type: entity
   table: users
-  indexes:
-    name_index:
-      columns: [ email ]
   id:
     uuid:
       type: uuid_binary
-  fields:
-    email:
-      type: string
-      unique: true
+  embedded:
+    credentials:
+      class: App\Domain\User\ValueObject\Auth\Credentials

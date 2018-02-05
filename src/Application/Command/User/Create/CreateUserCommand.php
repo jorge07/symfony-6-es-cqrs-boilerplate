@@ -2,6 +2,8 @@
 
 namespace App\Application\Command\User\Create;
 
+use App\Domain\User\ValueObject\Auth\Credentials;
+use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -14,13 +16,13 @@ class CreateUserCommand
     public $uuid;
 
     /**
-     * @var Email
+     * @var Credentials
      */
-    public $email;
+    public $credentials;
 
-    public function __construct(string $uuid, string $email)
+    public function __construct(string $uuid, string $email, string $plainPassword)
     {
         $this->uuid = Uuid::fromString($uuid);
-        $this->email = Email::fromString($email);
+        $this->credentials = new Credentials(Email::fromString($email), HashedPassword::encode($plainPassword));
     }
 }

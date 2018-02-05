@@ -21,7 +21,7 @@ class ChangeEmailHandlerTest extends ApplicationTestCase
      */
     public function update_user_email_should_command_should_fire_event()
     {
-        $command = new CreateUserCommand($uuid = Uuid::uuid4()->toString(), 'asd@asd.asd');
+        $command = new CreateUserCommand($uuid = Uuid::uuid4()->toString(), 'asd@asd.asd', 'password');
 
         $this
             ->handle($command);

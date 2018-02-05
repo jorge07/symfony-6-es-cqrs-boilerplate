@@ -23,7 +23,8 @@ class ChangeEmailControllerTest extends JsonApiTestCase
     {
         $this->post('/api/users', [
             'uuid' => $uuid = Uuid::uuid4()->toString(),
-            'email' => 'jo@jo.com'
+            'email' => 'jo@jo.com',
+            'password' => 'password'
         ]);
 
         self::assertEquals(201, $this->client->getResponse()->getStatusCode());
@@ -52,7 +53,8 @@ class ChangeEmailControllerTest extends JsonApiTestCase
     {
         $this->post('/api/users', [
             'uuid' => $uuid = Uuid::uuid4()->toString(),
-            'email' => 'jo@jo.com'
+            'email' => 'jo@jo.com',
+            'password' => 'password'
         ]);
 
         self::assertEquals(201, $this->client->getResponse()->getStatusCode());
