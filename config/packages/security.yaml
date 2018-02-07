@@ -16,11 +16,11 @@ security:
               authenticators:
                 - 'App\Infrastructure\User\Auth\Guard\LoginAuthenticator'
             form_login:
-              login_path: login
-              check_path: login
+              login_path: /sign-in
+              check_path: sign-in
             logout:
-              path: logout
-              target: home
+              path: /logout
+              target: /
 
         api:
             pattern: ^/api/*

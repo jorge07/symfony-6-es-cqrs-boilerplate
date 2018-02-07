@@ -101,7 +101,7 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
             return Auth::fromUser($user);
         } catch (InvalidCredentialsException $exception) {
 
-            return null;
+            throw new AuthenticationException();
         }
     }
 
@@ -148,7 +148,7 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
 
     protected function getLoginUrl(): string
     {
-        return self::LOGIN;
+        return $this->router->generate(self::LOGIN);
     }
 
     public function __construct(CommandBus $commandBus, CommandBus $queryBus, UrlGeneratorInterface $router)

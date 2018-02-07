@@ -6,6 +6,7 @@ namespace App\Tests\UI\Http\Rest\Response;
 
 use App\Domain\User\Query\UserView;
 use App\Domain\User\ValueObject\Email;
+use App\UI\Http\Rest\Response\Collection;
 use App\UI\Http\Rest\Response\JsonApiFormatter;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -27,7 +28,7 @@ class JsonApiFormatterTest extends TestCase
             self::createUserView(Uuid::uuid4(), Email::fromString('asd2@asd.asd'))
         ];
 
-        $response = JsonApiFormatter::collection($users);
+        $response = JsonApiFormatter::collection(new Collection(1, 10, 2, $users));
 
         self::assertArrayHasKey('data', $response);
         self::assertCount(2, $response['data']);

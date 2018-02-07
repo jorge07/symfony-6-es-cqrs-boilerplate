@@ -6,7 +6,7 @@
 - [x] Async Command->Query subsystems communication
 - [x] Rest API
 - [x] Web UI (Terrible UX)
-- [ ] Event Store Rest API 
+- [x] Event Store Rest API 
 
 ### Use Cases
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Share\Query\Repository;
 
+use Assert\Assertion;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 
@@ -13,8 +14,7 @@ abstract class ElasticRepository
     {
         $finalQuery = [];
 
-        $finalQuery['index'] = $this->index;
-        $finalQuery['type']  = $this->index; // To be deleted in elastic 7
+        $finalQuery['index'] = $finalQuery['type']  = $this->index; // To be deleted in elastic 7
         $finalQuery['body']  = $query;
 
         return $this->client->search($finalQuery);
@@ -32,14 +32,28 @@ abstract class ElasticRepository
 
     protected function add(array $document): array
     {
-        $query['index'] = $this->index;
-        $query['type']  = $this->index;
+        $query['index'] = $query['type']  = $this->index;
         $query['id']    = $document['id'] ?? null;
         $query['body']  = $document;
 
         return $this->client->index($query);
     }
 
+    public function page(int $page = 1, int $limit = 50): array
+    {
+        Assertion::greaterThan($page, 0, 'Pagination need to be > 0');
+
+        $query['index'] = $query['type']  = $this->index;
+        $query['from']  = ($page - 1) * $limit;
+        $query['size']  = $limit;
+
+        $response = $this->client->search($query);
+
+        return [
+            'data'  => array_map(function (array $item) { return $item['_source']; }, $response['hits']['hits']),
+            'total' => $response['hits']['total']
+        ];
+    }
 
     public function __construct(array $config, string $index)
     {
@@ -47,11 +61,9 @@ abstract class ElasticRepository
         $this->index = $index;
     }
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $index;
 
-    /** @var Client  */
+    /** @var Client */
     private $client;
 }

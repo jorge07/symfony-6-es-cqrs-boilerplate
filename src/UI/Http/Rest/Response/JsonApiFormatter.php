@@ -15,20 +15,20 @@ final class JsonApiFormatter
         ];
     }
 
-    /**
-     * @param SerializableReadModel[] $serializables
-     *
-     * @return array
-     */
-    public static function collection(array $serializables): array
+    public static function collection(Collection $collection): array
     {
-        $transformer = function (SerializableReadModel $serializable) {
-            return self::model($serializable);
+        $transformer = function ($data) {
+            return $data instanceof SerializableReadModel ? self::model($data) : $data;
         };
 
-        $resources = array_map($transformer, $serializables);
+        $resources = array_map($transformer, $collection->data());
 
         return [
+            'meta' => [
+                'size' => $collection->limit(),
+                'page' => $collection->page(),
+                'total' => $collection->total(),
+            ],
             'data' => $resources
         ];
     }

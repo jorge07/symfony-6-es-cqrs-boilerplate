@@ -32,7 +32,7 @@ class UserView implements SerializableReadModel
         $instance->uuid = Uuid::fromString($data['uuid']);
         $instance->credentials = new Credentials(
             Email::fromString($data['credentials']['email']),
-            HashedPassword::fromHash($data['credentials']['password'])
+            HashedPassword::fromHash($data['credentials']['password'] ?? '')
         );
 
         return $instance;
@@ -43,14 +43,11 @@ class UserView implements SerializableReadModel
         return [
             'uuid' => $this->getId(),
             'credentials' => [
-                'email' => $this->credentials->email->toString(),
+                'email' => (string) $this->credentials->email,
             ]
         ];
     }
 
-    /**
-     * @return string
-     */
     public function getId(): string
     {
         return $this->uuid->toString();

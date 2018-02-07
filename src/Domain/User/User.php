@@ -43,7 +43,7 @@ class User extends EventSourcedAggregateRoot
             throw new InvalidCredentialsException();
         }
 
-        $this->apply(UserSignedIn::fromEmail($this->email));
+        $this->apply(UserSignedIn::create($this->uuid, $this->email));
     }
 
     protected function applyUserWasCreated(UserWasCreated $event): void

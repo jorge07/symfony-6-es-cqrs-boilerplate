@@ -20,6 +20,8 @@ class SignInHandler implements CommandHandlerInterface
         $aggregateRoot = $this->userStore->get($uuid);
 
         $aggregateRoot->signIn($query->plainPassword);
+
+        $this->userStore->store($aggregateRoot);
     }
 
     private function uuidFromEmail(Email $email): UuidInterface

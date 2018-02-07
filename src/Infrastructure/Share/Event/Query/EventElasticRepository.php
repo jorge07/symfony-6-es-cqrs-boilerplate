@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Share\Event\Query;
 
+use App\Domain\Shared\Event\EventRepositoryInterface;
 use App\Infrastructure\Share\Query\Repository\ElasticRepository;
 use Broadway\Domain\DomainMessage;
 
-final class EventElasticRepository extends ElasticRepository
+final class EventElasticRepository extends ElasticRepository implements EventRepositoryInterface
 {
+    private const INDEX = 'events';
+
     public function store(DomainMessage $message): void
     {
         $document = [
@@ -22,6 +25,6 @@ final class EventElasticRepository extends ElasticRepository
 
     public function __construct(array $elasticConfig)
     {
-        parent::__construct($elasticConfig, 'events');
+        parent::__construct($elasticConfig, self::INDEX);
     }
 }
