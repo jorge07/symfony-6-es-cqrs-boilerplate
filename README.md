@@ -1,21 +1,27 @@
 # Symfony 4 ES CQRS Boilerplate
 
-- [x] Command Bus, Query Bus, Event Bus & Async Event Bus
+A boilerplate for DDD, CQRS, Event Sourcing applications using Symfony as framework and running with php7
+
+## Implementations
+
+- [x] Environment in Docker
+- [x] Command Bus, Query Bus, Event Bus
 - [x] Event Store
 - [x] Read Model
-- [x] Async Command->Query subsystems communication
+- [x] Async Event subscribers
 - [x] Rest API
-- [x] Web UI (Terrible UX)
+- [x] Web UI (A Terrible UX/UI)
 - [x] Event Store Rest API 
 
-### Use Cases
+## Use Cases
 
-- [x] Register
+#### User
+- [x] Sign up
 - [x] Change Email
-- [x] Login
+- [x] Sign in
 - [x] Logout
 
-### Architecture
+## Architecture
 
 ![Architecture](https://i.imgur.com/SzHgMft.png)
 
@@ -58,17 +64,23 @@ Disable\Enable Xdebug:
 
 `docker-compose exec php sh -lc 'xon'`
 
-### PHPStorm integration
+## PHPStorm integration
+
+PHPSTORM has native integration with Docker compose. That's nice but will stop your php container after run the test scenario. That's not nice when using fpm. A solution could be use another container just for that purpose. But I don't want. For that reason I use ssh connection. Note that ssh in the cntainer it's ONLY for that reason, if you've ssh installed in your production container, you're doing it wrong... 
 
 Use ssh remote connection.
+---
 
 HOST: 
-- docker4mac: `localhost`
+
+- Docker 4 Mac: `localhost`
 - docker machine OR dinghy: `192.168.99.100`
 
-PORT: `2323`
+PORT: 
+
+ - `2323`
 
 Filesystem mapping:
 
-`{PROJECT_PATH}` -> `/app`
+ - `{PROJECT_PATH}` -> `/app`
 
