@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller\User;
 
-use App\Application\Command\User\Create\CreateUserCommand;
+use App\Application\Command\User\SignUp\SignUpCommand;
 use App\UI\Http\Rest\Controller\CommandController;
 use Assert\Assertion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-final class CreateUserController extends CommandController
+final class SignUpController extends CommandController
 {
     /**
      * @Route(
@@ -37,7 +37,7 @@ final class CreateUserController extends CommandController
         Assertion::notNull($email, "Email can\'t be null");
         Assertion::notNull($plainPassword, "Password can\'t be null");
 
-        $commandRequest = new CreateUserCommand($uuid, $email, $plainPassword);
+        $commandRequest = new SignUpCommand($uuid, $email, $plainPassword);
 
         $this->exec($commandRequest);
 

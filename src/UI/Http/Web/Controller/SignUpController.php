@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Web\Controller;
 
-use App\Application\Command\User\Create\CreateUserCommand;
+use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Domain\User\Exception\EmailAlreadyExistException;
 use Ramsey\Uuid\Uuid;
 use Assert\Assertion;
@@ -49,7 +49,7 @@ class SignUpController extends AbstractRenderController
             Assertion::notNull($email, 'Email can\'t be null');
             Assertion::notNull($password, 'Password can\'t be null');
 
-            $this->exec(new CreateUserCommand($uuid, $email, $password));
+            $this->exec(new SignUpCommand($uuid, $email, $password));
 
             return $this->render('signup/user_created.html.twig', ['uuid' => $uuid, 'email' => $email]);
 

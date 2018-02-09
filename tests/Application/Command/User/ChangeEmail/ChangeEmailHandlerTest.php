@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Application\Command\User\ChangeEmail;
 
 use App\Application\Command\User\ChangeEmail\ChangeEmailCommand;
-use App\Application\Command\User\Create\CreateUserCommand;
+use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Domain\User\Event\UserEmailChanged;
 use App\Tests\Application\Command\ApplicationTestCase;
 use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
@@ -21,7 +21,7 @@ class ChangeEmailHandlerTest extends ApplicationTestCase
      */
     public function update_user_email_should_command_should_fire_event()
     {
-        $command = new CreateUserCommand($uuid = Uuid::uuid4()->toString(), 'asd@asd.asd', 'password');
+        $command = new SignUpCommand($uuid = Uuid::uuid4()->toString(), 'asd@asd.asd', 'password');
 
         $this
             ->handle($command);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller;
 
+use App\Application\Query\Item;
 use App\UI\Http\Rest\Response\Collection;
 use App\UI\Http\Rest\Response\JsonApiFormatter;
 use Broadway\ReadModel\SerializableReadModel;
@@ -27,9 +28,9 @@ abstract class QueryController
         return $response;
     }
 
-    protected function json(SerializableReadModel $serializableReadModel): JsonResponse
+    protected function json(Item $resource): JsonResponse
     {
-        return JsonResponse::create($this->formatter->one($serializableReadModel));
+        return JsonResponse::create($this->formatter->one($resource));
     }
 
     protected function route(string $name, array $params = []): string

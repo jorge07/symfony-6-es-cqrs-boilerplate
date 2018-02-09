@@ -8,7 +8,7 @@ use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
 use Broadway\Domain\DomainMessage;
 use Ramsey\Uuid\Uuid;
 
-class CreateUserControllerTest extends JsonApiTestCase
+class SignUpControllerTest extends JsonApiTestCase
 {
     /**
      * @test

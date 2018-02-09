@@ -4,48 +4,59 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Response;
 
-use Broadway\ReadModel\SerializableReadModel;
+use App\Application\Query\Collection;
+use App\Application\Query\Item;
 
 final class JsonApiFormatter
 {
-    public static function one(SerializableReadModel $serializable): array
+    public static function one(Item $resource): array
     {
-        return [
-            'data' => self::model($serializable)
-        ];
+        return array_filter([
+            'data' => self::model($resource),
+            'relationships' => self::relations($resource->relationships)
+        ]);
     }
 
     public static function collection(Collection $collection): array
     {
         $transformer = function ($data) {
-            return $data instanceof SerializableReadModel ? self::model($data) : $data;
+            return $data instanceof Item ? self::model($data) : $data;
         };
 
-        $resources = array_map($transformer, $collection->data());
 
-        return [
+        $resources = array_map($transformer, $collection->data);
+
+        return array_filter([
             'meta' => [
-                'size' => $collection->limit(),
-                'page' => $collection->page(),
-                'total' => $collection->total(),
+                'size' => $collection->limit,
+                'page' => $collection->page,
+                'total' => $collection->total,
             ],
             'data' => $resources
-        ];
+        ]);
     }
 
-    private static function model(SerializableReadModel $serializable): array
+    private static function model(Item $resource): array
     {
         return [
-            'id' => $serializable->getId(),
-            'type' => self::type($serializable),
-            'attributes' => $serializable->serialize()
+            'id' => $resource->id,
+            'type' => $resource->type,
+            'attributes' => $resource->resource
         ];
     }
 
-    private static function type(SerializableReadModel $model): string
+    private static function relations(array $relations): array
     {
-        $path = explode('\\', get_class($model));
-        
-        return array_pop($path);
+        $result = [];
+
+        /** @var Item $relation */
+        foreach ($relations as $relation) {
+
+            $result[$relation->type] = [
+                'data' => self::model($relation)
+            ];
+        }
+
+        return $result;
     }
 }

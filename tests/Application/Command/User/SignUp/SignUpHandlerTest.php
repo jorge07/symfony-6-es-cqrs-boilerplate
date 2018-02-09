@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Application\Command\User\Create;
+namespace App\Tests\Application\Command\User\SignUp;
 
-use App\Application\Command\User\Create\CreateUserCommand;
+use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Domain\User\Event\UserWasCreated;
 use App\Tests\Application\Command\ApplicationTestCase;
 use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
 use Broadway\Domain\DomainMessage;
 use Ramsey\Uuid\Uuid;
 
-class CreateHandlerTest extends ApplicationTestCase
+class SignUpHandlerTest extends ApplicationTestCase
 {
     /**
      * @test
@@ -23,7 +23,7 @@ class CreateHandlerTest extends ApplicationTestCase
         $uuid = Uuid::uuid4();
         $email = 'asd@asd.asd';
 
-        $command = new CreateUserCommand($uuid->toString(), $email, 'password');
+        $command = new SignUpCommand($uuid->toString(), $email, 'password');
         $this
             ->handle($command);
 

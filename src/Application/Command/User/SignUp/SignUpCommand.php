@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Command\User\Create;
+namespace App\Application\Command\User\SignUp;
 
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
@@ -8,7 +8,7 @@ use App\Domain\User\ValueObject\Email;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class CreateUserCommand
+class SignUpCommand
 {
     /**
      * @var UuidInterface
