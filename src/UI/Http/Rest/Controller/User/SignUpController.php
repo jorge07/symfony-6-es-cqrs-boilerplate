@@ -15,7 +15,7 @@ final class SignUpController extends CommandController
 {
     /**
      * @Route(
-     *     "/api/users",
+     *     "/users",
      *     name="user_create",
      *     methods={"POST"},
      *     requirements={
@@ -41,6 +41,6 @@ final class SignUpController extends CommandController
 
         $this->exec($commandRequest);
 
-        return JsonResponse::create([], JsonResponse::HTTP_CREATED);
+        return JsonResponse::create(null, JsonResponse::HTTP_CREATED);
     }
 }

@@ -143,7 +143,7 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        return new RedirectResponse($this->router->generate('home'));
+        return new RedirectResponse($this->router->generate(self::SUCCESS_REDIRECT));
     }
 
     protected function getLoginUrl(): string

@@ -24,8 +24,6 @@ services:
 
   workers:
     image: jorge07/alpine-php:7.1-dev-sf
-    depends_on:
-      - rmq
     volumes:
       - .:/app
     command: ['/app/bin/console', 'rabbitmq:multiple-consumer', 'events']

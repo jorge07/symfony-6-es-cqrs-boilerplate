@@ -7,7 +7,6 @@
                 {% if error %}
                     <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
-
                 <form action="{{ path('login') }}" method="post">
                     <label for="username">Username:</label>
                     <div class="control">

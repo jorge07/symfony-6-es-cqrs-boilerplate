@@ -44,6 +44,20 @@ services:
         resource: '../src/*'
         exclude: '../src/**/{Migrations,EventSubscriber}'
 
+    ### Event Store
+
+    Broadway\EventStore\Dbal\DBALEventStore:
+        public: true
+        arguments:
+          - '@doctrine.dbal.default_connection'
+          - '@broadway.serializer.payload'
+          - '@broadway.serializer.metadata'
+          - 'events'
+          - 'false'
+          - '@broadway.uuid.converter'
+
+    ### UI
+
     App\UI\Cli\Command\:
         resource: '../src/UI/Cli/Command'
 
@@ -55,15 +69,7 @@ services:
         resource: '../src/UI/Http/Web/Controller/*'
         tags: [ 'controller.service_arguments' ]
 
-    Broadway\EventStore\Dbal\DBALEventStore:
-        public: true
-        arguments:
-          - '@doctrine.dbal.default_connection'
-          - '@broadway.serializer.payload'
-          - '@broadway.serializer.metadata'
-          - 'events'
-          - 'false'
-          - '@broadway.uuid.converter'
+    ### UI Listeners
 
     App\UI\Http\Rest\EventSubscriber\ExceptionSubscriber:
         tags:

@@ -11,7 +11,7 @@ use Broadway\Serializer\Serializable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class UserWasCreated implements Serializable
+final class UserWasCreated implements Serializable
 {
     public static function deserialize(array $data): self
     {

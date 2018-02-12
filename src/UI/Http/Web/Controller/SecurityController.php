@@ -12,9 +12,14 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractRenderController
 {
     /**
-     * @Route("/sign-in", name="login")
+     * @Route(
+     *     "/sign-in",
+     *     name="login",
+     *     methods={"GET", "POST"}
+     * )
      * 
      * @param AuthenticationUtils $authUtils
+     *
      * @return Response
      */
     public function login(AuthenticationUtils $authUtils): Response
@@ -26,11 +31,13 @@ class SecurityController extends AbstractRenderController
     }
 
     /**
-     * @Route("/logout", name="logout")
+     * @Route(
+     *     "/logout",
+     *     name="logout"
+     * )
      */
     public function logout(): void
     {
         throw new AuthenticationException('I shouldn\'t be here..');
     }
-
 }

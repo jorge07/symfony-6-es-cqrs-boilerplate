@@ -7,6 +7,7 @@ namespace App\Tests\Application\Query\User\FindByEmail;
 use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Application\Query\Item;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
+use App\Domain\User\Query\UserView;
 use App\Tests\Application\Command\ApplicationTestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -24,12 +25,11 @@ class FindByEmailHandlerTest extends ApplicationTestCase
 
         $this->fireTerminateEvent();
 
-        /** @var Item $userRead */
+        /** @var UserView $userRead */
         $userRead = $this->ask(new FindByEmailQuery($email));
 
-        self::assertInstanceOf(Item::class, $userRead);
-        self::assertArrayHasKey('uuid', $userRead->resource);
-        self::assertArrayHasKey('credentials', $userRead->resource);
+        self::assertInstanceOf(UserView::class, $userRead);
+        self::assertEquals($email, $userRead->credentials->email);
     }
 
     private function createUserRead(): string

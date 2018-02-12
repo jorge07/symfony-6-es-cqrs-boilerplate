@@ -35,7 +35,8 @@ abstract class JsonApiTestCase extends WebTestCase
             ]
         );
     }
-    public function setUp()
+
+    protected function setUp()
     {
         $this->client = static::createClient();
     }

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller\Event;
 
+use App\Application\Query\Collection;
 use App\Application\Query\Event\GetEvents\GetEventsQuery;
 use App\UI\Http\Rest\Controller\QueryController;
-use App\UI\Http\Rest\Response\Collection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,8 +15,9 @@ class GetEventsController extends QueryController
 {
     /**
      * @Route(
+     *     path="/events",
      *     name="events",
-     *     path="/api/events"
+     *     methods={"GET"}
      * )
      *
      * @param Request $request
@@ -30,10 +31,9 @@ class GetEventsController extends QueryController
 
         $query = new GetEventsQuery($page, $limit);
 
+        /** @var Collection $response */
         $response = $this->ask($query);
 
-        $collection = new Collection($page, $limit, $response['total'], $response['data']);
-
-        return $this->jsonCollection($collection, true);
+        return $this->jsonCollection($response, true);
     }
 }

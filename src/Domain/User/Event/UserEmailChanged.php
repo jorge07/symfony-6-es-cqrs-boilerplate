@@ -9,11 +9,14 @@ use Broadway\Serializer\Serializable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class UserEmailChanged implements Serializable
+final class UserEmailChanged implements Serializable
 {
     public static function deserialize(array $data): self
     {
-        return new self(Uuid::fromString($data['uuid']), Email::fromString($data['email']));
+        return new self(
+            Uuid::fromString($data['uuid']),
+            Email::fromString($data['email'])
+        );
     }
 
     public function serialize(): array

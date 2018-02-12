@@ -22,12 +22,23 @@ abstract class ElasticRepository
 
     public function refresh(): void
     {
-        $this->client->indices()->refresh(['index' => $this->index]);
+        if ($this->client->indices()->exists(['index' => $this->index])) {
+            $this->client->indices()->refresh(['index' => $this->index]);
+        }
     }
 
     public function delete(): void
     {
-        $this->client->indices()->delete(['index' => $this->index]);
+        if ($this->client->indices()->exists(['index' => $this->index])) {
+            $this->client->indices()->delete(['index' => $this->index]);
+        }
+    }
+
+    public function boot(): void
+    {
+        if (! $this->client->indices()->exists(['index' => $this->index])) {
+            $this->client->indices()->create(['index' => $this->index]);
+        }
     }
 
     protected function add(array $document): array

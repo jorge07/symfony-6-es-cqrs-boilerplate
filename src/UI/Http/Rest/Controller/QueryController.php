@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller;
 
+use App\Application\Query\Collection;
 use App\Application\Query\Item;
-use App\UI\Http\Rest\Response\Collection;
 use App\UI\Http\Rest\Response\JsonApiFormatter;
-use Broadway\ReadModel\SerializableReadModel;
 use League\Tactician\CommandBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -18,14 +17,20 @@ abstract class QueryController
     {
         $response = JsonResponse::create($this->formatter->collection($collection));
 
-        if ($isImmutable && $collection->limit() === count($collection->data())) {
+
+        $this->decoratwWithCache($response, $collection, $isImmutable);
+
+        return $response;
+    }
+
+    private function decoratwWithCache(JsonResponse $response, Collection $collection, bool $isImmutable): void
+    {
+        if ($isImmutable && $collection->limit === count($collection->data)) {
             $aYear = 60 * 60 * 24 * 365;
             $response
                 ->setMaxAge($aYear)
                 ->setSharedMaxAge($aYear);
         }
-
-        return $response;
     }
 
     protected function json(Item $resource): JsonResponse
@@ -43,8 +48,7 @@ abstract class QueryController
         return $this->queryBus->handle($query);
     }
 
-    public function __construct(CommandBus $queryBus, JsonApiFormatter $formatter, UrlGeneratorInterface $router
-    )
+    public function __construct(CommandBus $queryBus, JsonApiFormatter $formatter, UrlGeneratorInterface $router)
     {
         $this->queryBus = $queryBus;
         $this->formatter = $formatter;

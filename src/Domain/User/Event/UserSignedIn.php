@@ -11,12 +11,6 @@ use Ramsey\Uuid\UuidInterface;
 
 final class UserSignedIn implements Serializable
 {
-    /** @var Email */
-    public $email;
-
-    /** @var UuidInterface */
-    public $uuid;
-
     public static function create(UuidInterface $uuid, Email $email)
     {
         $instance = new self();
@@ -42,6 +36,9 @@ final class UserSignedIn implements Serializable
             'email' => $this->email->toString()
         ];
     }
+    /** @var Email */
+    public $email;
 
-
+    /** @var UuidInterface */
+    public $uuid;
 }

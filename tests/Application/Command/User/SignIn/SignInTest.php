@@ -41,17 +41,33 @@ final class SignInTest extends ApplicationTestCase
      * @test
      *
      * @group integration
+     *
+     * @dataProvider invalidCredentials
+     *
+     * @param string $email
+     * @param string $pass
      */
-    public function user_sign_up_with_invalid_credentials_must_throw_domain_exception()
+    public function user_sign_up_with_invalid_credentials_must_throw_domain_exception(string $email, string $pass)
     {
        self::expectException(InvalidCredentialsException::class);
 
-        $command = new SignInCommand(
-            'asd@asd.asd',
-            'qwerqwer123123'
-        );
+        $command = new SignInCommand($email, $pass);
 
         $this->handle($command);
+    }
+
+    public function invalidCredentials(): array
+    {
+        return [
+          [
+              'email' => 'asd@asd.asd',
+              'pass' => 'qwerqwer123'
+          ],
+          [
+              'email' => 'asd@asd.com',
+              'pass' => 'qwerqwer'
+          ]
+        ];
     }
 
     protected function setUp()

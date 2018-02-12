@@ -16,7 +16,7 @@ final class UserChangeEmailController extends CommandController
 {
     /**
      * @Route(
-     *     "/api/users/{uuid}/email",
+     *     "/users/{uuid}/email",
      *     name="user_change_email",
      *     methods={"POST"}
      * )

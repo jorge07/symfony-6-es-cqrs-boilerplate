@@ -59,4 +59,13 @@ final class GetEventsTest extends ApplicationTestCase
         $eventReadStore = $this->service('events_repository');
         $eventReadStore->refresh();
     }
+
+    protected function tearDown()
+    {
+        /** @var EventElasticRepository $eventReadStore */
+        $eventReadStore = $this->service('events_repository');
+        $eventReadStore->delete();
+
+        parent::tearDown();
+    }
 }

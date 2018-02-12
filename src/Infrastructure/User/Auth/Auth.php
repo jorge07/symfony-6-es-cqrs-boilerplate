@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Infrastructure\User\Auth;
 
 use App\Domain\User\Query\UserView;
+use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class Auth implements UserInterface
+class Auth implements UserInterface, EncoderAwareInterface
 {
     public static function fromUser(UserView $user): self
     {
@@ -53,4 +54,8 @@ class Auth implements UserInterface
     /** @var UserView */
     private $user;
 
+    public function getEncoderName(): string
+    {
+        return 'bcrypt';
+    }
 }

@@ -22,10 +22,6 @@ security:
               path: /logout
               target: /
 
-        api:
-            pattern: ^/api/*
-            anonymous: ~
-            stateless: true
 
     access_control:
         - { path: ^/profile/*, roles: ROLE_USER }
