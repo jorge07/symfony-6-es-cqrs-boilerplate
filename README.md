@@ -15,6 +15,7 @@ A boilerplate for DDD, CQRS, Event Sourcing applications using Symfony as framew
 
 ## Use Cases
 
+[See UI workflow](https://github.com/jorge07/symfony-4-es-cqrs-boilerplate/blob/master/doc/Workflow.md)
 #### User
 - [x] Sign up
 - [x] Change Email
