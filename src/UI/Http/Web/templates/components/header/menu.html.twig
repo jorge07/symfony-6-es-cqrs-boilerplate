@@ -1,0 +1,45 @@
+<nav class="navbar is-fixed-top" style="box-shadow: 1px -4px 18px #ccc;">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+            <h2>Ola que ase QRS</h2>
+        </a>
+        <div class="navbar-burger burger" data-target="nav">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <div id="nav" class="navbar-menu">
+        <div class="navbar-start">
+            <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    Docs
+                </a>
+                <div class="navbar-dropdown is-boxed">
+                    <a class="navbar-item" href="/">
+                        Overview
+                    </a>
+                    <a class="navbar-item" href="/">
+                        Modifiers
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="navbar-end">
+            <div class="navbar-item">
+                {% if is_granted('ROLE_USER') %}
+                    <span class="tag is-white">{{ app.user.username }}</span>
+                    <a class="button is-danger" href="{{ path('logout') }}">Exit</a>
+                {% else %}
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <a class="button is-info" href="{{ path('sign-up') }}">Sign up</a>
+                            <a class="button is-primary" href="{{ path('login') }}">Sign in</a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>

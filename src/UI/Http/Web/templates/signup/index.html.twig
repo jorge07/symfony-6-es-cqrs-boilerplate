@@ -2,8 +2,8 @@
 
 {% block body %}
 <div class="container">
-    <div class="columns">
-        <div class="column">
+    <div class="columns is-centered">
+        <div class="column is-half">
             {% if error is defined %}
                 <div class="notification is-danger">{{ error }}</div>
             {% endif %}
@@ -13,13 +13,17 @@
                     <div class="control">
                         <input class="input" name="email" type="email" placeholder="asd@as.as" id="email">
                     </div>
+                </div>
+                <div class="field">
                     <label for="password">Password</label>
                     <div class="control">
                         <input class="input" name="password" type="password" placeholder="******" id="password">
                     </div>
                 </div>
-                <div class="control">
-                    <input class="button is-link" type="submit" value="Send">
+                <div class="field">
+                    <div class="control">
+                        <input class="button is-link" type="submit" value="Send">
+                    </div>
                 </div>
             </form>
         </div>

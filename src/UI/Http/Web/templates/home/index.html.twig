@@ -2,9 +2,9 @@
 
 {% block body %}
 <div class="container">
-    <div class="columns">
-        <div class="column">
-            <h1>Hello!</h1>
+    <div class="columns is-centered">
+        <div class="column is-half">
+            {% include 'components/card.html.twig' with { 'title': 'Hello!', 'text': 'Lorem ipsum hamend awer fiti carem conde moren. Fistro pecadorem de las praderum.'} only %}
         </div>
     </div>
 </div>
