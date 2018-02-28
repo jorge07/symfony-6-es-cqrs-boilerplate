@@ -36,33 +36,25 @@ A boilerplate for DDD, CQRS, Event Sourcing applications using Symfony as framew
 
 Up environment:
 
-`docker-compose up -d`
-
-Install deps:
-
-`docker-compose exec php sh -lc 'composer install'`
-
-Run database migrations:
-
-`docker-compose exec php sh -lc 'dev d:m:m -n'`
+`make start`
 
 Execute tests:
 
-`docker-compose exec php sh -lc './bin/phpunit'`
+`make tests`
 
 Static code analysis:
 
-`docker-compose exec php sh -lc './vendor/bin/phpstan analyse -l 5 -c phpstan.neon src tests'`
+`make style`
 
 Enter in php container:
 
-`docker-compose exec php sh -l`
+`make s=php sh`
 
 Disable\Enable Xdebug:
 
-`docker-compose exec php sh -lc 'xoff'`
+`make xoff`
 
-`docker-compose exec php sh -lc 'xon'`
+`make xon`
 
 ## PHPStorm integration
 
