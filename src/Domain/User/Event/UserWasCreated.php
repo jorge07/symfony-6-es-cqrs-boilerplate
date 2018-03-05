@@ -7,6 +7,7 @@ namespace App\Domain\User\Event;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
+use Assert\Assertion;
 use Broadway\Serializer\Serializable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -15,6 +16,9 @@ final class UserWasCreated implements Serializable
 {
     public static function deserialize(array $data): self
     {
+        Assertion::keyExists($data, 'uuid');
+        Assertion::keyExists($data, 'credentials');
+
         return new self(
             Uuid::fromString($data['uuid']),
             new Credentials(
