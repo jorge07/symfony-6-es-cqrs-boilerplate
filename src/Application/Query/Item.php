@@ -20,12 +20,16 @@ final class Item
     /** @var array */
     public $relationships = [];
 
+    /** @var SerializableReadModel */
+    public $readModel;
+
     public function __construct(SerializableReadModel $serializableReadModel, array $relations = [])
     {
         $this->id = $serializableReadModel->getId();
         $this->type = $this->type($serializableReadModel);
         $this->resource = $serializableReadModel->serialize();
         $this->relationships = $relations;
+        $this->readModel = $serializableReadModel;
     }
 
     private function type(SerializableReadModel $model): string

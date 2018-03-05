@@ -1,4 +1,4 @@
-start: erase build up
+start: erase build db up
 
 stop:
 		docker-compose stop
@@ -11,17 +11,21 @@ erase:
 
 build:
 		docker-compose build
-		docker-compose exec php sh -lc 'composer install'
-		docker-compose exec php sh -lc 'dev d:m:m -n'
+		docker-compose run php sh -lc 'composer install'
 
 up:
 		docker-compose up -d
 
-tests:
+db:
+		docker-compose exec php sh -lc './bin/console d:d:d --force'
+		docker-compose exec php sh -lc './bin/console d:d:c'
+		docker-compose exec php sh -lc './bin/console d:m:m -n'
+
+phpunit: db
 		docker-compose exec php sh -lc './bin/phpunit'
 
 style:
-		docker-compose exec php sh -lc './vendor/bin/phpstan analyse -l 5 -c phpstan.neon src tests'
+		docker-compose run php sh -lc './vendor/bin/phpstan analyse -l 5 -c phpstan.neon src tests'
 
 xon:
 		docker-compose exec php sh -lc 'xon'
