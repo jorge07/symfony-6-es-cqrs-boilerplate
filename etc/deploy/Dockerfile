@@ -25,4 +25,4 @@ ENV APP_ENV prod
 
 COPY --from=builder /build /app
 
-RUN rm -rf /app/var/cache/dev && php /app/bin/console c:w
+RUN php /app/bin/console c:w
