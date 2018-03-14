@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Infrastructure\User\Auth\Guard;
 
 use App\Application\Command\User\SignIn\SignInCommand;
+use App\Application\Query\Item;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
 use App\Domain\User\Exception\InvalidCredentialsException;
+use App\Domain\User\Query\UserView;
 use App\Infrastructure\User\Auth\Auth;
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
@@ -24,6 +26,7 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
 {
     const LOGIN = 'login';
     const SUCCESS_REDIRECT = 'profile';
+
     /**
      * Does the authenticator support the given Request?
      *
@@ -96,9 +99,12 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
 
             $this->bus->handle($query);
 
-            $user = $this->queryBus->handle(new FindByEmailQuery($email));
-
+            /** @var Item $userItem */
+            $userItem = $this->queryBus->handle(new FindByEmailQuery($email));
+            /** @var UserView $user */
+            $user = $userItem->readModel;
             return Auth::fromUser($user);
+
         } catch (InvalidCredentialsException $exception) {
 
             throw new AuthenticationException();
@@ -172,5 +178,4 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      * @var Router
      */
     private $router;
-
 }

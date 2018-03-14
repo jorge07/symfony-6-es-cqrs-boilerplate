@@ -25,9 +25,12 @@ class FindByEmailHandlerTest extends ApplicationTestCase
 
         $this->fireTerminateEvent();
 
+        /** @var Item $item*/
+        $item = $this->ask(new FindByEmailQuery($email));
         /** @var UserView $userRead */
-        $userRead = $this->ask(new FindByEmailQuery($email));
+        $userRead = $item->readModel;
 
+        self::assertInstanceOf(Item::class, $item);
         self::assertInstanceOf(UserView::class, $userRead);
         self::assertEquals($email, $userRead->credentials->email);
     }

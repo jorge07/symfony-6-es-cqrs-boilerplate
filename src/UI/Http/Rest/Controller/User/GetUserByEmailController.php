@@ -6,7 +6,6 @@ namespace App\UI\Http\Rest\Controller\User;
 
 use App\Application\Query\Item;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
-use App\Domain\User\Query\UserView;
 use App\UI\Http\Rest\Controller\QueryController;
 use Assert\Assertion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -33,9 +32,9 @@ final class GetUserByEmailController extends QueryController
 
         $command = new FindByEmailQuery($email);
 
-        /** @var UserView $user */
+        /** @var Item $user */
         $user = $this->ask($command);
 
-        return $this->json(new Item($user));
+        return $this->json($user);
     }
 }

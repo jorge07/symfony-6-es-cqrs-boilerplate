@@ -1,5 +1,5 @@
 .PHONY: start
-start: erase build up ## clean current environment, recreate dependencies and spin up again
+start: erase build db up ## clean current environment, recreate dependencies and spin up again
 
 .PHONY: stop
 stop: ## stop environment
@@ -24,13 +24,19 @@ build: ## build environment and initialize composer and project dependencies
 up: ## spin up environment
 		docker-compose up -d
 
-.PHONY: tests
-tests: ## execute project unit tests
+.PHONY: phpunit
+phpunit: db ## execute project unit tests
 		docker-compose exec php sh -lc './bin/phpunit'
 
 .PHONY: style
 style: ## executes analizers
 		docker-compose exec php sh -lc './vendor/bin/phpstan analyse -l 5 -c phpstan.neon src tests'
+
+.PHONY: db
+db: ## recreate database
+		docker-compose exec php sh -lc './bin/console d:d:d --force'
+		docker-compose exec php sh -lc './bin/console d:d:c'
+		docker-compose exec php sh -lc './bin/console d:m:m -n'
 
 .PHONY: xon
 xon: ## activate xdebug simlink
@@ -43,6 +49,7 @@ xoff: ## deactivate xdebug
 .PHONY: sh
 sh: ## gets inside a container, use 's' variable to select a service. make s=php sh
 		docker-compose exec $(s) sh -l
+
 
 .PHONY: logs
 logs: ## look for 's' service logs
