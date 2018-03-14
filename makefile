@@ -27,7 +27,7 @@ phpunit: db ## execute project unit tests
 		docker-compose exec php sh -lc './bin/phpunit'
 
 .PHONY: style
-style: ## executes analizers
+style: ## executes php analizers
 		docker-compose exec php sh -lc './vendor/bin/phpstan analyse -l 5 -c phpstan.neon src tests'
 
 .PHONY: db
