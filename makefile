@@ -50,7 +50,7 @@ sh: ## gets inside a container, use 's' variable to select a service. make s=php
 
 
 .PHONY: logs
-logs: ## look for 's' service logs
+logs: ## look for 's' service logs, make s=php logs
 		docker-compose logs -f $(s)
 
 .PHONY: help
