@@ -16,9 +16,7 @@ erase: ## stop and delete containers, clean volumes.
 .PHONY: build
 build: ## build environment and initialize composer and project dependencies
 		docker-compose build
-		docker-compose up -d
-		docker-compose exec php sh -lc 'composer install'
-		docker-compose exec php sh -lc 'dev d:m:m -n'
+		docker-compose run php sh -lc 'composer install'
 
 .PHONY: up
 up: ## spin up environment
