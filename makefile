@@ -1,5 +1,5 @@
 .PHONY: start
-start: erase build db up ## clean current environment, recreate dependencies and spin up again
+start: erase build up db ## clean current environment, recreate dependencies and spin up again
 
 .PHONY: stop
 stop: ## stop environment
