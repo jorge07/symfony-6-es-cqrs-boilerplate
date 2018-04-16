@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace App\Tests\UI\Cli\Command;
 
+use App\Application\Query\Item;
+use App\Application\Query\User\FindByEmail\FindByEmailQuery;
+use App\Domain\User\Query\UserView;
+use App\Tests\UI\Cli\AbstractConsoleTestCase;
 use App\UI\Cli\Command\CreateUserCommand;
 use League\Tactician\CommandBus;
 use Ramsey\Uuid\Uuid;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\Console\Tester\CommandTester;
 
-class CreateUserCommandTest extends KernelTestCase
+class CreateUserCommandTest extends AbstractConsoleTestCase
 {
     /**
      * @test
@@ -20,26 +21,31 @@ class CreateUserCommandTest extends KernelTestCase
      */
     public function command_integration_with_bus_success()
     {
-        $kernel = self::bootKernel();
-        $application = new Application($kernel);
+        $email = 'jorge.arcoma@gmail.com';
 
         /** @var CommandBus $commandBus */
-        $commandBus = $kernel->getContainer()->get('tactician.commandbus.command');
-        $application->add(new CreateUserCommand($commandBus));
+        $commandBus = $this->service('tactician.commandbus.command');
+        $commandTester = $this->app($command = new CreateUserCommand($commandBus), 'app:create-user');
 
-        $command = $application->find('app:create-user');
-        $commandTester = new CommandTester($command);
-        $commandTester->execute(array(
+        $commandTester->execute([
             'command'  => $command->getName(),
-
             'uuid' => Uuid::uuid4()->toString(),
-            'email' => 'jorge.arcoma@gmail.com',
+            'email' => $email,
             'password' => 'jorgepass'
-        ));
+        ]);
 
         $output = $commandTester->getDisplay();
 
         $this->assertContains('User Created:', $output);
         $this->assertContains('Email: jorge.arcoma@gmail.com', $output);
+
+        /** @var Item $item*/
+        $item = $this->ask(new FindByEmailQuery($email));
+        /** @var UserView $userRead */
+        $userRead = $item->readModel;
+
+        self::assertInstanceOf(Item::class, $item);
+        self::assertInstanceOf(UserView::class, $userRead);
+        self::assertEquals($email, $userRead->credentials->email);
     }
 }
