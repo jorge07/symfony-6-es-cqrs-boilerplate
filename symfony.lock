@@ -5,6 +5,15 @@
     "broadway/broadway": {
         "version": "2.0.1"
     },
+    "broadway/broadway-bundle": {
+        "version": "0.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "0.4",
+            "ref": "a4ded8381c60e594474584599659eef9d931c872"
+        }
+    },
     "broadway/event-store-dbal": {
         "version": "0.1",
         "recipe": {

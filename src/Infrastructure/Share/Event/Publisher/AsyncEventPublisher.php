@@ -7,6 +7,7 @@ namespace App\Infrastructure\Share\Event\Publisher;
 use Broadway\Domain\DomainMessage;
 use Broadway\EventHandling\EventListener;
 use OldSound\RabbitMqBundle\RabbitMq\ProducerInterface;
+use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -33,7 +34,8 @@ final class AsyncEventPublisher implements EventPublisher, EventSubscriberInterf
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::TERMINATE => 'publish'
+            KernelEvents::TERMINATE => 'publish',
+            ConsoleEvents::TERMINATE => 'publish',
         ];
     }
 
