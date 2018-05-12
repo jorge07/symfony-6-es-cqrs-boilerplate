@@ -20,7 +20,8 @@
         "symfony/lts": "^4@dev",
         "symfony/orm-pack": "^1.0",
         "symfony/security-bundle": "^4.0",
-        "symfony/yaml": "^4.0"
+        "symfony/yaml": "^4.0",
+        "symfony/twig-bundle": "^4.0"
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^4.0",
