@@ -18,7 +18,7 @@ class GetEventsControllerTest extends JsonApiTestCase
      *
      * @group e2e
      */
-    public function events_should_be_present_in_elastic_seach()
+    public function events_should_be_present_in_elastic_search()
     {
         $this->post('/api/users', [
             'uuid' => $uuid = Uuid::uuid4()->toString(),
@@ -34,7 +34,7 @@ class GetEventsControllerTest extends JsonApiTestCase
 
         self::assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        self::assertContains('UserWasCreated', (string) $this->client->getResponse()->getContent());
+        self::assertContains('UserWasCreated', $this->client->getResponse()->getContent());
     }
 
     private function refreshIndex()

@@ -6,7 +6,6 @@ namespace App\Tests\UI\Http\Web\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 class ProfileControllerTest extends WebTestCase
 {
@@ -21,7 +20,7 @@ class ProfileControllerTest extends WebTestCase
 
         $client->request('GET', '/profile');
 
-        /** @var Response|RedirectResponse $response */
+        /** @var RedirectResponse $response */
         $response = $client->getResponse();
         $this->assertEquals(302, $response->getStatusCode());
         $this->assertContains('/sign-in', $response->getTargetUrl());
