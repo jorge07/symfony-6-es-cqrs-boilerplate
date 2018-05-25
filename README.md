@@ -41,7 +41,7 @@ Up environment:
 
 Execute tests:
 
-`make tests`
+`make phpunit`
 
 Static code analysis:
 
