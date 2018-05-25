@@ -11,7 +11,6 @@ use App\Domain\User\Exception\InvalidCredentialsException;
 use App\Domain\User\Query\UserView;
 use App\Infrastructure\User\Auth\Auth;
 use League\Tactician\CommandBus;
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -175,7 +174,7 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
     private $queryBus;
 
     /**
-     * @var Router
+     * @var UrlGeneratorInterface
      */
     private $router;
 }

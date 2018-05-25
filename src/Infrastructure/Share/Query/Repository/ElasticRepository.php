@@ -54,6 +54,8 @@ abstract class ElasticRepository
     {
         Assertion::greaterThan($page, 0, 'Pagination need to be > 0');
 
+        $query = [];
+
         $query['index'] = $query['type']  = $this->index;
         $query['from']  = ($page - 1) * $limit;
         $query['size']  = $limit;
