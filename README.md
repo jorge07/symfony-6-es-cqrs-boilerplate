@@ -2,6 +2,8 @@
 
 A boilerplate for DDD, CQRS, Event Sourcing applications using Symfony as framework and running with php7
 
+[![Build Status](https://travis-ci.org/jorge07/symfony-4-es-cqrs-boilerplate.svg?branch=master)](https://travis-ci.org/jorge07/symfony-4-es-cqrs-boilerplate)
+
 ## Implementations
 
 - [x] Environment in Docker
