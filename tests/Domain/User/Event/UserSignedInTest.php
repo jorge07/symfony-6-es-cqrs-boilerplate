@@ -1,0 +1,62 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Tests\Domain\User\Event;
+
+use App\Domain\User\Event\UserSignedIn;
+use App\Domain\User\ValueObject\Email;
+use PHPUnit\Framework\TestCase;
+
+class UserSignedInTest extends TestCase
+{
+    /**
+     * @test
+     *
+     * @group unit
+     */
+    public function event_should_be_deserializable()
+    {
+        $event = UserSignedIn::deserialize([
+            'uuid'  => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
+            'email' => 'an@email.com',
+        ]);
+
+        self::assertInstanceOf(UserSignedIn::class, $event);
+        self::assertSame('eb62dfdc-2086-11e8-b467-0ed5f89f718b', $event->uuid->toString());
+        self::assertInstanceOf(Email::class, $event->email);
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     */
+    public function event_shoud_be_serializable()
+    {
+        $event = UserSignedIn::deserialize([
+            'uuid'  => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
+            'email' => 'an@email.com',
+        ]);
+
+        $serialized = $event->serialize();
+
+        self::assertArrayHasKey('uuid', $serialized);
+        self::assertArrayHasKey('email', $serialized);
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     */
+    public function event_should_fail_when_deserialize_with_incorrect_data()
+    {
+        self::expectException(\InvalidArgumentException::class);
+
+        UserSignedIn::deserialize([
+            'notAnUuid'  => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
+            'notAnEmail' => 'an@email.com',
+        ]);
+    }
+}
