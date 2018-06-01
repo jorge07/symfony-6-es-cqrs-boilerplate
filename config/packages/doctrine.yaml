@@ -24,9 +24,15 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
         mappings:
+            Domain:
+                is_bundle: false
+                type: yml
+                dir: '%kernel.project_dir%/config/mapping/orm/domain'
+                prefix: 'App\Domain'
+                alias: Domain
             Projections:
                 is_bundle: false
                 type: yml
                 dir: '%kernel.project_dir%/config/mapping/orm/projections'
-                prefix: 'App'
+                prefix: 'App\Infrastructure'
                 alias: Projections
