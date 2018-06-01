@@ -28,7 +28,7 @@ class Auth implements UserInterface, EncoderAwareInterface
     public function getRoles(): array
     {
         return [
-            'ROLE_USER'
+            'ROLE_USER',
         ];
     }
 
@@ -41,7 +41,7 @@ class Auth implements UserInterface, EncoderAwareInterface
         // noop
     }
 
-    public function __toString(): string 
+    public function __toString(): string
     {
         return (string) $this->user->credentials->email;
     }

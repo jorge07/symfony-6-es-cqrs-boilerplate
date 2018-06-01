@@ -17,7 +17,7 @@ abstract class JsonApiTestCase extends WebTestCase
             [],
             [],
             [
-                'CONTENT_TYPE' => 'application/json'
+                'CONTENT_TYPE' => 'application/json',
             ],
             json_encode($params)
         );
@@ -31,7 +31,7 @@ abstract class JsonApiTestCase extends WebTestCase
             [],
             [],
             [
-                'CONTENT_TYPE' => 'application/json'
+                'CONTENT_TYPE' => 'application/json',
             ]
         );
     }

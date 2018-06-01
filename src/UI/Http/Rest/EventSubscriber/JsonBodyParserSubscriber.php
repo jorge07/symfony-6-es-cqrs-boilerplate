@@ -16,23 +16,22 @@ class JsonBodyParserSubscriber implements EventSubscriberInterface
     {
         $request = $event->getRequest();
 
-        if (! $this->isJsonRequest($request)) {
-
+        if (!$this->isJsonRequest($request)) {
             return;
         }
 
         $content = $request->getContent();
 
         if (empty($content)) {
-
             return;
         }
 
-        if (! $this->transformJsonBody($request)) {
+        if (!$this->transformJsonBody($request)) {
             $response = Response::create('Unable to parse json request.', 400);
             $event->setResponse($response);
         }
     }
+
     private function isJsonRequest(Request $request): bool
     {
         return 'json' === $request->getContentType();
@@ -43,12 +42,10 @@ class JsonBodyParserSubscriber implements EventSubscriberInterface
         $data = json_decode($request->getContent(), true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-
             return false;
         }
 
         if ($data === null) {
-
             return true;
         }
 
@@ -60,7 +57,7 @@ class JsonBodyParserSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::REQUEST => 'onKernelRequest'
+            KernelEvents::REQUEST => 'onKernelRequest',
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
@@ -16,14 +16,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class Version20180102233829 extends AbstractMigration implements ContainerAwareInterface
 {
-
     public function up(Schema $schema)
     {
         $this->eventStore->configureSchema($schema);
 
         $this->em->flush();
     }
-
 
     public function down(Schema $schema)
     {

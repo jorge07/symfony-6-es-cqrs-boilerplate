@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AbstractRenderController
 {
-    protected function render(string $view, array $parameters = array(), int $code = 200): Response
+    protected function render(string $view, array $parameters = [], int $code = 200): Response
     {
         $content = $this->template->render($view, $parameters);
 
@@ -47,5 +47,4 @@ class AbstractRenderController
      * @var \Twig_Environment
      */
     private $template;
-
 }

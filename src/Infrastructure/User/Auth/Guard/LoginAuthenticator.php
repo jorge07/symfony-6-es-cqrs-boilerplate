@@ -8,8 +8,8 @@ use App\Application\Command\User\SignIn\SignInCommand;
 use App\Application\Query\Item;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
 use App\Domain\User\Exception\InvalidCredentialsException;
-use App\Infrastructure\User\Query\UserView;
 use App\Infrastructure\User\Auth\Auth;
+use App\Infrastructure\User\Query\UserView;
 use League\Tactician\CommandBus;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,15 +59,15 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      *
      * @param Request $request
      *
-     * @return mixed Any non-null value
-     *
      * @throws \UnexpectedValueException If null is returned
+     *
+     * @return mixed Any non-null value
      */
     public function getCredentials(Request $request)
     {
         return [
-            'email' => $request->request->get('_email'),
-            'password' => $request->request->get('_password')
+            'email'    => $request->request->get('_email'),
+            'password' => $request->request->get('_password'),
         ];
     }
 
@@ -79,7 +79,7 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      * You may throw an AuthenticationException if you wish. If you return
      * null, then a UsernameNotFoundException is thrown for you.
      *
-     * @param mixed $credentials
+     * @param mixed                 $credentials
      * @param UserProviderInterface $userProvider
      *
      * @throws AuthenticationException
@@ -102,10 +102,9 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
             $userItem = $this->queryBus->handle(new FindByEmailQuery($email));
             /** @var UserView $user */
             $user = $userItem->readModel;
+
             return Auth::fromUser($user);
-
         } catch (InvalidCredentialsException $exception) {
-
             throw new AuthenticationException();
         }
     }
@@ -119,12 +118,12 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      *
      * The *credentials* are the return value from getCredentials()
      *
-     * @param mixed $credentials
+     * @param mixed         $credentials
      * @param UserInterface $user
      *
-     * @return bool
-     *
      * @throws AuthenticationException
+     *
+     * @return bool
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
@@ -140,9 +139,9 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      * If you return null, the current request will continue, and the user
      * will be authenticated. This makes sense, for example, with an API.
      *
-     * @param Request $request
+     * @param Request        $request
      * @param TokenInterface $token
-     * @param string $providerKey The provider (i.e. firewall) key
+     * @param string         $providerKey The provider (i.e. firewall) key
      *
      * @return Response|null
      */

@@ -6,8 +6,8 @@ namespace App\UI\Http\Web\Controller;
 
 use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Domain\User\Exception\EmailAlreadyExistException;
-use Ramsey\Uuid\Uuid;
 use Assert\Assertion;
+use Ramsey\Uuid\Uuid;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,13 +52,9 @@ class SignUpController extends AbstractRenderController
             $this->exec(new SignUpCommand($uuid, $email, $password));
 
             return $this->render('signup/user_created.html.twig', ['uuid' => $uuid, 'email' => $email]);
-
         } catch (EmailAlreadyExistException $exception) {
-
             return $this->render('signup/index.html.twig', ['error' => 'Email already exists.'], 409);
-
         } catch (\InvalidArgumentException $exception) {
-
             return $this->render('signup/index.html.twig', ['error' => $exception->getMessage()], 400);
         }
     }

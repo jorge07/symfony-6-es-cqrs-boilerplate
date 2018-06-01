@@ -36,10 +36,11 @@ final class UserSignedIn implements Serializable
     public function serialize(): array
     {
         return [
-            'uuid' => $this->uuid->toString(),
-            'email' => $this->email->toString()
+            'uuid'  => $this->uuid->toString(),
+            'email' => $this->email->toString(),
         ];
     }
+
     /** @var Email */
     public $email;
 
