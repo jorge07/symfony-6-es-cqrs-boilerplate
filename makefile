@@ -24,7 +24,7 @@ up: ## spin up environment
 
 .PHONY: phpunit
 phpunit: db ## execute project unit tests
-		docker-compose exec php sh -lc './bin/phpunit'
+		docker-compose exec php sh -lc "./bin/phpunit $(conf)"
 
 .PHONY: style
 style: ## executes php analizers
@@ -35,6 +35,9 @@ db: ## recreate database
 		docker-compose exec php sh -lc './bin/console d:d:d --force'
 		docker-compose exec php sh -lc './bin/console d:d:c'
 		docker-compose exec php sh -lc './bin/console d:m:m -n'
+.PHONY: schema-validate
+schema-validate: ## validate database schema
+		docker-compose exec php sh -lc './bin/console d:s:v'
 
 .PHONY: xon
 xon: ## activate xdebug simlink
