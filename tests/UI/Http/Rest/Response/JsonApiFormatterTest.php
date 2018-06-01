@@ -6,7 +6,7 @@ namespace App\Tests\UI\Http\Rest\Response;
 
 use App\Application\Query\Collection;
 use App\Application\Query\Item;
-use App\Domain\User\Query\UserView;
+use App\Infrastructure\User\Query\UserView;
 use App\Domain\User\ValueObject\Email;
 use App\UI\Http\Rest\Response\JsonApiFormatter;
 use PHPUnit\Framework\TestCase;
