@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Auth;
 
-use App\Domain\User\Query\UserView;
+use App\Infrastructure\User\Query\UserView;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 

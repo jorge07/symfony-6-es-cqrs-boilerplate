@@ -2,7 +2,7 @@
 
 namespace App\Domain\User\Query\Repository;
 
-use App\Domain\User\Query\UserView;
+use App\Infrastructure\User\Query\UserView;
 use App\Domain\User\ValueObject\Email;
 use Ramsey\Uuid\UuidInterface;
 

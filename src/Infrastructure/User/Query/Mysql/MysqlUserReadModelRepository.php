@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Query\Mysql;
 
-use App\Domain\User\Query\UserView;
 use App\Domain\User\Query\Repository\UserReadModelRepositoryInterface;
+use App\Infrastructure\User\Query\UserView;
 use App\Domain\User\Repository\UserCollectionInterface;
 use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\Share\Query\Repository\MysqlRepository;
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\UuidInterface;
 
