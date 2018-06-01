@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\UI\Http\Rest\Controller\User;
 
-use App\Domain\User\Query\UserView;
+use App\Infrastructure\User\Query\UserView;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
