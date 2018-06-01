@@ -18,13 +18,17 @@ build: ## build environment and initialize composer and project dependencies
 		docker-compose build
 		docker-compose run --rm php sh -lc 'composer install'
 
+.PHONY: composer-update
+composer-update: ## updatecomposer dependencies
+		docker-compose run --rm php sh -lc 'composer update'
+
 .PHONY: up
 up: ## spin up environment
 		docker-compose up -d
 
 .PHONY: phpunit
 phpunit: db ## execute project unit tests
-		docker-compose exec php sh -lc './bin/phpunit'
+		docker-compose exec php sh -lc './bin/phpunit' $(conf)
 
 .PHONY: style
 style: ## executes php analizers
