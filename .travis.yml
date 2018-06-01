@@ -1,0 +1,23 @@
+sudo: required
+services:
+  - docker
+
+addons:
+  apt:
+    packages:
+      - docker-ce
+env:
+  - DOCKER_COMPOSE_VERSION=1.21.2
+
+before_install:
+  - sudo service mysql stop
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+script:
+  - make start
+  - sleep 5
+  - make style
+  - make phpunit
