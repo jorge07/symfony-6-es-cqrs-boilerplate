@@ -1,4 +1,4 @@
-App\Domain\User\Query\UserView:
+App\Infrastructure\User\Query\UserView:
   type: entity
   table: users
   id:

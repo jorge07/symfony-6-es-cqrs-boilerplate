@@ -8,7 +8,7 @@ use App\Application\Command\User\SignIn\SignInCommand;
 use App\Application\Query\Item;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
 use App\Domain\User\Exception\InvalidCredentialsException;
-use App\Domain\User\Query\UserView;
+use App\Infrastructure\User\Query\UserView;
 use App\Infrastructure\User\Auth\Auth;
 use League\Tactician\CommandBus;
 use Symfony\Component\HttpFoundation\RedirectResponse;

@@ -17,3 +17,4 @@
 ###< phpunit/phpunit ###
 
 /report/
+.php_cs.cache

@@ -27,6 +27,12 @@ doctrine:
             Domain:
                 is_bundle: false
                 type: yml
-                dir: '%kernel.project_dir%/config/mapping/orm/query'
+                dir: '%kernel.project_dir%/config/mapping/orm/domain'
                 prefix: 'App\Domain'
                 alias: Domain
+            Infrastructure:
+                is_bundle: false
+                type: yml
+                dir: '%kernel.project_dir%/config/mapping/orm/infrastructure'
+                prefix: 'App\Infrastructure'
+                alias: Infrastructure

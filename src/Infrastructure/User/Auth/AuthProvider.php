@@ -6,8 +6,6 @@ namespace App\Infrastructure\User\Auth;
 
 use App\Domain\User\Query\Repository\UserReadModelRepositoryInterface;
 use App\Domain\User\ValueObject\Email;
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
