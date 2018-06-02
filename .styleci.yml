@@ -1,0 +1,9 @@
+preset: symfony
+
+enabled:
+- concat_with_spaces
+- align_double_arrow
+
+disabled:
+- concat_without_spaces
+- unalign_double_arrow
