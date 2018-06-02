@@ -6,7 +6,6 @@ namespace App\Application\Query\Event\GetEvents;
 
 class GetEventsQuery
 {
-
     /**
      * @var int
      */

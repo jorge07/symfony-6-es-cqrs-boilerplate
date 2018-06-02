@@ -29,7 +29,6 @@ class SignInHandler implements CommandHandlerInterface
         $uuid = $this->userCollection->existsEmail($email);
 
         if (null === $uuid) {
-
             throw new InvalidCredentialsException();
         }
 

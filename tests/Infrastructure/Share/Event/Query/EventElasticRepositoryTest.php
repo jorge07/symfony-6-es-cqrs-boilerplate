@@ -36,9 +36,9 @@ class EventElasticRepositoryTest extends TestCase
         $result = $this->repo->search([
             'query' => [
                 'match' => [
-                    'type' => $event->getType()
-                ]
-            ]
+                    'type' => $event->getType(),
+                ],
+            ],
         ]);
 
         self::assertSame(1, $result['hits']['total']);
@@ -49,8 +49,8 @@ class EventElasticRepositoryTest extends TestCase
         $this->repo = new EventElasticRepository(
             [
                 'hosts' => [
-                    'elasticsearch'
-                ]
+                    'elasticsearch',
+                ],
             ]
         );
     }

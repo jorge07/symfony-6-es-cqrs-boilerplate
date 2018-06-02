@@ -6,5 +6,4 @@ namespace App\Domain\User\Exception;
 
 class InvalidCredentialsException extends \InvalidArgumentException
 {
-
 }

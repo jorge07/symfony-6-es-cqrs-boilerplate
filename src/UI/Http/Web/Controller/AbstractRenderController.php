@@ -47,5 +47,4 @@ class AbstractRenderController
      * @var \Twig_Environment
      */
     private $template;
-
 }

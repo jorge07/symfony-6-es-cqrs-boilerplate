@@ -52,13 +52,9 @@ class SignUpController extends AbstractRenderController
             $this->exec(new SignUpCommand($uuid, $email, $password));
 
             return $this->render('signup/user_created.html.twig', ['uuid' => $uuid, 'email' => $email]);
-
         } catch (EmailAlreadyExistException $exception) {
-
             return $this->render('signup/index.html.twig', ['error' => 'Email already exists.'], 409);
-
         } catch (\InvalidArgumentException $exception) {
-
             return $this->render('signup/index.html.twig', ['error' => $exception->getMessage()], 400);
         }
     }

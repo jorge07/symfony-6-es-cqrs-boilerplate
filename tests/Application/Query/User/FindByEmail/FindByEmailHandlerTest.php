@@ -13,7 +13,6 @@ use Ramsey\Uuid\Uuid;
 
 class FindByEmailHandlerTest extends ApplicationTestCase
 {
-
     /**
      * @test
      *
@@ -25,7 +24,7 @@ class FindByEmailHandlerTest extends ApplicationTestCase
 
         $this->fireTerminateEvent();
 
-        /** @var Item $item*/
+        /** @var Item $item */
         $item = $this->ask(new FindByEmailQuery($email));
         /** @var UserView $userRead */
         $userRead = $item->readModel;

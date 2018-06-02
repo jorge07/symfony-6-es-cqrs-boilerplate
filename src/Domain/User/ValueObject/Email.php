@@ -17,7 +17,6 @@ class Email
         $mail->email = $email;
 
         return $mail;
-
     }
 
     public function toString(): string

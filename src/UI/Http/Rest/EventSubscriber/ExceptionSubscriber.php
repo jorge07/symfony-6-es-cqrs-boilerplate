@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\UI\Http\Rest\EventSubscriber;
 
@@ -36,15 +36,14 @@ class ExceptionSubscriber implements EventSubscriberInterface
     {
         $error = [
             'errors'=> [
-                'title'   => strtr(get_class($exception), '\\', '.'),
-                'detail'   => $this->getExceptionMessage($exception),
+                'title'     => strtr(get_class($exception), '\\', '.'),
+                'detail'    => $this->getExceptionMessage($exception),
                 'code'      => $exception->getCode(),
                 'status'    => $response->getStatusCode(),
-            ]
+            ],
         ];
 
-        if ($this->environment === 'dev') {
-
+        if ('dev' === $this->environment) {
             $error = array_merge(
                 $error,
                 [
@@ -64,7 +63,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
 
     private function getExceptionMessage(\Exception $exception): string
     {
-        return $this->environment === 'dev'
+        return 'dev' === $this->environment
             ? $exception->getMessage()
             : $this->getMessageForProductionEnvironment($exception);
     }
@@ -95,10 +94,9 @@ class ExceptionSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::EXCEPTION => 'onKernelException'
+            KernelEvents::EXCEPTION => 'onKernelException',
         ];
     }
-
 
     public function __construct()
     {
