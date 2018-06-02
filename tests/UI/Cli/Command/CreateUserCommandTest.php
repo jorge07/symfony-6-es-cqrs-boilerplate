@@ -29,9 +29,9 @@ class CreateUserCommandTest extends AbstractConsoleTestCase
 
         $commandTester->execute([
             'command'  => $command->getName(),
-            'uuid' => Uuid::uuid4()->toString(),
-            'email' => $email,
-            'password' => 'jorgepass'
+            'uuid'     => Uuid::uuid4()->toString(),
+            'email'    => $email,
+            'password' => 'jorgepass',
         ]);
 
         $output = $commandTester->getDisplay();
@@ -39,7 +39,7 @@ class CreateUserCommandTest extends AbstractConsoleTestCase
         $this->assertContains('User Created:', $output);
         $this->assertContains('Email: jorge.arcoma@gmail.com', $output);
 
-        /** @var Item $item*/
+        /** @var Item $item */
         $item = $this->ask(new FindByEmailQuery($email));
         /** @var UserView $userRead */
         $userRead = $item->readModel;

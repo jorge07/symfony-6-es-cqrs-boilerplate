@@ -26,7 +26,7 @@ class GetEventsController extends QueryController
      */
     public function __invoke(Request $request): JsonResponse
     {
-        $page  = $request->get('page', 1);
+        $page = $request->get('page', 1);
         $limit = $request->get('limit', 50);
 
         $query = new GetEventsQuery($page, $limit);

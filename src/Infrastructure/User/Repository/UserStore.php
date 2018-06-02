@@ -6,7 +6,6 @@ namespace App\Infrastructure\User\Repository;
 
 use App\Domain\User\Repository\UserRepositoryInterface;
 use App\Domain\User\User;
-use Broadway\Domain\AggregateRoot;
 use Broadway\EventHandling\EventBus;
 use Broadway\EventSourcing\AggregateFactory\PublicConstructorAggregateFactory;
 use Broadway\EventSourcing\EventSourcingRepository;

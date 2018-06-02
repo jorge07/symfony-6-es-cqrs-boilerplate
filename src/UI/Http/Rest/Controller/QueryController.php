@@ -17,7 +17,6 @@ abstract class QueryController
     {
         $response = JsonResponse::create($this->formatter->collection($collection));
 
-
         $this->decoratwWithCache($response, $collection, $isImmutable);
 
         return $response;

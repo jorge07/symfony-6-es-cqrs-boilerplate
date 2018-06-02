@@ -8,7 +8,6 @@ use Assert\Assertion;
 
 final class HashedPassword
 {
-
     public static function encode(string $plainPassword): self
     {
         $pass = new self();
@@ -20,7 +19,7 @@ final class HashedPassword
 
     public static function fromHash(string $hashedPassword): self
     {
-        $pass = new self;
+        $pass = new self();
 
         $pass->hashedPassword = $hashedPassword;
 

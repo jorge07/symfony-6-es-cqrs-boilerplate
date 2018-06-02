@@ -30,12 +30,10 @@ class InMemoryProducer implements ProducerInterface
         $consumers = $this->consumers[$routingKey] ?? [];
 
         if (empty($consumers)) {
-
             return;
         }
 
         foreach ($consumers as $consumer) {
-
             $consumer->execute($message);
         }
     }

@@ -15,7 +15,6 @@ use Ramsey\Uuid\Uuid;
 
 final class GetEventsTest extends ApplicationTestCase
 {
-
     /**
      * @test
      *
@@ -51,7 +50,6 @@ final class GetEventsTest extends ApplicationTestCase
         );
 
         $this->handle($command);
-
 
         $this->fireTerminateEvent();
 

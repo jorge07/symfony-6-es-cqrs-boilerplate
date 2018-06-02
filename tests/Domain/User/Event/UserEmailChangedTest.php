@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 class UserEmailChangedTest extends TestCase
 {
-
     /**
      * @test
      *
@@ -19,8 +18,8 @@ class UserEmailChangedTest extends TestCase
     public function event_should_be_deserializable()
     {
         $event = UserEmailChanged::deserialize([
-            'uuid' => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
-            'email' => 'asd@asd.asd'
+            'uuid'  => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
+            'email' => 'asd@asd.asd',
         ]);
 
         self::assertInstanceOf(UserEmailChanged::class, $event);
@@ -38,8 +37,8 @@ class UserEmailChangedTest extends TestCase
         self::expectException(\InvalidArgumentException::class);
 
         UserEmailChanged::deserialize([
-            'uuids' => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
-            'emails' => 'asd@asd.asd'
+            'uuids'  => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
+            'emails' => 'asd@asd.asd',
         ]);
     }
 
@@ -51,11 +50,11 @@ class UserEmailChangedTest extends TestCase
     public function event_should_be_serializable()
     {
         $event = UserEmailChanged::deserialize([
-            'uuid' => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
-            'email' => 'asd@asd.asd'
+            'uuid'  => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
+            'email' => 'asd@asd.asd',
         ]);
 
-        $serialized =  $event->serialize();
+        $serialized = $event->serialize();
 
         self::assertArrayHasKey('uuid', $serialized);
         self::assertArrayHasKey('email', $serialized);

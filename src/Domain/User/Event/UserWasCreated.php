@@ -31,11 +31,11 @@ final class UserWasCreated implements Serializable
     public function serialize(): array
     {
         return [
-            'uuid' => $this->uuid->toString(),
+            'uuid'        => $this->uuid->toString(),
             'credentials' => [
-                'email' => $this->credentials->email->toString(),
-                'password' => $this->credentials->password->toString()
-            ]
+                'email'    => $this->credentials->email->toString(),
+                'password' => $this->credentials->password->toString(),
+            ],
         ];
     }
 

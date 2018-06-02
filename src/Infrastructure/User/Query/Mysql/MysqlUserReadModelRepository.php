@@ -12,9 +12,7 @@ use App\Infrastructure\Share\Query\Repository\MysqlRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\UuidInterface;
 
-class MysqlUserReadModelRepository extends MysqlRepository implements
-    UserReadModelRepositoryInterface,
-    UserCollectionInterface
+class MysqlUserReadModelRepository extends MysqlRepository implements UserReadModelRepositoryInterface, UserCollectionInterface
 {
     public function oneByUuid(UuidInterface $uuid): UserView
     {

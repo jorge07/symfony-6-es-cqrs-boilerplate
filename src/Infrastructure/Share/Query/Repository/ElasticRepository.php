@@ -14,8 +14,8 @@ abstract class ElasticRepository
     {
         $finalQuery = [];
 
-        $finalQuery['index'] = $finalQuery['type']  = $this->index; // To be deleted in elastic 7
-        $finalQuery['body']  = $query;
+        $finalQuery['index'] = $finalQuery['type'] = $this->index; // To be deleted in elastic 7
+        $finalQuery['body'] = $query;
 
         return $this->client->search($finalQuery);
     }
@@ -36,16 +36,16 @@ abstract class ElasticRepository
 
     public function boot(): void
     {
-        if (! $this->client->indices()->exists(['index' => $this->index])) {
+        if (!$this->client->indices()->exists(['index' => $this->index])) {
             $this->client->indices()->create(['index' => $this->index]);
         }
     }
 
     protected function add(array $document): array
     {
-        $query['index'] = $query['type']  = $this->index;
-        $query['id']    = $document['id'] ?? null;
-        $query['body']  = $document;
+        $query['index'] = $query['type'] = $this->index;
+        $query['id'] = $document['id'] ?? null;
+        $query['body'] = $document;
 
         return $this->client->index($query);
     }
@@ -56,15 +56,17 @@ abstract class ElasticRepository
 
         $query = [];
 
-        $query['index'] = $query['type']  = $this->index;
-        $query['from']  = ($page - 1) * $limit;
-        $query['size']  = $limit;
+        $query['index'] = $query['type'] = $this->index;
+        $query['from'] = ($page - 1) * $limit;
+        $query['size'] = $limit;
 
         $response = $this->client->search($query);
 
         return [
-            'data'  => array_map(function (array $item) { return $item['_source']; }, $response['hits']['hits']),
-            'total' => $response['hits']['total']
+            'data'  => array_map(function (array $item) {
+                return $item['_source'];
+            }, $response['hits']['hits']),
+            'total' => $response['hits']['total'],
         ];
     }
 

@@ -24,6 +24,7 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 final class LoginAuthenticator extends AbstractFormLoginAuthenticator
 {
     const LOGIN = 'login';
+
     const SUCCESS_REDIRECT = 'profile';
 
     /**
@@ -66,8 +67,8 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
     public function getCredentials(Request $request)
     {
         return [
-            'email' => $request->request->get('_email'),
-            'password' => $request->request->get('_password')
+            'email'    => $request->request->get('_email'),
+            'password' => $request->request->get('_password'),
         ];
     }
 
@@ -79,7 +80,7 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      * You may throw an AuthenticationException if you wish. If you return
      * null, then a UsernameNotFoundException is thrown for you.
      *
-     * @param mixed $credentials
+     * @param mixed                 $credentials
      * @param UserProviderInterface $userProvider
      *
      * @throws AuthenticationException
@@ -102,10 +103,9 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
             $userItem = $this->queryBus->handle(new FindByEmailQuery($email));
             /** @var UserView $user */
             $user = $userItem->readModel;
+
             return Auth::fromUser($user);
-
         } catch (InvalidCredentialsException $exception) {
-
             throw new AuthenticationException();
         }
     }
@@ -119,7 +119,7 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      *
      * The *credentials* are the return value from getCredentials()
      *
-     * @param mixed $credentials
+     * @param mixed         $credentials
      * @param UserInterface $user
      *
      * @return bool
@@ -140,9 +140,9 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      * If you return null, the current request will continue, and the user
      * will be authenticated. This makes sense, for example, with an API.
      *
-     * @param Request $request
+     * @param Request        $request
      * @param TokenInterface $token
-     * @param string $providerKey The provider (i.e. firewall) key
+     * @param string         $providerKey The provider (i.e. firewall) key
      *
      * @return Response|null
      */

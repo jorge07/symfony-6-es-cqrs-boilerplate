@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
 
 class EmailTest extends TestCase
 {
-
     /**
      * @test
      *

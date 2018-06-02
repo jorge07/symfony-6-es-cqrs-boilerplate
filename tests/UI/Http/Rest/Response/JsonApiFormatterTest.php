@@ -15,7 +15,6 @@ use Ramsey\Uuid\UuidInterface;
 
 class JsonApiFormatterTest extends TestCase
 {
-
     /**
      * @test
      *
@@ -23,10 +22,9 @@ class JsonApiFormatterTest extends TestCase
      */
     public function format_collection()
     {
-
         $users = [
             self::createUserView(Uuid::uuid4(), Email::fromString('asd1@asd.asd')),
-            self::createUserView(Uuid::uuid4(), Email::fromString('asd2@asd.asd'))
+            self::createUserView(Uuid::uuid4(), Email::fromString('asd2@asd.asd')),
         ];
 
         $response = JsonApiFormatter::collection(new Collection(1, 10, 2, $users));
@@ -49,7 +47,7 @@ class JsonApiFormatterTest extends TestCase
         $userView = self::createUserView(Uuid::uuid4(), Email::fromString('demo@asd.asd'));
 
         $response = JsonApiFormatter::one(new Item($userView));
-        
+
         self::assertArrayHasKey('data', $response);
         self::assertEquals('UserView', $response['data']['type']);
         self::assertCount(2, $response['data']['attributes']);
@@ -58,11 +56,11 @@ class JsonApiFormatterTest extends TestCase
     private static function createUserView(UuidInterface $uuid, Email $email): UserView
     {
         $view = UserView::deserialize([
-            'uuid' => $uuid->toString(),
+            'uuid'        => $uuid->toString(),
             'credentials' => [
-                'email' => $email->toString(),
-                'password' => 'ljalsjdlajsdljlajsd'
-            ]
+                'email'    => $email->toString(),
+                'password' => 'ljalsjdlajsdljlajsd',
+            ],
         ]);
 
         return $view;

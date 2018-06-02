@@ -61,7 +61,7 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
     public function valid_input_parameters_should_return_200_status_code_when_exist()
     {
         $emailString = $this->createReadModelUser();
-        
+
         $this->get('/api/user/' . $emailString);
 
         self::assertEquals(200, $this->client->getResponse()->getStatusCode());
