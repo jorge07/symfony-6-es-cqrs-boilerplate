@@ -2,8 +2,8 @@
 
 namespace App\Domain\User\Query\Repository;
 
-use App\Infrastructure\User\Query\UserView;
 use App\Domain\User\ValueObject\Email;
+use App\Infrastructure\User\Query\UserView;
 use Ramsey\Uuid\UuidInterface;
 
 interface UserReadModelRepositoryInterface

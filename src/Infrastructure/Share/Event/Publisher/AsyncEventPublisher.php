@@ -16,12 +16,10 @@ final class AsyncEventPublisher implements EventPublisher, EventSubscriberInterf
     public function publish(): void
     {
         if (empty($this->events)) {
-
             return;
         }
 
         foreach ($this->events as $event) {
-
             $this->eventProducer->publish(serialize($event), $event->getType());
         }
     }
@@ -34,7 +32,7 @@ final class AsyncEventPublisher implements EventPublisher, EventSubscriberInterf
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::TERMINATE => 'publish',
+            KernelEvents::TERMINATE  => 'publish',
             ConsoleEvents::TERMINATE => 'publish',
         ];
     }

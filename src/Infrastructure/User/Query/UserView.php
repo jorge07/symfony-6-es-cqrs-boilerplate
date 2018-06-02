@@ -27,7 +27,7 @@ class UserView implements SerializableReadModel
 
     public static function deserialize(array $data): self
     {
-        $instance = new self;
+        $instance = new self();
 
         $instance->uuid = Uuid::fromString($data['uuid']);
         $instance->credentials = new Credentials(
@@ -41,10 +41,10 @@ class UserView implements SerializableReadModel
     public function serialize(): array
     {
         return [
-            'uuid' => $this->getId(),
+            'uuid'        => $this->getId(),
             'credentials' => [
                 'email' => (string) $this->credentials->email,
-            ]
+            ],
         ];
     }
 

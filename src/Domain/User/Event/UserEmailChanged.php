@@ -26,8 +26,8 @@ final class UserEmailChanged implements Serializable
     public function serialize(): array
     {
         return [
-            'uuid' => $this->uuid->toString(),
-            'email' => $this->email->toString()
+            'uuid'  => $this->uuid->toString(),
+            'email' => $this->email->toString(),
         ];
     }
 
@@ -46,6 +46,4 @@ final class UserEmailChanged implements Serializable
      * @var Email
      */
     public $email;
-
-
 }

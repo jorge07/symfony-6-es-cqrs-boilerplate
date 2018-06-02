@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Infrastructure\User\Query\Mysql;
 
 use App\Domain\User\Query\Repository\UserReadModelRepositoryInterface;
-use App\Infrastructure\User\Query\UserView;
 use App\Domain\User\Repository\UserCollectionInterface;
 use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\Share\Query\Repository\MysqlRepository;
+use App\Infrastructure\User\Query\UserView;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\UuidInterface;
 
@@ -21,8 +21,7 @@ class MysqlUserReadModelRepository extends MysqlRepository implements
         $qb = $this->repository
             ->createQueryBuilder('user')
             ->where('user.uuid = :uuid')
-            ->setParameter('uuid', $uuid->getBytes())
-        ;
+            ->setParameter('uuid', $uuid->getBytes());
 
         return $this->oneOrException($qb);
     }
@@ -35,8 +34,7 @@ class MysqlUserReadModelRepository extends MysqlRepository implements
             ->where('user.credentials.email = :email')
             ->setParameter('email', $email->toString())
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
 
         return $userId['uuid'] ?? null;
     }
@@ -46,8 +44,7 @@ class MysqlUserReadModelRepository extends MysqlRepository implements
         $qb = $this->repository
             ->createQueryBuilder('user')
             ->where('user.credentials.email = :email')
-            ->setParameter('email', $email->toString())
-        ;
+            ->setParameter('email', $email->toString());
 
         return $this->oneOrException($qb);
     }

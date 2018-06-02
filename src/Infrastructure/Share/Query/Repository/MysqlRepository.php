@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Infrastructure\Share\Query\Repository;
 
 use App\Domain\Shared\Query\Exception\NotFoundException;
-use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -27,11 +26,9 @@ abstract class MysqlRepository
     {
         $model = $queryBuilder
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
 
         if (null === $model) {
-
             throw new NotFoundException();
         }
 

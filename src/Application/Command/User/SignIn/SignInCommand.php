@@ -8,7 +8,6 @@ use App\Domain\User\ValueObject\Email;
 
 class SignInCommand
 {
-
     /**
      * @var Email
      */

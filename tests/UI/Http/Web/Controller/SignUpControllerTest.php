@@ -33,7 +33,7 @@ class SignUpControllerTest extends WebTestCase
     {
         $crawler = $this->createUser($email = 'ads@asd.asd');
 
-        self::assertEquals(1, $crawler->filter('html:contains("Hello ' . $email .'")')->count());
+        self::assertEquals(1, $crawler->filter('html:contains("Hello '.$email.'")')->count());
         self::assertEquals(1, $crawler->filter('html:contains("Your id is ")')->count());
     }
 

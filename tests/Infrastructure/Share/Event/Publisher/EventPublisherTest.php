@@ -67,7 +67,7 @@ class EventPublisherTest extends TestCase
     protected function tearDown()
     {
         $this->publisher = null;
-        $this->consumer  = null;
+        $this->consumer = null;
     }
 
     /** @var Consumer|null */
@@ -77,8 +77,8 @@ class EventPublisherTest extends TestCase
     private $publisher;
 }
 
-class Consumer implements ConsumerInterface {
-
+class Consumer implements ConsumerInterface
+{
     /** @var DomainMessage|null */
     private $message;
 

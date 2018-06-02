@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\UI\Http\Rest\Controller\User;
 
-use App\Infrastructure\User\Query\UserView;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
+use App\Infrastructure\User\Query\UserView;
 use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
 use Doctrine\ORM\EntityManagerInterface;
@@ -61,8 +61,8 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
     public function valid_input_parameters_should_return_200_status_code_when_exist()
     {
         $emailString = $this->createReadModelUser();
-        
-        $this->get('/api/user/' . $emailString);
+
+        $this->get('/api/user/'.$emailString);
 
         self::assertEquals(200, $this->client->getResponse()->getStatusCode());
 

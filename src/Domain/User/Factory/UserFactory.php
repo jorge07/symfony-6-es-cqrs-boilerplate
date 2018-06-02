@@ -12,11 +12,9 @@ use Ramsey\Uuid\UuidInterface;
 
 class UserFactory
 {
-
     public function register(UuidInterface $uuid, Credentials $credentials): User
     {
         if ($this->userCollection->existsEmail($credentials->email)) {
-
             throw new EmailAlreadyExistException();
         }
 

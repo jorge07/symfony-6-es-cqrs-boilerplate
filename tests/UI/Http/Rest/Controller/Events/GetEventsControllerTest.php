@@ -12,7 +12,6 @@ use Ramsey\Uuid\Uuid;
 
 class GetEventsControllerTest extends JsonApiTestCase
 {
-
     /**
      * @test
      *
@@ -21,9 +20,9 @@ class GetEventsControllerTest extends JsonApiTestCase
     public function events_should_be_present_in_elastic_search()
     {
         $this->post('/api/users', [
-            'uuid' => $uuid = Uuid::uuid4()->toString(),
-            'email' => 'jo@jo.com',
-            'password' => 'password'
+            'uuid'     => $uuid = Uuid::uuid4()->toString(),
+            'email'    => 'jo@jo.com',
+            'password' => 'password',
         ]);
 
         self::assertEquals(201, $this->client->getResponse()->getStatusCode());

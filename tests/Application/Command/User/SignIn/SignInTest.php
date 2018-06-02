@@ -49,7 +49,7 @@ final class SignInTest extends ApplicationTestCase
      */
     public function user_sign_up_with_invalid_credentials_must_throw_domain_exception(string $email, string $pass)
     {
-       self::expectException(InvalidCredentialsException::class);
+        self::expectException(InvalidCredentialsException::class);
 
         $command = new SignInCommand($email, $pass);
 
@@ -61,12 +61,12 @@ final class SignInTest extends ApplicationTestCase
         return [
           [
               'email' => 'asd@asd.asd',
-              'pass' => 'qwerqwer123'
+              'pass'  => 'qwerqwer123',
           ],
           [
               'email' => 'asd@asd.com',
-              'pass' => 'qwerqwer'
-          ]
+              'pass'  => 'qwerqwer',
+          ],
         ];
     }
 

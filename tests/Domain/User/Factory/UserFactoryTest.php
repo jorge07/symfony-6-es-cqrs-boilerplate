@@ -60,5 +60,4 @@ class UserFactoryTest extends TestCase implements UserCollectionInterface
 
     /** @var UuidInterface|null */
     private $emailExist;
-
 }

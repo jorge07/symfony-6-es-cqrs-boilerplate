@@ -19,7 +19,7 @@ class User extends EventSourcedAggregateRoot
 {
     public static function create(UuidInterface $uuid, Credentials $credentials): self
     {
-        $user = new self;
+        $user = new self();
 
         $user->apply(new UserWasCreated($uuid, $credentials));
 
@@ -33,6 +33,7 @@ class User extends EventSourcedAggregateRoot
 
     /**
      * @param string $plainPassword
+     *
      * @throws InvalidCredentialsException
      */
     public function signIn(string $plainPassword): void
@@ -65,7 +66,7 @@ class User extends EventSourcedAggregateRoot
     {
         $this->email = $email;
     }
-    
+
     private function setHashedPassword(HashedPassword $hashedPassword): void
     {
         $this->hashedPassword = $hashedPassword;

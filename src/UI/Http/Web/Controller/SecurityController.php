@@ -17,7 +17,7 @@ class SecurityController extends AbstractRenderController
      *     name="login",
      *     methods={"GET", "POST"}
      * )
-     * 
+     *
      * @param AuthenticationUtils $authUtils
      *
      * @return Response
@@ -26,7 +26,7 @@ class SecurityController extends AbstractRenderController
     {
         return $this->render('signin/login.html.twig', [
             'last_username' => $authUtils->getLastUsername(),
-            'error' => $authUtils->getLastAuthenticationError(),
+            'error'         => $authUtils->getLastAuthenticationError(),
         ]);
     }
 
