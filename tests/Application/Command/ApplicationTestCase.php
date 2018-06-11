@@ -6,7 +6,6 @@ namespace App\Tests\Application\Command;
 
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +26,7 @@ abstract class ApplicationTestCase extends KernelTestCase
 
     protected function service(string $serviceId)
     {
-        return $this->container->get($serviceId);
+        return self::$container->get($serviceId);
     }
 
     protected function fireTerminateEvent(): void
@@ -49,26 +48,20 @@ abstract class ApplicationTestCase extends KernelTestCase
     {
         static::bootKernel();
 
-        $this->container = static::$kernel->getContainer();
-
         /** @var CommandBus $commandBus */
-        $commandBus = $this->container->get('tactician.commandbus.command');
+        $commandBus = $this->service('tactician.commandbus.command');
         $this->commandBus = $commandBus;
 
         /** @var CommandBus $queryBus */
-        $queryBus = $this->container->get('tactician.commandbus.query');
+        $queryBus = $this->service('tactician.commandbus.query');
         $this->queryBus = $queryBus;
     }
 
     protected function tearDown()
     {
-        $this->container = null;
         $this->commandBus = null;
         $this->queryBus = null;
     }
-
-    /** @var ContainerInterface|null */
-    private $container;
 
     /** @var CommandBus|null */
     private $commandBus;
