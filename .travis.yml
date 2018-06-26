@@ -20,9 +20,9 @@ before_install:
 
 script:
   - make start
-  - make schema-validate
   - make style
   - make conf="--coverage-clover build/logs/clover.xml" phpunit
+  - make schema-validate
 
 after_success:
   - mkdir -p build/logs
