@@ -63,21 +63,21 @@ Disable\Enable Xdebug:
 
 ## PHPStorm integration
 
-PHPSTORM has native integration with Docker compose. That's nice but will stop your php container after run the test scenario. That's not nice when using fpm. A solution could be use another container just for that purpose. But I don't want. For that reason I use ssh connection. Note that ssh in the cntainer it's ONLY for that reason, if you've ssh installed in your production container, you're doing it wrong... 
+PHPSTORM has native integration with Docker compose. That's nice but will stop your php container after run the test scenario. That's not nice when using fpm. A solution could be use another container just for that purpose. But I don't want. For that reason I use ssh connection.
+
+IMPORTANT
+
+> ssh in the container it's ONLY for that reason, if you've ssh installed in your production container, you're doing it wrong... 
 
 Use ssh remote connection.
 ---
 
-HOST: 
-
+Host: 
 - Docker 4 Mac: `localhost`
 - docker machine OR dinghy: `192.168.99.100`
 
-PORT: 
-
+Port: 
  - `2323`
 
 Filesystem mapping:
-
  - `{PROJECT_PATH}` -> `/app`
-
