@@ -7,7 +7,7 @@ namespace App\UI\Http\Rest\Controller\User;
 use App\Application\Command\User\ChangeEmail\ChangeEmailCommand;
 use App\UI\Http\Rest\Controller\CommandController;
 use Assert\Assertion;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
