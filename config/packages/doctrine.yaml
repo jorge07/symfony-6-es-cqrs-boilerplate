@@ -26,13 +26,13 @@ doctrine:
         mappings:
             Domain:
                 is_bundle: false
-                type: yml
+                type: xml
                 dir: '%kernel.project_dir%/config/mapping/orm/domain'
                 prefix: 'App\Domain'
                 alias: Domain
             Projections:
                 is_bundle: false
-                type: yml
+                type: xml
                 dir: '%kernel.project_dir%/config/mapping/orm/projections'
                 prefix: 'App\Infrastructure'
                 alias: Projections

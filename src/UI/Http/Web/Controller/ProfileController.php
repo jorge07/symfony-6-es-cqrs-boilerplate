@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Web\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 class ProfileController extends AbstractRenderController
 {
