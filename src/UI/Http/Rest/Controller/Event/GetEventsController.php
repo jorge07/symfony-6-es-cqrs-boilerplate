@@ -7,7 +7,7 @@ namespace App\UI\Http\Rest\Controller\Event;
 use App\Application\Query\Collection;
 use App\Application\Query\Event\GetEvents\GetEventsQuery;
 use App\UI\Http\Rest\Controller\QueryController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 

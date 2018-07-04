@@ -1,9 +1,0 @@
-App\Infrastructure\User\Query\UserView:
-  type: entity
-  table: users
-  id:
-    uuid:
-      type: uuid_binary
-  embedded:
-    credentials:
-      class: App\Domain\User\ValueObject\Auth\Credentials

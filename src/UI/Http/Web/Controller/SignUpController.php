@@ -8,7 +8,7 @@ use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Domain\User\Exception\EmailAlreadyExistException;
 use Ramsey\Uuid\Uuid;
 use Assert\Assertion;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
