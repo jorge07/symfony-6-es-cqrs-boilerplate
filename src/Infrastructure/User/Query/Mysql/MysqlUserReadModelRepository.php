@@ -59,7 +59,7 @@ class MysqlUserReadModelRepository extends MysqlRepository implements UserReadMo
      * @param Email $email
      *
      * @return UserViewInterface
-     * 
+     *
      * @throws \App\Domain\Shared\Query\Exception\NotFoundException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
