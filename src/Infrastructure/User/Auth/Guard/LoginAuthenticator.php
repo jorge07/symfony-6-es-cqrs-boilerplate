@@ -8,8 +8,8 @@ use App\Application\Command\User\SignIn\SignInCommand;
 use App\Application\Query\Item;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
 use App\Domain\User\Exception\InvalidCredentialsException;
-use App\Infrastructure\User\Query\UserView;
 use App\Infrastructure\User\Auth\Auth;
+use App\Infrastructure\User\Query\Projections\UserView;
 use League\Tactician\CommandBus;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -91,11 +91,9 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
     {
         try {
             $email = $credentials['email'];
+            $plainPassword = $credentials['password'];
 
-            $query = new SignInCommand(
-                $email,
-                $credentials['password']
-            );
+            $query = new SignInCommand($email, $plainPassword);
 
             $this->bus->handle($query);
 
