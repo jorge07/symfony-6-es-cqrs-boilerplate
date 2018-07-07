@@ -4,17 +4,26 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Query\Mysql;
 
+use App\Domain\User\Query\Projections\UserViewInterface;
 use App\Domain\User\Query\Repository\UserReadModelRepositoryInterface;
-use App\Infrastructure\User\Query\UserView;
 use App\Domain\User\Repository\UserCollectionInterface;
 use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\Share\Query\Repository\MysqlRepository;
+use App\Infrastructure\User\Query\Projections\UserView;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\UuidInterface;
 
 class MysqlUserReadModelRepository extends MysqlRepository implements UserReadModelRepositoryInterface, UserCollectionInterface
 {
-    public function oneByUuid(UuidInterface $uuid): UserView
+    /**
+     * @param UuidInterface $uuid
+     *
+     * @return UserViewInterface
+     *
+     * @throws \App\Domain\Shared\Query\Exception\NotFoundException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function oneByUuid(UuidInterface $uuid): UserViewInterface
     {
         $qb = $this->repository
             ->createQueryBuilder('user')
@@ -25,6 +34,13 @@ class MysqlUserReadModelRepository extends MysqlRepository implements UserReadMo
         return $this->oneOrException($qb);
     }
 
+    /**
+     * @param Email $email
+     *
+     * @return null|UuidInterface
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function existsEmail(Email $email): ?UuidInterface
     {
         $userId = $this->repository
@@ -39,7 +55,15 @@ class MysqlUserReadModelRepository extends MysqlRepository implements UserReadMo
         return $userId['uuid'] ?? null;
     }
 
-    public function oneByEmail(Email $email): UserView
+    /**
+     * @param Email $email
+     *
+     * @return UserViewInterface
+     * 
+     * @throws \App\Domain\Shared\Query\Exception\NotFoundException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function oneByEmail(Email $email): UserViewInterface
     {
         $qb = $this->repository
             ->createQueryBuilder('user')
@@ -50,7 +74,7 @@ class MysqlUserReadModelRepository extends MysqlRepository implements UserReadMo
         return $this->oneOrException($qb);
     }
 
-    public function add(UserView $userRead): void
+    public function add(UserViewInterface $userRead): void
     {
         $this->register($userRead);
     }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Auth;
 
-use App\Infrastructure\User\Query\UserView;
+use App\Infrastructure\User\Query\Projections\UserView;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -41,6 +41,11 @@ class Auth implements UserInterface, EncoderAwareInterface
         // noop
     }
 
+    public function getEncoderName(): string
+    {
+        return 'bcrypt';
+    }
+
     public function __toString(): string
     {
         return (string) $this->user->credentials->email;
@@ -53,9 +58,4 @@ class Auth implements UserInterface, EncoderAwareInterface
 
     /** @var UserView */
     private $user;
-
-    public function getEncoderName(): string
-    {
-        return 'bcrypt';
-    }
 }

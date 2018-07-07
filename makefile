@@ -32,7 +32,11 @@ phpunit: db ## execute project unit tests
 
 .PHONY: style
 style: ## executes php analizers
-		docker-compose exec php sh -lc './vendor/bin/phpstan analyse -l 6 -c phpstan.neon src tests'
+		docker-compose run --rm php sh -lc './vendor/bin/phpstan analyse -l 6 -c phpstan.neon src tests'
+
+.PHONY: layers
+layer: ## Check issues with layers
+		docker-compose run --rm php sh -lc 'php bin/deptrac.phar analyze --formatter-graphviz=0'
 
 .PHONY: db
 db: ## recreate database

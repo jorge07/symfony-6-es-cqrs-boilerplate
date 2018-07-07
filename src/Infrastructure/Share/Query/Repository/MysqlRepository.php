@@ -22,6 +22,14 @@ abstract class MysqlRepository
         $this->entityManager->flush();
     }
 
+    /**
+     * @param QueryBuilder $queryBuilder
+     *
+     * @return mixed
+     *
+     * @throws NotFoundException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     protected function oneOrException(QueryBuilder $queryBuilder)
     {
         $model = $queryBuilder
