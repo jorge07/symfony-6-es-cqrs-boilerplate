@@ -23,7 +23,7 @@ script:
   - make style
   - make conf="--coverage-clover build/logs/clover.xml" phpunit
   - make schema-validate
-  - make layers
+  - make layer
 
 after_success:
   - mkdir -p build/logs
