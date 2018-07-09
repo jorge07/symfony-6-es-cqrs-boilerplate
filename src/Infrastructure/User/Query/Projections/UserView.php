@@ -8,12 +8,11 @@ use App\Domain\User\Query\Projections\UserViewInterface;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
-use Broadway\ReadModel\SerializableReadModel;
 use Broadway\Serializer\Serializable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class UserView implements SerializableReadModel, UserViewInterface
+class UserView implements UserViewInterface
 {
     /** @var UuidInterface */
     public $uuid;
