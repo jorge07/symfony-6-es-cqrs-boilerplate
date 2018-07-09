@@ -2,6 +2,8 @@
 
 namespace App\Domain\User\Query\Projections;
 
-interface UserViewInterface
+use Broadway\ReadModel\SerializableReadModel;
+
+interface UserViewInterface extends SerializableReadModel
 {
 }
