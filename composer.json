@@ -27,6 +27,7 @@
         "dama/doctrine-test-bundle": "^5.0",
         "phpstan/phpstan": "^0.9.2",
         "phpunit/phpunit": "^6.5",
+        "roave/security-advisories": "dev-master",
         "symfony/browser-kit": "^4.1",
         "symfony/css-selector": "^4.1",
         "symfony/dotenv": "^4.1",
