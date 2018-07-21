@@ -33,7 +33,7 @@ class GetEventsControllerTest extends JsonApiTestCase
     public function events_should_be_present_in_elastic_search()
     {
         $this->post('/api/users', [
-            'uuid'     => $uuid = Uuid::uuid4()->toString(),
+            'uuid'     => Uuid::uuid4()->toString(),
             'email'    => 'jo@jo.com',
             'password' => 'password',
         ]);
@@ -42,7 +42,7 @@ class GetEventsControllerTest extends JsonApiTestCase
 
         $this->refreshIndex();
 
-        $this->get('/api/events');
+        $this->get('/api/events?limit=1');
 
         self::assertEquals(200, $this->client->getResponse()->getStatusCode());
 
