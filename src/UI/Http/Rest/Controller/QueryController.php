@@ -13,22 +13,23 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 abstract class QueryController
 {
+    private const YEAR_IN_SECONDS = 31536000;
+
     protected function jsonCollection(Collection $collection, bool $isImmutable = false): JsonResponse
     {
         $response = JsonResponse::create($this->formatter->collection($collection));
 
-        $this->decoratwWithCache($response, $collection, $isImmutable);
+        $this->decorateWithCache($response, $collection, $isImmutable);
 
         return $response;
     }
 
-    private function decoratwWithCache(JsonResponse $response, Collection $collection, bool $isImmutable): void
+    private function decorateWithCache(JsonResponse $response, Collection $collection, bool $isImmutable): void
     {
         if ($isImmutable && $collection->limit === count($collection->data)) {
-            $aYear = 60 * 60 * 24 * 365;
             $response
-                ->setMaxAge($aYear)
-                ->setSharedMaxAge($aYear);
+                ->setMaxAge(self::YEAR_IN_SECONDS)
+                ->setSharedMaxAge(self::YEAR_IN_SECONDS);
         }
     }
 
