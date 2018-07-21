@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 abstract class QueryController
 {
-    private const YEAR_IN_SECONDS = 31536000;
+    private const CACHE_MAX_AGE = 31536000; // Year.
 
     protected function jsonCollection(Collection $collection, bool $isImmutable = false): JsonResponse
     {
@@ -28,8 +28,8 @@ abstract class QueryController
     {
         if ($isImmutable && $collection->limit === count($collection->data)) {
             $response
-                ->setMaxAge(self::YEAR_IN_SECONDS)
-                ->setSharedMaxAge(self::YEAR_IN_SECONDS);
+                ->setMaxAge(self::CACHE_MAX_AGE)
+                ->setSharedMaxAge(self::CACHE_MAX_AGE);
         }
     }
 
