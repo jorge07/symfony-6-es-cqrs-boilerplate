@@ -28,6 +28,7 @@ final class GetUserByEmailController extends QueryController
     public function __invoke(Request $request): JsonResponse
     {
         $email = $request->get('email');
+
         Assertion::notNull($email, "Email can\'t be null");
 
         $command = new FindByEmailQuery($email);
