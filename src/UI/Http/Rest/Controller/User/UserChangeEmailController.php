@@ -24,6 +24,8 @@ final class UserChangeEmailController extends CommandController
      * @param Request $request
      *
      * @return JsonResponse
+     *
+     * @throws \Assert\AssertionFailedException
      */
     public function __invoke(string $uuid, Request $request): JsonResponse
     {

@@ -10,6 +10,9 @@ use App\Domain\Shared\Event\EventRepositoryInterface;
 
 class GetEventsHandler implements QueryHandlerInterface
 {
+    /**
+     * @throws \App\Domain\Shared\Query\Exception\NotFoundException
+     */
     public function __invoke(GetEventsQuery $query): Collection
     {
         $result = $this->eventRepository->page($query->page, $query->limit);

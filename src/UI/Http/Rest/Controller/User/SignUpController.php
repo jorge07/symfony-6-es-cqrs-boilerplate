@@ -26,6 +26,8 @@ final class SignUpController extends CommandController
      * @param Request $request
      *
      * @return JsonResponse
+     *
+     * @throws \Assert\AssertionFailedException
      */
     public function __invoke(Request $request): JsonResponse
     {

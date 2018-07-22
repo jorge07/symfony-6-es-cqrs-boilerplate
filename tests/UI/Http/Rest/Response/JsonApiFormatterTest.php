@@ -27,7 +27,7 @@ class JsonApiFormatterTest extends TestCase
             self::createUserView(Uuid::uuid4(), Email::fromString('asd2@asd.asd')),
         ];
 
-        $response = JsonApiFormatter::collection(new Collection(1, 10, 2, $users));
+        $response = JsonApiFormatter::collection(new Collection(1, 10, count($users), $users));
 
         self::assertArrayHasKey('data', $response);
         self::assertArrayHasKey('meta', $response);
