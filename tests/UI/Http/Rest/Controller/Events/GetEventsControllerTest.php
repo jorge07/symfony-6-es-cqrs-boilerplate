@@ -9,9 +9,22 @@ use App\Infrastructure\Share\Event\Query\EventElasticRepository;
 use App\Tests\Infrastructure\Share\Event\Publisher\InMemoryProducer;
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\HttpFoundation\Response;
 
 class GetEventsControllerTest extends JsonApiTestCase
 {
+    /**
+     * @test
+     *
+     * @group e2e
+     */
+    public function events_list_must_return_404_when_no_page_found()
+    {
+        $this->get('/api/events?page=100');
+
+        self::assertEquals(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
+    }
+
     /**
      * @test
      *

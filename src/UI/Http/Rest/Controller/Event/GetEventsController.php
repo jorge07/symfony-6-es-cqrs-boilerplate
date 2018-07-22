@@ -29,7 +29,7 @@ class GetEventsController extends QueryController
         $page = $request->get('page', 1);
         $limit = $request->get('limit', 50);
 
-        $query = new GetEventsQuery($page, $limit);
+        $query = new GetEventsQuery((int) $page, (int) $limit);
 
         /** @var Collection $response */
         $response = $this->ask($query);
