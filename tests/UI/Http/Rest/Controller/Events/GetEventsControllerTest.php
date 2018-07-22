@@ -32,8 +32,10 @@ class GetEventsControllerTest extends JsonApiTestCase
      */
     public function events_should_be_present_in_elastic_search()
     {
+        $uuid = Uuid::uuid4()->toString();
+
         $this->post('/api/users', [
-            'uuid'     => Uuid::uuid4()->toString(),
+            'uuid'     => $uuid,
             'email'    => 'jo@jo.com',
             'password' => 'password',
         ]);
@@ -46,7 +48,46 @@ class GetEventsControllerTest extends JsonApiTestCase
 
         self::assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        self::assertContains('UserWasCreated', $this->client->getResponse()->getContent());
+        $responseDecoded = json_decode($this->client->getResponse()->getContent(), true);
+
+        self::assertEquals(1, $responseDecoded['meta']['total']);
+        self::assertEquals(1, $responseDecoded['meta']['page']);
+        self::assertEquals(1, $responseDecoded['meta']['size']);
+
+        self::assertEquals('App.Domain.User.Event.UserWasCreated', $responseDecoded['data'][0]['type']);
+        self::assertEquals($uuid, $responseDecoded['data'][0]['payload']['uuid']);
+    }
+
+    /**
+     * @test
+     *
+     * @group e2e
+     */
+    public function events_not_present_in_elastic_search_in_other_page()
+    {
+        $uuid = Uuid::uuid4()->toString();
+
+        $this->post('/api/users', [
+            'uuid'     => $uuid,
+            'email'    => 'jo@jo.com',
+            'password' => 'password',
+        ]);
+
+        self::assertEquals(201, $this->client->getResponse()->getStatusCode());
+
+        $this->refreshIndex();
+
+        $this->get('/api/events?page=2');
+
+        self::assertEquals(200, $this->client->getResponse()->getStatusCode());
+
+        $responseDecoded = json_decode($this->client->getResponse()->getContent(), true);
+
+        self::assertEquals(1, $responseDecoded['meta']['total']);
+        self::assertEquals(2, $responseDecoded['meta']['page']);
+        self::assertEquals(50, $responseDecoded['meta']['size']);
+
+        self::assertFalse(isset($responseDecoded['data']));
     }
 
     private function refreshIndex()
