@@ -9,6 +9,7 @@ use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
 use Broadway\Domain\DomainMessage;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\HttpFoundation\Response;
 
 class ChangeEmailControllerTest extends JsonApiTestCase
 {
@@ -25,13 +26,13 @@ class ChangeEmailControllerTest extends JsonApiTestCase
             'password' => 'password',
         ]);
 
-        self::assertEquals(201, $this->client->getResponse()->getStatusCode());
+        self::assertEquals(Response::HTTP_CREATED, $this->client->getResponse()->getStatusCode());
 
         $this->post('/api/users/' . $uuid . '/email', [
             'email' => 'weba@jo.com',
         ]);
 
-        self::assertEquals(200, $this->client->getResponse()->getStatusCode());
+        self::assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
@@ -55,12 +56,12 @@ class ChangeEmailControllerTest extends JsonApiTestCase
             'password' => 'password',
         ]);
 
-        self::assertEquals(201, $this->client->getResponse()->getStatusCode());
+        self::assertEquals(Response::HTTP_CREATED, $this->client->getResponse()->getStatusCode());
 
         $this->post('/api/users/' . $uuid . '/email', [
             'email' => 'webajo.com',
         ]);
 
-        self::assertEquals(400, $this->client->getResponse()->getStatusCode());
+        self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
     }
 }

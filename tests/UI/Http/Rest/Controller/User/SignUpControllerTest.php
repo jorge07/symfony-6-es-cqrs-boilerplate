@@ -7,6 +7,7 @@ use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
 use Broadway\Domain\DomainMessage;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\HttpFoundation\Response;
 
 class SignUpControllerTest extends JsonApiTestCase
 {
@@ -23,7 +24,7 @@ class SignUpControllerTest extends JsonApiTestCase
             'password' => 'oaisudaosudoaudo',
         ]);
 
-        self::assertEquals(201, $this->client->getResponse()->getStatusCode());
+        self::assertEquals(Response::HTTP_CREATED, $this->client->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
@@ -50,7 +51,7 @@ class SignUpControllerTest extends JsonApiTestCase
             'email' => 'invalid email',
         ]);
 
-        self::assertEquals(400, $this->client->getResponse()->getStatusCode());
+        self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
