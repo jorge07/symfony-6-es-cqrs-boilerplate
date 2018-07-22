@@ -40,13 +40,13 @@ class GetEventsControllerTest extends JsonApiTestCase
             'password' => 'password',
         ]);
 
-        self::assertEquals(201, $this->client->getResponse()->getStatusCode());
+        self::assertEquals(Response::HTTP_CREATED, $this->client->getResponse()->getStatusCode());
 
         $this->refreshIndex();
 
         $this->get('/api/events', ['limit' => 1]);
 
-        self::assertEquals(200, $this->client->getResponse()->getStatusCode());
+        self::assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
         $responseDecoded = json_decode($this->client->getResponse()->getContent(), true);
 
@@ -73,13 +73,13 @@ class GetEventsControllerTest extends JsonApiTestCase
             'password' => 'password',
         ]);
 
-        self::assertEquals(201, $this->client->getResponse()->getStatusCode());
+        self::assertEquals(Response::HTTP_CREATED, $this->client->getResponse()->getStatusCode());
 
         $this->refreshIndex();
 
         $this->get('/api/events', ['page' => 2]);
 
-        self::assertEquals(200, $this->client->getResponse()->getStatusCode());
+        self::assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
         $responseDecoded = json_decode($this->client->getResponse()->getContent(), true);
 
@@ -88,6 +88,38 @@ class GetEventsControllerTest extends JsonApiTestCase
         self::assertEquals(50, $responseDecoded['meta']['size']);
 
         self::assertFalse(isset($responseDecoded['data']));
+    }
+
+    /**
+     * @test
+     *
+     * @group e2e
+     */
+    public function given_invalid_page_returns_400_status()
+    {
+        $this->get('/api/events', ['page' => 'two']);
+
+        self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+
+        $this->get('/api/events?page=two');
+
+        self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @test
+     *
+     * @group e2e
+     */
+    public function given_invalid_limit_returns_400_status()
+    {
+        $this->get('/api/events', ['limit' => 'three']);
+
+        self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+
+        $this->get('/api/events?limit=three');
+
+        self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
     }
 
     private function refreshIndex()
