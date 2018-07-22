@@ -70,9 +70,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
 
     private function getMessageForProductionEnvironment(\Exception $exception): string
     {
-        $message = $exception->getMessage();
-
-        return $message;
+        return $exception->getMessage();
     }
 
     private function determineStatusCode(\Exception $exception): int
@@ -83,15 +81,15 @@ class ExceptionSubscriber implements EventSubscriberInterface
         if ($exception instanceof HttpExceptionInterface) {
             $statusCode = $exception->getStatusCode();
         } elseif ($exception instanceof \InvalidArgumentException) {
-            $statusCode = 400;
+            $statusCode = Response::HTTP_BAD_REQUEST;
         } elseif ($exception instanceof AggregateNotFoundException || $exception instanceof NotFoundException) {
-            $statusCode = 404;
+            $statusCode = Response::HTTP_NOT_FOUND;
         }
 
         return $statusCode;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             KernelEvents::EXCEPTION => 'onKernelException',

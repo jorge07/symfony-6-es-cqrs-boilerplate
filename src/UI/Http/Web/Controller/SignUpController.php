@@ -53,9 +53,9 @@ class SignUpController extends AbstractRenderController
 
             return $this->render('signup/user_created.html.twig', ['uuid' => $uuid, 'email' => $email]);
         } catch (EmailAlreadyExistException $exception) {
-            return $this->render('signup/index.html.twig', ['error' => 'Email already exists.'], 409);
+            return $this->render('signup/index.html.twig', ['error' => 'Email already exists.'], Response::HTTP_CONFLICT);
         } catch (\InvalidArgumentException $exception) {
-            return $this->render('signup/index.html.twig', ['error' => $exception->getMessage()], 400);
+            return $this->render('signup/index.html.twig', ['error' => $exception->getMessage()], Response::HTTP_BAD_REQUEST);
         }
     }
 }

@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AbstractRenderController
 {
-    protected function render(string $view, array $parameters = array(), int $code = 200): Response
+    protected function render(string $view, array $parameters = array(), int $code = Response::HTTP_OK): Response
     {
         $content = $this->template->render($view, $parameters);
 
