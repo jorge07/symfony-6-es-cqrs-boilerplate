@@ -23,12 +23,12 @@ abstract class JsonApiTestCase extends WebTestCase
         );
     }
 
-    protected function get(string $uri)
+    protected function get(string $uri, array $parameters = [])
     {
         $this->client->request(
             'GET',
             $uri,
-            [],
+            $parameters,
             [],
             [
                 'CONTENT_TYPE' => 'application/json',
