@@ -44,7 +44,7 @@ class GetEventsControllerTest extends JsonApiTestCase
 
         $this->refreshIndex();
 
-        $this->get('/api/events?limit=1');
+        $this->get('/api/events', ['limit' => 1]);
 
         self::assertEquals(200, $this->client->getResponse()->getStatusCode());
 
@@ -77,7 +77,7 @@ class GetEventsControllerTest extends JsonApiTestCase
 
         $this->refreshIndex();
 
-        $this->get('/api/events?page=2');
+        $this->get('/api/events', ['page' => 2]);
 
         self::assertEquals(200, $this->client->getResponse()->getStatusCode());
 
