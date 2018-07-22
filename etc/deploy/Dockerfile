@@ -1,4 +1,4 @@
-FROM jorge07/alpine-php:7.1-dev-sf as builder
+FROM jorge07/alpine-php:7.2-dev-sf as builder
 
 WORKDIR /build
 
@@ -17,7 +17,7 @@ COPY public /build/public
 
 RUN composer run-script post-install-cmd
 
-FROM jorge07/alpine-php:7.1
+FROM jorge07/alpine-php:7.2
 
 WORKDIR /app
 
