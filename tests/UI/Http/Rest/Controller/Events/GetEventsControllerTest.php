@@ -63,44 +63,8 @@ class GetEventsControllerTest extends JsonApiTestCase
      *
      * @group e2e
      */
-    public function events_not_present_in_elastic_search_in_other_page()
-    {
-        $uuid = Uuid::uuid4()->toString();
-
-        $this->post('/api/users', [
-            'uuid'     => $uuid,
-            'email'    => 'jo@jo.com',
-            'password' => 'password',
-        ]);
-
-        self::assertEquals(Response::HTTP_CREATED, $this->client->getResponse()->getStatusCode());
-
-        $this->refreshIndex();
-
-        $this->get('/api/events', ['page' => 2]);
-
-        self::assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
-
-        $responseDecoded = json_decode($this->client->getResponse()->getContent(), true);
-
-        self::assertEquals(1, $responseDecoded['meta']['total']);
-        self::assertEquals(2, $responseDecoded['meta']['page']);
-        self::assertEquals(50, $responseDecoded['meta']['size']);
-
-        self::assertFalse(isset($responseDecoded['data']));
-    }
-
-    /**
-     * @test
-     *
-     * @group e2e
-     */
     public function given_invalid_page_returns_400_status()
     {
-        $this->get('/api/events', ['page' => 'two']);
-
-        self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
-
         $this->get('/api/events?page=two');
 
         self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
@@ -113,10 +77,6 @@ class GetEventsControllerTest extends JsonApiTestCase
      */
     public function given_invalid_limit_returns_400_status()
     {
-        $this->get('/api/events', ['limit' => 'three']);
-
-        self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
-
         $this->get('/api/events?limit=three');
 
         self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
