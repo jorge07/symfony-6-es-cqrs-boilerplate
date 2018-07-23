@@ -6,7 +6,7 @@ namespace App\Tests\Domain\User\Factory;
 
 use App\Domain\User\Exception\EmailAlreadyExistException;
 use App\Domain\User\Factory\UserFactory;
-use App\Domain\User\Repository\UserCollectionInterface;
+use App\Domain\User\Repository\CheckUserByEmailInterface;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class UserFactoryTest extends TestCase implements UserCollectionInterface
+class UserFactoryTest extends TestCase implements CheckUserByEmailInterface
 {
     /**
      * @test

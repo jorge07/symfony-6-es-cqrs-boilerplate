@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\User\Factory;
 
 use App\Domain\User\Exception\EmailAlreadyExistException;
-use App\Domain\User\Repository\UserCollectionInterface;
+use App\Domain\User\Repository\CheckUserByEmailInterface;
 use App\Domain\User\User;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use Ramsey\Uuid\UuidInterface;
@@ -21,13 +21,13 @@ class UserFactory
         return User::create($uuid, $credentials);
     }
 
-    public function __construct(UserCollectionInterface $userCollection)
+    public function __construct(CheckUserByEmailInterface $userCollection)
     {
         $this->userCollection = $userCollection;
     }
 
     /**
-     * @var UserCollectionInterface
+     * @var CheckUserByEmailInterface
      */
     private $userCollection;
 }

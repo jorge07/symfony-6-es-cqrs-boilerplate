@@ -6,14 +6,14 @@ namespace App\Infrastructure\User\Query\Mysql;
 
 use App\Domain\User\Query\Projections\UserViewInterface;
 use App\Domain\User\Query\Repository\UserReadModelRepositoryInterface;
-use App\Domain\User\Repository\UserCollectionInterface;
+use App\Domain\User\Repository\CheckUserByEmailInterface;
 use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\Share\Query\Repository\MysqlRepository;
 use App\Infrastructure\User\Query\Projections\UserView;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\UuidInterface;
 
-class MysqlUserReadModelRepository extends MysqlRepository implements UserReadModelRepositoryInterface, UserCollectionInterface
+class MysqlUserReadModelRepository extends MysqlRepository implements UserReadModelRepositoryInterface, CheckUserByEmailInterface
 {
     /**
      * @param UuidInterface $uuid
