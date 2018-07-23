@@ -6,7 +6,7 @@ namespace App\Application\Command\User\SignIn;
 
 use App\Application\Command\CommandHandlerInterface;
 use App\Domain\User\Exception\InvalidCredentialsException;
-use App\Domain\User\Repository\UserCollectionInterface;
+use App\Domain\User\Repository\CheckUserByEmailInterface;
 use App\Domain\User\Repository\UserRepositoryInterface;
 use App\Domain\User\ValueObject\Email;
 use Ramsey\Uuid\UuidInterface;
@@ -35,7 +35,7 @@ class SignInHandler implements CommandHandlerInterface
         return $uuid;
     }
 
-    public function __construct(UserRepositoryInterface $userStore, UserCollectionInterface $userCollection)
+    public function __construct(UserRepositoryInterface $userStore, CheckUserByEmailInterface $userCollection)
     {
         $this->userStore = $userStore;
         $this->userCollection = $userCollection;
@@ -47,7 +47,7 @@ class SignInHandler implements CommandHandlerInterface
     private $userStore;
 
     /**
-     * @var UserCollectionInterface
+     * @var CheckUserByEmailInterface
      */
     private $userCollection;
 }
