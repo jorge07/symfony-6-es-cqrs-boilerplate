@@ -7,6 +7,7 @@ namespace App\UI\Http\Rest\Controller\Event;
 use App\Application\Query\Collection;
 use App\Application\Query\Event\GetEvents\GetEventsQuery;
 use App\UI\Http\Rest\Controller\QueryController;
+use Assert\Assertion;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,6 +29,9 @@ class GetEventsController extends QueryController
     {
         $page = $request->get('page', 1);
         $limit = $request->get('limit', 50);
+
+        Assertion::integer($page, 'Page number must be an integer');
+        Assertion::integer($limit, 'Limit results must be an integer');
 
         $query = new GetEventsQuery((int) $page, (int) $limit);
 

@@ -12,6 +12,7 @@ use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\HttpFoundation\Response;
 
 class GetUserByEmailControllerTest extends JsonApiTestCase
 {
@@ -24,7 +25,7 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
     {
         $this->get('/api/user/asd@');
 
-        self::assertEquals(400, $this->client->getResponse()->getStatusCode());
+        self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
@@ -43,7 +44,7 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
     {
         $this->get('/api/user/asd@asd.asd');
 
-        self::assertEquals(404, $this->client->getResponse()->getStatusCode());
+        self::assertEquals(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
@@ -64,7 +65,7 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
 
         $this->get('/api/user/' . $emailString);
 
-        self::assertEquals(200, $this->client->getResponse()->getStatusCode());
+        self::assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
