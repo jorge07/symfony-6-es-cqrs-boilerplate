@@ -32,21 +32,54 @@ class GetEventsControllerTest extends JsonApiTestCase
      */
     public function events_should_be_present_in_elastic_search()
     {
+        $uuid = Uuid::uuid4()->toString();
+
         $this->post('/api/users', [
-            'uuid'     => $uuid = Uuid::uuid4()->toString(),
+            'uuid'     => $uuid,
             'email'    => 'jo@jo.com',
             'password' => 'password',
         ]);
 
-        self::assertEquals(201, $this->client->getResponse()->getStatusCode());
+        self::assertEquals(Response::HTTP_CREATED, $this->client->getResponse()->getStatusCode());
 
         $this->refreshIndex();
 
-        $this->get('/api/events');
+        $this->get('/api/events', ['limit' => 1]);
 
-        self::assertEquals(200, $this->client->getResponse()->getStatusCode());
+        self::assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
-        self::assertContains('UserWasCreated', $this->client->getResponse()->getContent());
+        $responseDecoded = json_decode($this->client->getResponse()->getContent(), true);
+
+        self::assertEquals(1, $responseDecoded['meta']['total']);
+        self::assertEquals(1, $responseDecoded['meta']['page']);
+        self::assertEquals(1, $responseDecoded['meta']['size']);
+
+        self::assertEquals('App.Domain.User.Event.UserWasCreated', $responseDecoded['data'][0]['type']);
+        self::assertEquals($uuid, $responseDecoded['data'][0]['payload']['uuid']);
+    }
+
+    /**
+     * @test
+     *
+     * @group e2e
+     */
+    public function given_invalid_page_returns_400_status()
+    {
+        $this->get('/api/events?page=two');
+
+        self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * @test
+     *
+     * @group e2e
+     */
+    public function given_invalid_limit_returns_400_status()
+    {
+        $this->get('/api/events?limit=three');
+
+        self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
     }
 
     private function refreshIndex()
