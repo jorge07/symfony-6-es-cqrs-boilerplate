@@ -23,6 +23,8 @@ class GetEventsController extends QueryController
      *
      * @param Request $request
      *
+     * @throws \Assert\AssertionFailedException
+     *
      * @return JsonResponse
      */
     public function __invoke(Request $request): JsonResponse
@@ -30,8 +32,8 @@ class GetEventsController extends QueryController
         $page = $request->get('page', 1);
         $limit = $request->get('limit', 50);
 
-        Assertion::integer($page, 'Page number must be an integer');
-        Assertion::integer($limit, 'Limit results must be an integer');
+        Assertion::numeric($page, 'Page number must be an integer');
+        Assertion::numeric($limit, 'Limit results must be an integer');
 
         $query = new GetEventsQuery((int) $page, (int) $limit);
 
