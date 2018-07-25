@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Query\User\FindByEmail;
 
 use App\Application\Query\Item;

@@ -2,8 +2,8 @@ old_sound_rabbit_mq:
     connections:
         default:
             url: '%env(RABBITMQ_URL)%'
-            keepalive: false
             lazy: true
+            keepalive: false
 
     producers:
         events:
