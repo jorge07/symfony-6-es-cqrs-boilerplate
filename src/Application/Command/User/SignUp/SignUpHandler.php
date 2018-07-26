@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Command\User\SignUp;
 
 use App\Application\Command\CommandHandlerInterface;
@@ -10,9 +12,9 @@ class SignUpHandler implements CommandHandlerInterface
 {
     public function __invoke(SignUpCommand $command): void
     {
-        $aggregateRoot = $this->userFactory->register($command->uuid, $command->credentials);
+        $user = $this->userFactory->register($command->uuid, $command->credentials);
 
-        $this->userRepository->store($aggregateRoot);
+        $this->userRepository->store($user);
     }
 
     public function __construct(UserFactory $userFactory, UserRepositoryInterface $userRepository)

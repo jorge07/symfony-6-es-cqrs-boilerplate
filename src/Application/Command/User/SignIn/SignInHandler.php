@@ -13,15 +13,15 @@ use Ramsey\Uuid\UuidInterface;
 
 class SignInHandler implements CommandHandlerInterface
 {
-    public function __invoke(SignInCommand $query): void
+    public function __invoke(SignInCommand $command): void
     {
-        $uuid = $this->uuidFromEmail($query->email);
+        $uuid = $this->uuidFromEmail($command->email);
 
-        $aggregateRoot = $this->userStore->get($uuid);
+        $user = $this->userStore->get($uuid);
 
-        $aggregateRoot->signIn($query->plainPassword);
+        $user->signIn($command->plainPassword);
 
-        $this->userStore->store($aggregateRoot);
+        $this->userStore->store($user);
     }
 
     private function uuidFromEmail(Email $email): UuidInterface

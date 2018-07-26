@@ -34,7 +34,7 @@ phpunit: db ## execute project unit tests
 style: ## executes php analizers
 		docker-compose run --rm php sh -lc './vendor/bin/phpstan analyse -l 6 -c phpstan.neon src tests'
 
-.PHONY: layers
+.PHONY: layer
 layer: ## Check issues with layers
 		docker-compose run --rm php sh -lc 'php bin/deptrac.phar analyze --formatter-graphviz=0'
 
@@ -58,7 +58,6 @@ xoff: ## deactivate xdebug
 .PHONY: sh
 sh: ## gets inside a container, use 's' variable to select a service. make s=php sh
 		docker-compose exec $(s) sh -l
-
 
 .PHONY: logs
 logs: ## look for 's' service logs, make s=php logs
