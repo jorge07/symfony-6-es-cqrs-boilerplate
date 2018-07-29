@@ -7,7 +7,7 @@ use Broadway\EventHandling\EventListener;
 
 class EventCollectorListener implements EventListener
 {
-    public function handle(DomainMessage $domainMessage)
+    public function handle(DomainMessage $domainMessage): void
     {
         $this->publishedEvents[] = $domainMessage;
     }

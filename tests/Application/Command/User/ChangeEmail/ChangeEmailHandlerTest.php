@@ -18,8 +18,11 @@ class ChangeEmailHandlerTest extends ApplicationTestCase
      * @test
      *
      * @group integration
+     *
+     * @throws \Exception
+     * @throws \Assert\AssertionFailedException
      */
-    public function update_user_email_should_command_should_fire_event()
+    public function update_user_email_should_command_should_fire_event(): void
     {
         $command = new SignUpCommand($uuid = Uuid::uuid4()->toString(), 'asd@asd.asd', 'password');
 
@@ -45,6 +48,6 @@ class ChangeEmailHandlerTest extends ApplicationTestCase
         $emailChangedEmail = $events[1]->getPayload();
 
         self::assertInstanceOf(UserEmailChanged::class, $emailChangedEmail);
-        self::assertEquals($email, $emailChangedEmail->email->toString());
+        self::assertSame($email, $emailChangedEmail->email->toString());
     }
 }

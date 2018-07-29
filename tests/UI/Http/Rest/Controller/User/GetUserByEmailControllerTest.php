@@ -15,14 +15,14 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
      *
      * @group e2e
      */
-    public function invalid_input_parameters_should_return_400_status_code()
+    public function invalid_input_parameters_should_return_400_status_code(): void
     {
         $this->createUser();
         $this->auth();
 
         $this->get('/api/user/asd@');
 
-        self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
@@ -37,14 +37,14 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
      *
      * @group e2e
      */
-    public function valid_input_parameters_should_return_404_status_code_when_not_exist()
+    public function valid_input_parameters_should_return_404_status_code_when_not_exist(): void
     {
         $this->createUser();
         $this->auth();
 
         $this->get('/api/user/asd@asd.asd');
 
-        self::assertEquals(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
@@ -58,6 +58,8 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
      * @test
      *
      * @group e2e
+     *
+     * @throws \Assert\AssertionFailedException
      */
     public function valid_input_parameters_should_return_200_status_code_when_exist()
     {
@@ -66,7 +68,7 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
 
         $this->get('/api/user/' . $emailString);
 
-        self::assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);

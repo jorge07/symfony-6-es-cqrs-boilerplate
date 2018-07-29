@@ -6,11 +6,11 @@ namespace App\UI\Http\Web\Controller;
 
 use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Domain\User\Exception\EmailAlreadyExistException;
-use Ramsey\Uuid\Uuid;
 use Assert\Assertion;
-use Symfony\Component\Routing\Annotation\Route;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class SignUpController extends AbstractRenderController
 {
@@ -21,7 +21,9 @@ class SignUpController extends AbstractRenderController
      *     methods={"GET"}
      * )
      *
-     * @return Response
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function get(): Response
     {
@@ -35,9 +37,11 @@ class SignUpController extends AbstractRenderController
      *     methods={"POST"}
      * )
      *
-     * @param Request $request
-     *
-     * @return Response
+     * @throws \Assert\AssertionFailedException
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     * @throws \Exception
      */
     public function post(Request $request): Response
     {

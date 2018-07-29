@@ -19,8 +19,10 @@ final class SignInTest extends ApplicationTestCase
      * @test
      *
      * @group integration
+     *
+     * @throws \Assert\AssertionFailedException
      */
-    public function user_sign_up_with_valid_credentials()
+    public function user_sign_up_with_valid_credentials(): void
     {
         $command = new SignInCommand(
             'asd@asd.asd',
@@ -44,12 +46,11 @@ final class SignInTest extends ApplicationTestCase
      *
      * @dataProvider invalidCredentials
      *
-     * @param string $email
-     * @param string $pass
+     * @throws \Assert\AssertionFailedException
      */
-    public function user_sign_up_with_invalid_credentials_must_throw_domain_exception(string $email, string $pass)
+    public function user_sign_up_with_invalid_credentials_must_throw_domain_exception(string $email, string $pass): void
     {
-        self::expectException(InvalidCredentialsException::class);
+        $this->expectException(InvalidCredentialsException::class);
 
         $command = new SignInCommand($email, $pass);
 
@@ -70,6 +71,10 @@ final class SignInTest extends ApplicationTestCase
         ];
     }
 
+    /**
+     * @throws \Exception
+     * @throws \Assert\AssertionFailedException
+     */
     protected function setUp()
     {
         parent::setUp();

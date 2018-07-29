@@ -14,8 +14,10 @@ class UserEmailChangedTest extends TestCase
      * @test
      *
      * @group unit
+     *
+     * @throws \Assert\AssertionFailedException
      */
-    public function event_should_be_deserializable()
+    public function event_should_be_deserializable(): void
     {
         $event = UserEmailChanged::deserialize([
             'uuid'  => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
@@ -23,7 +25,7 @@ class UserEmailChangedTest extends TestCase
         ]);
 
         self::assertInstanceOf(UserEmailChanged::class, $event);
-        self::assertEquals('eb62dfdc-2086-11e8-b467-0ed5f89f718b', $event->uuid->toString());
+        self::assertSame('eb62dfdc-2086-11e8-b467-0ed5f89f718b', $event->uuid->toString());
         self::assertInstanceOf(Email::class, $event->email);
     }
 
@@ -31,10 +33,12 @@ class UserEmailChangedTest extends TestCase
      * @test
      *
      * @group unit
+     *
+     * @throws \Assert\AssertionFailedException
      */
-    public function event_should_fail_when_deserialize_with_wrong_data()
+    public function event_should_fail_when_deserialize_with_wrong_data(): void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         UserEmailChanged::deserialize([
             'uuids'  => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
@@ -46,8 +50,10 @@ class UserEmailChangedTest extends TestCase
      * @test
      *
      * @group unit
+     *
+     * @throws \Assert\AssertionFailedException
      */
-    public function event_should_be_serializable()
+    public function event_should_be_serializable(): void
     {
         $event = UserEmailChanged::deserialize([
             'uuid'  => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',

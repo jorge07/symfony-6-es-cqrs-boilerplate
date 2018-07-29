@@ -38,7 +38,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
     {
         $error = [
             'errors'=> [
-                'title'     => strtr(get_class($exception), '\\', '.'),
+                'title'     => str_replace('\\', '.', \get_class($exception)),
                 'detail'    => $this->getExceptionMessage($exception),
                 'code'      => $exception->getCode(),
                 'status'    => $response->getStatusCode(),

@@ -48,13 +48,9 @@ abstract class ApplicationTestCase extends KernelTestCase
     {
         static::bootKernel();
 
-        /** @var CommandBus $commandBus */
-        $commandBus = $this->service('tactician.commandbus.command');
-        $this->commandBus = $commandBus;
+        $this->commandBus = $this->service('tactician.commandbus.command');
 
-        /** @var CommandBus $queryBus */
-        $queryBus = $this->service('tactician.commandbus.query');
-        $this->queryBus = $queryBus;
+        $this->queryBus = $this->service('tactician.commandbus.query');
     }
 
     protected function tearDown()

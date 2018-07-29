@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Web\Controller;
 
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractRenderController
 {
@@ -16,7 +16,9 @@ class HomeController extends AbstractRenderController
      *     methods={"GET"}
      * )
      *
-     * @return Response
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function get(): Response
     {

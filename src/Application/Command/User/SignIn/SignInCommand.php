@@ -18,6 +18,9 @@ class SignInCommand
      */
     public $plainPassword;
 
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     public function __construct(string $email, string $plainPassword)
     {
         $this->email = Email::fromString($email);

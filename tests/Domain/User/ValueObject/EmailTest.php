@@ -13,10 +13,12 @@ class EmailTest extends TestCase
      * @test
      *
      * @group unit
+     *
+     * @throws \Assert\AssertionFailedException
      */
-    public function invalid_email_should_throw_an_exception()
+    public function invalid_email_should_throw_an_exception(): void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         Email::fromString('asd');
     }
@@ -25,12 +27,14 @@ class EmailTest extends TestCase
      * @test
      *
      * @group unit
+     *
+     * @throws \Assert\AssertionFailedException
      */
-    public function valid_email_should_be_able_to_cenver_to_string()
+    public function valid_email_should_be_able_to_convert_to_string(): void
     {
         $email = Email::fromString('an@email.com');
 
-        self::assertEquals('an@email.com', $email->toString());
-        self::assertEquals('an@email.com', (string) $email);
+        self::assertSame('an@email.com', $email->toString());
+        self::assertSame('an@email.com', (string) $email);
     }
 }

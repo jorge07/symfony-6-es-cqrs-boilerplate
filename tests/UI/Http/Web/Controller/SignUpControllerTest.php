@@ -14,14 +14,14 @@ class SignUpControllerTest extends WebTestCase
      *
      * @group e2e
      */
-    public function sign_up_page_form_format()
+    public function sign_up_page_form_format(): void
     {
         $client = self::createClient();
 
         $crawler = $client->request('GET', '/sign-up');
 
-        $this->assertEquals(1, $crawler->filter('label:contains("Email")')->count());
-        $this->assertEquals(1, $crawler->selectButton('Send')->count());
+        $this->assertSame(1, $crawler->filter('label:contains("Email")')->count());
+        $this->assertSame(1, $crawler->selectButton('Send')->count());
     }
 
     /**
@@ -29,12 +29,12 @@ class SignUpControllerTest extends WebTestCase
      *
      * @group e2e
      */
-    public function sign_up_form_create_user_success()
+    public function sign_up_form_create_user_success(): void
     {
         $crawler = $this->createUser($email = 'ads@asd.asd');
 
-        self::assertEquals(1, $crawler->filter('html:contains("Hello ' . $email . '")')->count());
-        self::assertEquals(1, $crawler->filter('html:contains("Your id is ")')->count());
+        self::assertSame(1, $crawler->filter('html:contains("Hello ' . $email . '")')->count());
+        self::assertSame(1, $crawler->filter('html:contains("Your id is ")')->count());
     }
 
     /**
@@ -42,11 +42,11 @@ class SignUpControllerTest extends WebTestCase
      *
      * @group e2e
      */
-    public function sign_up_form_create_user_invalid_email()
+    public function sign_up_form_create_user_invalid_email(): void
     {
         $crawler = $this->createUser('jorge@gmail');
 
-        self::assertEquals(1, $crawler->filter('html:contains("Not a valid email")')->count());
+        self::assertSame(1, $crawler->filter('html:contains("Not a valid email")')->count());
     }
 
     /**
@@ -54,12 +54,12 @@ class SignUpControllerTest extends WebTestCase
      *
      * @group e2e
      */
-    public function sign_up_form_create_user_with_email_already_taken()
+    public function sign_up_form_create_user_with_email_already_taken(): void
     {
         $this->createUser('jorge.arcoma@gmail.com');
         $crawler = $this->createUser('jorge.arcoma@gmail.com');
 
-        self::assertEquals(1, $crawler->filter('html:contains("Email already exists.")')->count());
+        self::assertSame(1, $crawler->filter('html:contains("Email already exists.")')->count());
     }
 
     private function createUser(string $email, string $password = 'crqs-demo'): Crawler

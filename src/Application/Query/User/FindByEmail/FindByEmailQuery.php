@@ -11,6 +11,9 @@ class FindByEmailQuery
      */
     public $email;
 
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     public function __construct(string $email)
     {
         $this->email = Email::fromString($email);

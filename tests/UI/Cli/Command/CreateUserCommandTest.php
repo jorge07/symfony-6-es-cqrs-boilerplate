@@ -18,8 +18,11 @@ class CreateUserCommandTest extends AbstractConsoleTestCase
      * @test
      *
      * @group unit
+     *
+     * @throws \Exception
+     * @throws \Assert\AssertionFailedException
      */
-    public function command_integration_with_bus_success()
+    public function command_integration_with_bus_success(): void
     {
         $email = 'jorge.arcoma@gmail.com';
 

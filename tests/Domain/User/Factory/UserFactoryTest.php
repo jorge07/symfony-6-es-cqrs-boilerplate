@@ -20,6 +20,9 @@ class UserFactoryTest extends TestCase implements CheckUserByEmailInterface
      * @test
      *
      * @group unit
+     *
+     * @throws \Exception
+     * @throws \Assert\AssertionFailedException
      */
     public function user_factory_should_create_user_when_email_not_exist()
     {
@@ -30,18 +33,21 @@ class UserFactoryTest extends TestCase implements CheckUserByEmailInterface
 
         $user = $factory->register($uuid, new Credentials($email, HashedPassword::encode('password')));
 
-        self::assertEquals($user->uuid(), $uuid->toString());
-        self::assertEquals($user->email(), $email->toString());
+        self::assertSame($user->uuid(), $uuid->toString());
+        self::assertSame($user->email(), $email->toString());
     }
 
     /**
      * @test
      *
      * @group unit
+     *
+     * @throws \Exception
+     * @throws \Assert\AssertionFailedException
      */
     public function user_factory_must_throw_exception_is_email_already_taken()
     {
-        self::expectException(EmailAlreadyExistException::class);
+        $this->expectException(EmailAlreadyExistException::class);
 
         $this->emailExist = Uuid::uuid4();
 

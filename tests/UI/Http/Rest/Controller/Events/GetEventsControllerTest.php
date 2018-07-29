@@ -17,19 +17,21 @@ class GetEventsControllerTest extends JsonApiTestCase
      *
      * @group e2e
      */
-    public function events_list_must_return_404_when_no_page_found()
+    public function events_list_must_return_404_when_no_page_found(): void
     {
         $this->get('/api/events?page=100');
 
-        self::assertEquals(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
     }
 
     /**
      * @test
      *
      * @group e2e
+     *
+     * @throws \Exception
      */
-    public function events_should_be_present_in_elastic_search()
+    public function events_should_be_present_in_elastic_search(): void
     {
         $this->refreshIndex();
 
@@ -52,7 +54,7 @@ class GetEventsControllerTest extends JsonApiTestCase
      *
      * @group e2e
      */
-    public function given_invalid_page_returns_400_status()
+    public function given_invalid_page_returns_400_status(): void
     {
         $this->get('/api/events?page=two');
 
@@ -64,14 +66,14 @@ class GetEventsControllerTest extends JsonApiTestCase
      *
      * @group e2e
      */
-    public function given_invalid_limit_returns_400_status()
+    public function given_invalid_limit_returns_400_status(): void
     {
         $this->get('/api/events?limit=three');
 
         self::assertSame(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
     }
 
-    private function refreshIndex()
+    private function refreshIndex(): void
     {
         /** @var EventElasticRepository $eventReadStore */
         $eventReadStore = $this->client->getContainer()->get('events_repository');

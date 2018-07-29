@@ -13,7 +13,7 @@ class HomeControllerTest extends WebTestCase
      *
      * @group e2e
      */
-    public function home_should_have_link_to_sign_up()
+    public function home_should_have_link_to_sign_up(): void
     {
         $client = self::createClient();
 
@@ -28,7 +28,7 @@ class HomeControllerTest extends WebTestCase
      *
      * @group e2e
      */
-    public function sign_up_button_should_redirect_to_sign_up_page()
+    public function sign_up_button_should_redirect_to_sign_up_page(): void
     {
         $client = self::createClient();
 

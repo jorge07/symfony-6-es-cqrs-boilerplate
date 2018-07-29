@@ -23,20 +23,16 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 
 final class LoginAuthenticator extends AbstractFormLoginAuthenticator
 {
-    const LOGIN = 'login';
+    private const LOGIN = 'login';
 
-    const SUCCESS_REDIRECT = 'profile';
+    private const SUCCESS_REDIRECT = 'profile';
 
     /**
      * Does the authenticator support the given Request?
      *
      * If this returns false, the authenticator will be skipped.
-     *
-     * @param Request $request
-     *
-     * @return bool
      */
-    public function supports(Request $request)
+    public function supports(Request $request): bool
     {
         return $request->getPathInfo() === $this->router->generate(self::LOGIN) && $request->isMethod('POST');
     }
@@ -58,11 +54,10 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      *
      *      return array('api_key' => $request->headers->get('X-API-TOKEN'));
      *
-     * @param Request $request
-     *
-     * @return mixed Any non-null value
      *
      * @throws \UnexpectedValueException If null is returned
+     *
+     * @return mixed Any non-null value
      */
     public function getCredentials(Request $request)
     {
@@ -80,12 +75,9 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      * You may throw an AuthenticationException if you wish. If you return
      * null, then a UsernameNotFoundException is thrown for you.
      *
-     * @param mixed                 $credentials
-     * @param UserProviderInterface $userProvider
      *
      * @throws AuthenticationException
-     *
-     * @return UserInterface|null
+     * @throws \Assert\AssertionFailedException
      */
     public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
     {
@@ -117,14 +109,11 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      *
      * The *credentials* are the return value from getCredentials()
      *
-     * @param mixed         $credentials
-     * @param UserInterface $user
      *
-     * @return bool
      *
      * @throws AuthenticationException
      */
-    public function checkCredentials($credentials, UserInterface $user)
+    public function checkCredentials($credentials, UserInterface $user): bool
     {
         return true;
     }
@@ -138,13 +127,9 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      * If you return null, the current request will continue, and the user
      * will be authenticated. This makes sense, for example, with an API.
      *
-     * @param Request        $request
-     * @param TokenInterface $token
-     * @param string         $providerKey The provider (i.e. firewall) key
-     *
-     * @return Response|null
+     * @param string $providerKey The provider (i.e. firewall) key
      */
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?Response
     {
         return new RedirectResponse($this->router->generate(self::SUCCESS_REDIRECT));
     }

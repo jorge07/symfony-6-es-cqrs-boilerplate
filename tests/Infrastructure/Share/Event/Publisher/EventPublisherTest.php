@@ -21,8 +21,11 @@ class EventPublisherTest extends TestCase
      * @test
      *
      * @group unit
+     *
+     * @throws \Exception
+     * @throws \Assert\AssertionFailedException
      */
-    public function messages_are_consumed_by_routing_key()
+    public function messages_are_consumed_by_routing_key(): void
     {
         $data = ['uuid' => $uuid = Uuid::uuid4()->toString(), 'credentials' => ['email' => 'lol@lol.com', 'password' => 'lkasjbdalsjdbalsdbaljsdhbalsjbhd987']];
 
@@ -43,7 +46,7 @@ class EventPublisherTest extends TestCase
 
         self::assertInstanceOf(UserWasCreated::class, $event);
 
-        self::assertEquals($data, $event->serialize(), 'Check that its the same event');
+        self::assertSame($data, $event->serialize(), 'Check that its the same event');
     }
 
     private function createConsumer(): Consumer
