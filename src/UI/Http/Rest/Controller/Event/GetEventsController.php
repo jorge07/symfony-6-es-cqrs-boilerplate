@@ -21,11 +21,7 @@ class GetEventsController extends QueryController
      *     methods={"GET"}
      * )
      *
-     * @param Request $request
-     *
      * @throws \Assert\AssertionFailedException
-     *
-     * @return JsonResponse
      */
     public function __invoke(Request $request): JsonResponse
     {

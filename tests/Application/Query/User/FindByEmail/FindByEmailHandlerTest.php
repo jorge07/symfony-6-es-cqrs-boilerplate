@@ -31,7 +31,7 @@ class FindByEmailHandlerTest extends ApplicationTestCase
 
         self::assertInstanceOf(Item::class, $item);
         self::assertInstanceOf(UserView::class, $userRead);
-        self::assertEquals($email, $userRead->email());
+        self::assertSame($email, $userRead->email());
     }
 
     private function createUserRead(): string

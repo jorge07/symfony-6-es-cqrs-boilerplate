@@ -8,6 +8,7 @@ use App\Application\Command\User\SignIn\SignInCommand;
 use App\Application\Query\Auth\GetToken\GetTokenQuery;
 use App\Domain\User\Exception\InvalidCredentialsException;
 use App\UI\Http\Rest\Controller\CommandQueryController;
+use Assert\Assertion;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,11 +27,15 @@ final class CheckController extends CommandQueryController
      * )
      *
      * @throws InvalidCredentialsException
+     * @throws \Assert\AssertionFailedException
      */
     public function __invoke(Request $request): JsonResponse
     {
         $username = $request->get('_username');
-        $signInCommand  = new SignInCommand(
+
+        Assertion::notNull($username, 'Username cant\'t be empty');
+
+        $signInCommand = new SignInCommand(
             $username,
             $request->get('_password')
         );
@@ -39,7 +44,7 @@ final class CheckController extends CommandQueryController
 
         return JsonResponse::create(
             [
-                'token' => $this->ask(new GetTokenQuery($username))
+                'token' => $this->ask(new GetTokenQuery($username)),
             ]
         );
     }

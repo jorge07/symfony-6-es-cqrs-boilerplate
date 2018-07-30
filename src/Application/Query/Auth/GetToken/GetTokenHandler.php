@@ -14,7 +14,7 @@ class GetTokenHandler implements QueryHandlerInterface
     {
         $userView = $this->readModelRepository->oneByEmail($query->email);
 
-        return $this->authenticationProvider->token($userView);
+        return $this->authenticationProvider->generateToken($userView);
     }
 
     public function __construct(

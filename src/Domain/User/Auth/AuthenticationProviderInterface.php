@@ -8,5 +8,5 @@ use App\Domain\User\Query\Projections\UserViewInterface;
 
 interface AuthenticationProviderInterface
 {
-    public function token(UserViewInterface $userView): string;
+    public function generateToken(UserViewInterface $userView): string;
 }

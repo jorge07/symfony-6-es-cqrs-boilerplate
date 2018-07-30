@@ -6,7 +6,7 @@ namespace App\UI\Http\Rest\Controller\User;
 
 use App\Application\Command\User\ChangeEmail\ChangeEmailCommand;
 use App\Domain\User\Auth\SessionInterface;
-use App\Domain\User\Exception\ForbidenException;
+use App\Domain\User\Exception\ForbiddenException;
 use App\UI\Http\Rest\Controller\CommandController;
 use Assert\Assertion;
 use League\Tactician\CommandBus;
@@ -22,11 +22,6 @@ final class UserChangeEmailController extends CommandController
      *     name="user_change_email",
      *     methods={"POST"}
      * )
-     *
-     * @param string  $uuid
-     * @param Request $request
-     *
-     * @return JsonResponse
      *
      * @throws \Assert\AssertionFailedException
      */
@@ -47,9 +42,8 @@ final class UserChangeEmailController extends CommandController
 
     private function validateUuid(string $uuid): void
     {
-        if (! $this->session->sameByUuid($uuid)) {
-
-            throw new ForbidenException();
+        if (!$this->session->sameByUuid($uuid)) {
+            throw new ForbiddenException();
         }
     }
 

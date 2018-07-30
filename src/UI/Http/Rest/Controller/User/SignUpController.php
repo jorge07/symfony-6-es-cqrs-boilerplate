@@ -23,10 +23,6 @@ final class SignUpController extends CommandController
      *      "email": "\w+"
      * })
      *
-     * @param Request $request
-     *
-     * @return JsonResponse
-     *
      * @throws \Assert\AssertionFailedException
      */
     public function __invoke(Request $request): JsonResponse

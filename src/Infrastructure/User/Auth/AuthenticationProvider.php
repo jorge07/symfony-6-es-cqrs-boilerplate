@@ -10,7 +10,7 @@ use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 
 class AuthenticationProvider implements AuthenticationProviderInterface
 {
-    public function token(UserViewInterface $userView): string
+    public function generateToken(UserViewInterface $userView): string
     {
         $auth = Auth::fromUser($userView);
 

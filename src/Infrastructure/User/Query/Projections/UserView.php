@@ -64,7 +64,7 @@ class UserView implements UserViewInterface
 
     public function getId(): string
     {
-        return $this->uuid->toString();
+        return (string) $this->uuid;
     }
 
     /** @var UuidInterface */

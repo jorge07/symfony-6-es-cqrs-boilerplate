@@ -6,29 +6,27 @@ namespace App\Infrastructure\User\Auth;
 
 use App\Domain\User\Auth\SessionInterface;
 use App\Domain\User\Exception\InvalidCredentialsException;
-use App\Domain\User\Query\Projections\UserViewInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class Session implements SessionInterface
 {
-
     public function get(): array
     {
         $token = $this->tokenStorage->getToken();
 
-        if (! $token) {
+        if (!$token) {
             throw new InvalidCredentialsException();
         }
 
         $user = $token->getUser();
 
-        if (! $user instanceof Auth) {
+        if (!$user instanceof Auth) {
             throw new InvalidCredentialsException();
         }
 
         return [
-            'uuid' => $user->uuid(),
-            'username' => $user->getUsername()
+            'uuid'     => $user->uuid(),
+            'username' => $user->getUsername(),
         ];
     }
 
@@ -36,7 +34,6 @@ class Session implements SessionInterface
     {
         return $this->get()['uuid']->toString() === $uuid;
     }
-
 
     public function __construct(TokenStorageInterface $tokenStorage)
     {
