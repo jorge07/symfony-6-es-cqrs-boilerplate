@@ -10,6 +10,7 @@
         "broadway/event-store-dbal": "^0.2.1",
         "elasticsearch/elasticsearch": "^6.0",
         "league/tactician-bundle": "^1.1",
+        "lexik/jwt-authentication-bundle": "^2.5",
         "php-amqplib/rabbitmq-bundle": "^1.14",
         "ramsey/uuid": "^3.7",
         "ramsey/uuid-doctrine": "^1.4",
@@ -20,8 +21,8 @@
         "symfony/lts": "^4@dev",
         "symfony/orm-pack": "^1.0",
         "symfony/security-bundle": "^4.1",
-        "symfony/yaml": "^4.1",
-        "symfony/twig-bundle": "^4.1"
+        "symfony/twig-bundle": "^4.1",
+        "symfony/yaml": "^4.1"
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^5.0",

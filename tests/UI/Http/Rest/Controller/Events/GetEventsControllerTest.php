@@ -32,16 +32,6 @@ class GetEventsControllerTest extends JsonApiTestCase
      */
     public function events_should_be_present_in_elastic_search()
     {
-        $uuid = Uuid::uuid4()->toString();
-
-        $this->post('/api/users', [
-            'uuid'     => $uuid,
-            'email'    => 'jo@jo.com',
-            'password' => 'password',
-        ]);
-
-        self::assertEquals(Response::HTTP_CREATED, $this->client->getResponse()->getStatusCode());
-
         $this->refreshIndex();
 
         $this->get('/api/events', ['limit' => 1]);
@@ -55,7 +45,7 @@ class GetEventsControllerTest extends JsonApiTestCase
         self::assertEquals(1, $responseDecoded['meta']['size']);
 
         self::assertEquals('App.Domain.User.Event.UserWasCreated', $responseDecoded['data'][0]['type']);
-        self::assertEquals($uuid, $responseDecoded['data'][0]['payload']['uuid']);
+        self::assertEquals(self::DEFAULT_EMAIL, $responseDecoded['data'][0]['payload']['credentials']['email']);
     }
 
     /**
@@ -104,6 +94,9 @@ class GetEventsControllerTest extends JsonApiTestCase
         $consumersRegistry->addConsumer('App.Domain.User.Event.UserWasCreated', $consumer);
 
         $this->refreshIndex();
+
+        $this->createUser();
+        $this->auth();
     }
 
     protected function tearDown()

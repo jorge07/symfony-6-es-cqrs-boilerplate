@@ -46,6 +46,6 @@ class CreateUserCommandTest extends AbstractConsoleTestCase
 
         self::assertInstanceOf(Item::class, $item);
         self::assertInstanceOf(UserView::class, $userRead);
-        self::assertEquals($email, $userRead->credentials->email);
+        self::assertEquals($email, $userRead->email());
     }
 }

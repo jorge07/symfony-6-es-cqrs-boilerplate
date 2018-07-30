@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\UI\Http\Rest\EventSubscriber;
 
 use App\Domain\Shared\Query\Exception\NotFoundException;
+use App\Domain\User\Exception\ForbidenException;
+use App\Domain\User\Exception\InvalidCredentialsException;
 use Broadway\Repository\AggregateNotFoundException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -78,12 +80,22 @@ class ExceptionSubscriber implements EventSubscriberInterface
         // Default status code is always 500
         $statusCode = Response::HTTP_INTERNAL_SERVER_ERROR;
 
-        if ($exception instanceof HttpExceptionInterface) {
-            $statusCode = $exception->getStatusCode();
-        } elseif ($exception instanceof \InvalidArgumentException) {
-            $statusCode = Response::HTTP_BAD_REQUEST;
-        } elseif ($exception instanceof AggregateNotFoundException || $exception instanceof NotFoundException) {
-            $statusCode = Response::HTTP_NOT_FOUND;
+        switch (true) {
+            case $exception instanceof HttpExceptionInterface:
+                $statusCode = $exception->getStatusCode();
+                break;
+            case $exception instanceof InvalidCredentialsException:
+                $statusCode = Response::HTTP_UNAUTHORIZED;
+                break;
+            case $exception instanceof ForbidenException:
+                $statusCode = Response::HTTP_FORBIDDEN;
+                break;
+            case $exception instanceof AggregateNotFoundException || $exception instanceof NotFoundException:
+                $statusCode = Response::HTTP_NOT_FOUND;
+                break;
+            case $exception instanceof \InvalidArgumentException:
+                $statusCode = Response::HTTP_BAD_REQUEST;
+                break;
         }
 
         return $statusCode;
