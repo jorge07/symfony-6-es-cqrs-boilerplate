@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 abstract class JsonApiTestCase extends WebTestCase
 {
     public const DEFAULT_EMAIL = 'lol@lo.com';
+
     public const DEFAULT_PASS = '1234567890';
 
     protected function createUser(string $email = self::DEFAULT_EMAIL, string $password = self::DEFAULT_PASS): string
@@ -27,7 +28,7 @@ abstract class JsonApiTestCase extends WebTestCase
         );
 
         /** @var CommandBus $commandBus */
-        $commandBus= $this->client->getContainer()->get('tactician.commandbus.command');
+        $commandBus = $this->client->getContainer()->get('tactician.commandbus.command');
 
         $commandBus->handle($signUp);
 
@@ -61,7 +62,7 @@ abstract class JsonApiTestCase extends WebTestCase
     {
         $this->post('/api/auth_check', [
             '_username' => $username ?: self::DEFAULT_EMAIL,
-            '_password' => $password ?: self::DEFAULT_PASS
+            '_password' => $password ?: self::DEFAULT_PASS,
         ]);
 
         $response = json_decode($this->client->getResponse()->getContent(), true);

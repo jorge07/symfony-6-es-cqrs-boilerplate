@@ -47,8 +47,7 @@ final class UserChangeEmailController extends CommandController
 
     private function validateUuid(string $uuid): void
     {
-        if (! $this->session->sameByUuid($uuid)) {
-
+        if (!$this->session->sameByUuid($uuid)) {
             throw new ForbidenException();
         }
     }

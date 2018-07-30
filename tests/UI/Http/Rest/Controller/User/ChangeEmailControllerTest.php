@@ -34,6 +34,7 @@ class ChangeEmailControllerTest extends JsonApiTestCase
 
         self::assertInstanceOf(UserEmailChanged::class, $events[0]->getPayload());
     }
+
     /**
      * @test
      *
@@ -41,7 +42,7 @@ class ChangeEmailControllerTest extends JsonApiTestCase
      */
     public function given_a_valid_uuid_and_email_user_should_not_change_others_email_and_gets_401()
     {
-        $this->post('/api/users/' .  Uuid::uuid4()->toString() . '/email', [
+        $this->post('/api/users/' . Uuid::uuid4()->toString() . '/email', [
             'email' => 'weba@jo.com',
         ]);
 

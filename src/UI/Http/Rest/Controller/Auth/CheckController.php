@@ -30,7 +30,7 @@ final class CheckController extends CommandQueryController
     public function __invoke(Request $request): JsonResponse
     {
         $username = $request->get('_username');
-        $signInCommand  = new SignInCommand(
+        $signInCommand = new SignInCommand(
             $username,
             $request->get('_password')
         );
@@ -39,7 +39,7 @@ final class CheckController extends CommandQueryController
 
         return JsonResponse::create(
             [
-                'token' => $this->ask(new GetTokenQuery($username))
+                'token' => $this->ask(new GetTokenQuery($username)),
             ]
         );
     }
