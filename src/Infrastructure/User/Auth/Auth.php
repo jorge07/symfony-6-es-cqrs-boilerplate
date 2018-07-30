@@ -4,25 +4,26 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Auth;
 
-use App\Infrastructure\User\Query\Projections\UserView;
+use App\Domain\User\Query\Projections\UserViewInterface;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class Auth implements UserInterface, EncoderAwareInterface
 {
-    public static function fromUser(UserView $user): self
+    public static function fromUser(UserViewInterface $user): self
     {
         return new self($user);
     }
 
     public function getUsername(): string
     {
-        return (string) $this->user->credentials->email;
+        return $this->user->email();
     }
 
     public function getPassword(): string
     {
-        return (string) $this->user->credentials->password;
+        return $this->user->hashedPassword();
     }
 
     public function getRoles(): array
@@ -46,16 +47,21 @@ class Auth implements UserInterface, EncoderAwareInterface
         return 'bcrypt';
     }
 
-    public function __toString(): string
+    public function uuid(): UuidInterface
     {
-        return (string) $this->user->credentials->email;
+        return $this->user->uuid();
     }
 
-    private function __construct(UserView $user)
+    public function __toString(): string
+    {
+        return $this->user->email();
+    }
+
+    private function __construct(UserViewInterface $user)
     {
         $this->user = $user;
     }
 
-    /** @var UserView */
+    /** @var UserViewInterface */
     private $user;
 }

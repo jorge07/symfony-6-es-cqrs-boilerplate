@@ -60,4 +60,12 @@ class SignUpControllerTest extends JsonApiTestCase
 
         self::assertCount(0, $events);
     }
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->createUser();
+        $this->auth();
+    }
 }
