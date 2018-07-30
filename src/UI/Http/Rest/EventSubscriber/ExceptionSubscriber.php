@@ -83,18 +83,23 @@ class ExceptionSubscriber implements EventSubscriberInterface
         switch (true) {
             case $exception instanceof HttpExceptionInterface:
                 $statusCode = $exception->getStatusCode();
+
                 break;
             case $exception instanceof InvalidCredentialsException:
                 $statusCode = Response::HTTP_UNAUTHORIZED;
+
                 break;
             case $exception instanceof ForbidenException:
                 $statusCode = Response::HTTP_FORBIDDEN;
+
                 break;
             case $exception instanceof AggregateNotFoundException || $exception instanceof NotFoundException:
                 $statusCode = Response::HTTP_NOT_FOUND;
+
                 break;
             case $exception instanceof \InvalidArgumentException:
                 $statusCode = Response::HTTP_BAD_REQUEST;
+
                 break;
         }
 

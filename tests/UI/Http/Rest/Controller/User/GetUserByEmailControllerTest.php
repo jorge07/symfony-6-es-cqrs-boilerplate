@@ -4,14 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\UI\Http\Rest\Controller\User;
 
-use App\Infrastructure\User\Query\Projections\UserView;
-use App\Domain\User\ValueObject\Auth\Credentials;
-use App\Domain\User\ValueObject\Auth\HashedPassword;
-use App\Domain\User\ValueObject\Email;
 use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
-use Doctrine\ORM\EntityManagerInterface;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Response;
 
 class GetUserByEmailControllerTest extends JsonApiTestCase

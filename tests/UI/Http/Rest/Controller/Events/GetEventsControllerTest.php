@@ -8,7 +8,6 @@ use App\Infrastructure\Share\Event\Consumer\SendEventsToElasticConsumer;
 use App\Infrastructure\Share\Event\Query\EventElasticRepository;
 use App\Tests\Infrastructure\Share\Event\Publisher\InMemoryProducer;
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Response;
 
 class GetEventsControllerTest extends JsonApiTestCase
