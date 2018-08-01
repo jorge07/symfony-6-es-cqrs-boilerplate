@@ -14,12 +14,6 @@ use Ramsey\Uuid\UuidInterface;
 
 class UserView implements UserViewInterface
 {
-    /** @var UuidInterface */
-    public $uuid;
-
-    /** @var Credentials */
-    public $credentials;
-
     public static function fromSerializable(Serializable $event): self
     {
         return self::deserialize($event->serialize());
@@ -48,8 +42,34 @@ class UserView implements UserViewInterface
         ];
     }
 
+    public function uuid(): UuidInterface
+    {
+        return $this->uuid;
+    }
+
+    public function email(): string
+    {
+        return (string) $this->credentials->email;
+    }
+
+    public function changeEmail(Email $email): void
+    {
+        $this->credentials->email = $email;
+    }
+
+    public function hashedPassword(): string
+    {
+        return (string) $this->credentials->password;
+    }
+
     public function getId(): string
     {
-        return $this->uuid->toString();
+        return (string) $this->uuid;
     }
+
+    /** @var UuidInterface */
+    private $uuid;
+
+    /** @var Credentials */
+    private $credentials;
 }

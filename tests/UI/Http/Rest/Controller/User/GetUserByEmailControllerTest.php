@@ -4,14 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\UI\Http\Rest\Controller\User;
 
-use App\Infrastructure\User\Query\Projections\UserView;
-use App\Domain\User\ValueObject\Auth\Credentials;
-use App\Domain\User\ValueObject\Auth\HashedPassword;
-use App\Domain\User\ValueObject\Email;
 use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
-use Doctrine\ORM\EntityManagerInterface;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Response;
 
 class GetUserByEmailControllerTest extends JsonApiTestCase
@@ -23,6 +17,9 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
      */
     public function invalid_input_parameters_should_return_400_status_code()
     {
+        $this->createUser();
+        $this->auth();
+
         $this->get('/api/user/asd@');
 
         self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
@@ -42,6 +39,9 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
      */
     public function valid_input_parameters_should_return_404_status_code_when_not_exist()
     {
+        $this->createUser();
+        $this->auth();
+
         $this->get('/api/user/asd@asd.asd');
 
         self::assertEquals(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
@@ -61,7 +61,8 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
      */
     public function valid_input_parameters_should_return_200_status_code_when_exist()
     {
-        $emailString = $this->createReadModelUser();
+        $emailString = $this->createUser();
+        $this->auth();
 
         $this->get('/api/user/' . $emailString);
 
@@ -73,23 +74,5 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
         $events = $eventCollector->popEvents();
 
         self::assertCount(0, $events);
-    }
-
-    private function createReadModelUser(): string
-    {
-        $model = new UserView();
-        $model->uuid = Uuid::uuid4();
-        $model->credentials = new Credentials(
-            Email::fromString($emailString = 'lol@lo.com'),
-            HashedPassword::encode('1234567890')
-        );
-
-        /** @var EntityManagerInterface $em */
-        $em = $this->client->getContainer()->get('doctrine.orm.entity_manager');
-
-        $em->persist($model);
-        $em->flush();
-
-        return $emailString;
     }
 }

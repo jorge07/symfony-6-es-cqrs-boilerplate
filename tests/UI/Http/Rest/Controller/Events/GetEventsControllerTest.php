@@ -8,7 +8,6 @@ use App\Infrastructure\Share\Event\Consumer\SendEventsToElasticConsumer;
 use App\Infrastructure\Share\Event\Query\EventElasticRepository;
 use App\Tests\Infrastructure\Share\Event\Publisher\InMemoryProducer;
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Response;
 
 class GetEventsControllerTest extends JsonApiTestCase
@@ -32,30 +31,20 @@ class GetEventsControllerTest extends JsonApiTestCase
      */
     public function events_should_be_present_in_elastic_search()
     {
-        $uuid = Uuid::uuid4()->toString();
-
-        $this->post('/api/users', [
-            'uuid'     => $uuid,
-            'email'    => 'jo@jo.com',
-            'password' => 'password',
-        ]);
-
-        self::assertEquals(Response::HTTP_CREATED, $this->client->getResponse()->getStatusCode());
-
         $this->refreshIndex();
 
         $this->get('/api/events', ['limit' => 1]);
 
-        self::assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
         $responseDecoded = json_decode($this->client->getResponse()->getContent(), true);
 
-        self::assertEquals(1, $responseDecoded['meta']['total']);
-        self::assertEquals(1, $responseDecoded['meta']['page']);
-        self::assertEquals(1, $responseDecoded['meta']['size']);
+        self::assertSame(1, $responseDecoded['meta']['total']);
+        self::assertSame(1, $responseDecoded['meta']['page']);
+        self::assertSame(1, $responseDecoded['meta']['size']);
 
-        self::assertEquals('App.Domain.User.Event.UserWasCreated', $responseDecoded['data'][0]['type']);
-        self::assertEquals($uuid, $responseDecoded['data'][0]['payload']['uuid']);
+        self::assertSame('App.Domain.User.Event.UserWasCreated', $responseDecoded['data'][0]['type']);
+        self::assertSame(self::DEFAULT_EMAIL, $responseDecoded['data'][0]['payload']['credentials']['email']);
     }
 
     /**
@@ -67,7 +56,7 @@ class GetEventsControllerTest extends JsonApiTestCase
     {
         $this->get('/api/events?page=two');
 
-        self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
     }
 
     /**
@@ -79,7 +68,7 @@ class GetEventsControllerTest extends JsonApiTestCase
     {
         $this->get('/api/events?limit=three');
 
-        self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
     }
 
     private function refreshIndex()
@@ -104,6 +93,9 @@ class GetEventsControllerTest extends JsonApiTestCase
         $consumersRegistry->addConsumer('App.Domain.User.Event.UserWasCreated', $consumer);
 
         $this->refreshIndex();
+
+        $this->createUser();
+        $this->auth();
     }
 
     protected function tearDown()

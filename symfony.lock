@@ -116,6 +116,9 @@
     "jean85/pretty-package-versions": {
         "version": "1.1"
     },
+    "lcobucci/jwt": {
+        "version": "3.2.3"
+    },
     "league/tactician": {
         "version": "v1.0.3"
     },
@@ -134,8 +137,20 @@
     "league/tactician-logger": {
         "version": "v0.10.0"
     },
+    "lexik/jwt-authentication-bundle": {
+        "version": "2.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.5",
+            "ref": "509b1542f3180a1cfe248ade8b7bf5092c2d4127"
+        }
+    },
     "myclabs/deep-copy": {
         "version": "1.7.0"
+    },
+    "namshi/jose": {
+        "version": "7.2.3"
     },
     "nette/bootstrap": {
         "version": "v2.4.5"
@@ -398,8 +413,14 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.6.0"
     },
+    "symfony/polyfill-php56": {
+        "version": "v1.8.0"
+    },
     "symfony/polyfill-php72": {
         "version": "v1.7.0"
+    },
+    "symfony/polyfill-util": {
+        "version": "v1.8.0"
     },
     "symfony/profiler-pack": {
         "version": "v1.0.3"

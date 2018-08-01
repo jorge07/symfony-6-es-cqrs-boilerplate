@@ -20,15 +20,7 @@ class ChangeEmailControllerTest extends JsonApiTestCase
      */
     public function given_a_valid_uuid_and_email_should_return_a_201_status_code()
     {
-        $this->post('/api/users', [
-            'uuid'     => $uuid = Uuid::uuid4()->toString(),
-            'email'    => 'jo@jo.com',
-            'password' => 'password',
-        ]);
-
-        self::assertEquals(Response::HTTP_CREATED, $this->client->getResponse()->getStatusCode());
-
-        $this->post('/api/users/' . $uuid . '/email', [
+        $this->post('/api/users/' . $this->userUuid->toString() . '/email', [
             'email' => 'weba@jo.com',
         ]);
 
@@ -48,20 +40,42 @@ class ChangeEmailControllerTest extends JsonApiTestCase
      *
      * @group e2e
      */
-    public function given_a_invalid__email_should_return_a_400_status_code()
+    public function given_a_valid_uuid_and_email_user_should_not_change_others_email_and_gets_401()
     {
-        $this->post('/api/users', [
-            'uuid'     => $uuid = Uuid::uuid4()->toString(),
-            'email'    => 'jo@jo.com',
-            'password' => 'password',
+        $this->post('/api/users/' . Uuid::uuid4()->toString() . '/email', [
+            'email' => 'weba@jo.com',
         ]);
 
-        self::assertEquals(Response::HTTP_CREATED, $this->client->getResponse()->getStatusCode());
+        self::assertEquals(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
 
-        $this->post('/api/users/' . $uuid . '/email', [
+        /** @var EventCollectorListener $eventCollector */
+        $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
+
+        /** @var DomainMessage[] $events */
+        $events = $eventCollector->popEvents();
+
+        self::assertCount(0, $events);
+    }
+
+    /**
+     * @test
+     *
+     * @group e2e
+     */
+    public function given_a_invalid__email_should_return_a_400_status_code()
+    {
+        $this->post('/api/users/' . $this->userUuid->toString() . '/email', [
             'email' => 'webajo.com',
         ]);
 
         self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->createUser();
+        $this->auth();
     }
 }

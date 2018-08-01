@@ -24,7 +24,7 @@ class UserReadProjectionFactory extends Projector
         /** @var UserView $userReadModel */
         $userReadModel = $this->repository->oneByUuid($emailChanged->uuid);
 
-        $userReadModel->credentials->email = $emailChanged->email;
+        $userReadModel->changeEmail($emailChanged->email);
 
         $this->repository->apply();
     }

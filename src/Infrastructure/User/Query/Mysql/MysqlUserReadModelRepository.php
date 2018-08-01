@@ -47,7 +47,7 @@ class MysqlUserReadModelRepository extends MysqlRepository implements UserReadMo
             ->createQueryBuilder('user')
             ->select('user.uuid')
             ->where('user.credentials.email = :email')
-            ->setParameter('email', $email->toString())
+            ->setParameter('email', (string) $email)
             ->getQuery()
             ->getOneOrNullResult()
         ;

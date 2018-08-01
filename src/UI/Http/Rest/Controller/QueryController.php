@@ -15,6 +15,11 @@ abstract class QueryController
 {
     private const CACHE_MAX_AGE = 31536000; // Year.
 
+    protected function ask($query)
+    {
+        return $this->queryBus->handle($query);
+    }
+
     protected function jsonCollection(Collection $collection, bool $isImmutable = false): JsonResponse
     {
         $response = JsonResponse::create($this->formatter->collection($collection));
@@ -22,15 +27,6 @@ abstract class QueryController
         $this->decorateWithCache($response, $collection, $isImmutable);
 
         return $response;
-    }
-
-    private function decorateWithCache(JsonResponse $response, Collection $collection, bool $isImmutable): void
-    {
-        if ($isImmutable && $collection->limit === count($collection->data)) {
-            $response
-                ->setMaxAge(self::CACHE_MAX_AGE)
-                ->setSharedMaxAge(self::CACHE_MAX_AGE);
-        }
     }
 
     protected function json(Item $resource): JsonResponse
@@ -43,9 +39,13 @@ abstract class QueryController
         return $this->router->generate($name, $params);
     }
 
-    protected function ask($query)
+    private function decorateWithCache(JsonResponse $response, Collection $collection, bool $isImmutable): void
     {
-        return $this->queryBus->handle($query);
+        if ($isImmutable && $collection->limit === count($collection->data)) {
+            $response
+                ->setMaxAge(self::CACHE_MAX_AGE)
+                ->setSharedMaxAge(self::CACHE_MAX_AGE);
+        }
     }
 
     public function __construct(CommandBus $queryBus, JsonApiFormatter $formatter, UrlGeneratorInterface $router)
