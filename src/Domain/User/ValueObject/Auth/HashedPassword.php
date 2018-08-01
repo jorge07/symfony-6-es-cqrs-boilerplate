@@ -8,6 +8,9 @@ use Assert\Assertion;
 
 final class HashedPassword
 {
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     public static function encode(string $plainPassword): self
     {
         $pass = new self();

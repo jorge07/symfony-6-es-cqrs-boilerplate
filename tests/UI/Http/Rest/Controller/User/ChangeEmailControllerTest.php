@@ -48,7 +48,7 @@ class ChangeEmailControllerTest extends JsonApiTestCase
             'email' => 'weba@jo.com',
         ]);
 
-        self::assertEquals(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
@@ -75,6 +75,9 @@ class ChangeEmailControllerTest extends JsonApiTestCase
         self::assertSame(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
     }
 
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     protected function setUp()
     {
         parent::setUp();

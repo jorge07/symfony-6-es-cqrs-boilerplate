@@ -14,6 +14,8 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
      * @test
      *
      * @group e2e
+     *
+     * @throws \Assert\AssertionFailedException
      */
     public function invalid_input_parameters_should_return_400_status_code(): void
     {
@@ -36,6 +38,8 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
      * @test
      *
      * @group e2e
+     *
+     * @throws \Assert\AssertionFailedException
      */
     public function valid_input_parameters_should_return_404_status_code_when_not_exist(): void
     {
@@ -61,7 +65,7 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
      *
      * @throws \Assert\AssertionFailedException
      */
-    public function valid_input_parameters_should_return_200_status_code_when_exist()
+    public function valid_input_parameters_should_return_200_status_code_when_exist(): void
     {
         $emailString = $this->createUser();
         $this->auth();

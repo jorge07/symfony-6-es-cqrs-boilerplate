@@ -65,6 +65,9 @@ class SignUpControllerTest extends JsonApiTestCase
         self::assertCount(0, $events);
     }
 
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     protected function setUp()
     {
         parent::setUp();

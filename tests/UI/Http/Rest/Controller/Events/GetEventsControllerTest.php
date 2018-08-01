@@ -80,6 +80,9 @@ class GetEventsControllerTest extends JsonApiTestCase
         $eventReadStore->refresh();
     }
 
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     protected function setUp()
     {
         parent::setUp();

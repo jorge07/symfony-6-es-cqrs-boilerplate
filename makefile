@@ -34,6 +34,10 @@ phpunit: db ## execute project unit tests
 style: ## executes php analizers
 		docker-compose run --rm php sh -lc './vendor/bin/phpstan analyse -l 6 -c phpstan.neon src tests'
 
+.PHONY: cs-fixer
+cs-fixer: ## executes php cs fixer
+		docker-compose run --rm php sh -lc './vendor/bin/php-cs-fixer --no-interaction --dry-run --diff -v fix'
+
 .PHONY: layer
 layer: ## Check issues with layers
 		docker-compose run --rm php sh -lc 'php bin/deptrac.phar analyze --formatter-graphviz=0'
