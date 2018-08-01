@@ -74,5 +74,7 @@
             "id": "01C1QKYZ4DSB74RHER7JCF8Q1K",
             "allow-contrib": false
         }
-    }
+    },
+    "name": "jorge07/symfony-4-es-cqrs-boilerplate",
+    "description": "Symfony 4 DDD ES CQRS backend boilerplate"
 }
