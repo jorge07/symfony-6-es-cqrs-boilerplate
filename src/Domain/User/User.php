@@ -32,8 +32,6 @@ class User extends EventSourcedAggregateRoot
     }
 
     /**
-     * @param string $plainPassword
-     *
      * @throws InvalidCredentialsException
      */
     public function signIn(string $plainPassword): void
@@ -41,7 +39,7 @@ class User extends EventSourcedAggregateRoot
         $match = $this->hashedPassword->match($plainPassword);
 
         if (!$match) {
-            throw new InvalidCredentialsException();
+            throw new InvalidCredentialsException('Invalid credentials entered.');
         }
 
         $this->apply(UserSignedIn::create($this->uuid, $this->email));
@@ -55,6 +53,9 @@ class User extends EventSourcedAggregateRoot
         $this->setHashedPassword($event->credentials->password);
     }
 
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     protected function applyUserEmailChanged(UserEmailChanged $event): void
     {
         Assertion::notEq($this->email->toString(), $event->email->toString(), 'New email should be different');

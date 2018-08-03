@@ -15,8 +15,10 @@ class SignUpControllerTest extends JsonApiTestCase
      * @test
      *
      * @group e2e
+     *
+     * @throws \Exception
      */
-    public function given_a_valid_uuid_and_email_should_return_a_201_status_code()
+    public function given_a_valid_uuid_and_email_should_return_a_201_status_code(): void
     {
         $this->post('/api/users', [
             'uuid'     => Uuid::uuid4()->toString(),
@@ -24,7 +26,7 @@ class SignUpControllerTest extends JsonApiTestCase
             'password' => 'oaisudaosudoaudo',
         ]);
 
-        self::assertEquals(Response::HTTP_CREATED, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_CREATED, $this->client->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
@@ -43,15 +45,17 @@ class SignUpControllerTest extends JsonApiTestCase
      * @test
      *
      * @group e2e
+     *
+     * @throws \Exception
      */
-    public function invalid_input_parameters_should_return_400_status_code()
+    public function invalid_input_parameters_should_return_400_status_code(): void
     {
         $this->post('/api/users', [
             'uuid'  => Uuid::uuid4()->toString(),
             'email' => 'invalid email',
         ]);
 
-        self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
@@ -61,6 +65,9 @@ class SignUpControllerTest extends JsonApiTestCase
         self::assertCount(0, $events);
     }
 
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     protected function setUp()
     {
         parent::setUp();

@@ -8,9 +8,9 @@ use App\Application\Query\Collection;
 use App\Application\Query\Event\GetEvents\GetEventsQuery;
 use App\UI\Http\Rest\Controller\QueryController;
 use Assert\Assertion;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 class GetEventsController extends QueryController
 {

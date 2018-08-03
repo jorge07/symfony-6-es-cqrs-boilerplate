@@ -14,7 +14,7 @@ class HashedPasswordTest extends TestCase
      *
      * @group unit
      */
-    public function encoded_password_should_be_validated()
+    public function encoded_password_should_be_validated(): void
     {
         $pass = HashedPassword::encode('1234567890');
 
@@ -26,9 +26,9 @@ class HashedPasswordTest extends TestCase
      *
      * @group unit
      */
-    public function min_6_password_length()
+    public function min_6_password_length(): void
     {
-        self::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         HashedPassword::encode('12345');
     }
@@ -38,7 +38,7 @@ class HashedPasswordTest extends TestCase
      *
      * @group unit
      */
-    public function from_hash_password_should_still_valid()
+    public function from_hash_password_should_still_valid(): void
     {
         $pass = HashedPassword::fromHash((string) HashedPassword::encode('1234567890'));
 

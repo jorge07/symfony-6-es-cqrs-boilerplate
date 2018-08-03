@@ -14,10 +14,12 @@ class CollectionTest extends TestCase
      * @test
      *
      * @group unit
+     *
+     * @throws NotFoundException
      */
-    public function must_throw_not_found_exception_on_not_page_found()
+    public function must_throw_not_found_exception_on_not_page_found(): void
     {
-        self::expectException(NotFoundException::class);
+        $this->expectException(NotFoundException::class);
 
         new Collection(2, 10, 2, []);
     }

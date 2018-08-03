@@ -19,6 +19,9 @@ class UserView implements UserViewInterface
         return self::deserialize($event->serialize());
     }
 
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     public static function deserialize(array $data): self
     {
         $instance = new self();

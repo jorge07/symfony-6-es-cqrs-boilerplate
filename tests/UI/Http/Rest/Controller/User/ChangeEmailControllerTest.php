@@ -17,14 +17,16 @@ class ChangeEmailControllerTest extends JsonApiTestCase
      * @test
      *
      * @group e2e
+     *
+     * @throws \Exception
      */
-    public function given_a_valid_uuid_and_email_should_return_a_201_status_code()
+    public function given_a_valid_uuid_and_email_should_return_a_201_status_code(): void
     {
         $this->post('/api/users/' . $this->userUuid->toString() . '/email', [
             'email' => 'weba@jo.com',
         ]);
 
-        self::assertEquals(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
@@ -46,7 +48,7 @@ class ChangeEmailControllerTest extends JsonApiTestCase
             'email' => 'weba@jo.com',
         ]);
 
-        self::assertEquals(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
@@ -61,16 +63,21 @@ class ChangeEmailControllerTest extends JsonApiTestCase
      * @test
      *
      * @group e2e
+     *
+     * @throws \Exception
      */
-    public function given_a_invalid__email_should_return_a_400_status_code()
+    public function given_a_invalid__email_should_return_a_400_status_code(): void
     {
         $this->post('/api/users/' . $this->userUuid->toString() . '/email', [
             'email' => 'webajo.com',
         ]);
 
-        self::assertEquals(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
     }
 
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     protected function setUp()
     {
         parent::setUp();

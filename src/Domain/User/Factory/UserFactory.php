@@ -15,7 +15,7 @@ class UserFactory
     public function register(UuidInterface $uuid, Credentials $credentials): User
     {
         if ($this->userCollection->existsEmail($credentials->email)) {
-            throw new EmailAlreadyExistException();
+            throw new EmailAlreadyExistException('Email already registered.');
         }
 
         return User::create($uuid, $credentials);

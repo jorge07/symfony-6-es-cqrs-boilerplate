@@ -17,8 +17,10 @@ class EventElasticRepositoryTest extends TestCase
      * @test
      *
      * @group integration
+     *
+     * @throws \Assert\AssertionFailedException
      */
-    public function an_event_should_be_stored_in_elastic()
+    public function an_event_should_be_stored_in_elastic(): void
     {
         $data = ['uuid' => $uuid = 'e937f793-45d8-41e9-a756-a2bc711e3172', 'credentials' => ['email' => 'lol@lol.com', 'password' => 'lkasjbdalsjdbalsdbaljsdhbalsjbhd987']];
 

@@ -16,10 +16,6 @@ use Ramsey\Uuid\UuidInterface;
 class MysqlUserReadModelRepository extends MysqlRepository implements UserReadModelRepositoryInterface, CheckUserByEmailInterface
 {
     /**
-     * @param UuidInterface $uuid
-     *
-     * @return UserViewInterface
-     *
      * @throws \App\Domain\Shared\Query\Exception\NotFoundException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
@@ -35,10 +31,6 @@ class MysqlUserReadModelRepository extends MysqlRepository implements UserReadMo
     }
 
     /**
-     * @param Email $email
-     *
-     * @return null|UuidInterface
-     *
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function existsEmail(Email $email): ?UuidInterface
@@ -56,10 +48,6 @@ class MysqlUserReadModelRepository extends MysqlRepository implements UserReadMo
     }
 
     /**
-     * @param Email $email
-     *
-     * @return UserViewInterface
-     *
      * @throws \App\Domain\Shared\Query\Exception\NotFoundException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */

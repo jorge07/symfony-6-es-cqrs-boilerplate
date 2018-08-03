@@ -20,6 +20,9 @@ class SignUpCommand
      */
     public $credentials;
 
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     public function __construct(string $uuid, string $email, string $plainPassword)
     {
         $this->uuid = Uuid::fromString($uuid);

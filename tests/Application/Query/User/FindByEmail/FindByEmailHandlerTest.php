@@ -17,8 +17,11 @@ class FindByEmailHandlerTest extends ApplicationTestCase
      * @test
      *
      * @group integration
+     *
+     * @throws \Exception
+     * @throws \Assert\AssertionFailedException
      */
-    public function query_command_integration()
+    public function query_command_integration(): void
     {
         $email = $this->createUserRead();
 
@@ -34,6 +37,10 @@ class FindByEmailHandlerTest extends ApplicationTestCase
         self::assertSame($email, $userRead->email());
     }
 
+    /**
+     * @throws \Exception
+     * @throws \Assert\AssertionFailedException
+     */
     private function createUserRead(): string
     {
         $uuid = Uuid::uuid4()->toString();

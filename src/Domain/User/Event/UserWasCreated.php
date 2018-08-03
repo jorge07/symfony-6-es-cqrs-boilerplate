@@ -14,6 +14,9 @@ use Ramsey\Uuid\UuidInterface;
 
 final class UserWasCreated implements Serializable
 {
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     public static function deserialize(array $data): self
     {
         Assertion::keyExists($data, 'uuid');

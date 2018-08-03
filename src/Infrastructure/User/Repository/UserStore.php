@@ -30,7 +30,7 @@ class UserStore extends EventSourcingRepository implements UserRepositoryInterfa
     public function __construct(
         EventStore $eventStore,
         EventBus $eventBus,
-        array $eventStreamDecorators = array()
+        array $eventStreamDecorators = []
     ) {
         parent::__construct(
             $eventStore,

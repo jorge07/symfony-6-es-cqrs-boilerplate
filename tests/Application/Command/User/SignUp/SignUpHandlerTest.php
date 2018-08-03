@@ -17,8 +17,11 @@ class SignUpHandlerTest extends ApplicationTestCase
      * @test
      *
      * @group integration
+     *
+     * @throws \Exception
+     * @throws \Assert\AssertionFailedException
      */
-    public function command_handler_must_fire_domain_event()
+    public function command_handler_must_fire_domain_event(): void
     {
         $uuid = Uuid::uuid4();
         $email = 'asd@asd.asd';

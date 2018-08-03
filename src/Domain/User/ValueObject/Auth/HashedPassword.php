@@ -8,6 +8,9 @@ use Assert\Assertion;
 
 final class HashedPassword
 {
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     public static function encode(string $plainPassword): self
     {
         $pass = new self();
@@ -31,6 +34,9 @@ final class HashedPassword
         return password_verify($plainPassword, $this->hashedPassword);
     }
 
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     private function hash(string $plainPassword): void
     {
         $this->validate($plainPassword);
@@ -48,6 +54,9 @@ final class HashedPassword
         return $this->hashedPassword;
     }
 
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     private function validate(string $raw): void
     {
         Assertion::minLength($raw, 6, 'Min 6 characters password');

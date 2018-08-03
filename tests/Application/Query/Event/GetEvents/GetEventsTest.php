@@ -20,15 +20,19 @@ final class GetEventsTest extends ApplicationTestCase
      *
      * @group integration
      */
-    public function processed_events_must_be_in_elastic_search()
+    public function processed_events_must_be_in_elastic_search(): void
     {
         $response = $this->ask(new GetEventsQuery());
 
         self::assertInstanceOf(Collection::class, $response);
-        self::assertEquals(1, $response->total);
-        self::assertEquals('App.Domain.User.Event.UserWasCreated', $response->data[0]['type']);
+        self::assertSame(1, $response->total);
+        self::assertSame('App.Domain.User.Event.UserWasCreated', $response->data[0]['type']);
     }
 
+    /**
+     * @throws \Exception
+     * @throws \Assert\AssertionFailedException
+     */
     protected function setUp()
     {
         parent::setUp();

@@ -15,6 +15,9 @@ class ChangeEmailCommand
     /** @var Email */
     public $email;
 
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     public function __construct(string $userUuid, string $email)
     {
         $this->userUuid = Uuid::fromString($userUuid);

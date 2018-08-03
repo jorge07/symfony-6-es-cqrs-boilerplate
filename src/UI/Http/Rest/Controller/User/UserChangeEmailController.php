@@ -10,9 +10,9 @@ use App\Domain\User\Exception\ForbiddenException;
 use App\UI\Http\Rest\Controller\CommandController;
 use Assert\Assertion;
 use League\Tactician\CommandBus;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 final class UserChangeEmailController extends CommandController
 {

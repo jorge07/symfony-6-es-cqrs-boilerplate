@@ -7,9 +7,9 @@ namespace App\UI\Http\Rest\Controller\User;
 use App\Application\Command\User\SignUp\SignUpCommand;
 use App\UI\Http\Rest\Controller\CommandController;
 use Assert\Assertion;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 final class SignUpController extends CommandController
 {

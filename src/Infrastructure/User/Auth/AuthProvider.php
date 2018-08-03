@@ -12,6 +12,9 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class AuthProvider implements UserProviderInterface
 {
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     public function loadUserByUsername($email)
     {
         /** @var UserView $user */
@@ -20,6 +23,9 @@ class AuthProvider implements UserProviderInterface
         return Auth::fromUser($user);
     }
 
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     public function refreshUser(UserInterface $user): UserInterface
     {
         return $this->loadUserByUsername($user->getUsername());

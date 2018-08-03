@@ -14,7 +14,7 @@ class CheckControllerTest extends JsonApiTestCase
      *
      * @group e2e
      */
-    public function bad_credentials_must_fail_with_401()
+    public function bad_credentials_must_fail_with_401(): void
     {
         $this->post('/api/auth_check', [
             '_username' => 'oze@lol.com',
@@ -29,7 +29,7 @@ class CheckControllerTest extends JsonApiTestCase
      *
      * @group e2e
      */
-    public function email_must_be_valid_or_fail_with_400()
+    public function email_must_be_valid_or_fail_with_400(): void
     {
         $this->post('/api/auth_check', [
             '_username' => 'oze@',

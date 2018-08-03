@@ -4,6 +4,7 @@
     "require": {
         "php": "^7.2",
         "ext-iconv": "*",
+        "ext-json": "*",
         "beberlei/assert": "^2.8",
         "broadway/broadway": "^2.0",
         "broadway/broadway-bundle": "^0.4.1",
@@ -27,6 +28,7 @@
     "require-dev": {
         "dama/doctrine-test-bundle": "^5.0",
         "phpstan/phpstan": "^0.9.2",
+        "friendsofphp/php-cs-fixer": "^2.12",
         "phpunit/phpunit": "^6.5",
         "roave/security-advisories": "dev-master",
         "symfony/browser-kit": "^4.1",
@@ -74,5 +76,7 @@
             "id": "01C1QKYZ4DSB74RHER7JCF8Q1K",
             "allow-contrib": false
         }
-    }
+    },
+    "name": "jorge07/symfony-4-es-cqrs-boilerplate",
+    "description": "Symfony 4 DDD ES CQRS backend boilerplate"
 }

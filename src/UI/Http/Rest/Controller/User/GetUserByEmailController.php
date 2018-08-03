@@ -8,9 +8,9 @@ use App\Application\Query\Item;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
 use App\UI\Http\Rest\Controller\QueryController;
 use Assert\Assertion;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 final class GetUserByEmailController extends QueryController
 {

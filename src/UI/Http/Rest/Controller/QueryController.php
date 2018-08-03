@@ -22,7 +22,7 @@ abstract class QueryController
 
     protected function jsonCollection(Collection $collection, bool $isImmutable = false): JsonResponse
     {
-        $response = JsonResponse::create($this->formatter->collection($collection));
+        $response = JsonResponse::create($this->formatter::collection($collection));
 
         $this->decorateWithCache($response, $collection, $isImmutable);
 
@@ -41,7 +41,7 @@ abstract class QueryController
 
     private function decorateWithCache(JsonResponse $response, Collection $collection, bool $isImmutable): void
     {
-        if ($isImmutable && $collection->limit === count($collection->data)) {
+        if ($isImmutable && $collection->limit === \count($collection->data)) {
             $response
                 ->setMaxAge(self::CACHE_MAX_AGE)
                 ->setSharedMaxAge(self::CACHE_MAX_AGE);

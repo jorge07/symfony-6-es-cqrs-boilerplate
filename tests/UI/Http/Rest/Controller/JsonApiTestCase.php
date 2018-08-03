@@ -18,8 +18,7 @@ abstract class JsonApiTestCase extends WebTestCase
     public const DEFAULT_PASS = '1234567890';
 
     /**
-     * @throws \Ramsey\Uuid\Exception\UnsatisfiedDependencyException
-     * @throws \InvalidArgumentException
+     * @throws \Assert\AssertionFailedException
      * @throws \Exception
      */
     protected function createUser(string $email = self::DEFAULT_EMAIL, string $password = self::DEFAULT_PASS): string
@@ -105,12 +104,12 @@ abstract class JsonApiTestCase extends WebTestCase
         $this->userUuid = null;
     }
 
-    /** @var Client|null */
+    /** @var null|Client */
     protected $client;
 
-    /** @var string|null */
+    /** @var null|string */
     private $token;
 
-    /** @var UuidInterface|null */
+    /** @var null|UuidInterface */
     protected $userUuid;
 }

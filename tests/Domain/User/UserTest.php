@@ -18,8 +18,11 @@ class UserTest extends TestCase
      * @test
      *
      * @group unit
+     *
+     * @throws \Exception
+     * @throws \Assert\AssertionFailedException
      */
-    public function given_a_valid_email_it_should_create_a_user_instance()
+    public function given_a_valid_email_it_should_create_a_user_instance(): void
     {
         $emailString = 'lol@aso.maximo';
 
@@ -31,7 +34,7 @@ class UserTest extends TestCase
             )
         );
 
-        self::assertEquals($emailString, $user->email());
+        self::assertSame($emailString, $user->email());
         self::assertNotNull($user->uuid());
 
         $events = $user->getUncommittedEvents();
@@ -48,8 +51,11 @@ class UserTest extends TestCase
      * @test
      *
      * @group unit
+     *
+     * @throws \Exception
+     * @throws \Assert\AssertionFailedException
      */
-    public function given_a_new_email_it_should_change_if_not_eq_to_prev_email()
+    public function given_a_new_email_it_should_change_if_not_eq_to_prev_email(): void
     {
         $emailString = 'lol@aso.maximo';
 
@@ -65,7 +71,7 @@ class UserTest extends TestCase
 
         $user->changeEmail(Email::fromString($newEmail));
 
-        self::assertEquals($user->email(), $newEmail, 'Emails should be equals');
+        self::assertSame($user->email(), $newEmail, 'Emails should be equals');
 
         $events = $user->getUncommittedEvents();
 
@@ -74,6 +80,6 @@ class UserTest extends TestCase
         /** @var DomainMessage $event */
         $event = $events->getIterator()->offsetGet(1);
 
-        self::assertInstanceOf(UserEmailChanged::class, $event->getPayload(), 'Seccond event should be UserEmailChanged');
+        self::assertInstanceOf(UserEmailChanged::class, $event->getPayload(), 'Second event should be UserEmailChanged');
     }
 }

@@ -9,7 +9,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AbstractRenderController
 {
-    protected function render(string $view, array $parameters = array(), int $code = Response::HTTP_OK): Response
+    /**
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    protected function render(string $view, array $parameters = [], int $code = Response::HTTP_OK): Response
     {
         $content = $this->template->render($view, $parameters);
 

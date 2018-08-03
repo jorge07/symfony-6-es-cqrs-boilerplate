@@ -26,6 +26,12 @@
     "broadway/uuid-generator": {
         "version": "0.4.0"
     },
+    "composer/semver": {
+        "version": "1.4.2"
+    },
+    "composer/xdebug-handler": {
+        "version": "1.1.0"
+    },
     "dama/doctrine-test-bundle": {
         "version": "4.0",
         "recipe": {
@@ -103,6 +109,15 @@
     },
     "elasticsearch/elasticsearch": {
         "version": "v6.0.1"
+    },
+    "friendsofphp/php-cs-fixer": {
+        "version": "2.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.2",
+            "ref": "81dee417d2cc60cd1c9d6208dff2ec22a1103e93"
+        }
     },
     "guzzlehttp/ringphp": {
         "version": "1.1.0"
@@ -202,6 +217,9 @@
             "version": "1.12",
             "ref": "ce3ca2e4577270c4f518539aa6b9e878998fcfef"
         }
+    },
+    "php-cs-fixer/diff": {
+        "version": "v1.3.0"
     },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
@@ -395,6 +413,9 @@
     "symfony/lts": {
         "version": "4-dev"
     },
+    "symfony/options-resolver": {
+        "version": "v4.1.3"
+    },
     "symfony/orm-pack": {
         "version": "v1.0.5"
     },
@@ -416,11 +437,17 @@
     "symfony/polyfill-php56": {
         "version": "v1.8.0"
     },
+    "symfony/polyfill-php70": {
+        "version": "v1.8.0"
+    },
     "symfony/polyfill-php72": {
         "version": "v1.7.0"
     },
     "symfony/polyfill-util": {
         "version": "v1.8.0"
+    },
+    "symfony/process": {
+        "version": "v4.1.3"
     },
     "symfony/profiler-pack": {
         "version": "v1.0.3"
