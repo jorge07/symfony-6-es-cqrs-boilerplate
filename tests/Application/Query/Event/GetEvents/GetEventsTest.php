@@ -9,7 +9,7 @@ use App\Application\Query\Collection;
 use App\Application\Query\Event\GetEvents\GetEventsQuery;
 use App\Infrastructure\Share\Event\Consumer\SendEventsToElasticConsumer;
 use App\Infrastructure\Share\Event\Query\EventElasticRepository;
-use App\Tests\Application\Command\ApplicationTestCase;
+use App\Tests\Application\ApplicationTestCase;
 use App\Tests\Infrastructure\Share\Event\Publisher\InMemoryProducer;
 use Ramsey\Uuid\Uuid;
 

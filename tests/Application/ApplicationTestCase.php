@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Application\Command;
+namespace App\Tests\Application;
 
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;

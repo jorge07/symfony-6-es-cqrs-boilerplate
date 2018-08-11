@@ -7,7 +7,7 @@ namespace App\Tests\Application\Command\User\ChangeEmail;
 use App\Application\Command\User\ChangeEmail\ChangeEmailCommand;
 use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Domain\User\Event\UserEmailChanged;
-use App\Tests\Application\Command\ApplicationTestCase;
+use App\Tests\Application\ApplicationTestCase;
 use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
 use Broadway\Domain\DomainMessage;
 use Ramsey\Uuid\Uuid;

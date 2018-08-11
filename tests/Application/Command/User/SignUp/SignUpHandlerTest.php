@@ -6,7 +6,7 @@ namespace App\Tests\Application\Command\User\SignUp;
 
 use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Domain\User\Event\UserWasCreated;
-use App\Tests\Application\Command\ApplicationTestCase;
+use App\Tests\Application\ApplicationTestCase;
 use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
 use Broadway\Domain\DomainMessage;
 use Ramsey\Uuid\Uuid;

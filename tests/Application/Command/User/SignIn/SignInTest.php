@@ -8,7 +8,7 @@ use App\Application\Command\User\SignIn\SignInCommand;
 use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Domain\User\Event\UserSignedIn;
 use App\Domain\User\Exception\InvalidCredentialsException;
-use App\Tests\Application\Command\ApplicationTestCase;
+use App\Tests\Application\ApplicationTestCase;
 use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
 use Broadway\Domain\DomainMessage;
 use Ramsey\Uuid\Uuid;
