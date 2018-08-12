@@ -10,6 +10,8 @@ use App\Domain\User\Exception\ForbiddenException;
 use App\UI\Http\Rest\Controller\CommandController;
 use Assert\Assertion;
 use League\Tactician\CommandBus;
+use Nelmio\ApiDocBundle\Annotation\Security;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,6 +24,37 @@ final class UserChangeEmailController extends CommandController
      *     name="user_change_email",
      *     methods={"POST"}
      * )
+     *
+     * @SWG\Response(
+     *     response=201,
+     *     description="Email changed"
+     * )
+     * @SWG\Response(
+     *     response=400,
+     *     description="Bad request"
+     * )
+     * @SWG\Response(
+     *     response=409,
+     *     description="Conflict"
+     * )
+     * @SWG\Parameter(
+     *     name="change-email",
+     *     type="object",
+     *     in="body",
+     *     required=true,
+     *     schema=@SWG\Schema(type="object",
+     *         @SWG\Property(property="email", type="string")
+     *     )
+     * )
+     * @SWG\Parameter(
+     *     name="uuid",
+     *     type="string",
+     *     in="path"
+     * )
+     *
+     * @SWG\Tag(name="User")
+     *
+     * @Security(name="Bearer")
      *
      * @throws \Assert\AssertionFailedException
      */

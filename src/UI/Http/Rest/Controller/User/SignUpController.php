@@ -7,6 +7,8 @@ namespace App\UI\Http\Rest\Controller\User;
 use App\Application\Command\User\SignUp\SignUpCommand;
 use App\UI\Http\Rest\Controller\CommandController;
 use Assert\Assertion;
+use Nelmio\ApiDocBundle\Annotation\Security;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,6 +24,33 @@ final class SignUpController extends CommandController
      *      "uuid": "\d+",
      *      "email": "\w+"
      * })
+     *
+     * @SWG\Response(
+     *     response=201,
+     *     description="User created successfully"
+     * )
+     * @SWG\Response(
+     *     response=400,
+     *     description="Bad request"
+     * )
+     * @SWG\Response(
+     *     response=409,
+     *     description="Conflict"
+     * )
+     * @SWG\Parameter(
+     *     name="user",
+     *     type="object",
+     *     in="body",
+     *     required=true,
+     *     schema=@SWG\Schema(type="object",
+     *         @SWG\Property(property="uuid", type="string"),
+     *         @SWG\Property(property="email", type="string")
+     *     )
+     * )
+     *
+     * @SWG\Tag(name="User")
+     *
+     * @Security(name="Bearer")
      *
      * @throws \Assert\AssertionFailedException
      */
