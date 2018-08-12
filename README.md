@@ -32,6 +32,7 @@ A boilerplate for DDD, CQRS, Event Sourcing applications using Symfony as framew
 - [x] Rest API
 - [x] Web UI (A Terrible UX/UI)
 - [x] Event Store Rest API 
+- [x] Swagger API Doc
 
 ## Use Cases
 
@@ -41,6 +42,7 @@ A boilerplate for DDD, CQRS, Event Sourcing applications using Symfony as framew
 - [x] Sign in
 - [x] Logout
 
+![API Doc](https://i.imgur.com/DBZsPlE.png)
 
 ## Stack
 
