@@ -8,6 +8,8 @@ use App\Application\Query\Collection;
 use App\Application\Query\Event\GetEvents\GetEventsQuery;
 use App\UI\Http\Rest\Controller\QueryController;
 use Assert\Assertion;
+use Nelmio\ApiDocBundle\Annotation\Security;
+use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,6 +22,32 @@ class GetEventsController extends QueryController
      *     name="events",
      *     methods={"GET"}
      * )
+     *
+     * @SWG\Response(
+     *     response=201,
+     *     description="User created successfully"
+     * )
+     * @SWG\Response(
+     *     response=400,
+     *     description="Bad request"
+     * )
+     * @SWG\Response(
+     *     response=409,
+     *     description="Conflict"
+     * )
+     * @SWG\Parameter(
+     *     name="user",
+     *     type="object",
+     *     in="body",
+     *     schema=@SWG\Schema(type="object",
+     *         @SWG\Property(property="uuid", type="string"),
+     *         @SWG\Property(property="email", type="string")
+     *     )
+     * )
+     *
+     * @SWG\Tag(name="Events")
+     *
+     * @Security(name="Bearer")
      *
      * @throws \Assert\AssertionFailedException
      */
