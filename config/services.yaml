@@ -4,9 +4,11 @@ parameters:
   elastic:
     hosts:
       - '%env(ELASTIC_HOST)%'
-
   env(ELASTIC_HOST): 'elasticsearch:9200'
-  
+
+  events_table: '%env(EVENTS_TABLE)%'
+  env(EVENTS_TABLE): 'events'
+
 services:
     _defaults:
         autowire: true
@@ -20,6 +22,7 @@ services:
           $eventBus: '@broadway.event_handling.event_bus'
 
           $eventStore: '@Broadway\EventStore\Dbal\DBALEventStore'
+          $eventStoreTable: '%events_table%'
 
           $eventProducer: '@old_sound_rabbit_mq.events_producer'
 
@@ -52,7 +55,7 @@ services:
           - '@doctrine.dbal.default_connection'
           - '@broadway.serializer.payload'
           - '@broadway.serializer.metadata'
-          - 'events'
+          - '%events_table%'
           - 'false'
           - '@broadway.uuid.converter'
 
