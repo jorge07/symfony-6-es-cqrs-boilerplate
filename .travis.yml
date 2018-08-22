@@ -20,7 +20,7 @@ before_install:
 
 script:
   - make start
-  - make cs-fixer
+  - make cs-check
   - make style
   - make conf="--coverage-clover build/logs/clover.xml" phpunit
   - make schema-validate
