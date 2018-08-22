@@ -46,7 +46,7 @@ A boilerplate for DDD, CQRS, Event Sourcing applications using Symfony as framew
 
 ## Stack
 
-- PHP7.2
+- PHP 7.2
 - Mysql 5.7
 - Elastic & Kibana 6.3
 - RabbitMQ 3
@@ -64,6 +64,14 @@ Execute tests:
 Static code analysis:
 
 `make style`
+
+Code style fixer:
+
+`make cs`
+
+Code style checker:
+
+`make cs-check`
 
 Enter in php container:
 

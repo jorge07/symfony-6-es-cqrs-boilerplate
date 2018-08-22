@@ -34,8 +34,12 @@ phpunit: db ## execute project unit tests
 style: ## executes php analizers
 		docker-compose run --rm php sh -lc './vendor/bin/phpstan analyse -l 6 -c phpstan.neon src tests'
 
-.PHONY: cs-fixer
-cs-fixer: ## executes php cs fixer
+.PHONY: cs
+cs: ## executes php cs fixer
+		docker-compose run --rm php sh -lc './vendor/bin/php-cs-fixer --no-interaction --diff -v fix'
+
+.PHONY: cs-check
+cs-check: ## executes php cs fixer in dry run mode
 		docker-compose run --rm php sh -lc './vendor/bin/php-cs-fixer --no-interaction --dry-run --diff -v fix'
 
 .PHONY: layer
