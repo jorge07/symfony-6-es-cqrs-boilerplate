@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller;
 
-use League\Tactician\CommandBus;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 abstract class CommandController
 {
     protected function exec($command): void
     {
-        $this->commandBus->handle($command);
+        $this->commandBus->dispatch($command);
     }
 
-    public function __construct(CommandBus $commandBus)
+    public function __construct(MessageBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
     /**
-     * @var CommandBus
+     * @var MessageBusInterface
      */
     private $commandBus;
 }

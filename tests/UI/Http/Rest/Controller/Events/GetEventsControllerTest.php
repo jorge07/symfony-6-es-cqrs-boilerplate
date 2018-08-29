@@ -76,7 +76,7 @@ class GetEventsControllerTest extends JsonApiTestCase
     private function refreshIndex(): void
     {
         /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->client->getContainer()->get('events_repository');
+        $eventReadStore = $this->service('events_repository');
         $eventReadStore->refresh();
     }
 
@@ -88,13 +88,13 @@ class GetEventsControllerTest extends JsonApiTestCase
         parent::setUp();
 
         /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->client->getContainer()->get('events_repository');
+        $eventReadStore = $this->service('events_repository');
         $eventReadStore->boot();
 
         /** @var InMemoryProducer $consumersRegistry */
-        $consumersRegistry = $this->client->getContainer()->get(InMemoryProducer::class);
+        $consumersRegistry = $this->service(InMemoryProducer::class);
         /** @var SendEventsToElasticConsumer $consumer */
-        $consumer = $this->client->getContainer()->get('events_to_elastic');
+        $consumer = $this->service('events_to_elastic');
         $consumersRegistry->addConsumer('App.Domain.User.Event.UserWasCreated', $consumer);
 
         $this->refreshIndex();
@@ -106,7 +106,7 @@ class GetEventsControllerTest extends JsonApiTestCase
     protected function tearDown()
     {
         /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->client->getContainer()->get('events_repository');
+        $eventReadStore = $this->service('events_repository');
         $eventReadStore->delete();
 
         parent::tearDown();

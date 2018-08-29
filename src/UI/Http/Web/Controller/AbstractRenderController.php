@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Web\Controller;
 
-use League\Tactician\CommandBus;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 class AbstractRenderController
 {
@@ -23,15 +23,15 @@ class AbstractRenderController
 
     protected function exec($command): void
     {
-        $this->commandBus->handle($command);
+        $this->commandBus->dispatch($command);
     }
 
     protected function ask($query)
     {
-        return $this->queryBus->handle($query);
+        return $this->queryBus->dispatch($query);
     }
 
-    public function __construct(\Twig_Environment $template, CommandBus $commandBus, CommandBus $queryBus)
+    public function __construct(\Twig_Environment $template, MessageBusInterface $commandBus, MessageBusInterface $queryBus)
     {
         $this->template = $template;
         $this->commandBus = $commandBus;
@@ -39,12 +39,12 @@ class AbstractRenderController
     }
 
     /**
-     * @var CommandBus
+     * @var MessageBusInterface
      */
     private $commandBus;
 
     /**
-     * @var CommandBus
+     * @var MessageBusInterface
      */
     private $queryBus;
 

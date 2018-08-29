@@ -26,6 +26,10 @@
         <env name="JWT_PASSPHRASE" value="development"/>
         <env name="JWT_TTL" value="604800"/>
         <!-- ###- lexik/jwt-authentication-bundle ### -->
+
+        <!-- ###+ symfony/messenger ### -->
+        <env name="MESSENGER_TRANSPORT_DSN" value="amqp://guest:guest@localhost:5672/%2f/messages"/>
+        <!-- ###- symfony/messenger ### -->
     </php>
 
     <testsuites>

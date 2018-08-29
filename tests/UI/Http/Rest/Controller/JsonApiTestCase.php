@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Tests\UI\Http\Rest\Controller;
 
 use App\Application\Command\User\SignUp\SignUpCommand;
-use League\Tactician\CommandBus;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 abstract class JsonApiTestCase extends WebTestCase
 {
@@ -31,10 +31,10 @@ abstract class JsonApiTestCase extends WebTestCase
             $password
         );
 
-        /** @var CommandBus $commandBus */
-        $commandBus = $this->client->getContainer()->get('tactician.commandbus.command');
+        /** @var MessageBusInterface $commandBus */
+        $commandBus = $this->service('messenger.bus.command');
 
-        $commandBus->handle($signUp);
+        $commandBus->dispatch($signUp);
 
         return $email;
     }
@@ -95,6 +95,11 @@ abstract class JsonApiTestCase extends WebTestCase
     protected function setUp()
     {
         $this->client = static::createClient();
+    }
+
+    protected function service(string $serviceId)
+    {
+        return self::$container->get($serviceId);
     }
 
     protected function tearDown()

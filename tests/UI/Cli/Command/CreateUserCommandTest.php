@@ -9,8 +9,8 @@ use App\Application\Query\User\FindByEmail\FindByEmailQuery;
 use App\Infrastructure\User\Query\Projections\UserView;
 use App\Tests\UI\Cli\AbstractConsoleTestCase;
 use App\UI\Cli\Command\CreateUserCommand;
-use League\Tactician\CommandBus;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 class CreateUserCommandTest extends AbstractConsoleTestCase
 {
@@ -26,8 +26,8 @@ class CreateUserCommandTest extends AbstractConsoleTestCase
     {
         $email = 'jorge.arcoma@gmail.com';
 
-        /** @var CommandBus $commandBus */
-        $commandBus = $this->service('tactician.commandbus.command');
+        /** @var MessageBusInterface $commandBus */
+        $commandBus = $this->service('messenger.bus.command');
         $commandTester = $this->app($command = new CreateUserCommand($commandBus), 'app:create-user');
 
         $commandTester->execute([

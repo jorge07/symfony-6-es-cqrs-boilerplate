@@ -6,7 +6,7 @@ parameters:
       - '%env(ELASTIC_HOST)%'
 
   env(ELASTIC_HOST): 'elasticsearch:9200'
-  
+
 services:
     _defaults:
         autowire: true
@@ -15,8 +15,8 @@ services:
         bind:
           $elasticConfig: '%elastic%'
 
-          $queryBus: '@tactician.commandbus.query'
-          $commandBus: '@tactician.commandbus.command'
+          $queryBus: '@messenger.bus.query'
+          $commandBus: '@messenger.bus.command'
           $eventBus: '@broadway.event_handling.event_bus'
 
           $eventStore: '@Broadway\EventStore\Dbal\DBALEventStore'
@@ -28,12 +28,12 @@ services:
         App\Application\Command\CommandHandlerInterface:
           public: true
           tags:
-              - { name: tactician.handler, typehints: true, bus: command }
+              - { name: messenger.message_handler, typehints: true, bus: messenger.bus.command }
 
         App\Application\Query\QueryHandlerInterface:
           public: true
           tags:
-              - { name: tactician.handler, typehints: true, bus: query }
+              - { name: messenger.message_handler, typehints: true, bus: messenger.bus.query }
 
         Broadway\EventHandling\EventListener:
           public: true

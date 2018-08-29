@@ -10,10 +10,10 @@ use App\Application\Query\User\FindByEmail\FindByEmailQuery;
 use App\Domain\User\Exception\InvalidCredentialsException;
 use App\Infrastructure\User\Auth\Auth;
 use App\Infrastructure\User\Query\Projections\UserView;
-use League\Tactician\CommandBus;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -87,10 +87,10 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
 
             $query = new SignInCommand($email, $plainPassword);
 
-            $this->bus->handle($query);
+            $this->commandBus->dispatch($query);
 
             /** @var Item $userItem */
-            $userItem = $this->queryBus->handle(new FindByEmailQuery($email));
+            $userItem = $this->queryBus->dispatch(new FindByEmailQuery($email));
             /** @var UserView $user */
             $user = $userItem->readModel;
 
@@ -139,20 +139,20 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
         return $this->router->generate(self::LOGIN);
     }
 
-    public function __construct(CommandBus $commandBus, CommandBus $queryBus, UrlGeneratorInterface $router)
+    public function __construct(MessageBusInterface $commandBus, MessageBusInterface $queryBus, UrlGeneratorInterface $router)
     {
-        $this->bus = $commandBus;
+        $this->commandBus = $commandBus;
         $this->router = $router;
         $this->queryBus = $queryBus;
     }
 
     /**
-     * @var CommandBus
+     * @var MessageBusInterface
      */
-    private $bus;
+    private $commandBus;
 
     /**
-     * @var CommandBus
+     * @var MessageBusInterface
      */
     private $queryBus;
 

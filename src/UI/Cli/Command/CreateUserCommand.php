@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\UI\Cli\Command;
 
 use App\Application\Command\User\SignUp\SignUpCommand as CreateUser;
-use League\Tactician\CommandBus;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 class CreateUserCommand extends Command
 {
@@ -37,7 +37,7 @@ class CreateUserCommand extends Command
             $password = $input->getArgument('password')
         );
 
-        $this->commandBus->handle($command);
+        $this->commandBus->dispatch($command);
 
         $output->writeln('<info>User Created: </info>');
         $output->writeln('');
@@ -45,14 +45,14 @@ class CreateUserCommand extends Command
         $output->writeln("Email: $email");
     }
 
-    public function __construct(CommandBus $commandBus)
+    public function __construct(MessageBusInterface $commandBus)
     {
         parent::__construct();
         $this->commandBus = $commandBus;
     }
 
     /**
-     * @var CommandBus
+     * @var MessageBusInterface
      */
     private $commandBus;
 }
