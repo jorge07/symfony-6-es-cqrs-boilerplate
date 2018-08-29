@@ -28,7 +28,7 @@
         <!-- ###- lexik/jwt-authentication-bundle ### -->
 
         <!-- ###+ symfony/messenger ### -->
-        <env name="MESSENGER_TRANSPORT_DSN" value="amqp://guest:guest@localhost:5672/%2f/messages"/>
+        <!-- <env name="MESSENGER_TRANSPORT_DSN" value="amqp://guest:guest@localhost:5672/%2f/messages"/> -->
         <!-- ###- symfony/messenger ### -->
     </php>
 

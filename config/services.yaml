@@ -28,12 +28,12 @@ services:
         App\Application\Command\CommandHandlerInterface:
           public: true
           tags:
-              - { name: messenger.message_handler, typehints: true, bus: messenger.bus.command }
+              - { name: messenger.message_handler, bus: messenger.bus.command }
 
         App\Application\Query\QueryHandlerInterface:
           public: true
           tags:
-              - { name: messenger.message_handler, typehints: true, bus: messenger.bus.query }
+              - { name: messenger.message_handler, bus: messenger.bus.query }
 
         Broadway\EventHandling\EventListener:
           public: true
