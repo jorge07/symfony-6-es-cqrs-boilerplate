@@ -83,6 +83,10 @@ Disable\Enable Xdebug:
 
 `make xon`
 
+Build image to deploy
+
+`make artifact`
+
 ## PHPStorm integration
 
 PHPSTORM has native integration with Docker compose. That's nice but will stop your php container after run the test scenario. That's not nice when using fpm. A solution could be use another container just for that purpose. But I don't want. For that reason I use ssh connection.

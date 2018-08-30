@@ -5,3 +5,4 @@ services:
     build:
       dockerfile: etc/deploy/Dockerfile
       context: .
+    image: jorge07/cqrs:latest

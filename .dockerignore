@@ -1,0 +1,5 @@
+report/
+doc/
+vendor/
+test/
+.covertalls.yml

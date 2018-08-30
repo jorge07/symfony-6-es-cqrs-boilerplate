@@ -18,6 +18,10 @@ build: ## build environment and initialize composer and project dependencies
 		docker-compose build
 		docker-compose run --rm php sh -lc 'composer install'
 
+.PHONY: artifact
+artifact: ## build production artifact
+		docker-compose -f docker-compose.prod.yml build
+
 .PHONY: composer-update
 composer-update: ## Update project dependencies
 		docker-compose run --rm php sh -lc 'composer update'
