@@ -13,7 +13,10 @@ services:
       - php
 
   php:
-    image: jorge07/alpine-php:7.2-dev-sf
+    build:
+      dockerfile: etc/dev/php/Dockerfile
+      context: .
+    image: jorge07/cqrs:builder
     ports:
       - "2323:22"
     volumes:
@@ -23,10 +26,10 @@ services:
       - rmq
 
   workers:
-    image: jorge07/alpine-php:7.2-dev-sf
+    image: jorge07/cqrs:builder
     volumes:
       - .:/app
-    command: ['/app/bin/console', 'rabbitmq:multiple-consumer', 'events']
+    command: ['/app/bin/console', 'messenger:consume-messages', 'amqp']
 
   mysql:
     image: mysql:5.7

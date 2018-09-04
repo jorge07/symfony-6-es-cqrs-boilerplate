@@ -1,4 +1,4 @@
-FROM jorge07/alpine-php:7.2-dev-sf as builder
+FROM jorge07/cqrs:builder as builder
 
 WORKDIR /app
 

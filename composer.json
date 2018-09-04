@@ -5,6 +5,7 @@
         "php": "^7.2",
         "ext-iconv": "*",
         "ext-json": "*",
+        "ext-ampq": "*",
         "beberlei/assert": "^2.8",
         "broadway/broadway": "^2.0",
         "broadway/broadway-bundle": "^0.4.1",
@@ -24,6 +25,7 @@
         "symfony/messenger": "^4.1",
         "symfony/orm-pack": "^1.0",
         "symfony/security-bundle": "^4.1",
+        "symfony/serializer-pack": "^1.0",
         "symfony/twig-bundle": "^4.1",
         "symfony/yaml": "^4.1"
     },

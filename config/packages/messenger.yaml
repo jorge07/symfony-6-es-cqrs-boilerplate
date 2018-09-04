@@ -1,5 +1,7 @@
 framework:
     messenger:
+        transports:
+            amqp: "%env(MESSENGER_TRANSPORT_DSN)%"
         default_bus: messenger.bus.command
         buses:
             messenger.bus.command: ~
