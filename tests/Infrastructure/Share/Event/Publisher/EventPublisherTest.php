@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Infrastructure\Share\Event\Publisher;
 
 use App\Domain\User\Event\UserWasCreated;
+use App\Domain\User\ValueObject\Uuid;
 use App\Infrastructure\Share\Event\Publisher\AsyncEventPublisher;
 use App\Infrastructure\Share\Event\Publisher\EventPublisher;
 use Broadway\Domain\DateTime;
@@ -13,7 +14,6 @@ use Broadway\Domain\Metadata;
 use OldSound\RabbitMqBundle\RabbitMq\ConsumerInterface;
 use PhpAmqpLib\Message\AMQPMessage;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 
 class EventPublisherTest extends TestCase
 {

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Auth;
 
-use Ramsey\Uuid\UuidInterface;
+use App\Domain\User\ValueObject\Uuid;
 
 interface SessionInterface
 {
     /**
-     * @return UuidInterface[]|string[]
+     * @return Uuid[]|string[]
      */
     public function get(): array;
 

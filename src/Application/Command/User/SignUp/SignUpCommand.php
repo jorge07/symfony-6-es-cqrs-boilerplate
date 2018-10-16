@@ -5,19 +5,14 @@ namespace App\Application\Command\User\SignUp;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
+use App\Domain\User\ValueObject\Uuid;
 
 class SignUpCommand
 {
-    /**
-     * @var UuidInterface
-     */
+    /** @var Uuid */
     public $uuid;
 
-    /**
-     * @var Credentials
-     */
+    /** @var Credentials */
     public $credentials;
 
     /**

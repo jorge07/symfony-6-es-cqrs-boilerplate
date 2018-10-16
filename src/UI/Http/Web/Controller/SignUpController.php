@@ -6,8 +6,8 @@ namespace App\UI\Http\Web\Controller;
 
 use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Domain\User\Exception\EmailAlreadyExistException;
+use App\Domain\User\ValueObject\Uuid;
 use Assert\Assertion;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

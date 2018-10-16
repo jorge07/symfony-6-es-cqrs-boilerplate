@@ -4,11 +4,11 @@ namespace App\Domain\User\Query\Repository;
 
 use App\Domain\User\Query\Projections\UserViewInterface;
 use App\Domain\User\ValueObject\Email;
-use Ramsey\Uuid\UuidInterface;
+use App\Domain\User\ValueObject\Uuid;
 
 interface UserReadModelRepositoryInterface
 {
-    public function oneByUuid(UuidInterface $uuid): UserViewInterface;
+    public function oneByUuid(Uuid $uuid): UserViewInterface;
 
     public function oneByEmail(Email $email): UserViewInterface;
 

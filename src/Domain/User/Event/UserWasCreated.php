@@ -7,10 +7,9 @@ namespace App\Domain\User\Event;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
+use App\Domain\User\ValueObject\Uuid;
 use Assert\Assertion;
 use Broadway\Serializer\Serializable;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
 final class UserWasCreated implements Serializable
 {
@@ -42,19 +41,15 @@ final class UserWasCreated implements Serializable
         ];
     }
 
-    public function __construct(UuidInterface $uuid, Credentials $credentials)
+    public function __construct(Uuid $uuid, Credentials $credentials)
     {
         $this->uuid = $uuid;
         $this->credentials = $credentials;
     }
 
-    /**
-     * @var UuidInterface
-     */
+    /** @var Uuid */
     public $uuid;
 
-    /**
-     * @var Credentials
-     */
+    /** @var Credentials */
     public $credentials;
 }

@@ -11,13 +11,13 @@ use App\Domain\User\Exception\InvalidCredentialsException;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
+use App\Domain\User\ValueObject\Uuid;
 use Assert\Assertion;
 use Broadway\EventSourcing\EventSourcedAggregateRoot;
-use Ramsey\Uuid\UuidInterface;
 
 class User extends EventSourcedAggregateRoot
 {
-    public static function create(UuidInterface $uuid, Credentials $credentials): self
+    public static function create(Uuid $uuid, Credentials $credentials): self
     {
         $user = new self();
 
@@ -88,7 +88,7 @@ class User extends EventSourcedAggregateRoot
         return $this->uuid->toString();
     }
 
-    /** @var UuidInterface */
+    /** @var Uuid */
     private $uuid;
 
     /** @var Email */

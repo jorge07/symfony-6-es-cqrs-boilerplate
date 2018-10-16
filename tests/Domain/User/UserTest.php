@@ -8,8 +8,8 @@ use App\Domain\User\User;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
+use App\Domain\User\ValueObject\Uuid;
 use Broadway\Domain\DomainMessage;
-use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 
 class UserTest extends TestCase

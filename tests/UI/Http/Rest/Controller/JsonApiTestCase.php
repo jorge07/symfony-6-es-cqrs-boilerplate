@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\UI\Http\Rest\Controller;
 
 use App\Application\Command\User\SignUp\SignUpCommand;
+use App\Domain\User\ValueObject\Uuid;
 use League\Tactician\CommandBus;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -110,6 +109,6 @@ abstract class JsonApiTestCase extends WebTestCase
     /** @var null|string */
     private $token;
 
-    /** @var null|UuidInterface */
+    /** @var null|Uuid */
     protected $userUuid;
 }

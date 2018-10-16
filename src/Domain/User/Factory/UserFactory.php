@@ -8,11 +8,11 @@ use App\Domain\User\Exception\EmailAlreadyExistException;
 use App\Domain\User\Repository\CheckUserByEmailInterface;
 use App\Domain\User\User;
 use App\Domain\User\ValueObject\Auth\Credentials;
-use Ramsey\Uuid\UuidInterface;
+use App\Domain\User\ValueObject\Uuid;
 
 class UserFactory
 {
-    public function register(UuidInterface $uuid, Credentials $credentials): User
+    public function register(Uuid $uuid, Credentials $credentials): User
     {
         if ($this->userCollection->existsEmail($credentials->email)) {
             throw new EmailAlreadyExistException('Email already registered.');

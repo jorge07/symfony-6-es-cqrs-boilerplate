@@ -4,38 +4,19 @@ declare(strict_types=1);
 
 namespace App\Domain\User\ValueObject;
 
+use App\Domain\Shared\ValueObject\AbstractString;
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 
-class Email
+class Email extends AbstractString
 {
     /**
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
-    public static function fromString(string $email): self
+    protected function __construct(string $value)
     {
-        Assertion::email($email, 'Not a valid email');
+        Assertion::email($value, 'Not a valid email');
 
-        $mail = new self();
-
-        $mail->email = $email;
-
-        return $mail;
+        parent::__construct($value);
     }
-
-    public function toString(): string
-    {
-        return $this->email;
-    }
-
-    public function __toString(): string
-    {
-        return $this->email;
-    }
-
-    private function __construct()
-    {
-    }
-
-    /** @var string */
-    private $email;
 }

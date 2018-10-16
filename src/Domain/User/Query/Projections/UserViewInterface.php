@@ -2,17 +2,18 @@
 
 namespace App\Domain\User\Query\Projections;
 
+use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
+use App\Domain\User\ValueObject\Uuid;
 use Broadway\ReadModel\SerializableReadModel;
-use Ramsey\Uuid\UuidInterface;
 
 interface UserViewInterface extends SerializableReadModel
 {
-    public function uuid(): UuidInterface;
+    public function uuid(): Uuid;
 
-    public function email(): string;
+    public function email(): Email;
 
-    public function hashedPassword(): string;
+    public function hashedPassword(): HashedPassword;
 
     public function changeEmail(Email $email): void;
 }

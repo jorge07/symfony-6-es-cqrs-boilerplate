@@ -8,9 +8,8 @@ use App\Domain\User\Query\Projections\UserViewInterface;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
+use App\Domain\User\ValueObject\Uuid;
 use Broadway\Serializer\Serializable;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
 class UserView implements UserViewInterface
 {
@@ -40,19 +39,20 @@ class UserView implements UserViewInterface
         return [
             'uuid'        => $this->getId(),
             'credentials' => [
-                'email' => (string) $this->credentials->email,
+                'email'    => $this->credentials->email->toString(),
+                'password' => $this->credentials->password->toString(),
             ],
         ];
     }
 
-    public function uuid(): UuidInterface
+    public function uuid(): Uuid
     {
         return $this->uuid;
     }
 
-    public function email(): string
+    public function email(): Email
     {
-        return (string) $this->credentials->email;
+        return $this->credentials->email;
     }
 
     public function changeEmail(Email $email): void
@@ -60,17 +60,17 @@ class UserView implements UserViewInterface
         $this->credentials->email = $email;
     }
 
-    public function hashedPassword(): string
+    public function hashedPassword(): HashedPassword
     {
-        return (string) $this->credentials->password;
+        return $this->credentials->password;
     }
 
     public function getId(): string
     {
-        return (string) $this->uuid;
+        return $this->uuid->toString();
     }
 
-    /** @var UuidInterface */
+    /** @var Uuid */
     private $uuid;
 
     /** @var Credentials */

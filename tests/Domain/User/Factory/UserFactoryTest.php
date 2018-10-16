@@ -10,9 +10,8 @@ use App\Domain\User\Repository\CheckUserByEmailInterface;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
+use App\Domain\User\ValueObject\Uuid;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
 class UserFactoryTest extends TestCase implements CheckUserByEmailInterface
 {
@@ -59,11 +58,11 @@ class UserFactoryTest extends TestCase implements CheckUserByEmailInterface
         $factory->register($uuid, new Credentials($email, HashedPassword::encode('password')));
     }
 
-    public function existsEmail(Email $email): ?UuidInterface
+    public function existsEmail(Email $email): ?Uuid
     {
         return $this->emailExist;
     }
 
-    /** @var UuidInterface|null */
+    /** @var Uuid|null */
     private $emailExist;
 }

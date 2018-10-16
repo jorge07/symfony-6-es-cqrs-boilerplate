@@ -17,6 +17,9 @@ doctrine:
         server_version: '5.7'
         types:
           uuid_binary: Ramsey\Uuid\Doctrine\UuidBinaryType
+          App\Domain\User\ValueObject\Uuid: App\Infrastructure\User\ORM\Type\UuidType
+          App\Domain\User\ValueObject\Email: App\Infrastructure\User\ORM\Type\EmailType
+          App\Domain\User\ValueObject\HashedPassword: App\Infrastructure\User\ORM\Type\HashedPasswordType
         mapping_types:
           uuid_binary: binary
     orm:

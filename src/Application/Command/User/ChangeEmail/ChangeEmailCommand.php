@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Application\Command\User\ChangeEmail;
 
 use App\Domain\User\ValueObject\Email;
-use Ramsey\Uuid\Uuid;
+use App\Domain\User\ValueObject\Uuid;
 
 class ChangeEmailCommand
 {
-    /** @var \Ramsey\Uuid\UuidInterface */
+    /** @var Uuid */
     public $userUuid;
 
     /** @var Email */

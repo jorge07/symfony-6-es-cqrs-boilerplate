@@ -9,7 +9,7 @@ use App\Domain\User\Exception\InvalidCredentialsException;
 use App\Domain\User\Repository\CheckUserByEmailInterface;
 use App\Domain\User\Repository\UserRepositoryInterface;
 use App\Domain\User\ValueObject\Email;
-use Ramsey\Uuid\UuidInterface;
+use App\Domain\User\ValueObject\Uuid;
 
 class SignInHandler implements CommandHandlerInterface
 {
@@ -24,7 +24,7 @@ class SignInHandler implements CommandHandlerInterface
         $this->userStore->store($user);
     }
 
-    private function uuidFromEmail(Email $email): UuidInterface
+    private function uuidFromEmail(Email $email): Uuid
     {
         $uuid = $this->userCollection->existsEmail($email);
 

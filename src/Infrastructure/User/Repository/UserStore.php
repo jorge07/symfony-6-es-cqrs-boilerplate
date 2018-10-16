@@ -6,11 +6,11 @@ namespace App\Infrastructure\User\Repository;
 
 use App\Domain\User\Repository\UserRepositoryInterface;
 use App\Domain\User\User;
+use App\Domain\User\ValueObject\Uuid;
 use Broadway\EventHandling\EventBus;
 use Broadway\EventSourcing\AggregateFactory\PublicConstructorAggregateFactory;
 use Broadway\EventSourcing\EventSourcingRepository;
 use Broadway\EventStore\EventStore;
-use Ramsey\Uuid\UuidInterface;
 
 class UserStore extends EventSourcingRepository implements UserRepositoryInterface
 {
@@ -19,7 +19,7 @@ class UserStore extends EventSourcingRepository implements UserRepositoryInterfa
         $this->save($user);
     }
 
-    public function get(UuidInterface $uuid): User
+    public function get(Uuid $uuid): User
     {
         /** @var User $user */
         $user = $this->load((string) $uuid);

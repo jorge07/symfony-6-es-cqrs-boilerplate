@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace App\Domain\User\Event;
 
 use App\Domain\User\ValueObject\Email;
+use App\Domain\User\ValueObject\Uuid;
 use Assert\Assertion;
 use Broadway\Serializer\Serializable;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
 final class UserSignedIn implements Serializable
 {
-    public static function create(UuidInterface $uuid, Email $email): self
+    public static function create(Uuid $uuid, Email $email): self
     {
         $instance = new self();
 
@@ -47,6 +46,6 @@ final class UserSignedIn implements Serializable
     /** @var Email */
     public $email;
 
-    /** @var UuidInterface */
+    /** @var Uuid */
     public $uuid;
 }

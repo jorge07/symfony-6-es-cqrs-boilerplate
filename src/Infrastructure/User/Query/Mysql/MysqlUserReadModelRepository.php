@@ -8,10 +8,10 @@ use App\Domain\User\Query\Projections\UserViewInterface;
 use App\Domain\User\Query\Repository\UserReadModelRepositoryInterface;
 use App\Domain\User\Repository\CheckUserByEmailInterface;
 use App\Domain\User\ValueObject\Email;
+use App\Domain\User\ValueObject\Uuid;
 use App\Infrastructure\Share\Query\Repository\MysqlRepository;
 use App\Infrastructure\User\Query\Projections\UserView;
 use Doctrine\ORM\EntityManagerInterface;
-use Ramsey\Uuid\UuidInterface;
 
 class MysqlUserReadModelRepository extends MysqlRepository implements UserReadModelRepositoryInterface, CheckUserByEmailInterface
 {
@@ -19,7 +19,7 @@ class MysqlUserReadModelRepository extends MysqlRepository implements UserReadMo
      * @throws \App\Domain\Shared\Query\Exception\NotFoundException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function oneByUuid(UuidInterface $uuid): UserViewInterface
+    public function oneByUuid(Uuid $uuid): UserViewInterface
     {
         $qb = $this->repository
             ->createQueryBuilder('user')
@@ -33,7 +33,7 @@ class MysqlUserReadModelRepository extends MysqlRepository implements UserReadMo
     /**
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function existsEmail(Email $email): ?UuidInterface
+    public function existsEmail(Email $email): ?Uuid
     {
         $userId = $this->repository
             ->createQueryBuilder('user')

@@ -7,9 +7,9 @@ namespace App\Tests\Application\Query\User\FindByEmail;
 use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Application\Query\Item;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
+use App\Domain\User\ValueObject\Uuid;
 use App\Infrastructure\User\Query\Projections\UserView;
 use App\Tests\Application\ApplicationTestCase;
-use Ramsey\Uuid\Uuid;
 
 class FindByEmailHandlerTest extends ApplicationTestCase
 {
@@ -34,7 +34,7 @@ class FindByEmailHandlerTest extends ApplicationTestCase
 
         self::assertInstanceOf(Item::class, $item);
         self::assertInstanceOf(UserView::class, $userRead);
-        self::assertSame($email, $userRead->email());
+        self::assertSame($email, $userRead->email()->toString());
     }
 
     /**

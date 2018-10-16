@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace App\Domain\User\Event;
 
 use App\Domain\User\ValueObject\Email;
+use App\Domain\User\ValueObject\Uuid;
 use Assert\Assertion;
 use Broadway\Serializer\Serializable;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
 final class UserEmailChanged implements Serializable
 {
@@ -34,14 +33,14 @@ final class UserEmailChanged implements Serializable
         ];
     }
 
-    public function __construct(UuidInterface $uuid, Email $email)
+    public function __construct(Uuid $uuid, Email $email)
     {
         $this->email = $email;
         $this->uuid = $uuid;
     }
 
     /**
-     * @var UuidInterface
+     * @var Uuid
      */
     public $uuid;
 
