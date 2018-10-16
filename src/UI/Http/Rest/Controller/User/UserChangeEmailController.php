@@ -41,7 +41,6 @@ final class UserChangeEmailController extends CommandController
      *     name="change-email",
      *     type="object",
      *     in="body",
-     *     required=true,
      *     schema=@SWG\Schema(type="object",
      *         @SWG\Property(property="email", type="string")
      *     )

@@ -9,7 +9,6 @@ use App\Application\Query\Auth\GetToken\GetTokenQuery;
 use App\Domain\User\Exception\InvalidCredentialsException;
 use App\UI\Http\Rest\Controller\CommandQueryController;
 use Assert\Assertion;
-use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,8 +49,6 @@ final class CheckController extends CommandQueryController
      * )
      *
      * @SWG\Tag(name="Auth")
-     *
-     * @Security(name="Bearer")
      *
      * @throws InvalidCredentialsException
      * @throws \Assert\AssertionFailedException

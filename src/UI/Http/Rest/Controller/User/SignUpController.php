@@ -7,7 +7,7 @@ namespace App\UI\Http\Rest\Controller\User;
 use App\Application\Command\User\SignUp\SignUpCommand;
 use App\UI\Http\Rest\Controller\CommandController;
 use Assert\Assertion;
-use Nelmio\ApiDocBundle\Annotation\Security;
+use Ramsey\Uuid\Uuid;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,13 +17,10 @@ final class SignUpController extends CommandController
 {
     /**
      * @Route(
-     *     "/users",
+     *     "/signup",
      *     name="user_create",
-     *     methods={"POST"},
-     *     requirements={
-     *      "uuid": "\d+",
-     *      "email": "\w+"
-     * })
+     *     methods={"POST"}
+     * )
      *
      * @SWG\Response(
      *     response=201,
@@ -41,26 +38,24 @@ final class SignUpController extends CommandController
      *     name="user",
      *     type="object",
      *     in="body",
-     *     required=true,
      *     schema=@SWG\Schema(type="object",
      *         @SWG\Property(property="uuid", type="string"),
-     *         @SWG\Property(property="email", type="string")
+     *         @SWG\Property(property="email", type="string"),
+     *         @SWG\Property(property="password", type="string")
      *     )
      * )
      *
      * @SWG\Tag(name="User")
      *
-     * @Security(name="Bearer")
-     *
      * @throws \Assert\AssertionFailedException
      */
     public function __invoke(Request $request): JsonResponse
     {
-        $uuid = $request->get('uuid');
+        $uuid = $request->get('uuid') ?: Uuid::uuid4()->toString();
         $email = $request->get('email');
         $plainPassword = $request->get('password');
 
-        Assertion::notNull($uuid, "Uuid can\'t be null");
+        Assertion::true(Uuid::isValid($uuid), 'Uuid must be valid');
         Assertion::notNull($email, "Email can\'t be null");
         Assertion::notNull($plainPassword, "Password can\'t be null");
 

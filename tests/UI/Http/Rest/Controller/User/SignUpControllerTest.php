@@ -18,9 +18,9 @@ class SignUpControllerTest extends JsonApiTestCase
      *
      * @throws \Exception
      */
-    public function given_a_valid_uuid_and_email_should_return_a_201_status_code(): void
+    public function given_a_valid_uuid_and_email_and_password_should_return_a_201_status_code(): void
     {
-        $this->post('/api/users', [
+        $this->post('/api/signup', [
             'uuid'     => Uuid::uuid4()->toString(),
             'email'    => 'jo@jo.com',
             'password' => 'oaisudaosudoaudo',
@@ -48,9 +48,69 @@ class SignUpControllerTest extends JsonApiTestCase
      *
      * @throws \Exception
      */
+    public function given_a_valid_email_and_password_should_return_a_201_status_code(): void
+    {
+        $this->post('/api/signup', [
+            'email'    => 'jo@jo.com',
+            'password' => 'oaisudaosudoaudo',
+        ]);
+
+        self::assertSame(Response::HTTP_CREATED, $this->client->getResponse()->getStatusCode());
+
+        /** @var EventCollectorListener $eventCollector */
+        $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
+
+        /** @var DomainMessage[] $events */
+        $events = $eventCollector->popEvents();
+
+        self::assertCount(1, $events);
+
+        $userWasCreatedEvent = $events[0];
+
+        self::assertInstanceOf(UserWasCreated::class, $userWasCreatedEvent->getPayload());
+    }
+
+    /**
+     * @test
+     *
+     * @group e2e
+     *
+     * @throws \Exception
+     */
+    public function given_a_email_which_used_by_other_user_should_return_a_400_status_code(): void
+    {
+        $this->createUser();
+
+        $this->post('/api/signup', [
+            'email'    => JsonApiTestCase::DEFAULT_EMAIL,
+            'password' => 'oaisudaosudoaudo',
+        ]);
+
+        self::assertSame(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+
+        /** @var EventCollectorListener $eventCollector */
+        $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
+
+        /** @var DomainMessage[] $events */
+        $events = $eventCollector->popEvents();
+
+        self::assertCount(1, $events);
+
+        $userWasCreatedEvent = $events[0];
+
+        self::assertInstanceOf(UserWasCreated::class, $userWasCreatedEvent->getPayload());
+    }
+
+    /**
+     * @test
+     *
+     * @group e2e
+     *
+     * @throws \Exception
+     */
     public function invalid_input_parameters_should_return_400_status_code(): void
     {
-        $this->post('/api/users', [
+        $this->post('/api/signup', [
             'uuid'  => Uuid::uuid4()->toString(),
             'email' => 'invalid email',
         ]);
@@ -63,16 +123,5 @@ class SignUpControllerTest extends JsonApiTestCase
         $events = $eventCollector->popEvents();
 
         self::assertCount(0, $events);
-    }
-
-    /**
-     * @throws \Assert\AssertionFailedException
-     */
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->createUser();
-        $this->auth();
     }
 }
