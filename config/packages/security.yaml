@@ -12,6 +12,11 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        api_healthz:
+            pattern:  ^/api/healthz
+            stateless: true
+            anonymous: true
+
         api_doc:
             pattern:  ^/api/doc
             stateless: true
@@ -50,9 +55,10 @@ security:
               target: /
 
     access_control:
-        - { path: ^/profile/*,  roles: ROLE_USER                    }
-        - { path: ^/login,      roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/auth,   roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/signup, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/doc,    roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/,       roles: IS_AUTHENTICATED_FULLY       }
+        - { path: ^/profile/*,   roles: ROLE_USER                    }
+        - { path: ^/api/healthz, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login,       roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/auth,    roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/signup,  roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/doc,     roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/,        roles: IS_AUTHENTICATED_FULLY       }

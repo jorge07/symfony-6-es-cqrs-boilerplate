@@ -1,0 +1,119 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ include "chart.fullname" . }}
+  labels:
+    app: {{ include "chart.name" . }}
+    chart: {{ include "chart.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "chart.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "chart.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      volumes:
+      - name: jwt
+        secret:
+          secretName: {{ .Chart.Name }}-jwt
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.php.repository }}:{{ .Values.image.php.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+          - name: jwt
+            mountPath: {{ .Values.parameters.jwt.hostPath }}
+            readOnly: true
+          env:
+          - name: APP_ENV
+            value: {{ .Values.parameters.app.env | quote }}
+          - name: APP_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Chart.Name }}-secret
+                key: secret
+          {{- if .Values.parameters.app.proxy }}
+          - name: TRUSTED_PROXIES
+            value: {{ .Values.parameters.app.proxy | quote }}
+          {{- end }}
+          {{- if .Values.parameters.app.hosts }}
+          - name: TRUSTED_HOSTS
+            value: {{ .Values.parameters.app.hosts | quote }}
+            {{- end }}
+          - name: RABBITMQ_URL
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Chart.Name }}-rabbitmq
+                key: host
+          - name: DATABASE_HOST
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Chart.Name }}-mysql
+                key: host
+          - name: DATABASE_PORT
+            value: {{ .Values.parameters.mysql.port | quote }}
+          - name: DATABASE_NAME
+            value: {{ .Values.parameters.mysql.database | quote }}
+          - name: DATABASE_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Chart.Name }}-mysql
+                key: user
+          - name: DATABASE_PASS
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Chart.Name }}-mysql
+                key: pass
+          - name: JWT_SECRET_KEY
+            value: {{ .Values.parameters.jwt.hostPath }}/private.pem
+          - name: JWT_PUBLIC_KEY
+            value: {{ .Values.parameters.jwt.hostPath }}/public.pem
+          - name: JWT_PASSPHRASE
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Chart.Name }}-jwt
+                key: passphrase
+          - name: JWT_TTL
+            value: {{ .Values.parameters.jwt.ttl | quote }}
+          - name: ELASTIC_HOST
+            value: {{- if .Values.elasticsearch.selfHosted }} {{ template "elasticHost" . }} {{- else }} {{ .Values.parameters.elastic.host | quote }} {{- end }}
+          ports:
+            - name: fast-cgi
+              containerPort: 9000
+              protocol: TCP
+        - name: {{ .Chart.Name }}-nginx
+          image: "{{ .Values.image.nginx.repository }}:{{ .Values.image.nginx.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+          - name: http
+            containerPort: 80
+            protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /api/healthz
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /api/healthz
+              port: http
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
