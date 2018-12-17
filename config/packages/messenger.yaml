@@ -7,8 +7,6 @@ framework:
             messenger.bus.command:
                 middleware:
                     - messenger.middleware.validation
-                    #- messenger.middleware.handles_recorded_messages: ['@messenger.bus.event']
-                    #- doctrine_transaction_middleware: ['default']
             messenger.bus.query:
                 middleware:
                     - messenger.middleware.validation
@@ -16,3 +14,5 @@ framework:
                 middleware:
                     - messenger.middleware.allow_no_handler
                     - messenger.middleware.validation
+        routing:
+            'App\Application\Command\CommandMessage': amqp

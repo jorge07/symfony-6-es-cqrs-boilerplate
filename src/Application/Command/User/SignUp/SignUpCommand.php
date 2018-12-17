@@ -2,13 +2,14 @@
 
 namespace App\Application\Command\User\SignUp;
 
+use App\Application\Command\CommandMessage;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class SignUpCommand
+class SignUpCommand implements CommandMessage
 {
     /**
      * @var UuidInterface

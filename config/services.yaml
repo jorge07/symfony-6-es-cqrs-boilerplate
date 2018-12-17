@@ -6,7 +6,6 @@ parameters:
       - '%env(ELASTIC_HOST)%'
 
   env(ELASTIC_HOST): 'elasticsearch:9200'
-  locale: 'en'
 
 services:
     _defaults:

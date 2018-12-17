@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Application\Command\User\SignIn;
 
+use App\Application\Command\CommandMessage;
 use App\Domain\User\ValueObject\Email;
 
-class SignInCommand
+class SignInCommand implements CommandMessage
 {
     /**
      * @var Email

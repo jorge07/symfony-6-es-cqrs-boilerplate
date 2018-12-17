@@ -14,6 +14,9 @@ use Ramsey\Uuid\UuidInterface;
 
 class UserView implements UserViewInterface
 {
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     public static function fromSerializable(Serializable $event): self
     {
         return self::deserialize($event->serialize());

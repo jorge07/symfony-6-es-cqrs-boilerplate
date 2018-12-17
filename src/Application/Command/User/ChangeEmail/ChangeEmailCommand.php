@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Application\Command\User\ChangeEmail;
 
+use App\Application\Command\CommandMessage;
 use App\Domain\User\ValueObject\Email;
 use Ramsey\Uuid\Uuid;
 
-class ChangeEmailCommand
+class ChangeEmailCommand implements CommandMessage
 {
     /** @var \Ramsey\Uuid\UuidInterface */
     public $userUuid;
