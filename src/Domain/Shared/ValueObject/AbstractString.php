@@ -6,9 +6,6 @@ namespace App\Domain\Shared\ValueObject;
 
 abstract class AbstractString
 {
-    /**
-     * @return static
-     */
     public static function fromString(string $value): self
     {
         return new static($value);

@@ -9,11 +9,11 @@ use App\Domain\User\Query\Repository\UserReadModelRepositoryInterface;
 use App\Domain\User\Repository\CheckUserByEmailInterface;
 use App\Domain\User\ValueObject\Email;
 use App\Domain\User\ValueObject\Uuid;
-use App\Infrastructure\Share\Query\Repository\MysqlRepository;
+use App\Infrastructure\Share\Query\Repository\AbstractMysqlRepository;
 use App\Infrastructure\User\Query\Projections\UserView;
 use Doctrine\ORM\EntityManagerInterface;
 
-class MysqlUserReadModelRepository extends MysqlRepository implements UserReadModelRepositoryInterface, CheckUserByEmailInterface
+class MysqlUserReadModelRepository extends AbstractMysqlRepository implements UserReadModelRepositoryInterface, CheckUserByEmailInterface
 {
     /**
      * @throws \App\Domain\Shared\Query\Exception\NotFoundException

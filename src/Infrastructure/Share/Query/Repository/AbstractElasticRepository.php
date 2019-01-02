@@ -8,7 +8,7 @@ use Assert\Assertion;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 
-abstract class ElasticRepository
+abstract class AbstractElasticRepository
 {
     public function search(array $query): array
     {
