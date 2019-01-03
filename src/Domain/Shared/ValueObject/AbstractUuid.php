@@ -49,9 +49,9 @@ abstract class AbstractUuid
     /**
      * @param int|string $node
      *
-     * @return static
-     *
      * @throws \Exception
+     *
+     * @return static
      */
     public static function uuid1($node = null, int $clockSeq = null): self
     {
@@ -67,9 +67,9 @@ abstract class AbstractUuid
     }
 
     /**
-     * @return static
-     *
      * @throws \Exception
+     *
+     * @return static
      */
     public static function uuid4(): self
     {
