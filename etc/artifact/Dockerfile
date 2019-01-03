@@ -19,10 +19,20 @@ COPY public /app/public
 
 RUN composer run-script post-install-cmd && php /app/bin/console c:w
 
-FROM jorge07/alpine-php:7.2
+FROM jorge07/alpine-php:7.2 as php
 
 ENV APP_ENV prod
 
 WORKDIR /app
 
 COPY --from=builder /app /app
+
+FROM nginx:1.15-alpine as nginx
+
+ENV APP_ENV prod
+
+WORKDIR /app
+
+COPY etc/artifact/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
+COPY --from=builder /app/public /app/public

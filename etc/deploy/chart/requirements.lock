@@ -1,0 +1,15 @@
+dependencies:
+- name: rabbitmq
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 4.0.1
+- name: traefik
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 1.55.1
+- name: mysql
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 0.11.0
+- name: elasticsearch
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 1.15.0
+digest: sha256:fd60b0281015c958da85834a4fb79902d7fba0581732daeeebf73bc67215cf18
+generated: 2018-12-16T20:32:43.089350647+01:00

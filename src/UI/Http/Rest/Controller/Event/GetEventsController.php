@@ -36,13 +36,14 @@ class GetEventsController extends QueryController
      *     description="Conflict"
      * )
      * @SWG\Parameter(
-     *     name="user",
-     *     type="object",
-     *     in="body",
-     *     schema=@SWG\Schema(type="object",
-     *         @SWG\Property(property="uuid", type="string"),
-     *         @SWG\Property(property="email", type="string")
-     *     )
+     *     name="page",
+     *     type="integer",
+     *     in="path"
+     * )
+     * @SWG\Parameter(
+     *     name="limit",
+     *     type="integer",
+     *     in="path"
      * )
      *
      * @SWG\Tag(name="Events")

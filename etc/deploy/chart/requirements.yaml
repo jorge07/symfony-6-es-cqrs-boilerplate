@@ -1,0 +1,17 @@
+dependencies:
+  - name: rabbitmq
+    version: 4.0.1
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    conditions: rabbitmq.selfHosted
+  - name: traefik
+    version: 1.55.1
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    conditions: traefik.selfHosted
+  - name: mysql
+    version: 0.11.0
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    conditions: mysql.selfHosted
+  - name: elasticsearch
+    version: 1.15.0
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    conditions: elasticsearch.selfHosted

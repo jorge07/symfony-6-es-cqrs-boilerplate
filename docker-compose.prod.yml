@@ -1,8 +1,15 @@
-version: '3'
+version: '3.4'
 
 services:
   php:
     build:
-      dockerfile: etc/deploy/Dockerfile
+      dockerfile: etc/artifact/Dockerfile
       context: .
+      target: php
     image: jorge07/cqrs:latest
+  nginx:
+    build:
+      dockerfile: etc/artifact/Dockerfile
+      context: .
+      target: nginx
+    image: jorge07/cqrs:nginx-latest
