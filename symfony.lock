@@ -485,9 +485,6 @@
             "ref": "a249484db698d1a847a30291c8f732414ac47e25"
         }
     },
-    "symfony/security": {
-        "version": "v4.0.4"
-    },
     "symfony/security-bundle": {
         "version": "3.3",
         "recipe": {
@@ -498,16 +495,16 @@
         }
     },
     "symfony/security-core": {
-        "version": "v4.2.3"
+        "version": "v4.2.1"
     },
     "symfony/security-csrf": {
-        "version": "v4.2.3"
+        "version": "v4.2.1"
     },
     "symfony/security-guard": {
-        "version": "v4.2.3"
+        "version": "v4.2.1"
     },
     "symfony/security-http": {
-        "version": "v4.2.3"
+        "version": "v4.2.1"
     },
     "symfony/stopwatch": {
         "version": "v4.0.4"
@@ -528,7 +525,7 @@
         "version": "v4.0.4"
     },
     "symfony/var-exporter": {
-        "version": "v4.2.3"
+        "version": "v4.2.1"
     },
     "symfony/web-profiler-bundle": {
         "version": "3.3",
