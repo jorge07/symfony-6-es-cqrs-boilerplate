@@ -18,6 +18,8 @@ A boilerplate for DDD, CQRS, Event Sourcing applications using Symfony as framew
 
 [UI workflow](https://github.com/jorge07/symfony-4-es-cqrs-boilerplate/blob/master/doc/Workflow.md)
 
+[Xdebug configuration](ttps://github.com/jorge07/symfony-4-es-cqrs-boilerplate/blob/master/doc/Xdebug.md)
+
 [Kubernetes Deployment](https://github.com/jorge07/symfony-4-es-cqrs-boilerplate/blob/master/doc/Deployment.md)
 
 ## Architecture
