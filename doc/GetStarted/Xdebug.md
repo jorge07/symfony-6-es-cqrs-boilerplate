@@ -29,4 +29,4 @@ api_workers_1         /sbin/tini -- /app/bin/con ...   Up      22/tcp, 9000/tcp
 - Next you'll need to configure phpunit in your IDE to have something like:
 ![phpunit](https://i.imgur.com/AzFTN9k.png)
 - Now you'll be able to run any php test file or phpunit config.
-![run test](https://i.imgur.com/AzFTN9k.png) 
+![run test](https://i.imgur.com/PCYXr1U.png) 
