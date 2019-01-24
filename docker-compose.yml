@@ -3,7 +3,7 @@ version: '3'
 services:
 
   nginx:
-    image: nginx:1.11-alpine
+    image: nginx:1.15-alpine
     ports:
       - "80:80"
     volumes:
@@ -13,7 +13,7 @@ services:
       - php
 
   php:
-    image: jorge07/alpine-php:7.2-dev-sf
+    image: jorge07/alpine-php:7.3-dev-sf
     ports:
       - "2323:22"
     volumes:
@@ -23,7 +23,7 @@ services:
       - rmq
 
   workers:
-    image: jorge07/alpine-php:7.2-dev-sf
+    image: jorge07/alpine-php:7.3-dev-sf
     volumes:
       - .:/app
     command: ['/app/bin/console', 'rabbitmq:multiple-consumer', 'events']
