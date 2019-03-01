@@ -32,9 +32,9 @@ class CreateUserCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $command = new CreateUser(
-            $uuid = ($input->getArgument('uuid') ?: Uuid::uuid4()->toString()),
-            $email = $input->getArgument('email'),
-            $password = $input->getArgument('password')
+            $uuid = (string) ($input->getArgument('uuid') ?: Uuid::uuid4()->toString()),
+            $email = (string) $input->getArgument('email'),
+            $password = (string) $input->getArgument('password')
         );
 
         $this->commandBus->handle($command);

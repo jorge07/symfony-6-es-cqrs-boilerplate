@@ -1,4 +1,6 @@
-FROM jorge07/alpine-php:7.2-dev-sf as builder
+ARG PHP_VERION=7.2
+
+FROM jorge07/alpine-php:${PHP_VERION}-dev-sf as builder
 
 WORKDIR /app
 
@@ -17,9 +19,9 @@ COPY config /app/config
 COPY src /app/src
 COPY public /app/public
 
-RUN composer run-script post-install-cmd && php /app/bin/console c:w
+RUN composer run-script post-install-cmd
 
-FROM jorge07/alpine-php:7.2 as php
+FROM jorge07/alpine-php:${PHP_VERION} as php
 
 ENV APP_ENV prod
 
