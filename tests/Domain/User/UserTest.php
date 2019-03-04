@@ -4,6 +4,8 @@ namespace App\Tests\Domain\User;
 
 use App\Domain\User\Event\UserEmailChanged;
 use App\Domain\User\Event\UserWasCreated;
+use App\Domain\User\Exception\EmailAlreadyExistException;
+use App\Domain\User\Specification\UniqueEmailSpecificationInterface;
 use App\Domain\User\User;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
@@ -12,8 +14,10 @@ use Broadway\Domain\DomainMessage;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 
-class UserTest extends TestCase
+class UserTest extends TestCase implements UniqueEmailSpecificationInterface
 {
+    private $isUniqueException = false;
+
     /**
      * @test
      *
@@ -31,7 +35,8 @@ class UserTest extends TestCase
             new Credentials(
                 Email::fromString($emailString),
                 HashedPassword::encode('password')
-            )
+            ),
+            $this
         );
 
         self::assertSame($emailString, $user->email());
@@ -64,12 +69,13 @@ class UserTest extends TestCase
             new Credentials(
                 Email::fromString($emailString),
                 HashedPassword::encode('password')
-            )
+            ),
+            $this
         );
 
         $newEmail = 'weba@aso.maximo';
 
-        $user->changeEmail(Email::fromString($newEmail));
+        $user->changeEmail(Email::fromString($newEmail), $this);
 
         self::assertSame($user->email(), $newEmail, 'Emails should be equals');
 
@@ -81,5 +87,47 @@ class UserTest extends TestCase
         $event = $events->getIterator()->offsetGet(1);
 
         self::assertInstanceOf(UserEmailChanged::class, $event->getPayload(), 'Second event should be UserEmailChanged');
+    }
+
+    /**
+     * @test
+     *
+     * @group unit
+     *
+     * @throws \Exception
+     * @throws \Assert\AssertionFailedException
+     */
+    public function given_a_registered_email_it_should_throw_an_email_already_exists_exception(): void
+    {
+        self::expectException(EmailAlreadyExistException::class);
+
+        $this->isUniqueException = true;
+
+        $emailString = 'lol@aso.maximo';
+
+        $user = User::create(
+            Uuid::uuid4(),
+            new Credentials(
+                Email::fromString($emailString),
+                HashedPassword::encode('password')
+            ),
+            $this
+        );
+
+        $newEmail = 'weba@aso.maximo';
+
+        $user->changeEmail(Email::fromString($newEmail), $this);
+    }
+
+    /**
+     * @throws EmailAlreadyExistException
+     */
+    public function isUnique(Email $email): bool
+    {
+        if ($this->isUniqueException) {
+            throw new EmailAlreadyExistException();
+        }
+
+        return true;
     }
 }

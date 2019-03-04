@@ -8,6 +8,7 @@ use App\Domain\User\Event\UserEmailChanged;
 use App\Domain\User\Event\UserSignedIn;
 use App\Domain\User\Event\UserWasCreated;
 use App\Domain\User\Exception\InvalidCredentialsException;
+use App\Domain\User\Specification\UniqueEmailSpecificationInterface;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
@@ -17,8 +18,13 @@ use Ramsey\Uuid\UuidInterface;
 
 class User extends EventSourcedAggregateRoot
 {
-    public static function create(UuidInterface $uuid, Credentials $credentials): self
-    {
+    public static function create(
+        UuidInterface $uuid,
+        Credentials $credentials,
+        UniqueEmailSpecificationInterface $uniqueEmailSpecification
+    ): self {
+        $uniqueEmailSpecification->isUnique($credentials->email);
+
         $user = new self();
 
         $user->apply(new UserWasCreated($uuid, $credentials));
@@ -26,8 +32,11 @@ class User extends EventSourcedAggregateRoot
         return $user;
     }
 
-    public function changeEmail(Email $email): void
-    {
+    public function changeEmail(
+        Email $email,
+        UniqueEmailSpecificationInterface $uniqueEmailSpecification
+    ): void {
+        $uniqueEmailSpecification->isUnique($email);
         $this->apply(new UserEmailChanged($this->uuid, $email));
     }
 

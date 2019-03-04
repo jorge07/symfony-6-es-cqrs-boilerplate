@@ -10,6 +10,7 @@ use App\Domain\User\Repository\CheckUserByEmailInterface;
 use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\Share\Query\Repository\MysqlRepository;
 use App\Infrastructure\User\Query\Projections\UserView;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\UuidInterface;
 
@@ -41,6 +42,7 @@ class MysqlUserReadModelRepository extends MysqlRepository implements UserReadMo
             ->where('user.credentials.email = :email')
             ->setParameter('email', (string) $email)
             ->getQuery()
+            ->setHydrationMode(AbstractQuery::HYDRATE_ARRAY)
             ->getOneOrNullResult()
         ;
 
