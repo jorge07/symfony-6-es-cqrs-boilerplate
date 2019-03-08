@@ -43,4 +43,14 @@ class SignUpHandlerTest extends ApplicationTestCase
 
         self::assertInstanceOf(UserWasCreated::class, $userCreatedEvent);
     }
+
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
+    public static function createTestUserCommand(string $uuid = null, string $email = 'asd@asd.asd'): SignUpCommand
+    {
+        $uuid = $uuid ?: Uuid::uuid4()->toString();
+
+        return new SignUpCommand($uuid, $email, 'password');
+    }
 }

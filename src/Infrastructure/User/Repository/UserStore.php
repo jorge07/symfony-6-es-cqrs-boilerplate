@@ -6,13 +6,10 @@ namespace App\Infrastructure\User\Repository;
 
 use App\Domain\User\Repository\UserRepositoryInterface;
 use App\Domain\User\User;
-use Broadway\EventHandling\EventBus;
-use Broadway\EventSourcing\AggregateFactory\PublicConstructorAggregateFactory;
-use Broadway\EventSourcing\EventSourcingRepository;
-use Broadway\EventStore\EventStore;
+use App\Infrastructure\Share\Event\Store\EventStore;
 use Ramsey\Uuid\UuidInterface;
 
-final class UserStore extends EventSourcingRepository implements UserRepositoryInterface
+final class UserStore extends EventStore implements UserRepositoryInterface
 {
     public function store(User $user): void
     {
@@ -27,17 +24,8 @@ final class UserStore extends EventSourcingRepository implements UserRepositoryI
         return $user;
     }
 
-    public function __construct(
-        EventStore $eventStore,
-        EventBus $eventBus,
-        array $eventStreamDecorators = []
-    ) {
-        parent::__construct(
-            $eventStore,
-            $eventBus,
-            User::class,
-            new PublicConstructorAggregateFactory(),
-            $eventStreamDecorators
-        );
+    protected static function aggregate(): string
+    {
+        return User::class;
     }
 }

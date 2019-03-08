@@ -26,6 +26,20 @@ abstract class MysqlRepository
     }
 
     /**
+     * @throws \Doctrine\ORM\ORMException
+     */
+    public function createReference(string $class, $reference)
+    {
+        $reference = $this->entityManager->getReference($class, $reference);
+
+        if (!$reference) {
+            throw new \InvalidArgumentException('Invalid user reference');
+        }
+
+        return $reference;
+    }
+
+    /**
      * @throws NotFoundException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
