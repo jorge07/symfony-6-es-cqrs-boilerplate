@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Auth;
 
-use App\Domain\User\Auth\SessionInterface;
 use App\Domain\User\Exception\InvalidCredentialsException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-final class Session implements SessionInterface
+final class Session
 {
     public function get(): array
     {
@@ -27,6 +26,7 @@ final class Session implements SessionInterface
         return [
             'uuid'     => $user->uuid(),
             'username' => $user->getUsername(),
+            'roles'    => $user->getRoles(),
         ];
     }
 

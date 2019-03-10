@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\UI\Http\Rest\Controller\User;
 
 use App\Application\Command\User\ChangeEmail\ChangeEmailCommand;
-use App\Domain\User\Auth\SessionInterface;
 use App\Domain\User\Exception\ForbiddenException;
+use App\Infrastructure\User\Auth\Session;
 use App\UI\Http\Rest\Controller\CommandController;
 use Assert\Assertion;
 use League\Tactician\CommandBus;
@@ -79,14 +79,14 @@ final class UserChangeEmailController extends CommandController
         }
     }
 
-    public function __construct(SessionInterface $session, CommandBus $commandBus)
+    public function __construct(Session $session, CommandBus $commandBus)
     {
         parent::__construct($commandBus);
         $this->session = $session;
     }
 
     /**
-     * @var SessionInterface
+     * @var Session
      */
     private $session;
 }
