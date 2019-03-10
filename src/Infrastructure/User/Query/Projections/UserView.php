@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Query\Projections;
 
-use App\Domain\User\Query\Projections\UserViewInterface;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
+use Broadway\ReadModel\SerializableReadModel;
 use Broadway\Serializer\Serializable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class UserView implements UserViewInterface
+class UserView implements SerializableReadModel
 {
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
     public static function fromSerializable(Serializable $event): self
     {
         return self::deserialize($event->serialize());
@@ -21,6 +24,8 @@ class UserView implements UserViewInterface
 
     /**
      * @throws \Assert\AssertionFailedException
+     *
+     * @return UserView
      */
     public static function deserialize(array $data): self
     {

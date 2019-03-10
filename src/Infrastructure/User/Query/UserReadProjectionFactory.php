@@ -6,7 +6,7 @@ namespace App\Infrastructure\User\Query;
 
 use App\Domain\User\Event\UserEmailChanged;
 use App\Domain\User\Event\UserWasCreated;
-use App\Domain\User\Query\Repository\UserReadModelRepositoryInterface;
+use App\Infrastructure\User\Query\Mysql\MysqlUserReadModelRepository;
 use App\Infrastructure\User\Query\Projections\UserView;
 use Broadway\ReadModel\Projector;
 
@@ -22,6 +22,10 @@ class UserReadProjectionFactory extends Projector
         $this->repository->add($userReadModel);
     }
 
+    /**
+     * @throws \App\Domain\Shared\Query\Exception\NotFoundException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     protected function applyUserEmailChanged(UserEmailChanged $emailChanged): void
     {
         /** @var UserView $userReadModel */
@@ -32,11 +36,11 @@ class UserReadProjectionFactory extends Projector
         $this->repository->apply();
     }
 
-    public function __construct(UserReadModelRepositoryInterface $repository)
+    public function __construct(MysqlUserReadModelRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    /** @var UserReadModelRepositoryInterface */
+    /** @var MysqlUserReadModelRepository */
     private $repository;
 }

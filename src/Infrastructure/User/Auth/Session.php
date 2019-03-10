@@ -8,7 +8,7 @@ use App\Domain\User\Auth\SessionInterface;
 use App\Domain\User\Exception\InvalidCredentialsException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class Session implements SessionInterface
+final class Session implements SessionInterface
 {
     public function get(): array
     {
