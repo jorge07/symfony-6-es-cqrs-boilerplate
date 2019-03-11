@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Auth;
 
-use App\Domain\User\Auth\AuthenticationProviderInterface;
-use App\Domain\User\Query\Projections\UserViewInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
+use Ramsey\Uuid\UuidInterface;
 
-class AuthenticationProvider implements AuthenticationProviderInterface
+final class AuthenticationProvider
 {
-    public function generateToken(UserViewInterface $userView): string
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
+    public function generateToken(UuidInterface $uuid, string $email, string $hashedPassword): string
     {
-        $auth = Auth::fromUser($userView);
+        $auth = Auth::create($uuid, $email, $hashedPassword);
 
         return $this->JWTManager->create($auth);
     }
