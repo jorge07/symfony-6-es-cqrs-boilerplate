@@ -6,7 +6,7 @@ parameters:
       - '%env(ELASTIC_HOST)%'
 
   env(ELASTIC_HOST): 'elasticsearch:9200'
-  
+
 services:
     _defaults:
         autowire: true
@@ -53,7 +53,7 @@ services:
           - '@broadway.serializer.payload'
           - '@broadway.serializer.metadata'
           - 'events'
-          - 'false'
+          - true
           - '@broadway.uuid.converter'
 
     ### UI
