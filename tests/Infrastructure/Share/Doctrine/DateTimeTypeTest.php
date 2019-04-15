@@ -13,7 +13,9 @@ use PHPUnit\Framework\TestCase;
 class DateTimeTypeTest extends TestCase
 {
     const TYPE = 'lol';
+
     const BAD_DATE = 'lol';
+
     /**
      * @var DateTimeType
      */
