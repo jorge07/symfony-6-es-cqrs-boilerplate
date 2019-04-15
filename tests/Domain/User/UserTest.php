@@ -130,4 +130,33 @@ class UserTest extends TestCase implements UniqueEmailSpecificationInterface
 
         return true;
     }
+
+    /**
+     * @test
+     *
+     * @group unit
+     */
+    public function given_a_new_email_when_email_changes_should_update_the_update_at_field(): void
+    {
+        $emailString = 'lol@aso.maximo';
+
+        $user = User::create(
+            Uuid::uuid4(),
+            new Credentials(
+                Email::fromString($emailString),
+                HashedPassword::encode('password')
+            ),
+            $this
+        );
+
+        self::assertNotNull($user->createdAt());
+        self::assertNotNull($user->updatedAt());
+
+        $initialUpdatedAt = $user->updatedAt();
+        usleep(1000);
+        $newEmail = 'weba@aso.maximo';
+        $user->changeEmail(Email::fromString($newEmail), $this);
+
+        self::assertNotSame($user->updatedAt(), $initialUpdatedAt);
+    }
 }

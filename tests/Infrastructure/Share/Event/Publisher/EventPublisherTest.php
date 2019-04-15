@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Infrastructure\Share\Event\Publisher;
 
+use App\Domain\Shared\ValueObject\DateTime as DomainDateTime;
 use App\Domain\User\Event\UserWasCreated;
 use App\Infrastructure\Share\Event\Publisher\AsyncEventPublisher;
 use App\Infrastructure\Share\Event\Publisher\EventPublisher;
@@ -27,7 +28,17 @@ class EventPublisherTest extends TestCase
      */
     public function messages_are_consumed_by_routing_key(): void
     {
-        $data = ['uuid' => $uuid = Uuid::uuid4()->toString(), 'credentials' => ['email' => 'lol@lol.com', 'password' => 'lkasjbdalsjdbalsdbaljsdhbalsjbhd987']];
+        $current = DomainDateTime::now();
+
+        $data = [
+            'uuid'        => $uuid = Uuid::uuid4()->toString(),
+            'credentials' => [
+                'email'    => 'lol@lol.com',
+                'password' => 'lkasjbdalsjdbalsdbaljsdhbalsjbhd987',
+            ],
+            'created_at' => $current->toString(),
+            'updated_at' => $current->toString(),
+        ];
 
         $this->publisher->handle(
             new DomainMessage(

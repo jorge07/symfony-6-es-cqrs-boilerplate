@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Query\Projections;
 
+use App\Domain\Shared\ValueObject\DateTime;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
@@ -15,6 +16,7 @@ use Ramsey\Uuid\UuidInterface;
 class UserView implements SerializableReadModel
 {
     /**
+     * @throws \App\Domain\Shared\Exception\DateTimeException
      * @throws \Assert\AssertionFailedException
      */
     public static function fromSerializable(Serializable $event): self
@@ -23,6 +25,7 @@ class UserView implements SerializableReadModel
     }
 
     /**
+     * @throws \App\Domain\Shared\Exception\DateTimeException
      * @throws \Assert\AssertionFailedException
      *
      * @return UserView
@@ -36,6 +39,9 @@ class UserView implements SerializableReadModel
             Email::fromString($data['credentials']['email']),
             HashedPassword::fromHash($data['credentials']['password'] ?? '')
         );
+
+        $instance->createdAt = DateTime::fromString($data['created_at']);
+        $instance->updatedAt = DateTime::fromString($data['updated_at']);
 
         return $instance;
     }
@@ -65,6 +71,11 @@ class UserView implements SerializableReadModel
         $this->credentials->email = $email;
     }
 
+    public function changeUpdatedAt(DateTime $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
     public function hashedPassword(): string
     {
         return (string) $this->credentials->password;
@@ -80,4 +91,10 @@ class UserView implements SerializableReadModel
 
     /** @var Credentials */
     private $credentials;
+
+    /** @var DateTime */
+    private $createdAt;
+
+    /** @var DateTime */
+    private $updatedAt;
 }

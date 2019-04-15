@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Event;
 
+use App\Domain\Shared\ValueObject\DateTime;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
@@ -15,6 +16,7 @@ use Ramsey\Uuid\UuidInterface;
 final class UserWasCreated implements Serializable
 {
     /**
+     * @throws \App\Domain\Shared\Exception\DateTimeException
      * @throws \Assert\AssertionFailedException
      */
     public static function deserialize(array $data): self
@@ -27,7 +29,8 @@ final class UserWasCreated implements Serializable
             new Credentials(
                 Email::fromString($data['credentials']['email']),
                 HashedPassword::fromHash($data['credentials']['password'])
-            )
+            ),
+            DateTime::fromString($data['created_at'])
         );
     }
 
@@ -39,13 +42,16 @@ final class UserWasCreated implements Serializable
                 'email'    => $this->credentials->email->toString(),
                 'password' => $this->credentials->password->toString(),
             ],
+            'created_at' => $this->createdAt->toString(),
+            'updated_at' => $this->updatedAt->toString(),
         ];
     }
 
-    public function __construct(UuidInterface $uuid, Credentials $credentials)
+    public function __construct(UuidInterface $uuid, Credentials $credentials, DateTime $createdAt)
     {
         $this->uuid = $uuid;
         $this->credentials = $credentials;
+        $this->createdAt = $this->updatedAt = $createdAt;
     }
 
     /**
@@ -57,4 +63,14 @@ final class UserWasCreated implements Serializable
      * @var Credentials
      */
     public $credentials;
+
+    /**
+     * @var DateTime
+     */
+    public $createdAt;
+
+    /**
+     * @var DateTime
+     */
+    public $updatedAt;
 }
