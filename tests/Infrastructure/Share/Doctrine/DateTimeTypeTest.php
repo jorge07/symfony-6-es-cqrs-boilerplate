@@ -17,7 +17,7 @@ class DateTimeTypeTest extends TestCase
     const BAD_DATE = 'lol';
 
     /**
-     * @var DateTimeType
+     * @var Type
      */
     private $dateTimeType;
 
@@ -36,8 +36,6 @@ class DateTimeTypeTest extends TestCase
      * @test
      *
      * @group unit
-     *
-     * @throws \Doctrine\DBAL\DBALException
      */
     public function given_a_datetimetype_when_i_get_the_sql_declaration_then_it_should_print_the_platform_string()
     {
@@ -48,8 +46,6 @@ class DateTimeTypeTest extends TestCase
      * @test
      *
      * @group unit
-     *
-     * @throws ConversionException
      */
     public function given_a_datetimetype_with_a_invalid_date_then_it_should_throw_an_exception()
     {
@@ -62,8 +58,6 @@ class DateTimeTypeTest extends TestCase
      * @test
      *
      * @group unit
-     *
-     * @throws ConversionException
      */
     public function given_a_datetimetype_with_a_null_date_then_it_should_return_null()
     {
@@ -74,8 +68,6 @@ class DateTimeTypeTest extends TestCase
      * @test
      *
      * @group unit
-     *
-     * @throws ConversionException
      */
     public function given_a_php_datetime_value_it_should_throw_an_exception()
     {
@@ -88,8 +80,6 @@ class DateTimeTypeTest extends TestCase
      * @test
      *
      * @group unit
-     *
-     * @throws ConversionException
      */
     public function given_a_php_datetimetype_with_a_null_date_then_it_should_return_null()
     {
