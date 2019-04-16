@@ -43,7 +43,6 @@ final class UserWasCreated implements Serializable
                 'password' => $this->credentials->password->toString(),
             ],
             'created_at' => $this->createdAt->toString(),
-            'updated_at' => $this->updatedAt->toString(),
         ];
     }
 
@@ -51,7 +50,7 @@ final class UserWasCreated implements Serializable
     {
         $this->uuid = $uuid;
         $this->credentials = $credentials;
-        $this->createdAt = $this->updatedAt = $createdAt;
+        $this->createdAt = $createdAt;
     }
 
     /**
@@ -68,9 +67,4 @@ final class UserWasCreated implements Serializable
      * @var DateTime
      */
     public $createdAt;
-
-    /**
-     * @var DateTime
-     */
-    public $updatedAt;
 }

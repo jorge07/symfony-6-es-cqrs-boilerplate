@@ -150,7 +150,7 @@ class UserTest extends TestCase implements UniqueEmailSpecificationInterface
         );
 
         self::assertNotNull($user->createdAt());
-        self::assertNotNull($user->updatedAt());
+        self::assertNull($user->updatedAt());
 
         $initialUpdatedAt = $user->updatedAt();
         usleep(1000);

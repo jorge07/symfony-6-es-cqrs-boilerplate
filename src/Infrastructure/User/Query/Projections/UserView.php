@@ -41,7 +41,7 @@ class UserView implements SerializableReadModel
         );
 
         $instance->createdAt = DateTime::fromString($data['created_at']);
-        $instance->updatedAt = DateTime::fromString($data['updated_at']);
+        $instance->updatedAt = isset($data['updated_at']) ? DateTime::fromString($data['updated_at']) : null;
 
         return $instance;
     }

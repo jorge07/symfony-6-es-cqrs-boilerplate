@@ -12,7 +12,7 @@ use Doctrine\DBAL\Types\Type;
 
 class DateTimeType extends Type
 {
-    const NAME = 'domain_datetime_immutable';
+    const NAME = 'datetime_immutable';
 
     /**
      * {@inheritdoc}
@@ -33,6 +33,10 @@ class DateTimeType extends Type
 
         if ($value instanceof DateTime) {
             return $value->toFormat($platform->getDateTimeFormatString());
+        }
+
+        if ($value instanceof \DateTimeImmutable) {
+            return $value->format($platform->getDateFormatString());
         }
 
         throw ConversionException::conversionFailedInvalidType(
@@ -62,14 +66,6 @@ class DateTimeType extends Type
         }
 
         return $dateTime;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function requiresSQLCommentHint(AbstractPlatform $platform)
-    {
-        return true;
     }
 
     public function getName()

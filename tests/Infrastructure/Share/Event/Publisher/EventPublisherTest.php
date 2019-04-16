@@ -37,7 +37,6 @@ class EventPublisherTest extends TestCase
                 'password' => 'lkasjbdalsjdbalsdbaljsdhbalsjbhd987',
             ],
             'created_at' => $current->toString(),
-            'updated_at' => $current->toString(),
         ];
 
         $this->publisher->handle(

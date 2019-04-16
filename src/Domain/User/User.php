@@ -68,7 +68,6 @@ class User extends EventSourcedAggregateRoot
         $this->setEmail($event->credentials->email);
         $this->setHashedPassword($event->credentials->password);
         $this->setCreatedAt($event->createdAt);
-        $this->setUpdatedAt($event->updatedAt);
     }
 
     /**
@@ -107,9 +106,9 @@ class User extends EventSourcedAggregateRoot
         return $this->createdAt->toString();
     }
 
-    public function updatedAt(): string
+    public function updatedAt(): ?string
     {
-        return $this->updatedAt->toString();
+        return isset($this->updatedAt) ? $this->updatedAt->toString() : null;
     }
 
     public function email(): string
