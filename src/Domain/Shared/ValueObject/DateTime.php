@@ -47,9 +47,9 @@ class DateTime
         return $this->dateTime->format(self::FORMAT);
     }
 
-    public function toFormat(string $format): string
+    public function toNative(): \DateTimeImmutable
     {
-        return $this->dateTime->format($format);
+        return $this->dateTime;
     }
 
     /**

@@ -138,6 +138,6 @@ class User extends EventSourcedAggregateRoot
     /** @var DateTime */
     private $createdAt;
 
-    /** @var DateTime */
+    /** @var DateTime|null */
     private $updatedAt;
 }

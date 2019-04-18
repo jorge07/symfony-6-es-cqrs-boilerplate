@@ -32,11 +32,11 @@ class DateTimeType extends Type
         }
 
         if ($value instanceof DateTime) {
-            return $value->toFormat($platform->getDateTimeFormatString());
+            return $value->toNative()->format($platform->getDateTimeFormatString());
         }
 
         if ($value instanceof \DateTimeImmutable) {
-            return $value->format($platform->getDateFormatString());
+            return $value->format($platform->getDateTimeFormatString());
         }
 
         throw ConversionException::conversionFailedInvalidType(

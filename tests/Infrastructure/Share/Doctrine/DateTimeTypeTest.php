@@ -85,4 +85,22 @@ class DateTimeTypeTest extends TestCase
     {
         self::assertNull($this->dateTimeType->convertToDatabaseValue(null, new MySqlPlatform()));
     }
+
+    /**
+     * @test
+     *
+     * @group unit
+     *
+     * @throws \Exception
+     */
+    public function given_a_php_an_immutable_datetime_value_it_should_return_a_correct_format()
+    {
+        $datetimeImmutable = new \DateTimeImmutable();
+        $mysqlPlatform = new MySqlPlatform();
+
+        self::assertSame(
+            $this->dateTimeType->convertToDatabaseValue($datetimeImmutable, $mysqlPlatform),
+            $datetimeImmutable->format($mysqlPlatform->getDateTimeFormatString())
+        );
+    }
 }
