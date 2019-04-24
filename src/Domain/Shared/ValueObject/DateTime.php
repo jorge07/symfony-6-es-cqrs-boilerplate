@@ -8,7 +8,7 @@ use App\Domain\Shared\Exception\DateTimeException;
 
 class DateTime
 {
-    const FORMAT = \DateTimeImmutable::RFC3339_EXTENDED;
+    const FORMAT = 'Y-m-d\TH:i:s.uP';
 
     /**
      * @throws DateTimeException
