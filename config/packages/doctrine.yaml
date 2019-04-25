@@ -17,6 +17,7 @@ doctrine:
         server_version: '5.7'
         types:
           uuid_binary: Ramsey\Uuid\Doctrine\UuidBinaryType
+          datetime_immutable: App\Infrastructure\Share\Doctrine\DateTimeType
         mapping_types:
           uuid_binary: binary
     orm:

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Infrastructure\Share\Event\Query;
 
+use App\Domain\Shared\Exception\DateTimeException;
+use App\Domain\Shared\ValueObject\DateTime as DomainDateTime;
 use App\Domain\User\Event\UserWasCreated;
 use App\Infrastructure\Share\Event\Query\EventElasticRepository;
 use Broadway\Domain\DateTime;
@@ -19,10 +21,17 @@ class EventElasticRepositoryTest extends TestCase
      * @group integration
      *
      * @throws \Assert\AssertionFailedException
+     * @throws DateTimeException
      */
     public function an_event_should_be_stored_in_elastic(): void
     {
-        $data = ['uuid' => $uuid = 'e937f793-45d8-41e9-a756-a2bc711e3172', 'credentials' => ['email' => 'lol@lol.com', 'password' => 'lkasjbdalsjdbalsdbaljsdhbalsjbhd987']];
+        $data = [
+            'uuid'        => $uuid = 'e937f793-45d8-41e9-a756-a2bc711e3172',
+            'credentials' => [
+                'email'    => 'lol@lol.com',
+                'password' => 'lkasjbdalsjdbalsdbaljsdhbalsjbhd987', ],
+            'created_at' => DomainDateTime::now()->toString(),
+        ];
 
         $event = new DomainMessage(
             $uuid,
