@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\User;
 
+use App\Domain\Shared\ValueObject\DateTime;
 use App\Domain\User\Event\UserEmailChanged;
 use App\Domain\User\Event\UserSignedIn;
 use App\Domain\User\Event\UserWasCreated;
@@ -18,6 +19,9 @@ use Ramsey\Uuid\UuidInterface;
 
 class User extends EventSourcedAggregateRoot
 {
+    /**
+     * @throws \App\Domain\Shared\Exception\DateTimeException
+     */
     public static function create(
         UuidInterface $uuid,
         Credentials $credentials,
@@ -27,17 +31,20 @@ class User extends EventSourcedAggregateRoot
 
         $user = new self();
 
-        $user->apply(new UserWasCreated($uuid, $credentials));
+        $user->apply(new UserWasCreated($uuid, $credentials, DateTime::now()));
 
         return $user;
     }
 
+    /**
+     * @throws \App\Domain\Shared\Exception\DateTimeException
+     */
     public function changeEmail(
         Email $email,
         UniqueEmailSpecificationInterface $uniqueEmailSpecification
     ): void {
         $uniqueEmailSpecification->isUnique($email);
-        $this->apply(new UserEmailChanged($this->uuid, $email));
+        $this->apply(new UserEmailChanged($this->uuid, $email, DateTime::now()));
     }
 
     /**
@@ -51,7 +58,7 @@ class User extends EventSourcedAggregateRoot
             throw new InvalidCredentialsException('Invalid credentials entered.');
         }
 
-        $this->apply(UserSignedIn::create($this->uuid, $this->email));
+        $this->apply(new UserSignedIn($this->uuid, $this->email));
     }
 
     protected function applyUserWasCreated(UserWasCreated $event): void
@@ -60,6 +67,7 @@ class User extends EventSourcedAggregateRoot
 
         $this->setEmail($event->credentials->email);
         $this->setHashedPassword($event->credentials->password);
+        $this->setCreatedAt($event->createdAt);
     }
 
     /**
@@ -70,6 +78,7 @@ class User extends EventSourcedAggregateRoot
         Assertion::notEq($this->email->toString(), $event->email->toString(), 'New email should be different');
 
         $this->setEmail($event->email);
+        $this->setUpdatedAt($event->updatedAt);
     }
 
     private function setEmail(Email $email): void
@@ -80,6 +89,26 @@ class User extends EventSourcedAggregateRoot
     private function setHashedPassword(HashedPassword $hashedPassword): void
     {
         $this->hashedPassword = $hashedPassword;
+    }
+
+    private function setCreatedAt(DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    private function setUpdatedAt(DateTime $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    public function createdAt(): string
+    {
+        return $this->createdAt->toString();
+    }
+
+    public function updatedAt(): ?string
+    {
+        return isset($this->updatedAt) ? $this->updatedAt->toString() : null;
     }
 
     public function email(): string
@@ -105,4 +134,10 @@ class User extends EventSourcedAggregateRoot
 
     /** @var HashedPassword */
     private $hashedPassword;
+
+    /** @var DateTime */
+    private $createdAt;
+
+    /** @var DateTime|null */
+    private $updatedAt;
 }

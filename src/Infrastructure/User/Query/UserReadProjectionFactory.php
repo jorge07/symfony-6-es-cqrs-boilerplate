@@ -32,6 +32,7 @@ class UserReadProjectionFactory extends Projector
         $userReadModel = $this->repository->oneByUuid($emailChanged->uuid);
 
         $userReadModel->changeEmail($emailChanged->email);
+        $userReadModel->changeUpdatedAt($emailChanged->updatedAt);
 
         $this->repository->apply();
     }
