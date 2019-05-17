@@ -4,23 +4,31 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Query\Projections;
 
-use App\Domain\User\Query\Projections\UserViewInterface;
+use App\Domain\Shared\ValueObject\DateTime;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
+use Broadway\ReadModel\SerializableReadModel;
 use Broadway\Serializer\Serializable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class UserView implements UserViewInterface
+class UserView implements SerializableReadModel
 {
+    /**
+     * @throws \App\Domain\Shared\Exception\DateTimeException
+     * @throws \Assert\AssertionFailedException
+     */
     public static function fromSerializable(Serializable $event): self
     {
         return self::deserialize($event->serialize());
     }
 
     /**
+     * @throws \App\Domain\Shared\Exception\DateTimeException
      * @throws \Assert\AssertionFailedException
+     *
+     * @return UserView
      */
     public static function deserialize(array $data): self
     {
@@ -31,6 +39,9 @@ class UserView implements UserViewInterface
             Email::fromString($data['credentials']['email']),
             HashedPassword::fromHash($data['credentials']['password'] ?? '')
         );
+
+        $instance->createdAt = DateTime::fromString($data['created_at']);
+        $instance->updatedAt = isset($data['updated_at']) ? DateTime::fromString($data['updated_at']) : null;
 
         return $instance;
     }
@@ -60,6 +71,11 @@ class UserView implements UserViewInterface
         $this->credentials->email = $email;
     }
 
+    public function changeUpdatedAt(DateTime $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
     public function hashedPassword(): string
     {
         return (string) $this->credentials->password;
@@ -75,4 +91,10 @@ class UserView implements UserViewInterface
 
     /** @var Credentials */
     private $credentials;
+
+    /** @var DateTime */
+    private $createdAt;
+
+    /** @var DateTime */
+    private $updatedAt;
 }

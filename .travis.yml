@@ -20,9 +20,12 @@ before_install:
 
 script:
   - make start
+  - make xoff
   - make cs-check
   - make style
+  - make xon
   - make conf="--coverage-clover build/logs/clover.xml" phpunit
+  - make xoff
   - make schema-validate
   - make layer
   - make artifact

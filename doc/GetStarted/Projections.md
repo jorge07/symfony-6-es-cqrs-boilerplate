@@ -4,20 +4,6 @@ A Projection is a representation of a stream of events (aggregates) into a struc
 
 Let's say we want to store the list of emails in a separated ElasticSearch index for testing purpose.
 
-#### Domain definition
-
-```php
-<?php
-
-namespace App\Domain\User\Query\Projections;
-
-use Broadway\ReadModel\SerializableReadModel;
-
-interface UserListProjectionInterface extends SerializableReadModel
-{
-}
-
-```
 
 #### Infrastructure implementation
 
@@ -28,13 +14,12 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Query\Projections;
 
-use App\Domain\User\Query\Projections\UserListProjectionInterface;
 use App\Domain\User\ValueObject\Email;
 use Broadway\Serializer\Serializable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class UserListProjection implements UserListProjectionInterface
+class UserListProjection implements SerializableReadModel
 {
     /** @var UuidInterface */
     public $uuid;
@@ -72,18 +57,6 @@ class UserListProjection implements UserListProjectionInterface
 }
 ```
 
-### Define your Read Model Repository
-
-```php
-<?php
-namespace App\Domain\User\Query\Repository\UserEmailListReadModelRepositoryInterface;
-
-interface UserEmailListReadModelRepositoryInterface {
-    public function add(UserListProjection $projection): void;
-    public function replace(string $uuid, Email $email): void;
-}
-```
-
 > Then you need to implement the Infrastructure for this. Something like `App\Infrastructure\User\Query\Repository\UserEmailListElasticSearchRepository`
 
 #### Create the Projector Listener
@@ -96,7 +69,6 @@ declare(strict_types=1);
 namespace App\Infrastructure\User\Query;
 
 use App\Domain\User\Event\UserWasCreated;
-use App\Domain\User\Query\Repository\UserEmailListReadModelRepositoryInterface;
 use App\Infrastructure\User\Query\Projections\UserListProjection;
 use Broadway\ReadModel\Projector;
 

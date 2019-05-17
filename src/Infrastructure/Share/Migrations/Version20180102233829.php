@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace DoctrineMigrations;
 
 use Broadway\EventStore\Dbal\DBALEventStore;
-use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
+use Doctrine\Migrations\AbstractMigration;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -16,14 +16,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class Version20180102233829 extends AbstractMigration implements ContainerAwareInterface
 {
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         $this->eventStore->configureSchema($schema);
 
         $this->em->flush();
     }
 
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         $schema->dropTable('api.events');
 

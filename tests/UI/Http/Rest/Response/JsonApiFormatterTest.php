@@ -6,6 +6,7 @@ namespace App\Tests\UI\Http\Rest\Response;
 
 use App\Application\Query\Collection;
 use App\Application\Query\Item;
+use App\Domain\Shared\ValueObject\DateTime;
 use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\User\Query\Projections\UserView;
 use App\UI\Http\Rest\Response\JsonApiFormatter;
@@ -60,6 +61,7 @@ class JsonApiFormatterTest extends TestCase
     }
 
     /**
+     * @throws \App\Domain\Shared\Exception\DateTimeException
      * @throws \Assert\AssertionFailedException
      */
     private static function createUserView(UuidInterface $uuid, Email $email): UserView
@@ -70,6 +72,8 @@ class JsonApiFormatterTest extends TestCase
                 'email'    => $email->toString(),
                 'password' => 'ljalsjdlajsdljlajsd',
             ],
+            'created_at' => DateTime::now()->toString(),
+            'updated_at' => DateTime::now()->toString(),
         ]);
 
         return $view;

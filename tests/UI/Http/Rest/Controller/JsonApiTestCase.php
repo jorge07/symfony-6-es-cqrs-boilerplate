@@ -104,12 +104,12 @@ abstract class JsonApiTestCase extends WebTestCase
         $this->userUuid = null;
     }
 
-    /** @var null|Client */
+    /** @var Client|null */
     protected $client;
 
-    /** @var null|string */
+    /** @var string|null */
     private $token;
 
-    /** @var null|UuidInterface */
+    /** @var UuidInterface|null */
     protected $userUuid;
 }
