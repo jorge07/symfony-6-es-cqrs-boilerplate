@@ -12,7 +12,7 @@ use Broadway\EventSourcing\EventSourcingRepository;
 use Broadway\EventStore\EventStore;
 use Ramsey\Uuid\UuidInterface;
 
-class UserStore extends EventSourcingRepository implements UserRepositoryInterface
+final class UserStore extends EventSourcingRepository implements UserRepositoryInterface
 {
     public function store(User $user): void
     {

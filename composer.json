@@ -9,6 +9,7 @@
         "broadway/broadway": "^2.0",
         "broadway/broadway-bundle": "^0.4.1",
         "broadway/event-store-dbal": "^0.2.1",
+        "doctrine/doctrine-migrations-bundle": "^2.0",
         "elasticsearch/elasticsearch": "^6.0",
         "league/tactician-bundle": "^1.1",
         "lexik/jwt-authentication-bundle": "^2.5",

@@ -4,7 +4,6 @@ A boilerplate for DDD, CQRS, Event Sourcing applications using Symfony as framew
 
 [![Build Status](https://travis-ci.org/jorge07/symfony-4-es-cqrs-boilerplate.svg?branch=master)](https://travis-ci.org/jorge07/symfony-4-es-cqrs-boilerplate)
 [![Coverage Status](https://coveralls.io/repos/github/jorge07/symfony-4-es-cqrs-boilerplate/badge.svg?branch=master)](https://coveralls.io/github/jorge07/symfony-4-es-cqrs-boilerplate?branch=coverage)
-[![StyleCI](https://github.styleci.io/repos/116064483/shield?branch=master)](https://github.styleci.io/repos/116064483)
 
 ## Documentation
 
