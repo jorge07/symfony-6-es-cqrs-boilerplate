@@ -13,8 +13,7 @@ services:
       - php
 
   php:
-    image: coderslabpl/phpfpm:7.3
-    working_dir: /app
+    image: jorge07/alpine-php:7.3-dev
     ports:
       - "2323:22"
     volumes:
@@ -24,8 +23,7 @@ services:
       - rmq
 
   workers:
-    image: coderslabpl/phpfpm:7.3
-    working_dir: /app
+    image: jorge07/alpine-php:7.3-dev
     volumes:
       - .:/app
     command: ['/app/bin/console', 'rabbitmq:multiple-consumer', 'events']
