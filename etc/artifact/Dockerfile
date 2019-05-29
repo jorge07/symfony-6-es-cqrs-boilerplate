@@ -1,5 +1,5 @@
-ARG PHP_VERION=7.3
-FROM jorge07/alpine-php:${PHP_VERION}-dev-sf as builder
+ARG PHP_VERION=7.3.5
+FROM jorge07/alpine-php:${PHP_VERION}-dev as builder
 
 WORKDIR /app
 
