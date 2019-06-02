@@ -33,7 +33,7 @@ final class GetEventsTest extends ApplicationTestCase
      * @throws \Exception
      * @throws \Assert\AssertionFailedException
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -62,7 +62,7 @@ final class GetEventsTest extends ApplicationTestCase
         $eventReadStore->refresh();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         /** @var EventElasticRepository $eventReadStore */
         $eventReadStore = $this->service('events_repository');
