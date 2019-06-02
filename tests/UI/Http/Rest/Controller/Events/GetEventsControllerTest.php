@@ -21,7 +21,7 @@ class GetEventsControllerTest extends JsonApiTestCase
     {
         $this->get('/api/events?page=100');
 
-        self::assertSame(Response::HTTP_NOT_FOUND, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_NOT_FOUND, $this->cli->getResponse()->getStatusCode());
     }
 
     /**
@@ -37,9 +37,9 @@ class GetEventsControllerTest extends JsonApiTestCase
 
         $this->get('/api/events', ['limit' => 1]);
 
-        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_OK, $this->cli->getResponse()->getStatusCode());
 
-        $responseDecoded = json_decode($this->client->getResponse()->getContent(), true);
+        $responseDecoded = json_decode($this->cli->getResponse()->getContent(), true);
 
         self::assertSame(1, $responseDecoded['meta']['total']);
         self::assertSame(1, $responseDecoded['meta']['page']);
@@ -58,7 +58,7 @@ class GetEventsControllerTest extends JsonApiTestCase
     {
         $this->get('/api/events?page=two');
 
-        self::assertSame(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_BAD_REQUEST, $this->cli->getResponse()->getStatusCode());
     }
 
     /**
@@ -70,31 +70,31 @@ class GetEventsControllerTest extends JsonApiTestCase
     {
         $this->get('/api/events?limit=three');
 
-        self::assertSame(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_BAD_REQUEST, $this->cli->getResponse()->getStatusCode());
     }
 
     private function refreshIndex(): void
     {
         /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->client->getContainer()->get('events_repository');
+        $eventReadStore = $this->cli->getContainer()->get('events_repository');
         $eventReadStore->refresh();
     }
 
     /**
      * @throws \Assert\AssertionFailedException
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
         /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->client->getContainer()->get('events_repository');
+        $eventReadStore = $this->cli->getContainer()->get('events_repository');
         $eventReadStore->boot();
 
         /** @var InMemoryProducer $consumersRegistry */
-        $consumersRegistry = $this->client->getContainer()->get(InMemoryProducer::class);
+        $consumersRegistry = $this->cli->getContainer()->get(InMemoryProducer::class);
         /** @var SendEventsToElasticConsumer $consumer */
-        $consumer = $this->client->getContainer()->get('events_to_elastic');
+        $consumer = $this->cli->getContainer()->get('events_to_elastic');
         $consumersRegistry->addConsumer('App.Domain.User.Event.UserWasCreated', $consumer);
 
         $this->refreshIndex();
@@ -103,10 +103,10 @@ class GetEventsControllerTest extends JsonApiTestCase
         $this->auth();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->client->getContainer()->get('events_repository');
+        $eventReadStore = $this->cli->getContainer()->get('events_repository');
         $eventReadStore->delete();
 
         parent::tearDown();

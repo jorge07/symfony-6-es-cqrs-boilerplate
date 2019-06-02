@@ -44,7 +44,7 @@ abstract class ApplicationTestCase extends KernelTestCase
         );
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         static::bootKernel();
 
@@ -53,7 +53,7 @@ abstract class ApplicationTestCase extends KernelTestCase
         $this->queryBus = $this->service('tactician.commandbus.query');
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->commandBus = null;
         $this->queryBus = null;

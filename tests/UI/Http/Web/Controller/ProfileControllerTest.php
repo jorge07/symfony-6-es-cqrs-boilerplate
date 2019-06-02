@@ -24,6 +24,6 @@ class ProfileControllerTest extends WebTestCase
         /** @var RedirectResponse $response */
         $response = $client->getResponse();
         $this->assertSame(Response::HTTP_FOUND, $response->getStatusCode());
-        $this->assertContains('/sign-in', $response->getTargetUrl());
+        $this->assertStringContainsString('/sign-in', $response->getTargetUrl());
     }
 }

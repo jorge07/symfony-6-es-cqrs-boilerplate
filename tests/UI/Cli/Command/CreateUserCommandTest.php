@@ -39,8 +39,8 @@ class CreateUserCommandTest extends AbstractConsoleTestCase
 
         $output = $commandTester->getDisplay();
 
-        $this->assertContains('User Created:', $output);
-        $this->assertContains('Email: jorge.arcoma@gmail.com', $output);
+        $this->assertStringContainsString('User Created:', $output);
+        $this->assertStringContainsString('Email: jorge.arcoma@gmail.com', $output);
 
         /** @var Item $item */
         $item = $this->ask(new FindByEmailQuery($email));
