@@ -9,6 +9,7 @@ use League\Tactician\CommandBus;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class JsonApiTestCase extends WebTestCase
@@ -47,7 +48,7 @@ abstract class JsonApiTestCase extends WebTestCase
             [],
             [],
             $this->headers(),
-            json_encode($params)
+            (string) json_encode($params)
         );
     }
 
@@ -104,7 +105,7 @@ abstract class JsonApiTestCase extends WebTestCase
         $this->userUuid = null;
     }
 
-    /** @var Client|null */
+    /** @var Client|KernelBrowser|null */
     protected $cli;
 
     /** @var string|null */
