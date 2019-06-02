@@ -39,7 +39,7 @@ final class GetEventsTest extends ApplicationTestCase
 
         /** @var EventElasticRepository $eventReadStore */
         $eventReadStore = $this->service('events_repository');
-        $eventReadStore->delete();
+        $eventReadStore->reboot();
 
         /** @var InMemoryProducer $consumersRegistry */
         $consumersRegistry = $this->service(InMemoryProducer::class);

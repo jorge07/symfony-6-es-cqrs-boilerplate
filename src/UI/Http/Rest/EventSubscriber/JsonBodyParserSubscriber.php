@@ -39,7 +39,7 @@ class JsonBodyParserSubscriber implements EventSubscriberInterface
 
     private function transformJsonBody(Request $request): bool
     {
-        $data = json_decode($request->getContent(), true);
+        $data = json_decode((string) $request->getContent(), true);
 
         if (JSON_ERROR_NONE !== json_last_error()) {
             return false;

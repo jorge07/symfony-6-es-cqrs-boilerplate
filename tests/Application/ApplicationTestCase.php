@@ -6,10 +6,10 @@ namespace App\Tests\Application;
 
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\PostResponseEvent;
+use Symfony\Component\HttpKernel\Event\TerminateEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 abstract class ApplicationTestCase extends KernelTestCase
@@ -31,16 +31,16 @@ abstract class ApplicationTestCase extends KernelTestCase
 
     protected function fireTerminateEvent(): void
     {
-        /** @var EventDispatcherInterface $dispatcher */
+        /** @var EventDispatcher $dispatcher */
         $dispatcher = $this->service('event_dispatcher');
 
         $dispatcher->dispatch(
-            KernelEvents::TERMINATE,
-            new PostResponseEvent(
+            new TerminateEvent(
                 static::$kernel,
                 Request::create('/'),
                 Response::create()
-            )
+            ),
+            KernelEvents::TERMINATE
         );
     }
 
