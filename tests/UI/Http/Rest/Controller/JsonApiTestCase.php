@@ -9,6 +9,7 @@ use League\Tactician\CommandBus;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class JsonApiTestCase extends WebTestCase
@@ -32,7 +33,7 @@ abstract class JsonApiTestCase extends WebTestCase
         );
 
         /** @var CommandBus $commandBus */
-        $commandBus = $this->client->getContainer()->get('tactician.commandbus.command');
+        $commandBus = $this->cli->getContainer()->get('tactician.commandbus.command');
 
         $commandBus->handle($signUp);
 
@@ -41,19 +42,19 @@ abstract class JsonApiTestCase extends WebTestCase
 
     protected function post(string $uri, array $params)
     {
-        $this->client->request(
+        $this->cli->request(
             'POST',
             $uri,
             [],
             [],
             $this->headers(),
-            json_encode($params)
+            (string) json_encode($params)
         );
     }
 
     protected function get(string $uri, array $parameters = [])
     {
-        $this->client->request(
+        $this->cli->request(
             'GET',
             $uri,
             $parameters,
@@ -69,7 +70,7 @@ abstract class JsonApiTestCase extends WebTestCase
             '_password' => $password ?: self::DEFAULT_PASS,
         ]);
 
-        $response = json_decode($this->client->getResponse()->getContent(), true);
+        $response = json_decode($this->cli->getResponse()->getContent(), true);
 
         $this->token = $response['token'];
     }
@@ -92,20 +93,20 @@ abstract class JsonApiTestCase extends WebTestCase
         return $headers;
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        $this->client = static::createClient();
+        $this->cli = static::createClient();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
-        $this->client = null;
+        $this->cli = null;
         $this->token = null;
         $this->userUuid = null;
     }
 
-    /** @var Client|null */
-    protected $client;
+    /** @var Client|KernelBrowser|null */
+    protected $cli;
 
     /** @var string|null */
     private $token;

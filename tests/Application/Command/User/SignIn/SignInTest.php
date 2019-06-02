@@ -75,7 +75,7 @@ final class SignInTest extends ApplicationTestCase
      * @throws \Exception
      * @throws \Assert\AssertionFailedException
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

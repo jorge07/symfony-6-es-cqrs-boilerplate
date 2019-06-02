@@ -32,7 +32,7 @@ up: ## spin up environment
 
 .PHONY: phpunit
 phpunit: db ## execute project unit tests
-		docker-compose exec php sh -lc "./bin/phpunit $(conf)"
+		docker-compose exec php sh -lc "./vendor/bin/phpunit $(conf)"
 
 .PHONY: style
 style: ## executes php analizers

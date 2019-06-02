@@ -21,7 +21,7 @@ class CheckControllerTest extends JsonApiTestCase
             '_password' => 'qwer',
         ]);
 
-        self::assertSame(Response::HTTP_UNAUTHORIZED, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_UNAUTHORIZED, $this->cli->getResponse()->getStatusCode());
     }
 
     /**
@@ -36,6 +36,6 @@ class CheckControllerTest extends JsonApiTestCase
             '_password' => 'qwer',
         ]);
 
-        self::assertSame(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_BAD_REQUEST, $this->cli->getResponse()->getStatusCode());
     }
 }

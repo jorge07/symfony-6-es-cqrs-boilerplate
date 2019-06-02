@@ -26,10 +26,10 @@ class SignUpControllerTest extends JsonApiTestCase
             'password' => 'oaisudaosudoaudo',
         ]);
 
-        self::assertSame(Response::HTTP_CREATED, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_CREATED, $this->cli->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
-        $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
+        $eventCollector = $this->cli->getContainer()->get(EventCollectorListener::class);
 
         /** @var DomainMessage[] $events */
         $events = $eventCollector->popEvents();
@@ -57,10 +57,10 @@ class SignUpControllerTest extends JsonApiTestCase
             'password' => 'oaisudaosudoaudo',
         ]);
 
-        self::assertSame(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_BAD_REQUEST, $this->cli->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
-        $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
+        $eventCollector = $this->cli->getContainer()->get(EventCollectorListener::class);
 
         /** @var DomainMessage[] $events */
         $events = $eventCollector->popEvents();
@@ -86,10 +86,10 @@ class SignUpControllerTest extends JsonApiTestCase
             'email' => 'invalid email',
         ]);
 
-        self::assertSame(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_BAD_REQUEST, $this->cli->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
-        $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
+        $eventCollector = $this->cli->getContainer()->get(EventCollectorListener::class);
 
         $events = $eventCollector->popEvents();
 

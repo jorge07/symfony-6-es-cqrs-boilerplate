@@ -83,7 +83,7 @@ class UserView implements SerializableReadModel
 
     public function getId(): string
     {
-        return (string) $this->uuid;
+        return $this->uuid->toString();
     }
 
     /** @var UuidInterface */

@@ -18,6 +18,6 @@ class HealthzControllerTest extends JsonApiTestCase
     {
         $this->get('/api/healthz');
 
-        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_OK, $this->cli->getResponse()->getStatusCode());
     }
 }

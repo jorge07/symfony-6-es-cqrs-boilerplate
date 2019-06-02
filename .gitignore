@@ -24,3 +24,4 @@
 ###< friendsofphp/php-cs-fixer ###
 
 build/
+.phpunit.result.cache

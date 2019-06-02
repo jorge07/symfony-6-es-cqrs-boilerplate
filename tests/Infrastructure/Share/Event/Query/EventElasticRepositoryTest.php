@@ -55,7 +55,7 @@ class EventElasticRepositoryTest extends TestCase
         self::assertSame(1, $result['hits']['total']);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->repo = new EventElasticRepository(
             [
@@ -66,7 +66,7 @@ class EventElasticRepositoryTest extends TestCase
         );
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->repo->delete();
 

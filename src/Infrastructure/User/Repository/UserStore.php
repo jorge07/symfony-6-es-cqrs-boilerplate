@@ -22,7 +22,7 @@ final class UserStore extends EventSourcingRepository implements UserRepositoryI
     public function get(UuidInterface $uuid): User
     {
         /** @var User $user */
-        $user = $this->load((string) $uuid);
+        $user = $this->load($uuid->toString());
 
         return $user;
     }

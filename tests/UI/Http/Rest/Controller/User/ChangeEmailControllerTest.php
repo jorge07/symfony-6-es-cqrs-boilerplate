@@ -26,10 +26,10 @@ class ChangeEmailControllerTest extends JsonApiTestCase
             'email' => 'weba@jo.com',
         ]);
 
-        self::assertSame(Response::HTTP_OK, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_OK, $this->cli->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
-        $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
+        $eventCollector = $this->cli->getContainer()->get(EventCollectorListener::class);
 
         /** @var DomainMessage[] $events */
         $events = $eventCollector->popEvents();
@@ -48,10 +48,10 @@ class ChangeEmailControllerTest extends JsonApiTestCase
             'email' => 'weba@jo.com',
         ]);
 
-        self::assertSame(Response::HTTP_FORBIDDEN, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_FORBIDDEN, $this->cli->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
-        $eventCollector = $this->client->getContainer()->get(EventCollectorListener::class);
+        $eventCollector = $this->cli->getContainer()->get(EventCollectorListener::class);
 
         /** @var DomainMessage[] $events */
         $events = $eventCollector->popEvents();
@@ -72,13 +72,13 @@ class ChangeEmailControllerTest extends JsonApiTestCase
             'email' => 'webajo.com',
         ]);
 
-        self::assertSame(Response::HTTP_BAD_REQUEST, $this->client->getResponse()->getStatusCode());
+        self::assertSame(Response::HTTP_BAD_REQUEST, $this->cli->getResponse()->getStatusCode());
     }
 
     /**
      * @throws \Assert\AssertionFailedException
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

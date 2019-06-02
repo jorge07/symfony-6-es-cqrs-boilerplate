@@ -64,7 +64,7 @@ class EventPublisherTest extends TestCase
         return $this->consumer = new Consumer();
     }
 
-    protected function setup()
+    protected function setup(): void
     {
         $producer = new InMemoryProducer();
 
@@ -77,7 +77,7 @@ class EventPublisherTest extends TestCase
         );
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->publisher = null;
         $this->consumer = null;
