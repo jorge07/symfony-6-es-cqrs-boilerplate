@@ -37,7 +37,7 @@ class Auth implements UserInterface, EncoderAwareInterface
         ];
     }
 
-    public function getSalt(): void
+    public function getSalt(): ?string
     {
     }
 

@@ -9,8 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\PostResponseEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpKernel\Event\TerminateEvent;
 
 abstract class ApplicationTestCase extends KernelTestCase
 {
@@ -35,8 +34,7 @@ abstract class ApplicationTestCase extends KernelTestCase
         $dispatcher = $this->service('event_dispatcher');
 
         $dispatcher->dispatch(
-            KernelEvents::TERMINATE,
-            new PostResponseEvent(
+            new TerminateEvent(
                 static::$kernel,
                 Request::create('/'),
                 Response::create()

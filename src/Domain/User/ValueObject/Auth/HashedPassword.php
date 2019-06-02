@@ -41,7 +41,13 @@ final class HashedPassword
     {
         $this->validate($plainPassword);
 
-        $this->hashedPassword = password_hash($plainPassword, PASSWORD_BCRYPT, ['cost' => self::COST]);
+        $hashedPassword = password_hash($plainPassword, PASSWORD_BCRYPT, ['cost' => self::COST]);
+
+        if (is_bool($hashedPassword)) {
+            throw new \RuntimeException("Server error hashing password");
+        }
+
+        $this->hashedPassword = $hashedPassword;
     }
 
     public function toString(): string
