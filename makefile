@@ -75,6 +75,10 @@ sh: ## gets inside a container, use 's' variable to select a service. make s=php
 logs: ## look for 's' service logs, make s=php logs
 		docker-compose logs -f $(s)
 
+.PHONY: wait-for-elastic
+wait-for-elastic: ## Health check for elastic
+		docker-compose run --rm php sh -lc 'sh ./etc/ci/wait-for-elastic.sh elasticsearch:9200'
+
 .PHONY: help
 help: ## Display this help message
 	@cat $(MAKEFILE_LIST) | grep -e "^[a-zA-Z_\-]*: *.*## *" | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
