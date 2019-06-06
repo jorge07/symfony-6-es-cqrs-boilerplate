@@ -37,8 +37,9 @@ class Auth implements UserInterface, EncoderAwareInterface
         ];
     }
 
-    public function getSalt(): void
+    public function getSalt(): ?string
     {
+        return null;
     }
 
     public function eraseCredentials(): void

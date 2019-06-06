@@ -65,6 +65,7 @@ mysql:
   mysqlRootPassword: api
   mysqlUser: root
   mysqlDatabase: api
+  imageTag: 8.0.16
 
 traefik:
   enabled: true

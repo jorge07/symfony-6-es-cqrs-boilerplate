@@ -34,6 +34,12 @@ abstract class ElasticRepository
         }
     }
 
+    public function reboot(): void
+    {
+        $this->delete();
+        $this->boot();
+    }
+
     public function boot(): void
     {
         if (!$this->client->indices()->exists(['index' => $this->index])) {

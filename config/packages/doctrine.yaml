@@ -14,7 +14,7 @@ doctrine:
         user:     "%env(DATABASE_USER)%"
         password: "%env(DATABASE_PASS)%"
         charset:  UTF8
-        server_version: '5.7'
+        server_version: '8.0'
         types:
           uuid_binary: Ramsey\Uuid\Doctrine\UuidBinaryType
           datetime_immutable: App\Infrastructure\Share\Doctrine\DateTimeType
