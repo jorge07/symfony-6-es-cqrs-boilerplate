@@ -1,7 +1,7 @@
 security:
     encoders:
         bcrypt:
-            algorithm: bcrypt
+            algorithm: auto
             cost: 12
     providers:
         users:

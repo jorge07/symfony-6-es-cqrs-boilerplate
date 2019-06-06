@@ -17,15 +17,15 @@
         "ramsey/uuid": "^3.8",
         "ramsey/uuid-doctrine": "^1.5",
         "sensio/framework-extra-bundle": "^5.2",
-        "symfony/asset": "^4.2",
-        "symfony/console": "^4.2",
+        "symfony/asset": "^4.3",
+        "symfony/console": "^4.3",
         "symfony/flex": "^1.2.5",
-        "symfony/framework-bundle": "^4.2",
+        "symfony/framework-bundle": "^4.3",
         "symfony/orm-pack": "^1.0",
-        "symfony/security-bundle": "^4.2",
+        "symfony/security-bundle": "^4.3",
         "symfony/translation-contracts": "^1.1",
-        "symfony/twig-bundle": "^4.2",
-        "symfony/yaml": "^4.2"
+        "symfony/twig-bundle": "^4.3",
+        "symfony/yaml": "^4.3"
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^5.0",
@@ -33,10 +33,10 @@
         "friendsofphp/php-cs-fixer": "^2.15",
         "phpunit/phpunit": "^8.1",
         "roave/security-advisories": "dev-master",
-        "symfony/browser-kit": "^4.2",
-        "symfony/css-selector": "^4.2",
-        "symfony/dotenv": "^4.2",
-        "symfony/phpunit-bridge": "^4.2",
+        "symfony/browser-kit": "^4.3",
+        "symfony/css-selector": "^4.3",
+        "symfony/dotenv": "^4.3",
+        "symfony/phpunit-bridge": "^4.3",
         "symfony/profiler-pack": "^1.0"
     },
     "config": {
@@ -77,7 +77,7 @@
         "symfony": {
             "id": "01C1QKYZ4DSB74RHER7JCF8Q1K",
             "allow-contrib": false,
-            "require": "^4.2"
+            "require": "^4.3"
         }
     },
     "name": "jorge07/symfony-4-es-cqrs-boilerplate",
