@@ -9,7 +9,6 @@ use App\Domain\Shared\ValueObject\DateTime;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeImmutableType;
-use Doctrine\DBAL\Types\Type;
 
 class DateTimeType extends DateTimeImmutableType
 {
