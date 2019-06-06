@@ -12,8 +12,6 @@ use Doctrine\DBAL\Types\DateTimeImmutableType;
 
 class DateTimeType extends DateTimeImmutableType
 {
-    const NAME = 'datetime_immutable';
-
     /**
      * {@inheritdoc}
      */
@@ -66,21 +64,5 @@ class DateTimeType extends DateTimeImmutableType
         }
 
         return $dateTime;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function requiresSQLCommentHint(AbstractPlatform $platform)
-    {
-        return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return static::NAME;
     }
 }
