@@ -428,9 +428,6 @@
     "symfony/inflector": {
         "version": "v4.0.4"
     },
-    "symfony/lts": {
-        "version": "4-dev"
-    },
     "symfony/mime": {
         "version": "v4.3.0"
     },

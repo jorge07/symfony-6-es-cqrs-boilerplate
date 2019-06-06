@@ -14,7 +14,7 @@
         <env name="APP_SECRET" value="s$cretf0rt3st" />
         <env name="SHELL_VERBOSITY" value="-1" />
         <!-- Deprecations disabled as not breaking the app -->
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="7" />
         <!-- define your env variables for the test env here -->
 
         <!-- ###+ php-amqplib/rabbitmq-bundle ### -->

@@ -8,12 +8,10 @@ use App\Domain\Shared\Exception\DateTimeException;
 use App\Domain\Shared\ValueObject\DateTime;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
-use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\DateTimeImmutableType;
 
-class DateTimeType extends Type
+class DateTimeType extends DateTimeImmutableType
 {
-    const NAME = 'datetime_immutable';
-
     /**
      * {@inheritdoc}
      */
@@ -66,10 +64,5 @@ class DateTimeType extends Type
         }
 
         return $dateTime;
-    }
-
-    public function getName()
-    {
-        return self::NAME;
     }
 }
