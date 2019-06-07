@@ -9,9 +9,10 @@ require dirname(__DIR__) . '/vendor/autoload.php';
 if (is_array($env = @include dirname(__DIR__) . '/.env.local.php')) {
     $_SERVER += $env;
     $_ENV += $env;
-} elseif (!class_exists(Dotenv::class)) {
-    throw new RuntimeException('Please run "composer require symfony/dotenv" to load the ".env" files configuring the application.');
-} else {
+} elseif (!isset($_SERVER['APP_ENV'])) {
+    if (!class_exists(Dotenv::class)) {
+        throw new RuntimeException('Please run "composer require symfony/dotenv" to load the ".env" files configuring the application.');
+    }
     // load all the .env files
     (new Dotenv(true))->loadEnv(dirname(__DIR__) . '/.env');
 }

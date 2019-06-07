@@ -29,8 +29,8 @@
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^5.0",
-        "phpstan/phpstan": "^0.11",
         "friendsofphp/php-cs-fixer": "^2.15",
+        "phpstan/phpstan": "^0.11",
         "phpunit/phpunit": "^8.1",
         "roave/security-advisories": "dev-master",
         "symfony/browser-kit": "^4.3",
