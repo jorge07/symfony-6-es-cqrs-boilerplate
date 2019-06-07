@@ -11,7 +11,7 @@ set_time_limit(0);
 require dirname(__DIR__).'/vendor/autoload.php';
 
 if (!class_exists(Application::class)) {
-    throw new RuntimeException('You need to add "symfony/framework-bundle" as a Composer dependency.');
+    throw new \RuntimeException('You need to add "symfony/framework-bundle" as a Composer dependency.');
 }
 
 $input = new ArgvInput();
