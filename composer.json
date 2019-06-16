@@ -19,7 +19,6 @@
         "sensio/framework-extra-bundle": "^5.2",
         "symfony/asset": "^4.3",
         "symfony/console": "^4.3",
-        "symfony/flex": "^1.2.5",
         "symfony/framework-bundle": "^4.3",
         "symfony/orm-pack": "^1.0",
         "symfony/security-bundle": "^4.3",
@@ -35,6 +34,7 @@
         "roave/security-advisories": "dev-master",
         "symfony/browser-kit": "^4.3",
         "symfony/css-selector": "^4.3",
+        "symfony/flex": "^1.2.5",
         "symfony/dotenv": "^4.3",
         "symfony/phpunit-bridge": "^4.3",
         "symfony/profiler-pack": "^1.0"

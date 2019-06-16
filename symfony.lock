@@ -335,6 +335,9 @@
     "sebastian/resource-operations": {
         "version": "1.0.0"
     },
+    "sebastian/type": {
+        "version": "1.1.1"
+    },
     "sebastian/version": {
         "version": "2.0.1"
     },
