@@ -10,7 +10,7 @@ use App\Infrastructure\User\Query\Mysql\MysqlUserReadModelRepository;
 use App\Infrastructure\User\Query\Projections\UserView;
 use Broadway\ReadModel\Projector;
 
-class UserReadProjectionFactory extends Projector
+class UserProjectionFactory extends Projector
 {
     /**
      * @throws \Assert\AssertionFailedException
