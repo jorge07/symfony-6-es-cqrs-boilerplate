@@ -85,9 +85,9 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
             $email = $credentials['email'];
             $plainPassword = $credentials['password'];
 
-            $query = new SignInCommand($email, $plainPassword);
+            $signInCommand = new SignInCommand($email, $plainPassword);
 
-            $this->bus->handle($query);
+            $this->bus->handle($signInCommand);
 
             /** @var Item $userItem */
             $userItem = $this->queryBus->handle(new FindByEmailQuery($email));
