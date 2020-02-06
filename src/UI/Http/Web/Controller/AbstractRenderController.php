@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Web\Controller;
 
-use League\Tactician\CommandBus;
+use App\Infrastructure\Share\MessageBusHelper;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
+use Throwable;
+use Twig;
 
 class AbstractRenderController
 {
     /**
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws Twig\Error\LoaderError
+     * @throws Twig\Error\RuntimeError
+     * @throws Twig\Error\SyntaxError
      */
     protected function render(string $view, array $parameters = [], int $code = Response::HTTP_OK): Response
     {
@@ -21,35 +24,44 @@ class AbstractRenderController
         return new Response($content, $code);
     }
 
+    /**
+     * @throws Throwable
+     */
     protected function exec($command): void
     {
-        $this->commandBus->handle($command);
+        MessageBusHelper::dispatchCommand($this->commandBus, $command);
     }
 
+    /**
+     * @throws Throwable
+     */
     protected function ask($query)
     {
-        return $this->queryBus->handle($query);
+        return MessageBusHelper::dispatchQuery($this->queryBus, $query);
     }
 
-    public function __construct(\Twig_Environment $template, CommandBus $commandBus, CommandBus $queryBus)
-    {
+    public function __construct(
+        Twig\Environment $template,
+        MessageBusInterface $commandBus,
+        MessageBusInterface $queryBus
+    ) {
         $this->template = $template;
         $this->commandBus = $commandBus;
         $this->queryBus = $queryBus;
     }
 
     /**
-     * @var CommandBus
+     * @var MessageBusInterface
      */
     private $commandBus;
 
     /**
-     * @var CommandBus
+     * @var MessageBusInterface
      */
     private $queryBus;
 
     /**
-     * @var \Twig_Environment
+     * @var Twig\Environment
      */
     private $template;
 }

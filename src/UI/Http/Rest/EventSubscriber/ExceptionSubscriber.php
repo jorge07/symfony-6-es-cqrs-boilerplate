@@ -11,15 +11,16 @@ use Broadway\Repository\AggregateNotFoundException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Throwable;
 
 class ExceptionSubscriber implements EventSubscriberInterface
 {
-    public function onKernelException(GetResponseForExceptionEvent $event): void
+    public function onKernelException(ExceptionEvent $event): void
     {
-        $exception = $event->getException();
+        $exception = $event->getThrowable();
 
         $response = new JsonResponse();
         $response->headers->set('Content-Type', 'application/vnd.api+json');
@@ -29,12 +30,12 @@ class ExceptionSubscriber implements EventSubscriberInterface
         $event->setResponse($response);
     }
 
-    private function getStatusCode(\Exception $exception): int
+    private function getStatusCode(Throwable $exception): int
     {
         return $this->determineStatusCode($exception);
     }
 
-    private function getErrorMessage(\Exception $exception, Response $response): array
+    private function getErrorMessage(Throwable $exception, Response $response): array
     {
         $error = [
             'errors'=> [
@@ -63,12 +64,12 @@ class ExceptionSubscriber implements EventSubscriberInterface
         return $error;
     }
 
-    private function getExceptionMessage(\Exception $exception): string
+    private function getExceptionMessage(Throwable $exception): string
     {
         return $exception->getMessage();
     }
 
-    private function determineStatusCode(\Exception $exception): int
+    private function determineStatusCode(Throwable $exception): int
     {
         // Default status code is always 500
         $statusCode = Response::HTTP_INTERNAL_SERVER_ERROR;

@@ -21,10 +21,8 @@ class DateTimeTypeTest extends TestCase
      */
     private $dateTimeType;
 
-    public function __construct($name = null, array $data = [], $dataName = '')
+    public function setUp(): void
     {
-        parent::__construct($name, $data, $dataName);
-
         if (!Type::hasType(self::TYPE)) {
             Type::addType(self::TYPE, DateTimeType::class);
         }

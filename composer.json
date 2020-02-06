@@ -10,7 +10,6 @@
         "broadway/broadway-bundle": "^0.4.2",
         "broadway/event-store-dbal": "^0.3",
         "elasticsearch/elasticsearch": "^6.0",
-        "league/tactician-bundle": "^1.1",
         "lexik/jwt-authentication-bundle": "^2.6",
         "nelmio/api-doc-bundle": "^3.4",
         "php-amqplib/rabbitmq-bundle": "^1.14",
@@ -21,6 +20,7 @@
         "symfony/console": "^4.3",
         "symfony/flex": "^1.2.5",
         "symfony/framework-bundle": "^4.3",
+        "symfony/messenger": "^4.3",
         "symfony/orm-pack": "^1.0",
         "symfony/security-bundle": "^4.3",
         "symfony/translation-contracts": "^1.1",
@@ -28,7 +28,7 @@
         "symfony/yaml": "^4.3"
     },
     "require-dev": {
-        "dama/doctrine-test-bundle": "^5.0",
+        "dama/doctrine-test-bundle": "^6.3",
         "phpstan/phpstan": "^0.11",
         "friendsofphp/php-cs-fixer": "^2.15",
         "phpunit/phpunit": "^8.1",

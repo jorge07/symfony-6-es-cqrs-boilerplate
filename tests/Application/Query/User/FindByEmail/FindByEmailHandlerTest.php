@@ -10,6 +10,7 @@ use App\Application\Query\User\FindByEmail\FindByEmailQuery;
 use App\Infrastructure\User\Query\Projections\UserView;
 use App\Tests\Application\ApplicationTestCase;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\Messenger\Stamp\HandledStamp;
 
 class FindByEmailHandlerTest extends ApplicationTestCase
 {
@@ -27,12 +28,15 @@ class FindByEmailHandlerTest extends ApplicationTestCase
 
         $this->fireTerminateEvent();
 
-        /** @var Item $item */
-        $item = $this->ask(new FindByEmailQuery($email));
-        /** @var UserView $userRead */
-        $userRead = $item->readModel;
+        $stamp = $this->ask(new FindByEmailQuery($email))->last(HandledStamp::class);
 
-        self::assertInstanceOf(Item::class, $item);
+        /** @var Item $userItem */
+        $userItem = $stamp->getResult();
+
+        /** @var UserView $userRead */
+        $userRead = $userItem->readModel;
+
+        self::assertInstanceOf(Item::class, $userItem);
         self::assertInstanceOf(UserView::class, $userRead);
         self::assertSame($email, $userRead->email());
     }

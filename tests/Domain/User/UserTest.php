@@ -11,8 +11,8 @@ use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
 use Broadway\Domain\DomainMessage;
+use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 
 class UserTest extends TestCase implements UniqueEmailSpecificationInterface
 {

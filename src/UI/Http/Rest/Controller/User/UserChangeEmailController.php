@@ -9,11 +9,11 @@ use App\Domain\User\Exception\ForbiddenException;
 use App\Infrastructure\User\Auth\Session;
 use App\UI\Http\Rest\Controller\CommandController;
 use Assert\Assertion;
-use League\Tactician\CommandBus;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 final class UserChangeEmailController extends CommandController
@@ -79,7 +79,7 @@ final class UserChangeEmailController extends CommandController
         }
     }
 
-    public function __construct(Session $session, CommandBus $commandBus)
+    public function __construct(Session $session, MessageBusInterface $commandBus)
     {
         parent::__construct($commandBus);
         $this->session = $session;
