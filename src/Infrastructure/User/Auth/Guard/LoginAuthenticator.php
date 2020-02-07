@@ -8,13 +8,13 @@ use App\Application\Command\User\SignIn\SignInCommand;
 use App\Application\Query\Item;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
 use App\Domain\User\Exception\InvalidCredentialsException;
-use App\Infrastructure\Share\MessageBusHelper;
+use App\Infrastructure\Share\Bus\CommandBus;
+use App\Infrastructure\Share\Bus\QueryBus;
 use App\Infrastructure\User\Auth\Auth;
 use App\Infrastructure\User\Query\Projections\UserView;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -87,10 +87,10 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
 
             $signInCommand = new SignInCommand($email, $plainPassword);
 
-            MessageBusHelper::dispatchCommand($this->bus, $signInCommand);
+            $this->bus->handle($signInCommand);
 
             /** @var Item $userItem */
-            $userItem = MessageBusHelper::dispatchQuery($this->queryBus, new FindByEmailQuery($email));
+            $userItem = $this->queryBus->handle(new FindByEmailQuery($email));
 
             /** @var UserView $user */
             $user = $userItem->readModel;
@@ -139,8 +139,8 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
     }
 
     public function __construct(
-        MessageBusInterface $commandBus,
-        MessageBusInterface $queryBus,
+        CommandBus $commandBus,
+        QueryBus $queryBus,
         UrlGeneratorInterface $router
     ) {
         $this->bus = $commandBus;
@@ -149,12 +149,12 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
     }
 
     /**
-     * @var MessageBusInterface
+     * @var CommandBus
      */
     private $bus;
 
     /**
-     * @var MessageBusInterface
+     * @var QueryBus
      */
     private $queryBus;
 

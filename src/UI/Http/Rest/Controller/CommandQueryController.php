@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller;
 
-use App\Infrastructure\Share\MessageBusHelper;
+use App\Infrastructure\Share\Bus\CommandBus;
+use App\Infrastructure\Share\Bus\QueryBus;
 use App\UI\Http\Rest\Response\JsonApiFormatter;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Throwable;
 
@@ -17,12 +17,12 @@ class CommandQueryController extends QueryController
      */
     protected function exec($command): void
     {
-        MessageBusHelper::dispatchCommand($this->commandBus, $command);
+        $this->commandBus->handle($command);
     }
 
     public function __construct(
-        MessageBusInterface $commandBus,
-        MessageBusInterface $queryBus,
+        CommandBus $commandBus,
+        QueryBus $queryBus,
         JsonApiFormatter $formatter,
         UrlGeneratorInterface $router
     ) {
@@ -31,7 +31,7 @@ class CommandQueryController extends QueryController
     }
 
     /**
-     * @var MessageBusInterface
+     * @var CommandBus
      */
     private $commandBus;
 }

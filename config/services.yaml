@@ -14,13 +14,8 @@ services:
         public: false
         bind:
           $elasticConfig: '%elastic%'
-
-          $queryBus: '@messenger.bus.query'
-          $commandBus: '@messenger.bus.command'
           $eventBus: '@broadway.event_handling.event_bus'
-
           $eventStore: '@Broadway\EventStore\Dbal\DBALEventStore'
-
           $eventProducer: '@old_sound_rabbit_mq.events_producer'
 
     _instanceof:
@@ -43,6 +38,15 @@ services:
     App\:
         resource: '../src/*'
         exclude: '../src/**/{Migrations,EventSubscriber}'
+
+    App\Infrastructure\Share\Bus\CommandBus:
+        arguments:
+          - '@messenger.bus.command'
+
+    App\Infrastructure\Share\Bus\QueryBus:
+        arguments:
+          - '@messenger.bus.query'
+
 
     ### Event Store
 

@@ -4,50 +4,25 @@ declare(strict_types=1);
 
 namespace App\Tests\Application;
 
+use App\Infrastructure\Share\Bus\CommandBus;
+use App\Infrastructure\Share\Bus\QueryBus;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\TerminateEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Messenger\Exception\HandlerFailedException;
-use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Messenger\Stamp\HandledStamp;
-use Throwable;
 
 abstract class ApplicationTestCase extends KernelTestCase
 {
     protected function ask($query)
     {
-        try {
-            $command = $this->commandBus->dispatch($query);
-
-            /** @var HandledStamp $stamp */
-            $stamp = $command->last(HandledStamp::class);
-
-            return $stamp->getResult();
-        } catch (HandlerFailedException $e) {
-            while ($e instanceof HandlerFailedException) {
-                /** @var Throwable $e */
-                $e = $e->getPrevious();
-            }
-
-            throw $e;
-        }
+        return $this->queryBus->handle($query);
     }
 
     protected function handle($command): void
     {
-        try {
-            $this->commandBus->dispatch($command);
-        } catch (HandlerFailedException $e) {
-            while ($e instanceof HandlerFailedException) {
-                /** @var Throwable $e */
-                $e = $e->getPrevious();
-            }
-
-            throw $e;
-        }
+        $this->queryBus->handle($command);
     }
 
     protected function service(string $serviceId)
@@ -74,9 +49,8 @@ abstract class ApplicationTestCase extends KernelTestCase
     {
         self::bootKernel();
 
-        $this->commandBus = $this->service('messenger.bus.command');
-
-        $this->queryBus = $this->service('messenger.bus.query');
+        $this->commandBus = $this->service(CommandBus::class);
+        $this->queryBus = $this->service(QueryBus::class);
     }
 
     protected function tearDown(): void
@@ -85,9 +59,9 @@ abstract class ApplicationTestCase extends KernelTestCase
         $this->queryBus = null;
     }
 
-    /** @var MessageBusInterface|null */
+    /** @var CommandBus|null */
     private $commandBus;
 
-    /** @var MessageBusInterface|null */
+    /** @var QueryBus|null */
     private $queryBus;
 }

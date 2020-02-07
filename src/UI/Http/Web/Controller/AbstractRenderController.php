@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Web\Controller;
 
-use App\Infrastructure\Share\MessageBusHelper;
+use App\Infrastructure\Share\Bus\CommandBus;
+use App\Infrastructure\Share\Bus\QueryBus;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Throwable;
 use Twig;
 
@@ -29,7 +29,7 @@ class AbstractRenderController
      */
     protected function exec($command): void
     {
-        MessageBusHelper::dispatchCommand($this->commandBus, $command);
+        $this->commandBus->handle($command);
     }
 
     /**
@@ -37,13 +37,13 @@ class AbstractRenderController
      */
     protected function ask($query)
     {
-        return MessageBusHelper::dispatchQuery($this->queryBus, $query);
+        return $this->queryBus->handle($query);
     }
 
     public function __construct(
         Twig\Environment $template,
-        MessageBusInterface $commandBus,
-        MessageBusInterface $queryBus
+        CommandBus $commandBus,
+        QueryBus $queryBus
     ) {
         $this->template = $template;
         $this->commandBus = $commandBus;
@@ -51,12 +51,12 @@ class AbstractRenderController
     }
 
     /**
-     * @var MessageBusInterface
+     * @var CommandBus
      */
     private $commandBus;
 
     /**
-     * @var MessageBusInterface
+     * @var QueryBus
      */
     private $queryBus;
 

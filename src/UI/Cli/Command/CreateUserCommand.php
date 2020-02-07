@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace App\UI\Cli\Command;
 
 use App\Application\Command\User\SignUp\SignUpCommand as CreateUser;
-use App\Infrastructure\Share\MessageBusHelper;
+use App\Infrastructure\Share\Bus\CommandBus;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Messenger\MessageBusInterface;
 
 class CreateUserCommand extends Command
 {
@@ -42,7 +41,7 @@ class CreateUserCommand extends Command
 
         $command = new CreateUser($uuid, $email, $password);
 
-        MessageBusHelper::dispatchCommand($this->commandBus, $command);
+        $this->commandBus->handle($command);
 
         $output->writeln('<info>User Created: </info>');
         $output->writeln('');
@@ -52,14 +51,14 @@ class CreateUserCommand extends Command
         return 1;
     }
 
-    public function __construct(MessageBusInterface $commandBus)
+    public function __construct(CommandBus $commandBus)
     {
         parent::__construct();
         $this->commandBus = $commandBus;
     }
 
     /**
-     * @var MessageBusInterface
+     * @var CommandBus
      */
     private $commandBus;
 }

@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller;
 
-use App\Infrastructure\Share\MessageBusHelper;
-use Symfony\Component\Messenger\MessageBusInterface;
+use App\Infrastructure\Share\Bus\CommandBus;
 use Throwable;
 
 abstract class CommandController
@@ -15,16 +14,16 @@ abstract class CommandController
      */
     protected function exec($command): void
     {
-        MessageBusHelper::dispatchCommand($this->commandBus, $command);
+        $this->commandBus->handle($command);
     }
 
-    public function __construct(MessageBusInterface $commandBus)
+    public function __construct(CommandBus $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
     /**
-     * @var MessageBusInterface
+     * @var CommandBus
      */
     private $commandBus;
 }

@@ -6,10 +6,9 @@ namespace App\UI\Http\Rest\Controller;
 
 use App\Application\Query\Collection;
 use App\Application\Query\Item;
-use App\Infrastructure\Share\MessageBusHelper;
+use App\Infrastructure\Share\Bus\QueryBus;
 use App\UI\Http\Rest\Response\JsonApiFormatter;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Throwable;
 
@@ -20,9 +19,9 @@ abstract class QueryController
     /**
      * @throws Throwable
      */
-    protected function ask($command)
+    protected function ask($query)
     {
-        return MessageBusHelper::dispatchQuery($this->queryBus, $command);
+        return $this->queryBus->handle($query);
     }
 
     protected function jsonCollection(Collection $collection, bool $isImmutable = false): JsonResponse
@@ -53,7 +52,7 @@ abstract class QueryController
         }
     }
 
-    public function __construct(MessageBusInterface $queryBus, JsonApiFormatter $formatter, UrlGeneratorInterface $router)
+    public function __construct(QueryBus $queryBus, JsonApiFormatter $formatter, UrlGeneratorInterface $router)
     {
         $this->queryBus = $queryBus;
         $this->formatter = $formatter;
@@ -66,7 +65,7 @@ abstract class QueryController
     private $formatter;
 
     /**
-     * @var MessageBusInterface
+     * @var QueryBus
      */
     private $queryBus;
 
