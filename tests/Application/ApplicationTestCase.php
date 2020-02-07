@@ -15,16 +15,25 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 abstract class ApplicationTestCase extends KernelTestCase
 {
+    /**
+     * @throws \Throwable
+     */
     protected function ask($query)
     {
         return $this->queryBus->handle($query);
     }
 
+    /**
+     * @throws \Throwable
+     */
     protected function handle($command): void
     {
         $this->queryBus->handle($command);
     }
 
+    /**
+     * @return object|null
+     */
     protected function service(string $serviceId)
     {
         return self::$container->get($serviceId);

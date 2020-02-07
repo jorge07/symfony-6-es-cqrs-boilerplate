@@ -6,11 +6,11 @@ namespace App\Tests\UI\Cli\Command;
 
 use App\Application\Query\Item;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
+use App\Infrastructure\Share\Bus\CommandBus;
 use App\Infrastructure\User\Query\Projections\UserView;
 use App\Tests\UI\Cli\AbstractConsoleTestCase;
 use App\UI\Cli\Command\CreateUserCommand;
 use Ramsey\Uuid\Uuid;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
 
 class CreateUserCommandTest extends AbstractConsoleTestCase
@@ -27,8 +27,8 @@ class CreateUserCommandTest extends AbstractConsoleTestCase
     {
         $email = 'jorge.arcoma@gmail.com';
 
-        /** @var MessageBusInterface $commandBus */
-        $commandBus = $this->service('messenger.bus.command');
+        /** @var CommandBus $commandBus */
+        $commandBus = $this->service(CommandBus::class);
         $commandTester = $this->app($command = new CreateUserCommand($commandBus), 'app:create-user');
 
         $commandTester->execute([

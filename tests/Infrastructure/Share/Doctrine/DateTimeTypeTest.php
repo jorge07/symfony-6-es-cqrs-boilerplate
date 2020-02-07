@@ -35,7 +35,7 @@ class DateTimeTypeTest extends TestCase
      *
      * @group unit
      */
-    public function given_a_datetimetype_when_i_get_the_sql_declaration_then_it_should_print_the_platform_string()
+    public function given_a_datetimetype_when_i_get_the_sql_declaration_then_it_should_print_the_platform_string(): void
     {
         self::assertSame('DATETIME', $this->dateTimeType->getSQLDeclaration([], new MySqlPlatform()));
     }
@@ -45,7 +45,7 @@ class DateTimeTypeTest extends TestCase
      *
      * @group unit
      */
-    public function given_a_datetimetype_with_a_invalid_date_then_it_should_throw_an_exception()
+    public function given_a_datetimetype_with_a_invalid_date_then_it_should_throw_an_exception(): void
     {
         $this->expectException(ConversionException::class);
 
@@ -57,7 +57,7 @@ class DateTimeTypeTest extends TestCase
      *
      * @group unit
      */
-    public function given_a_datetimetype_with_a_null_date_then_it_should_return_null()
+    public function given_a_datetimetype_with_a_null_date_then_it_should_return_null(): void
     {
         self::assertNull($this->dateTimeType->convertToPHPValue(null, new MySqlPlatform()));
     }
@@ -67,7 +67,7 @@ class DateTimeTypeTest extends TestCase
      *
      * @group unit
      */
-    public function given_a_php_datetime_value_it_should_throw_an_exception()
+    public function given_a_php_datetime_value_it_should_throw_an_exception(): void
     {
         $this->expectException(ConversionException::class);
 
@@ -79,7 +79,7 @@ class DateTimeTypeTest extends TestCase
      *
      * @group unit
      */
-    public function given_a_php_datetimetype_with_a_null_date_then_it_should_return_null()
+    public function given_a_php_datetimetype_with_a_null_date_then_it_should_return_null(): void
     {
         self::assertNull($this->dateTimeType->convertToDatabaseValue(null, new MySqlPlatform()));
     }
@@ -91,7 +91,7 @@ class DateTimeTypeTest extends TestCase
      *
      * @throws \Exception
      */
-    public function given_a_php_an_immutable_datetime_value_it_should_return_a_correct_format()
+    public function given_a_php_an_immutable_datetime_value_it_should_return_a_correct_format(): void
     {
         $datetimeImmutable = new \DateTimeImmutable();
         $mysqlPlatform = new MySqlPlatform();

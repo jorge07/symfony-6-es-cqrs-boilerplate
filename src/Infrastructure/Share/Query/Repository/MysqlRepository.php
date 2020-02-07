@@ -11,6 +11,9 @@ use Doctrine\ORM\QueryBuilder;
 
 abstract class MysqlRepository
 {
+    /**
+     * @param object $model
+     */
     public function register($model): void
     {
         $this->entityManager->persist($model);

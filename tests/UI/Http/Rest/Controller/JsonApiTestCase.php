@@ -40,7 +40,7 @@ abstract class JsonApiTestCase extends WebTestCase
         return $email;
     }
 
-    protected function post(string $uri, array $params)
+    protected function post(string $uri, array $params): void
     {
         $this->cli->request(
             'POST',
@@ -52,7 +52,7 @@ abstract class JsonApiTestCase extends WebTestCase
         );
     }
 
-    protected function get(string $uri, array $parameters = [])
+    protected function get(string $uri, array $parameters = []): void
     {
         $this->cli->request(
             'GET',

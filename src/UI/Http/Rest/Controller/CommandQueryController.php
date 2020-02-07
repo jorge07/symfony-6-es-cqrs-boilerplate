@@ -8,12 +8,11 @@ use App\Infrastructure\Share\Bus\CommandBus;
 use App\Infrastructure\Share\Bus\QueryBus;
 use App\UI\Http\Rest\Response\JsonApiFormatter;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Throwable;
 
 class CommandQueryController extends QueryController
 {
     /**
-     * @throws Throwable
+     * @throws \Throwable
      */
     protected function exec($command): void
     {

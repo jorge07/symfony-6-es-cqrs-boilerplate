@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace App\UI\Http\Rest\Controller;
 
 use App\Infrastructure\Share\Bus\CommandBus;
-use Throwable;
 
 abstract class CommandController
 {
     /**
-     * @throws Throwable
+     * @throws \Throwable
      */
     protected function exec($command): void
     {

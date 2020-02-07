@@ -10,14 +10,13 @@ use App\Infrastructure\Share\Bus\QueryBus;
 use App\UI\Http\Rest\Response\JsonApiFormatter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Throwable;
 
 abstract class QueryController
 {
     private const CACHE_MAX_AGE = 31536000; // Year.
 
     /**
-     * @throws Throwable
+     * @throws \Throwable
      */
     protected function ask($query)
     {

@@ -16,6 +16,9 @@ use Ramsey\Uuid\Uuid;
 
 class UserTest extends TestCase implements UniqueEmailSpecificationInterface
 {
+    /**
+     * @var bool
+     */
     private $isUniqueException = false;
 
     /**

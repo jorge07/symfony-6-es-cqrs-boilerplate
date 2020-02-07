@@ -56,10 +56,8 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      *      return array('api_key' => $request->headers->get('X-API-TOKEN'));
      *
      * @throws \UnexpectedValueException If null is returned
-     *
-     * @return mixed Any non-null value
      */
-    public function getCredentials(Request $request)
+    public function getCredentials(Request $request): array
     {
         return [
             'email'    => $request->request->get('_email'),
@@ -74,6 +72,8 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      *
      * You may throw an AuthenticationException if you wish. If you return
      * null, then a UsernameNotFoundException is thrown for you.
+     *
+     * @param array $credentials
      *
      * @throws AuthenticationException
      * @throws \Assert\AssertionFailedException
