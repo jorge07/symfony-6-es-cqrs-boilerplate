@@ -12,15 +12,15 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build
-      run: make start;make wait-for-elastic;make xoff
+      run: make env=ci start;make env=ci wait-for-elastic;make env=ci xoff
     - name: DDD LAYERS
-      run: make layer
+      run: make env=ci layer
     - name: DB Schema validation
-      run: make schema-validate
+      run: make env=ci schema-validate
     - name: CS
-      run: make cs-check;make style
+      run: make env=ci cs-check;make style
       continue-on-error: true
     - name: Tests
-      run: make xon;make conf="--coverage-clover build/logs/clover.xml" phpunit
+      run: make env=ci xon;make env=ci conf="--coverage-clover build/logs/clover.xml" phpunit
     - name: ARTIFACT
-      run: make artifact
+      run: make env=ci artifact

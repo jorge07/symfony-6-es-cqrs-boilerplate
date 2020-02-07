@@ -1,0 +1,35 @@
+version: '3.4'
+
+services:
+
+  nginx:
+    ports:
+      - "80:80"
+  php:
+    ports:
+      - "2323:22"
+
+  mysql:
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  rmq:
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.6.1
+    ports:
+      - 5601:5601
+    volumes:
+      - "$PWD/etc/dev/kibana/config:/usr/share/kibana/config/kibana.yml"
+
+  elasticsearch:
+    ports:
+      - "9200:9200"
+
+volumes:
+  db_data:
