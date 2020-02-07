@@ -1,0 +1,26 @@
+name: pr
+
+on:
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Code build, lint and tests
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build
+      run: make start;make wait-for-elastic;make xoff
+    - name: DDD LAYERS
+      run: make layer
+    - name: DB Schema validation
+      run: make schema-validate
+    - name: CS
+      run: make cs-check;make style
+      continue-on-error: true
+    - name: Tests
+      run: make xon;make conf="--coverage-clover build/logs/clover.xml" phpunit
+    - name: ARTIFACT
+      run: make artifact
