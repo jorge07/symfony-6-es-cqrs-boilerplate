@@ -77,8 +77,6 @@ abstract class ApplicationTestCase extends KernelTestCase
         $this->commandBus = $this->service('messenger.bus.command');
 
         $this->queryBus = $this->service('messenger.bus.query');
-
-        static::setUp();
     }
 
     protected function tearDown(): void

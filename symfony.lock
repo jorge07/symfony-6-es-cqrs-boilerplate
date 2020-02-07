@@ -128,9 +128,6 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
-    "jean85/pretty-package-versions": {
-        "version": "1.1"
-    },
     "lcobucci/jwt": {
         "version": "3.2.3"
     },
@@ -157,33 +154,6 @@
             "version": "3.0",
             "ref": "c8e0c38e1a280ab9e37587a8fa32b251d5bc1c94"
         }
-    },
-    "nette/bootstrap": {
-        "version": "v2.4.5"
-    },
-    "nette/di": {
-        "version": "v2.4.10"
-    },
-    "nette/finder": {
-        "version": "v2.4.1"
-    },
-    "nette/neon": {
-        "version": "v2.4.2"
-    },
-    "nette/php-generator": {
-        "version": "v3.0.1"
-    },
-    "nette/robot-loader": {
-        "version": "v3.0.2"
-    },
-    "nette/schema": {
-        "version": "v1.0.0"
-    },
-    "nette/utils": {
-        "version": "v2.4.8"
-    },
-    "nikic/php-parser": {
-        "version": "v3.1.4"
     },
     "ocramius/package-versions": {
         "version": "1.2.0"
@@ -229,9 +199,6 @@
     },
     "phpspec/prophecy": {
         "version": "1.7.3"
-    },
-    "phpstan/phpdoc-parser": {
-        "version": "0.2"
     },
     "phpstan/phpstan": {
         "version": "0.9.2"
