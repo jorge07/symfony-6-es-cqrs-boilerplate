@@ -37,11 +37,7 @@ class DateTimeType extends DateTimeImmutableType
             return $value->format($platform->getDateTimeFormatString());
         }
 
-        throw ConversionException::conversionFailedInvalidType(
-            $value,
-            $this->getName(),
-            ['null', DateTime::class]
-        );
+        throw ConversionException::conversionFailedInvalidType($value, $this->getName(), ['null', DateTime::class]);
     }
 
     /**
@@ -56,11 +52,7 @@ class DateTimeType extends DateTimeImmutableType
         try {
             $dateTime = DateTime::fromString($value);
         } catch (DateTimeException $e) {
-            throw ConversionException::conversionFailedFormat(
-                $value,
-                $this->getName(),
-                $platform->getDateTimeFormatString()
-            );
+            throw ConversionException::conversionFailedFormat($value, $this->getName(), $platform->getDateTimeFormatString());
         }
 
         return $dateTime;
