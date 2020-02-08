@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Tests\UI\Http\Rest\Controller;
 
 use App\Application\Command\User\SignUp\SignUpCommand;
+use App\Infrastructure\Share\Bus\CommandBus;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\Messenger\MessageBusInterface;
 
 abstract class JsonApiTestCase extends WebTestCase
 {
@@ -32,10 +32,10 @@ abstract class JsonApiTestCase extends WebTestCase
             $password
         );
 
-        /** @var MessageBusInterface $commandBus */
-        $commandBus = $this->cli->getContainer()->get('messenger.bus.command');
+        /** @var CommandBus $commandBus */
+        $commandBus = $this->cli->getContainer()->get(CommandBus::class);
 
-        $commandBus->dispatch($signUp);
+        $commandBus->handle($signUp);
 
         return $email;
     }

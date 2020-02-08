@@ -29,10 +29,10 @@ final class QueryBus
     public function handle($query)
     {
         try {
-            $command = $this->messageBus->dispatch($query);
+            $envelope = $this->messageBus->dispatch($query);
 
             /** @var HandledStamp $stamp */
-            $stamp = $command->last(HandledStamp::class);
+            $stamp = $envelope->last(HandledStamp::class);
 
             return $stamp->getResult();
         } catch (HandlerFailedException $e) {

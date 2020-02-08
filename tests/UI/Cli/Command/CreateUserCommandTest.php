@@ -11,7 +11,6 @@ use App\Infrastructure\User\Query\Projections\UserView;
 use App\Tests\UI\Cli\AbstractConsoleTestCase;
 use App\UI\Cli\Command\CreateUserCommand;
 use Ramsey\Uuid\Uuid;
-use Symfony\Component\Messenger\Stamp\HandledStamp;
 
 class CreateUserCommandTest extends AbstractConsoleTestCase
 {
@@ -43,15 +42,12 @@ class CreateUserCommandTest extends AbstractConsoleTestCase
         $this->assertStringContainsString('User Created:', $output);
         $this->assertStringContainsString('Email: jorge.arcoma@gmail.com', $output);
 
-        $stamp = $this->ask(new FindByEmailQuery($email))->last(HandledStamp::class);
-
-        /** @var Item $userItem */
-        $userItem = $stamp->getResult();
+        $result = $this->ask(new FindByEmailQuery($email));
 
         /** @var UserView $userRead */
-        $userRead = $userItem->readModel;
+        $userRead = $result->readModel;
 
-        self::assertInstanceOf(Item::class, $userItem);
+        self::assertInstanceOf(Item::class, $result);
         self::assertInstanceOf(UserView::class, $userRead);
         self::assertSame($email, $userRead->email());
     }

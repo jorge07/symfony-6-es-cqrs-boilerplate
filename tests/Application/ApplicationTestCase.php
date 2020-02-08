@@ -28,7 +28,7 @@ abstract class ApplicationTestCase extends KernelTestCase
      */
     protected function handle($command): void
     {
-        $this->queryBus->handle($command);
+        $this->commandBus->handle($command);
     }
 
     /**
