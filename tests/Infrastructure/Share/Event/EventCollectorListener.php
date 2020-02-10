@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Infrastructure\Share\Event;
 
 use Broadway\Domain\DomainMessage;
@@ -21,8 +23,6 @@ class EventCollectorListener implements EventListener
         return $events;
     }
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $publishedEvents = [];
 }

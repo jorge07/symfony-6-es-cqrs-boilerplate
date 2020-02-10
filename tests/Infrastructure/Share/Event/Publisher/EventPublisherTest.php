@@ -31,9 +31,9 @@ class EventPublisherTest extends TestCase
         $current = DomainDateTime::now();
 
         $data = [
-            'uuid'        => $uuid = Uuid::uuid4()->toString(),
+            'uuid' => $uuid = Uuid::uuid4()->toString(),
             'credentials' => [
-                'email'    => 'lol@lol.com',
+                'email' => 'lol@lol.com',
                 'password' => 'lkasjbdalsjdbalsdbaljsdhbalsjbhd987',
             ],
             'created_at' => $current->toString(),

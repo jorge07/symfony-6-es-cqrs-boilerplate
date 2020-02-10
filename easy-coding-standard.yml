@@ -1,0 +1,9 @@
+imports:
+  - { resource: 'vendor/sylius-labs/coding-standard/easy-coding-standard.yml' }
+
+services:
+  PhpCsFixer\Fixer\FunctionNotation\NativeFunctionInvocationFixer: ~
+
+parameters:
+  exclude_files:
+    - '**/var/*'

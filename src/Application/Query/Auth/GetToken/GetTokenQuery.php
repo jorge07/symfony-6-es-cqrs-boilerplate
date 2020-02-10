@@ -9,9 +9,7 @@ use App\Infrastructure\Share\Bus\QueryInterface;
 
 class GetTokenQuery implements QueryInterface
 {
-    /**
-     * @var Email
-     */
+    /** @var Email */
     public $email;
 
     public function __construct(string $email)

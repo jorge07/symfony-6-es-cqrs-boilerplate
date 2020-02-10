@@ -9,14 +9,10 @@ use App\Infrastructure\Share\Bus\CommandInterface;
 
 class SignInCommand implements CommandInterface
 {
-    /**
-     * @var Email
-     */
+    /** @var Email */
     public $email;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $plainPassword;
 
     /**

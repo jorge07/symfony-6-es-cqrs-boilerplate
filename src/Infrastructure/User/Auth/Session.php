@@ -24,9 +24,9 @@ final class Session
         }
 
         return [
-            'uuid'     => $user->uuid(),
+            'uuid' => $user->uuid(),
             'username' => $user->getUsername(),
-            'roles'    => $user->getRoles(),
+            'roles' => $user->getRoles(),
         ];
     }
 
@@ -40,8 +40,6 @@ final class Session
         $this->tokenStorage = $tokenStorage;
     }
 
-    /**
-     * @var TokenStorageInterface
-     */
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 }

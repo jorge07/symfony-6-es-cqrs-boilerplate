@@ -8,14 +8,10 @@ use App\Infrastructure\Share\Bus\QueryInterface;
 
 class GetEventsQuery implements QueryInterface
 {
-    /**
-     * @var int
-     */
+    /** @var int */
     public $page;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $limit;
 
     public function __construct(int $page = 1, int $limit = 50)

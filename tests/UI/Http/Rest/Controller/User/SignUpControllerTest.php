@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\UI\Http\Rest\Controller\User;
 
 use App\Domain\User\Event\UserWasCreated;
@@ -21,8 +23,8 @@ class SignUpControllerTest extends JsonApiTestCase
     public function given_a_valid_uuid_and_email_and_password_should_return_a_201_status_code(): void
     {
         $this->post('/api/signup', [
-            'uuid'     => Uuid::uuid4()->toString(),
-            'email'    => 'jo@jo.com',
+            'uuid' => Uuid::uuid4()->toString(),
+            'email' => 'jo@jo.com',
             'password' => 'oaisudaosudoaudo',
         ]);
 
@@ -53,7 +55,7 @@ class SignUpControllerTest extends JsonApiTestCase
         $this->createUser();
 
         $this->post('/api/signup', [
-            'email'    => JsonApiTestCase::DEFAULT_EMAIL,
+            'email' => JsonApiTestCase::DEFAULT_EMAIL,
             'password' => 'oaisudaosudoaudo',
         ]);
 
@@ -82,7 +84,7 @@ class SignUpControllerTest extends JsonApiTestCase
     public function invalid_input_parameters_should_return_400_status_code(): void
     {
         $this->post('/api/signup', [
-            'uuid'  => Uuid::uuid4()->toString(),
+            'uuid' => Uuid::uuid4()->toString(),
             'email' => 'invalid email',
         ]);
 

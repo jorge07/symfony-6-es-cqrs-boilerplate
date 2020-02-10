@@ -59,18 +59,12 @@ abstract class QueryController
         $this->router = $router;
     }
 
-    /**
-     * @var JsonApiFormatter
-     */
+    /** @var JsonApiFormatter */
     private $formatter;
 
-    /**
-     * @var QueryBus
-     */
+    /** @var QueryBus */
     private $queryBus;
 
-    /**
-     * @var UrlGeneratorInterface
-     */
+    /** @var UrlGeneratorInterface */
     private $router;
 }

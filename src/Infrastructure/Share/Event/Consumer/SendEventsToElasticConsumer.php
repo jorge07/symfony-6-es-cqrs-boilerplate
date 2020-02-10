@@ -20,8 +20,6 @@ class SendEventsToElasticConsumer implements ConsumerInterface
         $this->eventElasticRepository = $eventElasticRepository;
     }
 
-    /**
-     * @var EventElasticRepository
-     */
+    /** @var EventElasticRepository */
     private $eventElasticRepository;
 }

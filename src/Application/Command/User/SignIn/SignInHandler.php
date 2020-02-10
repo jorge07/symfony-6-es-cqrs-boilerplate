@@ -41,13 +41,9 @@ class SignInHandler implements CommandHandlerInterface
         $this->userCollection = $userCollection;
     }
 
-    /**
-     * @var UserRepositoryInterface
-     */
+    /** @var UserRepositoryInterface */
     private $userStore;
 
-    /**
-     * @var CheckUserByEmailInterface
-     */
+    /** @var CheckUserByEmailInterface */
     private $userCollection;
 }

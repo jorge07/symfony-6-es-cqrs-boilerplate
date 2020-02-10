@@ -52,18 +52,12 @@ class AbstractRenderController
         $this->queryBus = $queryBus;
     }
 
-    /**
-     * @var CommandBus
-     */
+    /** @var CommandBus */
     private $commandBus;
 
-    /**
-     * @var QueryBus
-     */
+    /** @var QueryBus */
     private $queryBus;
 
-    /**
-     * @var Twig\Environment
-     */
+    /** @var Twig\Environment */
     private $template;
 }

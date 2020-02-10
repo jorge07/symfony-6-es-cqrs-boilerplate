@@ -30,8 +30,6 @@ class CommandQueryController extends QueryController
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @var CommandBus
-     */
+    /** @var CommandBus */
     private $commandBus;
 }
