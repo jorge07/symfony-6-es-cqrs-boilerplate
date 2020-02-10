@@ -27,6 +27,7 @@ class FindByEmailHandlerTest extends ApplicationTestCase
 
         $this->fireTerminateEvent();
 
+        /** @var Item $result */
         $result = $this->ask(new FindByEmailQuery($email));
 
         /** @var UserView $userRead */
