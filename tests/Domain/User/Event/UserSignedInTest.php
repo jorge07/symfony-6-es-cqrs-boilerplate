@@ -20,7 +20,7 @@ class UserSignedInTest extends TestCase
     public function event_should_be_deserializable(): void
     {
         $event = UserSignedIn::deserialize([
-            'uuid'  => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
+            'uuid' => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
             'email' => 'an@email.com',
         ]);
 
@@ -38,7 +38,7 @@ class UserSignedInTest extends TestCase
     public function event_shoud_be_serializable(): void
     {
         $event = UserSignedIn::deserialize([
-            'uuid'  => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
+            'uuid' => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
             'email' => 'an@email.com',
         ]);
 
@@ -60,7 +60,7 @@ class UserSignedInTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
 
         UserSignedIn::deserialize([
-            'notAnUuid'  => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
+            'notAnUuid' => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
             'notAnEmail' => 'an@email.com',
         ]);
     }

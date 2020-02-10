@@ -60,7 +60,7 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
     public function getCredentials(Request $request): array
     {
         return [
-            'email'    => $request->request->get('_email'),
+            'email' => $request->request->get('_email'),
             'password' => $request->request->get('_password'),
         ];
     }
@@ -148,18 +148,12 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
         $this->queryBus = $queryBus;
     }
 
-    /**
-     * @var CommandBus
-     */
+    /** @var CommandBus */
     private $bus;
 
-    /**
-     * @var QueryBus
-     */
+    /** @var QueryBus */
     private $queryBus;
 
-    /**
-     * @var UrlGeneratorInterface
-     */
+    /** @var UrlGeneratorInterface */
     private $router;
 }

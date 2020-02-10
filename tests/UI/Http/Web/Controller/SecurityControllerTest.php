@@ -32,7 +32,7 @@ class SecurityControllerTest extends WebTestCase
 
         $crawler = $client->followRedirect();
 
-        self::assertSame('/profile', parse_url($crawler->getUri(), PHP_URL_PATH));
+        self::assertSame('/profile', parse_url($crawler->getUri(), \PHP_URL_PATH));
         self::assertSame(1, $crawler->filter('html:contains("Hi jorge@gmail.com")')->count());
     }
 
@@ -58,17 +58,17 @@ class SecurityControllerTest extends WebTestCase
         $client->submit($form);
 
         $crawler = $client->followRedirect();
-        self::assertSame('/profile', parse_url($crawler->getUri(), PHP_URL_PATH));
+        self::assertSame('/profile', parse_url($crawler->getUri(), \PHP_URL_PATH));
 
         $client->click($crawler->selectLink('Exit')->link());
 
         $crawler = $client->followRedirect();
-        self::assertSame('/', parse_url($crawler->getUri(), PHP_URL_PATH));
+        self::assertSame('/', parse_url($crawler->getUri(), \PHP_URL_PATH));
 
         $client->request('GET', '/profile');
 
         $crawler = $client->followRedirect();
-        self::assertSame('/sign-in', parse_url($crawler->getUri(), PHP_URL_PATH));
+        self::assertSame('/sign-in', parse_url($crawler->getUri(), \PHP_URL_PATH));
     }
 
     /**

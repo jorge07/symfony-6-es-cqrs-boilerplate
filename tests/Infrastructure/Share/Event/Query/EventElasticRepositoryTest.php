@@ -26,9 +26,9 @@ class EventElasticRepositoryTest extends TestCase
     public function an_event_should_be_stored_in_elastic(): void
     {
         $data = [
-            'uuid'        => $uuid = 'e937f793-45d8-41e9-a756-a2bc711e3172',
+            'uuid' => $uuid = 'e937f793-45d8-41e9-a756-a2bc711e3172',
             'credentials' => [
-                'email'    => 'lol@lol.com',
+                'email' => 'lol@lol.com',
                 'password' => 'lkasjbdalsjdbalsdbaljsdhbalsjbhd987', ],
             'created_at' => DomainDateTime::now()->toString(),
         ];

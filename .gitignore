@@ -17,11 +17,10 @@
 ###< phpunit/phpunit ###
 
 /report/
+build/
 
 ###> friendsofphp/php-cs-fixer ###
 /.php_cs
 /.php_cs.cache
+/.phpunit.result.cache
 ###< friendsofphp/php-cs-fixer ###
-
-build/
-.phpunit.result.cache

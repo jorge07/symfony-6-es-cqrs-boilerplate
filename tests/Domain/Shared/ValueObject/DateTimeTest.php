@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class DateTimeTest extends TestCase
 {
-    const BAD_DATETIME = 'LOL';
+    public const BAD_DATETIME = 'LOL';
 
     /**
      * @test

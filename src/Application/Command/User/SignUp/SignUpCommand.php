@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Command\User\SignUp;
 
 use App\Domain\User\ValueObject\Auth\Credentials;
@@ -10,14 +12,10 @@ use Ramsey\Uuid\UuidInterface;
 
 class SignUpCommand
 {
-    /**
-     * @var UuidInterface
-     */
+    /** @var UuidInterface */
     public $uuid;
 
-    /**
-     * @var Credentials
-     */
+    /** @var Credentials */
     public $credentials;
 
     /**

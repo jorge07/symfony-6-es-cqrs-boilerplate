@@ -24,8 +24,6 @@ final class AuthenticationProvider
         $this->JWTManager = $JWTManager;
     }
 
-    /**
-     * @var JWTTokenManagerInterface
-     */
+    /** @var JWTTokenManagerInterface */
     private $JWTManager;
 }

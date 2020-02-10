@@ -24,13 +24,9 @@ class SignUpHandler implements CommandHandlerInterface
         $this->uniqueEmailSpecification = $uniqueEmailSpecification;
     }
 
-    /**
-     * @var UserRepositoryInterface
-     */
+    /** @var UserRepositoryInterface */
     private $userRepository;
 
-    /**
-     * @var UniqueEmailSpecificationInterface
-     */
+    /** @var UniqueEmailSpecificationInterface */
     private $uniqueEmailSpecification;
 }

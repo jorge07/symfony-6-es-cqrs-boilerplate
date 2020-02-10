@@ -28,8 +28,6 @@ class FindByEmailHandler implements QueryHandlerInterface
         $this->repository = $repository;
     }
 
-    /**
-     * @var MysqlUserReadModelRepository
-     */
+    /** @var MysqlUserReadModelRepository */
     private $repository;
 }

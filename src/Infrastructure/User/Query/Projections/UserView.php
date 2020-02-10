@@ -49,7 +49,7 @@ class UserView implements SerializableReadModel
     public function serialize(): array
     {
         return [
-            'uuid'        => $this->getId(),
+            'uuid' => $this->getId(),
             'credentials' => [
                 'email' => (string) $this->credentials->email,
             ],

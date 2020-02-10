@@ -12,13 +12,11 @@ use PHPUnit\Framework\TestCase;
 
 class DateTimeTypeTest extends TestCase
 {
-    const TYPE = 'lol';
+    public const TYPE = 'lol';
 
-    const BAD_DATE = 'lol';
+    public const BAD_DATE = 'lol';
 
-    /**
-     * @var Type
-     */
+    /** @var Type */
     private $dateTimeType;
 
     public function setUp(): void

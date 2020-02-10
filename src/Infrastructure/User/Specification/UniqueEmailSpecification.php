@@ -42,8 +42,6 @@ final class UniqueEmailSpecification extends AbstractSpecification implements Un
         $this->checkUserByEmail = $checkUserByEmail;
     }
 
-    /**
-     * @var CheckUserByEmailInterface
-     */
+    /** @var CheckUserByEmailInterface */
     private $checkUserByEmail;
 }

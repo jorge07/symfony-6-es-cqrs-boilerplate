@@ -25,8 +25,6 @@ class GetEventsHandler implements QueryHandlerInterface
         $this->eventRepository = $eventRepository;
     }
 
-    /**
-     * @var EventRepositoryInterface
-     */
+    /** @var EventRepositoryInterface */
     private $eventRepository;
 }

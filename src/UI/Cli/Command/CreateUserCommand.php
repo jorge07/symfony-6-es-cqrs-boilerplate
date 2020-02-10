@@ -57,8 +57,6 @@ class CreateUserCommand extends Command
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @var CommandBus
-     */
+    /** @var CommandBus */
     private $commandBus;
 }
