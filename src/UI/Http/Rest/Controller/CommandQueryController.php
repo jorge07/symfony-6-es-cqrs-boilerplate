@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\UI\Http\Rest\Controller;
 
 use App\Infrastructure\Share\Bus\CommandBus;
+use App\Infrastructure\Share\Bus\CommandInterface;
 use App\Infrastructure\Share\Bus\QueryBus;
 use App\UI\Http\Rest\Response\JsonApiFormatter;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -14,7 +15,7 @@ class CommandQueryController extends QueryController
     /**
      * @throws \Throwable
      */
-    protected function exec($command): void
+    protected function exec(CommandInterface $command): void
     {
         $this->commandBus->handle($command);
     }

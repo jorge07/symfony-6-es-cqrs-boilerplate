@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\Application;
 
 use App\Infrastructure\Share\Bus\CommandBus;
+use App\Infrastructure\Share\Bus\CommandInterface;
 use App\Infrastructure\Share\Bus\QueryBus;
+use App\Infrastructure\Share\Bus\QueryInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +20,7 @@ abstract class ApplicationTestCase extends KernelTestCase
     /**
      * @throws \Throwable
      */
-    protected function ask($query)
+    protected function ask(QueryInterface $query)
     {
         return $this->queryBus->handle($query);
     }
@@ -26,7 +28,7 @@ abstract class ApplicationTestCase extends KernelTestCase
     /**
      * @throws \Throwable
      */
-    protected function handle($command): void
+    protected function handle(CommandInterface $command): void
     {
         $this->commandBus->handle($command);
     }

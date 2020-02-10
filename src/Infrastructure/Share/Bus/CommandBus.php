@@ -23,7 +23,7 @@ final class CommandBus
     /**
      * @throws Throwable
      */
-    public function handle($command): void
+    public function handle(CommandInterface $command): void
     {
         try {
             $this->messageBus->dispatch($command);

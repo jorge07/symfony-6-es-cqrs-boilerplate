@@ -14,7 +14,9 @@ declare(strict_types=1);
 
 namespace App\Application\Command\Log;
 
-class EchoCommand 
+use App\Infrastructure\Share\Bus\CommandInterface;
+
+class EchoCommand implements CommandInterface
 {
 
 }
@@ -51,7 +53,7 @@ declare(strict_types=1);
 
 namespace App\UI\Cli\Command;
 
-use League\Tactician\CommandBus;
+use App\Infrastructure\Share\Bus\CommandBus;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

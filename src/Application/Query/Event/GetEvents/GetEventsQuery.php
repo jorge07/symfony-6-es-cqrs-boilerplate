@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Application\Query\Event\GetEvents;
 
-class GetEventsQuery
+use App\Infrastructure\Share\Bus\QueryInterface;
+
+class GetEventsQuery implements QueryInterface
 {
     /** @var int */
     public $page;

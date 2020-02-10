@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\UI\Http\Web\Controller;
 
 use App\Infrastructure\Share\Bus\CommandBus;
+use App\Infrastructure\Share\Bus\CommandInterface;
 use App\Infrastructure\Share\Bus\QueryBus;
+use App\Infrastructure\Share\Bus\QueryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 use Twig;
@@ -27,7 +29,7 @@ class AbstractRenderController
     /**
      * @throws Throwable
      */
-    protected function exec($command): void
+    protected function exec(CommandInterface $command): void
     {
         $this->commandBus->handle($command);
     }
@@ -35,7 +37,7 @@ class AbstractRenderController
     /**
      * @throws Throwable
      */
-    protected function ask($query)
+    protected function ask(QueryInterface $query)
     {
         return $this->queryBus->handle($query);
     }
