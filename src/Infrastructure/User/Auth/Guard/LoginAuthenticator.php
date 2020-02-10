@@ -8,9 +8,10 @@ use App\Application\Command\User\SignIn\SignInCommand;
 use App\Application\Query\Item;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
 use App\Domain\User\Exception\InvalidCredentialsException;
+use App\Infrastructure\Share\Bus\CommandBus;
+use App\Infrastructure\Share\Bus\QueryBus;
 use App\Infrastructure\User\Auth\Auth;
 use App\Infrastructure\User\Query\Projections\UserView;
-use League\Tactician\CommandBus;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,12 +55,9 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      *
      *      return array('api_key' => $request->headers->get('X-API-TOKEN'));
      *
-     *
      * @throws \UnexpectedValueException If null is returned
-     *
-     * @return mixed Any non-null value
      */
-    public function getCredentials(Request $request)
+    public function getCredentials(Request $request): array
     {
         return [
             'email'    => $request->request->get('_email'),
@@ -75,9 +73,11 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      * You may throw an AuthenticationException if you wish. If you return
      * null, then a UsernameNotFoundException is thrown for you.
      *
+     * @param array $credentials
      *
      * @throws AuthenticationException
      * @throws \Assert\AssertionFailedException
+     * @throws \Throwable
      */
     public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
     {
@@ -91,6 +91,7 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
 
             /** @var Item $userItem */
             $userItem = $this->queryBus->handle(new FindByEmailQuery($email));
+
             /** @var UserView $user */
             $user = $userItem->readModel;
 
@@ -108,8 +109,6 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      * to cause authentication to fail.
      *
      * The *credentials* are the return value from getCredentials()
-     *
-     *
      *
      * @throws AuthenticationException
      */
@@ -139,8 +138,11 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
         return $this->router->generate(self::LOGIN);
     }
 
-    public function __construct(CommandBus $commandBus, CommandBus $queryBus, UrlGeneratorInterface $router)
-    {
+    public function __construct(
+        CommandBus $commandBus,
+        QueryBus $queryBus,
+        UrlGeneratorInterface $router
+    ) {
         $this->bus = $commandBus;
         $this->router = $router;
         $this->queryBus = $queryBus;
@@ -152,7 +154,7 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
     private $bus;
 
     /**
-     * @var CommandBus
+     * @var QueryBus
      */
     private $queryBus;
 

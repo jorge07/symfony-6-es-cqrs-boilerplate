@@ -18,6 +18,7 @@ class SecurityControllerTest extends WebTestCase
     {
         $this->createUser('jorge@gmail.com');
 
+        self::ensureKernelShutdown();
         $client = self::createClient();
 
         $crawler = $client->request('GET', '/sign-in');
@@ -44,6 +45,7 @@ class SecurityControllerTest extends WebTestCase
     {
         $this->createUser('jorge@gmail.com');
 
+        self::ensureKernelShutdown();
         $client = self::createClient();
 
         $crawler = $client->request('GET', '/sign-in');
@@ -76,6 +78,7 @@ class SecurityControllerTest extends WebTestCase
      */
     public function login_should_display_an_error_when_bad_credentials(): void
     {
+        self::ensureKernelShutdown();
         $client = self::createClient();
 
         $crawler = $client->request('GET', '/sign-in');
@@ -93,6 +96,7 @@ class SecurityControllerTest extends WebTestCase
 
     private function createUser(string $email, string $password = 'crqs-demo'): Crawler
     {
+        self::ensureKernelShutdown();
         $client = self::createClient();
 
         $crawler = $client->request('GET', '/sign-up');

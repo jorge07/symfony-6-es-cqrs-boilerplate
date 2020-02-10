@@ -19,7 +19,7 @@ class DateTimeTest extends TestCase
      *
      * @throws DateTimeException
      */
-    public function given_a_bad_formated_datetime_string_it_should_throw_an_exception_when_we_try_to_create_datetime()
+    public function given_a_bad_formated_datetime_string_it_should_throw_an_exception_when_we_try_to_create_datetime(): void
     {
         $this->expectException(DateTimeException::class);
         DateTime::fromString(self::BAD_DATETIME);

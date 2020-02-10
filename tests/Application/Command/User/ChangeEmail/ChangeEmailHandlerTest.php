@@ -26,15 +26,13 @@ class ChangeEmailHandlerTest extends ApplicationTestCase
     {
         $command = new SignUpCommand($uuid = Uuid::uuid4()->toString(), 'asd@asd.asd', 'password');
 
-        $this
-            ->handle($command);
+        $this->handle($command);
 
         $email = 'lol@asd.asd';
 
         $command = new ChangeEmailCommand($uuid, $email);
 
-        $this
-            ->handle($command);
+        $this->handle($command);
 
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->service(EventCollectorListener::class);

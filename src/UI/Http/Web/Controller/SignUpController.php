@@ -21,9 +21,9 @@ class SignUpController extends AbstractRenderController
      *     methods={"GET"}
      * )
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function get(): Response
     {
@@ -38,10 +38,10 @@ class SignUpController extends AbstractRenderController
      * )
      *
      * @throws \Assert\AssertionFailedException
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     * @throws \Exception
+     * @throws \Throwable
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function post(Request $request): Response
     {

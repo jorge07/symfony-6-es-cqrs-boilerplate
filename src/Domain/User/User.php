@@ -52,9 +52,7 @@ class User extends EventSourcedAggregateRoot
      */
     public function signIn(string $plainPassword): void
     {
-        $match = $this->hashedPassword->match($plainPassword);
-
-        if (!$match) {
+        if (!$this->hashedPassword->match($plainPassword)) {
             throw new InvalidCredentialsException('Invalid credentials entered.');
         }
 

@@ -1,3 +1,4 @@
 parameters:
+	checkMissingIterableValueType: false
 	excludes_analyse:
 		- /app/src/Infrastructure/Share/Migrations/*

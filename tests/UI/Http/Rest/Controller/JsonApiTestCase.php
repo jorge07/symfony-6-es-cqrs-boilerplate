@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\UI\Http\Rest\Controller;
 
 use App\Application\Command\User\SignUp\SignUpCommand;
-use League\Tactician\CommandBus;
+use App\Infrastructure\Share\Bus\CommandBus;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Bundle\FrameworkBundle\Client;
@@ -33,14 +33,14 @@ abstract class JsonApiTestCase extends WebTestCase
         );
 
         /** @var CommandBus $commandBus */
-        $commandBus = $this->cli->getContainer()->get('tactician.commandbus.command');
+        $commandBus = $this->cli->getContainer()->get(CommandBus::class);
 
         $commandBus->handle($signUp);
 
         return $email;
     }
 
-    protected function post(string $uri, array $params)
+    protected function post(string $uri, array $params): void
     {
         $this->cli->request(
             'POST',
@@ -52,7 +52,7 @@ abstract class JsonApiTestCase extends WebTestCase
         );
     }
 
-    protected function get(string $uri, array $parameters = [])
+    protected function get(string $uri, array $parameters = []): void
     {
         $this->cli->request(
             'GET',
@@ -70,7 +70,10 @@ abstract class JsonApiTestCase extends WebTestCase
             '_password' => $password ?: self::DEFAULT_PASS,
         ]);
 
-        $response = json_decode($this->cli->getResponse()->getContent(), true);
+        /** @var string $content */
+        $content = $this->cli->getResponse()->getContent();
+
+        $response = json_decode($content, true);
 
         $this->token = $response['token'];
     }
@@ -95,6 +98,7 @@ abstract class JsonApiTestCase extends WebTestCase
 
     protected function setUp(): void
     {
+        self::ensureKernelShutdown();
         $this->cli = static::createClient();
     }
 

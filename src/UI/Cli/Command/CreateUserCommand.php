@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\UI\Cli\Command;
 
 use App\Application\Command\User\SignUp\SignUpCommand as CreateUser;
-use League\Tactician\CommandBus;
+use App\Infrastructure\Share\Bus\CommandBus;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -28,8 +28,9 @@ class CreateUserCommand extends Command
     /**
      * @throws \Exception
      * @throws \Assert\AssertionFailedException
+     * @throws \Throwable
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var string $uuid */
         $uuid = $input->getArgument('uuid') ?: Uuid::uuid4()->toString();
@@ -46,6 +47,8 @@ class CreateUserCommand extends Command
         $output->writeln('');
         $output->writeln("Uuid: $uuid");
         $output->writeln("Email: $email");
+
+        return 1;
     }
 
     public function __construct(CommandBus $commandBus)

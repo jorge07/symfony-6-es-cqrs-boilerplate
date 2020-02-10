@@ -39,7 +39,10 @@ class GetEventsControllerTest extends JsonApiTestCase
 
         self::assertSame(Response::HTTP_OK, $this->cli->getResponse()->getStatusCode());
 
-        $responseDecoded = json_decode($this->cli->getResponse()->getContent(), true);
+        /** @var string $content */
+        $content = $this->cli->getResponse()->getContent();
+
+        $responseDecoded = json_decode($content, true);
 
         self::assertSame(1, $responseDecoded['meta']['total']);
         self::assertSame(1, $responseDecoded['meta']['page']);

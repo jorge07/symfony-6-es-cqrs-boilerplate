@@ -16,6 +16,7 @@ class SignUpControllerTest extends WebTestCase
      */
     public function sign_up_page_form_format(): void
     {
+        self::ensureKernelShutdown();
         $client = self::createClient();
 
         $crawler = $client->request('GET', '/sign-up');
@@ -64,6 +65,7 @@ class SignUpControllerTest extends WebTestCase
 
     private function createUser(string $email, string $password = 'crqs-demo'): Crawler
     {
+        self::ensureKernelShutdown();
         $client = self::createClient();
 
         $crawler = $client->request('GET', '/sign-up');

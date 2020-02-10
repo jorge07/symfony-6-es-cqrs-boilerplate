@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Application;
 
-use League\Tactician\CommandBus;
+use App\Infrastructure\Share\Bus\CommandBus;
+use App\Infrastructure\Share\Bus\QueryBus;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,16 +15,25 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 abstract class ApplicationTestCase extends KernelTestCase
 {
+    /**
+     * @throws \Throwable
+     */
     protected function ask($query)
     {
         return $this->queryBus->handle($query);
     }
 
+    /**
+     * @throws \Throwable
+     */
     protected function handle($command): void
     {
         $this->commandBus->handle($command);
     }
 
+    /**
+     * @return object|null
+     */
     protected function service(string $serviceId)
     {
         return self::$container->get($serviceId);
@@ -46,11 +56,10 @@ abstract class ApplicationTestCase extends KernelTestCase
 
     protected function setUp(): void
     {
-        static::bootKernel();
+        self::bootKernel();
 
-        $this->commandBus = $this->service('tactician.commandbus.command');
-
-        $this->queryBus = $this->service('tactician.commandbus.query');
+        $this->commandBus = $this->service(CommandBus::class);
+        $this->queryBus = $this->service(QueryBus::class);
     }
 
     protected function tearDown(): void
@@ -62,6 +71,6 @@ abstract class ApplicationTestCase extends KernelTestCase
     /** @var CommandBus|null */
     private $commandBus;
 
-    /** @var CommandBus|null */
+    /** @var QueryBus|null */
     private $queryBus;
 }
