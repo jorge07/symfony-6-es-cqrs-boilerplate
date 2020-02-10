@@ -38,11 +38,11 @@ class ExceptionSubscriber implements EventSubscriberInterface
     private function getErrorMessage(Throwable $exception, Response $response): array
     {
         $error = [
-            'errors'=> [
-                'title'     => str_replace('\\', '.', \get_class($exception)),
-                'detail'    => $this->getExceptionMessage($exception),
-                'code'      => $exception->getCode(),
-                'status'    => $response->getStatusCode(),
+            'errors' => [
+                'title' => str_replace('\\', '.', \get_class($exception)),
+                'detail' => $this->getExceptionMessage($exception),
+                'code' => $exception->getCode(),
+                'status' => $response->getStatusCode(),
             ],
         ];
 
@@ -51,11 +51,11 @@ class ExceptionSubscriber implements EventSubscriberInterface
                 $error,
                 [
                     'meta' => [
-                        'file'          => $exception->getFile(),
-                        'line'          => $exception->getLine(),
-                        'message'       => $exception->getMessage(),
-                        'trace'         => $exception->getTrace(),
-                        'traceString'   => $exception->getTraceAsString(),
+                        'file' => $exception->getFile(),
+                        'line' => $exception->getLine(),
+                        'message' => $exception->getMessage(),
+                        'trace' => $exception->getTrace(),
+                        'traceString' => $exception->getTraceAsString(),
                     ],
                 ]
             );
@@ -112,8 +112,6 @@ class ExceptionSubscriber implements EventSubscriberInterface
         $this->environment = (string) getenv('APP_ENV') ?? 'dev';
     }
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $environment;
 }

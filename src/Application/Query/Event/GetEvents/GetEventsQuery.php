@@ -6,14 +6,10 @@ namespace App\Application\Query\Event\GetEvents;
 
 class GetEventsQuery
 {
-    /**
-     * @var int
-     */
+    /** @var int */
     public $page;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $limit;
 
     public function __construct(int $page = 1, int $limit = 50)

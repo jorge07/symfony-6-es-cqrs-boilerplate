@@ -15,8 +15,8 @@ final class EventElasticRepository extends ElasticRepository implements EventRep
     public function store(DomainMessage $message): void
     {
         $document = [
-            'type'        => $message->getType(),
-            'payload'     => $message->getPayload()->serialize(),
+            'type' => $message->getType(),
+            'payload' => $message->getPayload()->serialize(),
             'occurred_on' => $message->getRecordedOn()->toString(),
         ];
 

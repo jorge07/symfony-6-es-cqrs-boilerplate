@@ -8,14 +8,10 @@ use App\Domain\User\ValueObject\Email;
 
 class SignInCommand
 {
-    /**
-     * @var Email
-     */
+    /** @var Email */
     public $email;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $plainPassword;
 
     /**

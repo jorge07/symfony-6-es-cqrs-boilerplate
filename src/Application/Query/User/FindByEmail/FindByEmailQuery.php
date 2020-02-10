@@ -1,14 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Application\Query\User\FindByEmail;
 
 use App\Domain\User\ValueObject\Email;
 
 class FindByEmailQuery
 {
-    /**
-     * @var Email
-     */
+    /** @var Email */
     public $email;
 
     /**

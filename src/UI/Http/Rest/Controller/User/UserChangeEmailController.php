@@ -85,8 +85,6 @@ final class UserChangeEmailController extends CommandController
         $this->session = $session;
     }
 
-    /**
-     * @var Session
-     */
+    /** @var Session */
     private $session;
 }

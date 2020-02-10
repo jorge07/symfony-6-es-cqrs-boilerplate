@@ -8,24 +8,16 @@ use App\Domain\Shared\Query\Exception\NotFoundException;
 
 class Collection
 {
-    /**
-     * @var int
-     */
+    /** @var int */
     public $page;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $limit;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     public $total;
 
-    /**
-     * @var Item[]
-     */
+    /** @var Item[] */
     public $data;
 
     /**

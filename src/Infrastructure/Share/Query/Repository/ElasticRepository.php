@@ -69,7 +69,7 @@ abstract class ElasticRepository
         $response = $this->client->search($query);
 
         return [
-            'data'  => array_column($response['hits']['hits'], '_source'),
+            'data' => array_column($response['hits']['hits'], '_source'),
             'total' => $response['hits']['total'],
         ];
     }

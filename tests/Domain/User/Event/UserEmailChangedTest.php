@@ -22,8 +22,8 @@ class UserEmailChangedTest extends TestCase
     public function event_should_be_deserializable(): void
     {
         $event = UserEmailChanged::deserialize([
-            'uuid'       => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
-            'email'      => 'asd@asd.asd',
+            'uuid' => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
+            'email' => 'asd@asd.asd',
             'updated_at' => DateTime::now()->toString(),
         ]);
 
@@ -45,8 +45,8 @@ class UserEmailChangedTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
 
         UserEmailChanged::deserialize([
-            'uuids'      => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
-            'emails'     => 'asd@asd.asd',
+            'uuids' => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
+            'emails' => 'asd@asd.asd',
             'updated_at' => DateTime::now()->toString(),
         ]);
     }
@@ -62,8 +62,8 @@ class UserEmailChangedTest extends TestCase
     public function event_should_be_serializable(): void
     {
         $event = UserEmailChanged::deserialize([
-            'uuid'       => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
-            'email'      => 'asd@asd.asd',
+            'uuid' => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
+            'email' => 'asd@asd.asd',
             'updated_at' => DateTime::now()->toString(),
         ]);
 

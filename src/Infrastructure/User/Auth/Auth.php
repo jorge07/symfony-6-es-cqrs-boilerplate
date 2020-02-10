@@ -69,18 +69,12 @@ class Auth implements UserInterface, EncoderAwareInterface
         $this->hashedPassword = $hashedPassword;
     }
 
-    /**
-     * @var UuidInterface
-     */
+    /** @var UuidInterface */
     private $uuid;
 
-    /**
-     * @var Email
-     */
+    /** @var Email */
     private $email;
 
-    /**
-     * @var HashedPassword
-     */
+    /** @var HashedPassword */
     private $hashedPassword;
 }

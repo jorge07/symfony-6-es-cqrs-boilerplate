@@ -37,9 +37,9 @@ final class UserWasCreated implements Serializable
     public function serialize(): array
     {
         return [
-            'uuid'        => $this->uuid->toString(),
+            'uuid' => $this->uuid->toString(),
             'credentials' => [
-                'email'    => $this->credentials->email->toString(),
+                'email' => $this->credentials->email->toString(),
                 'password' => $this->credentials->password->toString(),
             ],
             'created_at' => $this->createdAt->toString(),
@@ -53,18 +53,12 @@ final class UserWasCreated implements Serializable
         $this->createdAt = $createdAt;
     }
 
-    /**
-     * @var UuidInterface
-     */
+    /** @var UuidInterface */
     public $uuid;
 
-    /**
-     * @var Credentials
-     */
+    /** @var Credentials */
     public $credentials;
 
-    /**
-     * @var DateTime
-     */
+    /** @var DateTime */
     public $createdAt;
 }

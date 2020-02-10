@@ -41,7 +41,7 @@ final class HashedPassword
     {
         $this->validate($plainPassword);
 
-        $hashedPassword = password_hash($plainPassword, PASSWORD_BCRYPT, ['cost' => self::COST]);
+        $hashedPassword = password_hash($plainPassword, \PASSWORD_BCRYPT, ['cost' => self::COST]);
 
         if (\is_bool($hashedPassword)) {
             throw new \RuntimeException('Server error hashing password');

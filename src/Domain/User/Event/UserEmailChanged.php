@@ -31,8 +31,8 @@ final class UserEmailChanged implements Serializable
     public function serialize(): array
     {
         return [
-            'uuid'       => $this->uuid->toString(),
-            'email'      => $this->email->toString(),
+            'uuid' => $this->uuid->toString(),
+            'email' => $this->email->toString(),
             'updated_at' => $this->updatedAt->toString(),
         ];
     }
@@ -44,18 +44,12 @@ final class UserEmailChanged implements Serializable
         $this->updatedAt = $updatedAt;
     }
 
-    /**
-     * @var UuidInterface
-     */
+    /** @var UuidInterface */
     public $uuid;
 
-    /**
-     * @var Email
-     */
+    /** @var Email */
     public $email;
 
-    /**
-     * @var DateTime
-     */
+    /** @var DateTime */
     public $updatedAt;
 }

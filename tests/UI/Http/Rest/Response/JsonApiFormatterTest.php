@@ -67,9 +67,9 @@ class JsonApiFormatterTest extends TestCase
     private static function createUserView(UuidInterface $uuid, Email $email): UserView
     {
         $view = UserView::deserialize([
-            'uuid'        => $uuid->toString(),
+            'uuid' => $uuid->toString(),
             'credentials' => [
-                'email'    => $email->toString(),
+                'email' => $email->toString(),
                 'password' => 'ljalsjdlajsdljlajsd',
             ],
             'created_at' => DateTime::now()->toString(),

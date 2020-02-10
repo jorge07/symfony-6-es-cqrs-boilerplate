@@ -31,9 +31,9 @@ class CreateUserCommandTest extends AbstractConsoleTestCase
         $commandTester = $this->app($command = new CreateUserCommand($commandBus), 'app:create-user');
 
         $commandTester->execute([
-            'command'  => $command->getName(),
-            'uuid'     => Uuid::uuid4()->toString(),
-            'email'    => $email,
+            'command' => $command->getName(),
+            'uuid' => Uuid::uuid4()->toString(),
+            'email' => $email,
             'password' => 'jorgepass',
         ]);
 

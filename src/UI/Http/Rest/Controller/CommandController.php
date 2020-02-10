@@ -21,8 +21,6 @@ abstract class CommandController
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @var CommandBus
-     */
+    /** @var CommandBus */
     private $commandBus;
 }

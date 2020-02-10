@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Domain\User;
 
 use App\Domain\User\Event\UserEmailChanged;
@@ -16,9 +18,7 @@ use Ramsey\Uuid\Uuid;
 
 class UserTest extends TestCase implements UniqueEmailSpecificationInterface
 {
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $isUniqueException = false;
 
     /**

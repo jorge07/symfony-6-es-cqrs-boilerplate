@@ -8,14 +8,10 @@ use App\Domain\User\ValueObject\Email;
 
 class Credentials
 {
-    /**
-     * @var Email
-     */
+    /** @var Email */
     public $email;
 
-    /**
-     * @var HashedPassword
-     */
+    /** @var HashedPassword */
     public $password;
 
     public function __construct(Email $email, HashedPassword $password)

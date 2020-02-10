@@ -30,8 +30,6 @@ class ChangeEmailHandler implements CommandHandlerInterface
     /** @var UserRepositoryInterface */
     private $userRepository;
 
-    /**
-     * @var UniqueEmailSpecificationInterface
-     */
+    /** @var UniqueEmailSpecificationInterface */
     private $uniqueEmailSpecification;
 }

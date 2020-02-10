@@ -8,9 +8,7 @@ use App\Domain\User\ValueObject\Email;
 
 class GetTokenQuery
 {
-    /**
-     * @var Email
-     */
+    /** @var Email */
     public $email;
 
     public function __construct(string $email)
