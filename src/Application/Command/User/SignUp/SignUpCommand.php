@@ -5,10 +5,11 @@ namespace App\Application\Command\User\SignUp;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
+use App\Infrastructure\Share\Bus\CommandInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class SignUpCommand
+class SignUpCommand implements CommandInterface
 {
     /**
      * @var UuidInterface

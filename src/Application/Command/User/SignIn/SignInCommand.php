@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Application\Command\User\SignIn;
 
 use App\Domain\User\ValueObject\Email;
+use App\Infrastructure\Share\Bus\CommandInterface;
 
-class SignInCommand
+class SignInCommand implements CommandInterface
 {
     /**
      * @var Email

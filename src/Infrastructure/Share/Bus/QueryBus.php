@@ -24,7 +24,7 @@ final class QueryBus
     /**
      * @throws Throwable
      */
-    public function handle($query)
+    public function handle(QueryInterface $query)
     {
         try {
             $envelope = $this->messageBus->dispatch($query);
