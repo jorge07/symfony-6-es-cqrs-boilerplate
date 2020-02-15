@@ -28,7 +28,7 @@ A boilerplate for DDD, CQRS, Event Sourcing applications using Symfony as framew
 ## Implementations
 
 - [x] Environment in Docker
-- [x] Command Bus, Query Bus, Event Bus
+- [x] Symfony Messenger
 - [x] Event Store
 - [x] Read Model
 - [x] Async Event subscribers
