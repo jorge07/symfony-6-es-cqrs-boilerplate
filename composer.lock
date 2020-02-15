@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b768afd3c0b2093cdbb78c25b075b85d",
+    "content-hash": "cb3e80d06816c2c61a9ba64063c58e2b",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -70,19 +70,30 @@
         },
         {
             "name": "cv65kr/messenger",
-            "version": "dev-feature/es",
+            "version": "0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cv65kr/messenger.git",
+                "reference": "aec7ea5314f9ebd0d75beeee6571a72b69222763"
+            },
             "dist": {
-                "type": "path",
-                "url": "./_plugins",
-                "reference": "9e1db3846ddb9fa0d29d3ea54898828ea34ba934",
-                "shasum": null
+                "type": "zip",
+                "url": "https://api.github.com/repos/cv65kr/messenger/zipball/aec7ea5314f9ebd0d75beeee6571a72b69222763",
+                "reference": "aec7ea5314f9ebd0d75beeee6571a72b69222763",
+                "shasum": ""
             },
             "require": {
+                "beberlei/assert": "^3.2",
+                "doctrine/doctrine-bundle": "^1.8|^2.0",
                 "php": "^7.2",
+                "ramsey/uuid": "^3.9",
+                "ramsey/uuid-doctrine": "^1.6",
+                "symfony/event-dispatcher": "^4.4|^5.0",
                 "symfony/messenger": "^4.4|^5.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^8.5"
+                "phpunit/phpunit": "^8.5",
+                "sylius-labs/coding-standard": "^3.1"
             },
             "type": "library",
             "autoload": {
@@ -90,9 +101,12 @@
                     "Messenger\\": "src"
                 }
             },
-            "transport-options": {
-                "symlink": true
-            }
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "CQRS + Event Sourcing for Symfony.",
+            "time": "2020-02-15T20:51:51+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -8757,7 +8771,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "cv65kr/messenger": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
@@ -8765,7 +8778,8 @@
     "platform": {
         "php": "^7.2",
         "ext-iconv": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-amqp": "*"
     },
     "platform-dev": []
 }

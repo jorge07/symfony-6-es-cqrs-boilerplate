@@ -7,7 +7,7 @@
         "ext-json": "*",
         "ext-amqp": "*",
         "beberlei/assert": "^3.2",
-        "cv65kr/messenger": "@dev",
+        "cv65kr/messenger": "^0.1",
         "elasticsearch/elasticsearch": "^6.0",
         "lexik/jwt-authentication-bundle": "^2.6",
         "nelmio/api-doc-bundle": "^3.5",
@@ -36,15 +36,6 @@
         "symfony/dotenv": "^4.4",
         "symfony/phpunit-bridge": "^4.4",
         "symfony/profiler-pack": "^1.0"
-    },
-    "repositories": {
-        "messenger": {
-            "type": "path",
-            "url": "./_plugins",
-            "options": {
-                "symlink": true
-            }
-        }
     },
     "config": {
         "preferred-install": {
