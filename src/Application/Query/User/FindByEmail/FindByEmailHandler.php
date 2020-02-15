@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Application\Query\User\FindByEmail;
 
 use App\Application\Query\Item;
-use App\Application\Query\QueryHandlerInterface;
 use App\Infrastructure\User\Query\Mysql\MysqlUserReadModelRepository;
 use App\Infrastructure\User\Query\Projections\UserView;
+use Messenger\Bus\Handler\QueryHandlerInterface;
 
 class FindByEmailHandler implements QueryHandlerInterface
 {

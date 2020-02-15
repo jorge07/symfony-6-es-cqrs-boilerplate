@@ -7,10 +7,9 @@ namespace App\Tests\Application\Query\Event\GetEvents;
 use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Application\Query\Collection;
 use App\Application\Query\Event\GetEvents\GetEventsQuery;
-use App\Infrastructure\Share\Event\Consumer\SendEventsToElasticConsumer;
+use App\Domain\User\Event\UserWasCreated;
 use App\Infrastructure\Share\Event\Query\EventElasticRepository;
 use App\Tests\Application\ApplicationTestCase;
-use App\Tests\Infrastructure\Share\Event\Publisher\InMemoryProducer;
 use Ramsey\Uuid\Uuid;
 
 final class GetEventsTest extends ApplicationTestCase
@@ -26,7 +25,7 @@ final class GetEventsTest extends ApplicationTestCase
 
         self::assertInstanceOf(Collection::class, $response);
         self::assertSame(1, $response->total);
-        self::assertSame('App.Domain.User.Event.UserWasCreated', $response->data[0]['type']);
+        self::assertSame(UserWasCreated::class, $response->data[0]['type']);
     }
 
     /**
@@ -38,14 +37,8 @@ final class GetEventsTest extends ApplicationTestCase
         parent::setUp();
 
         /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->service('events_repository');
+        $eventReadStore = $this->service(EventElasticRepository::class);
         $eventReadStore->reboot();
-
-        /** @var InMemoryProducer $consumersRegistry */
-        $consumersRegistry = $this->service(InMemoryProducer::class);
-        /** @var SendEventsToElasticConsumer $consumer */
-        $consumer = $this->service('events_to_elastic');
-        $consumersRegistry->addConsumer('App.Domain.User.Event.UserWasCreated', $consumer);
 
         $command = new SignUpCommand(
             Uuid::uuid4()->toString(),
@@ -55,17 +48,19 @@ final class GetEventsTest extends ApplicationTestCase
 
         $this->handle($command);
 
+        $this->consumeMessages();
+
         $this->fireTerminateEvent();
 
         /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->service('events_repository');
+        $eventReadStore = $this->service(EventElasticRepository::class);
         $eventReadStore->refresh();
     }
 
     protected function tearDown(): void
     {
         /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->service('events_repository');
+        $eventReadStore = $this->service(EventElasticRepository::class);
         $eventReadStore->delete();
 
         parent::tearDown();

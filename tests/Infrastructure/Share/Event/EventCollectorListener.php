@@ -4,16 +4,20 @@ declare(strict_types=1);
 
 namespace App\Tests\Infrastructure\Share\Event;
 
-use Broadway\Domain\DomainMessage;
-use Broadway\EventHandling\EventListener;
+use Messenger\Event\EventInterface;
+use Messenger\EventSubscriber\ProjectionEventSubscriber;
+use Messenger\Projection\Event\ProjectorEvent;
 
-class EventCollectorListener implements EventListener
+class EventCollectorListener extends ProjectionEventSubscriber
 {
-    public function handle(DomainMessage $domainMessage): void
+    public function handleProjection(ProjectorEvent $projectorEvent): void
     {
-        $this->publishedEvents[] = $domainMessage;
+        $this->publishedEvents[] = $projectorEvent->getEvent();
     }
 
+    /**
+     * @return EventInterface[]
+     */
     public function popEvents(): array
     {
         $events = $this->publishedEvents;
@@ -23,6 +27,6 @@ class EventCollectorListener implements EventListener
         return $events;
     }
 
-    /** @var array */
+    /** @var EventInterface[] */
     private $publishedEvents = [];
 }

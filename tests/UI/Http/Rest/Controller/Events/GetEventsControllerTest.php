@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\UI\Http\Rest\Controller\Events;
 
-use App\Infrastructure\Share\Event\Consumer\SendEventsToElasticConsumer;
+use App\Domain\User\Event\UserWasCreated;
 use App\Infrastructure\Share\Event\Query\EventElasticRepository;
-use App\Tests\Infrastructure\Share\Event\Publisher\InMemoryProducer;
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -42,13 +41,13 @@ class GetEventsControllerTest extends JsonApiTestCase
         /** @var string $content */
         $content = $this->cli->getResponse()->getContent();
 
-        $responseDecoded = json_decode($content, true);
+        $responseDecoded = \json_decode($content, true);
 
         self::assertSame(1, $responseDecoded['meta']['total']);
         self::assertSame(1, $responseDecoded['meta']['page']);
         self::assertSame(1, $responseDecoded['meta']['size']);
 
-        self::assertSame('App.Domain.User.Event.UserWasCreated', $responseDecoded['data'][0]['type']);
+        self::assertSame(UserWasCreated::class, $responseDecoded['data'][0]['type']);
         self::assertSame(self::DEFAULT_EMAIL, $responseDecoded['data'][0]['payload']['credentials']['email']);
     }
 
@@ -79,7 +78,7 @@ class GetEventsControllerTest extends JsonApiTestCase
     private function refreshIndex(): void
     {
         /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->cli->getContainer()->get('events_repository');
+        $eventReadStore = $this->cli->getContainer()->get(EventElasticRepository::class);
         $eventReadStore->refresh();
     }
 
@@ -91,25 +90,21 @@ class GetEventsControllerTest extends JsonApiTestCase
         parent::setUp();
 
         /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->cli->getContainer()->get('events_repository');
+        $eventReadStore = $this->cli->getContainer()->get(EventElasticRepository::class);
         $eventReadStore->boot();
-
-        /** @var InMemoryProducer $consumersRegistry */
-        $consumersRegistry = $this->cli->getContainer()->get(InMemoryProducer::class);
-        /** @var SendEventsToElasticConsumer $consumer */
-        $consumer = $this->cli->getContainer()->get('events_to_elastic');
-        $consumersRegistry->addConsumer('App.Domain.User.Event.UserWasCreated', $consumer);
-
         $this->refreshIndex();
 
         $this->createUser();
+
+        $this->consumeMessages();
+
         $this->auth();
     }
 
     protected function tearDown(): void
     {
         /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->cli->getContainer()->get('events_repository');
+        $eventReadStore = $this->cli->getContainer()->get(EventElasticRepository::class);
         $eventReadStore->delete();
 
         parent::tearDown();

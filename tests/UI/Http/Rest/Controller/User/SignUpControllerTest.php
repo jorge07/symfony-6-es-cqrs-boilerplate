@@ -7,7 +7,7 @@ namespace App\Tests\UI\Http\Rest\Controller\User;
 use App\Domain\User\Event\UserWasCreated;
 use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
-use Broadway\Domain\DomainMessage;
+use Messenger\Event\EventInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -33,14 +33,14 @@ class SignUpControllerTest extends JsonApiTestCase
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->cli->getContainer()->get(EventCollectorListener::class);
 
-        /** @var DomainMessage[] $events */
+        /** @var EventInterface[] $events */
         $events = $eventCollector->popEvents();
 
         self::assertCount(1, $events);
 
         $userWasCreatedEvent = $events[0];
 
-        self::assertInstanceOf(UserWasCreated::class, $userWasCreatedEvent->getPayload());
+        self::assertInstanceOf(UserWasCreated::class, $userWasCreatedEvent);
     }
 
     /**
@@ -64,14 +64,14 @@ class SignUpControllerTest extends JsonApiTestCase
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->cli->getContainer()->get(EventCollectorListener::class);
 
-        /** @var DomainMessage[] $events */
+        /** @var EventInterface[] $events */
         $events = $eventCollector->popEvents();
 
         self::assertCount(1, $events);
 
         $userWasCreatedEvent = $events[0];
 
-        self::assertInstanceOf(UserWasCreated::class, $userWasCreatedEvent->getPayload());
+        self::assertInstanceOf(UserWasCreated::class, $userWasCreatedEvent);
     }
 
     /**

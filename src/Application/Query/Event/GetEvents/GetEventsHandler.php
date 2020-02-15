@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Application\Query\Event\GetEvents;
 
 use App\Application\Query\Collection;
-use App\Application\Query\QueryHandlerInterface;
 use App\Domain\Shared\Event\EventRepositoryInterface;
+use Messenger\Bus\Handler\QueryHandlerInterface;
 
 class GetEventsHandler implements QueryHandlerInterface
 {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Application\Query\User\FindByEmail;
 
 use App\Domain\User\ValueObject\Email;
-use App\Infrastructure\Share\Bus\QueryInterface;
+use Messenger\Bus\QueryInterface;
 
 class FindByEmailQuery implements QueryInterface
 {

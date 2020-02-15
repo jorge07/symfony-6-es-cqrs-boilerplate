@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller;
 
-use App\Infrastructure\Share\Bus\CommandBus;
-use App\Infrastructure\Share\Bus\CommandInterface;
+use Messenger\Bus\CommandBus;
+use Messenger\Bus\CommandInterface;
 
 abstract class CommandController
 {

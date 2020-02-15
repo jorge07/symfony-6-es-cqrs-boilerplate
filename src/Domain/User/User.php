@@ -14,10 +14,11 @@ use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
 use Assert\Assertion;
-use Broadway\EventSourcing\EventSourcedAggregateRoot;
+use Messenger\Aggregate\AggregateRoot;
+use Messenger\Aggregate\AggregateRootId;
 use Ramsey\Uuid\UuidInterface;
 
-class User extends EventSourcedAggregateRoot
+class User extends AggregateRoot
 {
     /**
      * @throws \App\Domain\Shared\Exception\DateTimeException
@@ -119,9 +120,9 @@ class User extends EventSourcedAggregateRoot
         return $this->uuid->toString();
     }
 
-    public function getAggregateRootId(): string
+    public function getAggregateRootId(): AggregateRootId
     {
-        return $this->uuid->toString();
+        return AggregateRootId::fromUUID($this->uuid);
     }
 
     /** @var UuidInterface */

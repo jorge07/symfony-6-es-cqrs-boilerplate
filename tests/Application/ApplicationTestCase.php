@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Tests\Application;
 
-use App\Infrastructure\Share\Bus\CommandBus;
-use App\Infrastructure\Share\Bus\CommandInterface;
-use App\Infrastructure\Share\Bus\QueryBus;
-use App\Infrastructure\Share\Bus\QueryInterface;
+use App\Tests\AMQPTrait;
+use Messenger\Bus\CommandBus;
+use Messenger\Bus\CommandInterface;
+use Messenger\Bus\QueryBus;
+use Messenger\Bus\QueryInterface;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\TerminateEvent;
@@ -17,6 +19,8 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 abstract class ApplicationTestCase extends KernelTestCase
 {
+    use AMQPTrait;
+
     /**
      * @throws \Throwable
      */
@@ -43,8 +47,8 @@ abstract class ApplicationTestCase extends KernelTestCase
 
     protected function fireTerminateEvent(): void
     {
-        /** @var EventDispatcher $dispatcher */
-        $dispatcher = $this->service('event_dispatcher');
+        /** @var EventDispatcherInterface $dispatcher */
+        $dispatcher = $this->service(EventDispatcherInterface::class);
 
         $dispatcher->dispatch(
             new TerminateEvent(
@@ -58,10 +62,13 @@ abstract class ApplicationTestCase extends KernelTestCase
 
     protected function setUp(): void
     {
-        self::bootKernel();
+        $kernel = self::bootKernel();
 
+        $this->setApplication(new Application($kernel));
         $this->commandBus = $this->service(CommandBus::class);
         $this->queryBus = $this->service(QueryBus::class);
+
+        $this->purgeQueue();
     }
 
     protected function tearDown(): void

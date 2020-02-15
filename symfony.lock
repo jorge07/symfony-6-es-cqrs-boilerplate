@@ -2,35 +2,14 @@
     "beberlei/assert": {
         "version": "v2.8.1"
     },
-    "broadway/broadway": {
-        "version": "2.0.1"
-    },
-    "broadway/broadway-bundle": {
-        "version": "0.4",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "0.4",
-            "ref": "a4ded8381c60e594474584599659eef9d931c872"
-        }
-    },
-    "broadway/event-store-dbal": {
-        "version": "0.1",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "0.1",
-            "ref": "59b36f95fafbf4327a57c2493e02fc57d8c8e6ad"
-        }
-    },
-    "broadway/uuid-generator": {
-        "version": "0.4.0"
-    },
     "composer/semver": {
         "version": "1.5.1"
     },
     "composer/xdebug-handler": {
         "version": "1.1.0"
+    },
+    "cv65kr/messenger": {
+        "version": "dev-feature/es"
     },
     "dama/doctrine-test-bundle": {
         "version": "4.0",
@@ -195,19 +174,7 @@
         "version": "1.0.1"
     },
     "php": {
-        "version": "7.2"
-    },
-    "php-amqplib/php-amqplib": {
-        "version": "v2.7.0"
-    },
-    "php-amqplib/rabbitmq-bundle": {
-        "version": "1.12",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "1.12",
-            "ref": "ce3ca2e4577270c4f518539aa6b9e878998fcfef"
-        }
+        "version": "7.3"
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"

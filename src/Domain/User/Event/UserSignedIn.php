@@ -6,11 +6,11 @@ namespace App\Domain\User\Event;
 
 use App\Domain\User\ValueObject\Email;
 use Assert\Assertion;
-use Broadway\Serializer\Serializable;
+use Messenger\Event\EventInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-final class UserSignedIn implements Serializable
+final class UserSignedIn implements EventInterface
 {
     /**
      * @throws \Assert\AssertionFailedException

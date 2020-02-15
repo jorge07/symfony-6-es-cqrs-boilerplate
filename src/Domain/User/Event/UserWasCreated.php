@@ -9,11 +9,11 @@ use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
 use Assert\Assertion;
-use Broadway\Serializer\Serializable;
+use Messenger\Event\EventInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-final class UserWasCreated implements Serializable
+final class UserWasCreated implements EventInterface
 {
     /**
      * @throws \App\Domain\Shared\Exception\DateTimeException

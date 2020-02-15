@@ -10,7 +10,7 @@ use App\Domain\User\Event\UserSignedIn;
 use App\Domain\User\Exception\InvalidCredentialsException;
 use App\Tests\Application\ApplicationTestCase;
 use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
-use Broadway\Domain\DomainMessage;
+use Messenger\Event\EventInterface;
 use Ramsey\Uuid\Uuid;
 
 final class SignInTest extends ApplicationTestCase
@@ -33,10 +33,11 @@ final class SignInTest extends ApplicationTestCase
 
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->service(EventCollectorListener::class);
-        /** @var DomainMessage[] $events */
+
+        /** @var EventInterface[] $events */
         $events = $eventCollector->popEvents();
 
-        self::assertInstanceOf(UserSignedIn::class, $events[1]->getPayload());
+        self::assertInstanceOf(UserSignedIn::class, $events[1]);
     }
 
     /**

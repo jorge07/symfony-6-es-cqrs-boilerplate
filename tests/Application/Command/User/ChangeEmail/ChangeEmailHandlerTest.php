@@ -9,7 +9,7 @@ use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Domain\User\Event\UserEmailChanged;
 use App\Tests\Application\ApplicationTestCase;
 use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
-use Broadway\Domain\DomainMessage;
+use Messenger\Event\EventInterface;
 use Ramsey\Uuid\Uuid;
 
 class ChangeEmailHandlerTest extends ApplicationTestCase
@@ -37,13 +37,13 @@ class ChangeEmailHandlerTest extends ApplicationTestCase
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->service(EventCollectorListener::class);
 
-        /** @var DomainMessage[] $events */
+        /** @var EventInterface[] $events */
         $events = $eventCollector->popEvents();
 
         self::assertCount(2, $events);
 
         /** @var UserEmailChanged $emailChangedEmail */
-        $emailChangedEmail = $events[1]->getPayload();
+        $emailChangedEmail = $events[1];
 
         self::assertInstanceOf(UserEmailChanged::class, $emailChangedEmail);
         self::assertSame($email, $emailChangedEmail->email->toString());

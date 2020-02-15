@@ -6,18 +6,17 @@ namespace App\Infrastructure\Share\Event\Query;
 
 use App\Domain\Shared\Event\EventRepositoryInterface;
 use App\Infrastructure\Share\Query\Repository\ElasticRepository;
-use Broadway\Domain\DomainMessage;
+use Messenger\Event\EventInterface;
 
 final class EventElasticRepository extends ElasticRepository implements EventRepositoryInterface
 {
     private const INDEX = 'events';
 
-    public function store(DomainMessage $message): void
+    public function store(EventInterface $event): void
     {
         $document = [
-            'type' => $message->getType(),
-            'payload' => $message->getPayload()->serialize(),
-            'occurred_on' => $message->getRecordedOn()->toString(),
+            'type' => \get_class($event),
+            'payload' => $event->serialize(),
         ];
 
         $this->add($document);

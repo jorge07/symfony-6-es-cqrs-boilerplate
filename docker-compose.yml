@@ -22,7 +22,7 @@ services:
     image: jorge07/alpine-php:7.3.5-dev
     volumes:
       - .:/app
-    command: ['/app/bin/console', 'rabbitmq:multiple-consumer', 'events']
+    command: ['/app/bin/console', 'messenger:consume', 'events']
 
   mysql:
     image: mysql:8.0

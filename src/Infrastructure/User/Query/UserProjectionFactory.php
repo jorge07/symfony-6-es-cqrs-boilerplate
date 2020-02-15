@@ -8,7 +8,7 @@ use App\Domain\User\Event\UserEmailChanged;
 use App\Domain\User\Event\UserWasCreated;
 use App\Infrastructure\User\Query\Mysql\MysqlUserReadModelRepository;
 use App\Infrastructure\User\Query\Projections\UserView;
-use Broadway\ReadModel\Projector;
+use Messenger\Projection\Projector;
 
 class UserProjectionFactory extends Projector
 {

@@ -8,9 +8,6 @@ use App\Domain\Shared\Exception\DateTimeException;
 use App\Domain\Shared\ValueObject\DateTime as DomainDateTime;
 use App\Domain\User\Event\UserWasCreated;
 use App\Infrastructure\Share\Event\Query\EventElasticRepository;
-use Broadway\Domain\DateTime;
-use Broadway\Domain\DomainMessage;
-use Broadway\Domain\Metadata;
 use PHPUnit\Framework\TestCase;
 
 class EventElasticRepositoryTest extends TestCase
@@ -29,17 +26,12 @@ class EventElasticRepositoryTest extends TestCase
             'uuid' => $uuid = 'e937f793-45d8-41e9-a756-a2bc711e3172',
             'credentials' => [
                 'email' => 'lol@lol.com',
-                'password' => 'lkasjbdalsjdbalsdbaljsdhbalsjbhd987', ],
+                'password' => 'lkasjbdalsjdbalsdbaljsdhbalsjbhd987',
+                ],
             'created_at' => DomainDateTime::now()->toString(),
         ];
 
-        $event = new DomainMessage(
-            $uuid,
-            1,
-            new Metadata(),
-            UserWasCreated::deserialize($data),
-            DateTime::now()
-        );
+        $event = UserWasCreated::deserialize($data);
 
         $this->repo->store($event);
         $this->repo->refresh();
@@ -47,7 +39,7 @@ class EventElasticRepositoryTest extends TestCase
         $result = $this->repo->search([
             'query' => [
                 'match' => [
-                    'type' => $event->getType(),
+                    'type' => UserWasCreated::class,
                 ],
             ],
         ]);

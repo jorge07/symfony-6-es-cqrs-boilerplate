@@ -8,7 +8,7 @@ use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Domain\User\Event\UserWasCreated;
 use App\Tests\Application\ApplicationTestCase;
 use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
-use Broadway\Domain\DomainMessage;
+use Messenger\Event\EventInterface;
 use Ramsey\Uuid\Uuid;
 
 class SignUpHandlerTest extends ApplicationTestCase
@@ -33,13 +33,13 @@ class SignUpHandlerTest extends ApplicationTestCase
         /** @var EventCollectorListener $collector */
         $collector = $this->service(EventCollectorListener::class);
 
-        /** @var DomainMessage[] $events */
+        /** @var EventInterface[] $events */
         $events = $collector->popEvents();
 
         self::assertCount(1, $events);
 
         /** @var UserWasCreated $userCreatedEvent */
-        $userCreatedEvent = $events[0]->getPayload();
+        $userCreatedEvent = $events[0];
 
         self::assertInstanceOf(UserWasCreated::class, $userCreatedEvent);
     }

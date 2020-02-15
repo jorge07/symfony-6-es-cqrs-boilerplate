@@ -5,7 +5,7 @@ WORKDIR /app
 
 ENV APP_ENV prod
 ENV APP_SECRET default-secret
-ENV RABBITMQ_URL amqp://guest:guest@rmq:5672
+ENV MESSENGER_TRANSPORT_DSN amqp://guest:guest@rmq:5672/%2f/events
 
 COPY composer.json /app
 COPY composer.lock /app

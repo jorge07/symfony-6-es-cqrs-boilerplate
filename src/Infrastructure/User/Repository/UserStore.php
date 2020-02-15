@@ -6,10 +6,8 @@ namespace App\Infrastructure\User\Repository;
 
 use App\Domain\User\Repository\UserRepositoryInterface;
 use App\Domain\User\User;
-use Broadway\EventHandling\EventBus;
-use Broadway\EventSourcing\AggregateFactory\PublicConstructorAggregateFactory;
-use Broadway\EventSourcing\EventSourcingRepository;
-use Broadway\EventStore\EventStore;
+use Messenger\Aggregate\AggregateRootId;
+use Messenger\Repository\EventSourcingRepository;
 use Ramsey\Uuid\UuidInterface;
 
 final class UserStore extends EventSourcingRepository implements UserRepositoryInterface
@@ -22,22 +20,13 @@ final class UserStore extends EventSourcingRepository implements UserRepositoryI
     public function get(UuidInterface $uuid): User
     {
         /** @var User $user */
-        $user = $this->load($uuid->toString());
+        $user = $this->load(AggregateRootId::fromUUID($uuid));
 
         return $user;
     }
 
-    public function __construct(
-        EventStore $eventStore,
-        EventBus $eventBus,
-        array $eventStreamDecorators = []
-    ) {
-        parent::__construct(
-            $eventStore,
-            $eventBus,
-            User::class,
-            new PublicConstructorAggregateFactory(),
-            $eventStreamDecorators
-        );
+    public function getAggregateRoot(): string
+    {
+        return User::class;
     }
 }

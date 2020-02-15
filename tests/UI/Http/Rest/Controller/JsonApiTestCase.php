@@ -5,15 +5,18 @@ declare(strict_types=1);
 namespace App\Tests\UI\Http\Rest\Controller;
 
 use App\Application\Command\User\SignUp\SignUpCommand;
-use App\Infrastructure\Share\Bus\CommandBus;
+use App\Tests\AMQPTrait;
+use Messenger\Bus\CommandBus;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class JsonApiTestCase extends WebTestCase
 {
+    use AMQPTrait;
+
     public const DEFAULT_EMAIL = 'lol@lo.com';
 
     public const DEFAULT_PASS = '1234567890';
@@ -48,7 +51,7 @@ abstract class JsonApiTestCase extends WebTestCase
             [],
             [],
             $this->headers(),
-            (string) json_encode($params)
+            (string) \json_encode($params)
         );
     }
 
@@ -73,7 +76,7 @@ abstract class JsonApiTestCase extends WebTestCase
         /** @var string $content */
         $content = $this->cli->getResponse()->getContent();
 
-        $response = json_decode($content, true);
+        $response = \json_decode($content, true);
 
         $this->token = $response['token'];
     }
@@ -99,7 +102,10 @@ abstract class JsonApiTestCase extends WebTestCase
     protected function setUp(): void
     {
         self::ensureKernelShutdown();
+
         $this->cli = static::createClient();
+        $this->setApplication(new Application(self::$kernel));
+        $this->purgeQueue();
     }
 
     protected function tearDown(): void
@@ -109,7 +115,7 @@ abstract class JsonApiTestCase extends WebTestCase
         $this->userUuid = null;
     }
 
-    /** @var Client|KernelBrowser|null */
+    /** @var KernelBrowser|null */
     protected $cli;
 
     /** @var string|null */

@@ -6,10 +6,10 @@ namespace App\Tests\UI\Cli\Command;
 
 use App\Application\Query\Item;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
-use App\Infrastructure\Share\Bus\CommandBus;
 use App\Infrastructure\User\Query\Projections\UserView;
 use App\Tests\UI\Cli\AbstractConsoleTestCase;
 use App\UI\Cli\Command\CreateUserCommand;
+use Messenger\Bus\CommandBus;
 use Ramsey\Uuid\Uuid;
 
 class CreateUserCommandTest extends AbstractConsoleTestCase

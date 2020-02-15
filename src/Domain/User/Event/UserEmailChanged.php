@@ -7,11 +7,11 @@ namespace App\Domain\User\Event;
 use App\Domain\Shared\ValueObject\DateTime;
 use App\Domain\User\ValueObject\Email;
 use Assert\Assertion;
-use Broadway\Serializer\Serializable;
+use Messenger\Event\EventInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-final class UserEmailChanged implements Serializable
+final class UserEmailChanged implements EventInterface
 {
     /**
      * @throws \Assert\AssertionFailedException

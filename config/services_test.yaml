@@ -6,40 +6,13 @@ services:
 
     App\Tests\Infrastructure\Share\Event\EventCollectorListener:
       public: true
-      tags:
-          - { name: broadway.domain.event_listener }
+      autowire: true
+      autoconfigure: true
 
-    events_to_elastic:
-        class: App\Infrastructure\Share\Event\Consumer\SendEventsToElasticConsumer
-        autowire: true
+    App\Infrastructure\Share\Event\Query\EventElasticRepository:
+      public: true
 
-    events_repository:
-        class: App\Infrastructure\Share\Event\Query\EventElasticRepository
-        autowire: true
-
-    App\Tests\Infrastructure\Share\Event\Publisher\InMemoryProducer: ~
-
-    old_sound_rabbit_mq.events_producer:
-      alias: 'App\Tests\Infrastructure\Share\Event\Publisher\InMemoryProducer'
-
-    App\Infrastructure\Share\Bus\CommandBus:
+    Messenger\Bus\CommandBus:
       public: true
       arguments:
         - '@messenger.bus.command'
-
-    App\Infrastructure\Share\Bus\QueryBus:
-      public: true
-      arguments:
-        - '@messenger.bus.query'
-
-    _instanceof:
-
-        App\Application\Command\CommandHandlerInterface:
-          public: true
-          tags:
-            - { name: messenger.message_handler, bus: messenger.bus.command }
-
-        App\Application\Query\QueryHandlerInterface:
-          public: true
-          tags:
-            - { name: messenger.message_handler, bus: messenger.bus.query }

@@ -7,7 +7,7 @@ namespace App\Tests\UI\Http\Rest\Controller\User;
 use App\Domain\User\Event\UserEmailChanged;
 use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
-use Broadway\Domain\DomainMessage;
+use Messenger\Event\EventInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -31,10 +31,10 @@ class ChangeEmailControllerTest extends JsonApiTestCase
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->cli->getContainer()->get(EventCollectorListener::class);
 
-        /** @var DomainMessage[] $events */
+        /** @var EventInterface[] $events */
         $events = $eventCollector->popEvents();
 
-        self::assertInstanceOf(UserEmailChanged::class, $events[0]->getPayload());
+        self::assertInstanceOf(UserEmailChanged::class, $events[0]);
     }
 
     /**

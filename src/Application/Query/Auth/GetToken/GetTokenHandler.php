@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Application\Query\Auth\GetToken;
 
-use App\Application\Query\QueryHandlerInterface;
 use App\Domain\User\Repository\GetUserCredentialsByEmailInterface;
 use App\Infrastructure\User\Auth\AuthenticationProvider;
+use Messenger\Bus\Handler\QueryHandlerInterface;
 
 class GetTokenHandler implements QueryHandlerInterface
 {

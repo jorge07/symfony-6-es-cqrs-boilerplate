@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Application\Command\User\SignUp;
 
-use App\Application\Command\CommandHandlerInterface;
 use App\Domain\User\Repository\UserRepositoryInterface;
 use App\Domain\User\Specification\UniqueEmailSpecificationInterface;
 use App\Domain\User\User;
+use Messenger\Bus\Handler\CommandHandlerInterface;
 
 class SignUpHandler implements CommandHandlerInterface
 {

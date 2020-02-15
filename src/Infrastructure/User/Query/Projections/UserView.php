@@ -8,18 +8,18 @@ use App\Domain\Shared\ValueObject\DateTime;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
-use Broadway\ReadModel\SerializableReadModel;
-use Broadway\Serializer\Serializable;
+use Messenger\Event\EventInterface;
+use Messenger\Projection\ReadModelInterface;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class UserView implements SerializableReadModel
+class UserView implements ReadModelInterface
 {
     /**
      * @throws \App\Domain\Shared\Exception\DateTimeException
      * @throws \Assert\AssertionFailedException
      */
-    public static function fromSerializable(Serializable $event): self
+    public static function fromSerializable(EventInterface $event): self
     {
         return self::deserialize($event->serialize());
     }

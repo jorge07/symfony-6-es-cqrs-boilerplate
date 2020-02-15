@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Web\Controller;
 
-use App\Infrastructure\Share\Bus\CommandBus;
-use App\Infrastructure\Share\Bus\CommandInterface;
-use App\Infrastructure\Share\Bus\QueryBus;
-use App\Infrastructure\Share\Bus\QueryInterface;
+use Messenger\Bus\CommandBus;
+use Messenger\Bus\CommandInterface;
+use Messenger\Bus\QueryBus;
+use Messenger\Bus\QueryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 use Twig;

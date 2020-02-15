@@ -12,7 +12,7 @@ use App\Domain\User\User;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
-use Broadway\Domain\DomainMessage;
+use Messenger\Event\EventTransformer;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -45,14 +45,14 @@ class UserTest extends TestCase implements UniqueEmailSpecificationInterface
         self::assertSame($emailString, $user->email());
         self::assertNotNull($user->uuid());
 
-        $events = $user->getUncommittedEvents();
+        $events = $user->getUnrecordedEvents();
 
-        self::assertCount(1, $events->getIterator(), 'Only one event should be in the buffer');
+        self::assertCount(1, $events, 'Only one event should be in the buffer');
 
-        /** @var DomainMessage $event */
-        $event = $events->getIterator()->current();
+        /** @var EventTransformer $event */
+        $event = $events[0];
 
-        self::assertInstanceOf(UserWasCreated::class, $event->getPayload(), 'First event should be UserWasCreated');
+        self::assertSame(UserWasCreated::class, $event->getEvent(), 'First event should be UserWasCreated');
     }
 
     /**
@@ -82,14 +82,14 @@ class UserTest extends TestCase implements UniqueEmailSpecificationInterface
 
         self::assertSame($user->email(), $newEmail, 'Emails should be equals');
 
-        $events = $user->getUncommittedEvents();
+        $events = $user->getUnrecordedEvents();
 
-        self::assertCount(2, $events->getIterator(), '2 event should be in the buffer');
+        self::assertCount(2, $events, '2 event should be in the buffer');
 
-        /** @var DomainMessage $event */
-        $event = $events->getIterator()->offsetGet(1);
+        /** @var EventTransformer $event */
+        $event = $events[1];
 
-        self::assertInstanceOf(UserEmailChanged::class, $event->getPayload(), 'Second event should be UserEmailChanged');
+        self::assertSame(UserEmailChanged::class, $event->getEvent(), 'Second event should be UserEmailChanged');
     }
 
     /**
@@ -156,7 +156,7 @@ class UserTest extends TestCase implements UniqueEmailSpecificationInterface
         self::assertNull($user->updatedAt());
 
         $initialUpdatedAt = $user->updatedAt();
-        usleep(1000);
+        \usleep(1000);
         $newEmail = 'weba@aso.maximo';
         $user->changeEmail(Email::fromString($newEmail), $this);
 

@@ -7,7 +7,7 @@ namespace App\UI\Http\Rest\EventSubscriber;
 use App\Domain\Shared\Query\Exception\NotFoundException;
 use App\Domain\User\Exception\ForbiddenException;
 use App\Domain\User\Exception\InvalidCredentialsException;
-use Broadway\Repository\AggregateNotFoundException;
+use Messenger\Exception\AggregateNotFoundException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +23,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
         $exception = $event->getThrowable();
 
         $response = new JsonResponse();
-        $response->headers->set('Content-Type', 'application/vnd.api+json');
+        $response->headers->set('Content-Type', 'application/problem+json');
         $response->setStatusCode($this->getStatusCode($exception));
         $response->setData($this->getErrorMessage($exception, $response));
 
@@ -39,7 +39,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
     {
         $error = [
             'errors' => [
-                'title' => str_replace('\\', '.', \get_class($exception)),
+                'title' => \str_replace('\\', '.', \get_class($exception)),
                 'detail' => $this->getExceptionMessage($exception),
                 'code' => $exception->getCode(),
                 'status' => $response->getStatusCode(),
@@ -47,7 +47,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
         ];
 
         if ('dev' === $this->environment) {
-            $error = array_merge(
+            $error = \array_merge(
                 $error,
                 [
                     'meta' => [
@@ -109,7 +109,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
 
     public function __construct()
     {
-        $this->environment = (string) getenv('APP_ENV') ?? 'dev';
+        $this->environment = (string) \getenv('APP_ENV') ?? 'dev';
     }
 
     /** @var string */

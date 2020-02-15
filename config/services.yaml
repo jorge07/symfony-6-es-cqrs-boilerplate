@@ -14,51 +14,10 @@ services:
         public: false
         bind:
           $elasticConfig: '%elastic%'
-          $eventBus: '@broadway.event_handling.event_bus'
-          $eventStore: '@Broadway\EventStore\Dbal\DBALEventStore'
-          $eventProducer: '@old_sound_rabbit_mq.events_producer'
-
-    _instanceof:
-
-        App\Application\Command\CommandHandlerInterface:
-          public: true
-          tags:
-            - { name: messenger.message_handler, bus: messenger.bus.command }
-
-        App\Application\Query\QueryHandlerInterface:
-          public: true
-          tags:
-            - { name: messenger.message_handler, bus: messenger.bus.query }
-
-        Broadway\EventHandling\EventListener:
-          public: true
-          tags:
-              - { name: broadway.domain.event_listener }
 
     App\:
         resource: '../src/*'
         exclude: '../src/**/{Migrations,EventSubscriber}'
-
-    App\Infrastructure\Share\Bus\CommandBus:
-        arguments:
-          - '@messenger.bus.command'
-
-    App\Infrastructure\Share\Bus\QueryBus:
-        arguments:
-          - '@messenger.bus.query'
-
-
-    ### Event Store
-
-    Broadway\EventStore\Dbal\DBALEventStore:
-        public: true
-        arguments:
-          - '@doctrine.dbal.default_connection'
-          - '@broadway.serializer.payload'
-          - '@broadway.serializer.metadata'
-          - 'events'
-          - true
-          - '@broadway.uuid.converter'
 
     ### UI
 

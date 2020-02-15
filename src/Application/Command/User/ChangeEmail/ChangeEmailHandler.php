@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Application\Command\User\ChangeEmail;
 
-use App\Application\Command\CommandHandlerInterface;
 use App\Domain\User\Repository\UserRepositoryInterface;
 use App\Domain\User\Specification\UniqueEmailSpecificationInterface;
+use Messenger\Bus\Handler\CommandHandlerInterface;
 
 class ChangeEmailHandler implements CommandHandlerInterface
 {

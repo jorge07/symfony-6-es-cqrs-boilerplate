@@ -5,14 +5,12 @@
         "php": "^7.2",
         "ext-iconv": "*",
         "ext-json": "*",
+        "ext-amqp": "*",
         "beberlei/assert": "^3.2",
-        "broadway/broadway": "^2.1",
-        "broadway/broadway-bundle": "^0.4.2",
-        "broadway/event-store-dbal": "^0.3",
+        "cv65kr/messenger": "@dev",
         "elasticsearch/elasticsearch": "^6.0",
         "lexik/jwt-authentication-bundle": "^2.6",
         "nelmio/api-doc-bundle": "^3.5",
-        "php-amqplib/rabbitmq-bundle": "^1.14",
         "ramsey/uuid": "^3.9",
         "ramsey/uuid-doctrine": "^1.6",
         "sensio/framework-extra-bundle": "^5.5",
@@ -38,6 +36,15 @@
         "symfony/dotenv": "^4.4",
         "symfony/phpunit-bridge": "^4.4",
         "symfony/profiler-pack": "^1.0"
+    },
+    "repositories": {
+        "messenger": {
+            "type": "path",
+            "url": "./_plugins",
+            "options": {
+                "symlink": true
+            }
+        }
     },
     "config": {
         "preferred-install": {

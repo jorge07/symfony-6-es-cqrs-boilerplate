@@ -6,9 +6,9 @@ namespace App\UI\Http\Rest\Controller;
 
 use App\Application\Query\Collection;
 use App\Application\Query\Item;
-use App\Infrastructure\Share\Bus\QueryBus;
-use App\Infrastructure\Share\Bus\QueryInterface;
 use App\UI\Http\Rest\Response\JsonApiFormatter;
+use Messenger\Bus\QueryBus;
+use Messenger\Bus\QueryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 

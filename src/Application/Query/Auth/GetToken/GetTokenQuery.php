@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Application\Query\Auth\GetToken;
 
 use App\Domain\User\ValueObject\Email;
-use App\Infrastructure\Share\Bus\QueryInterface;
+use Messenger\Bus\QueryInterface;
 
 class GetTokenQuery implements QueryInterface
 {
