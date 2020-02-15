@@ -7,8 +7,6 @@ ENV APP_ENV prod
 ENV APP_SECRET default-secret
 ENV MESSENGER_TRANSPORT_DSN amqp://guest:guest@rmq:5672/%2f/events
 
-RUN apk add php7-amqp@cast
-
 COPY composer.json /app
 COPY composer.lock /app
 COPY symfony.lock /app
@@ -25,8 +23,6 @@ RUN composer run-script post-install-cmd
 FROM jorge07/alpine-php:${PHP_VERION} as php
 
 ENV APP_ENV prod
-
-RUN apk add php7-amqp@cast
 
 WORKDIR /app
 
