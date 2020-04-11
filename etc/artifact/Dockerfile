@@ -1,4 +1,4 @@
-ARG PHP_VERION=7.3.5
+ARG PHP_VERION=7.4.0
 FROM jorge07/alpine-php:${PHP_VERION}-dev as builder
 
 WORKDIR /app
@@ -28,7 +28,7 @@ WORKDIR /app
 
 COPY --from=builder /app /app
 
-FROM nginx:1.15-alpine as nginx
+FROM nginx:1.17-alpine as nginx
 
 ENV APP_ENV prod
 
