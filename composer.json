@@ -3,7 +3,6 @@
     "license": "MIT",
     "require": {
         "php": "^7.4",
-        "ext-iconv": "*",
         "ext-json": "*",
         "beberlei/assert": "^3.2",
         "broadway/broadway": "^2.3",
@@ -22,7 +21,6 @@
         "symfony/messenger": "^5.0",
         "symfony/orm-pack": "^1.0",
         "symfony/security-bundle": "^5.0",
-        "symfony/translation-contracts": "^2.0",
         "symfony/twig-bundle": "^5.0",
         "symfony/yaml": "^5.0"
     },
