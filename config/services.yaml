@@ -16,7 +16,6 @@ services:
           $elasticConfig: '%elastic%'
           $eventBus: '@broadway.event_handling.event_bus'
           $eventStore: '@Broadway\EventStore\Dbal\DBALEventStore'
-          $eventProducer: '@old_sound_rabbit_mq.events_producer'
 
     _instanceof:
 
@@ -29,6 +28,11 @@ services:
           public: true
           tags:
             - { name: messenger.message_handler, bus: messenger.bus.query }
+
+        App\Infrastructure\Share\Event\EventHandlerInterface:
+          public: true
+          tags:
+            - { name: messenger.message_handler, bus: messenger.bus.event }
 
         Broadway\EventHandling\EventListener:
           public: true
@@ -47,6 +51,9 @@ services:
         arguments:
           - '@messenger.bus.query'
 
+    App\Infrastructure\Share\Bus\EventBus:
+        arguments:
+          - '@messenger.bus.event'
 
     ### Event Store
 

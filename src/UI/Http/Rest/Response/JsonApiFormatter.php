@@ -11,7 +11,7 @@ final class JsonApiFormatter
 {
     public static function one(Item $resource): array
     {
-        return array_filter([
+        return \array_filter([
             'data' => self::model($resource),
             'relationships' => self::relations($resource->relationships),
         ]);
@@ -23,9 +23,9 @@ final class JsonApiFormatter
             return $data instanceof Item ? self::model($data) : $data;
         };
 
-        $resources = array_map($transformer, $collection->data);
+        $resources = \array_map($transformer, $collection->data);
 
-        return array_filter([
+        return \array_filter([
             'meta' => [
                 'size' => $collection->limit,
                 'page' => $collection->page,

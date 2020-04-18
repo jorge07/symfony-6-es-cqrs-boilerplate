@@ -2,6 +2,9 @@
     "beberlei/assert": {
         "version": "v2.8.1"
     },
+    "brick/math": {
+        "version": "0.8.15"
+    },
     "broadway/broadway": {
         "version": "2.0.1"
     },
@@ -110,6 +113,12 @@
     "exsyst/swagger": {
         "version": "v0.4.1"
     },
+    "ezimuel/guzzlestreams": {
+        "version": "3.0.1"
+    },
+    "ezimuel/ringphp": {
+        "version": "1.1.2"
+    },
     "friendsofphp/php-cs-fixer": {
         "version": "2.2",
         "recipe": {
@@ -121,12 +130,6 @@
         "files": [
             ".php_cs.dist"
         ]
-    },
-    "guzzlehttp/ringphp": {
-        "version": "1.1.0"
-    },
-    "guzzlehttp/streams": {
-        "version": "3.0.0"
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
@@ -195,19 +198,7 @@
         "version": "1.0.1"
     },
     "php": {
-        "version": "7.2"
-    },
-    "php-amqplib/php-amqplib": {
-        "version": "v2.7.0"
-    },
-    "php-amqplib/rabbitmq-bundle": {
-        "version": "1.12",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "1.12",
-            "ref": "ce3ca2e4577270c4f518539aa6b9e878998fcfef"
-        }
+        "version": "7.4"
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
@@ -239,6 +230,9 @@
     "phpunit/php-file-iterator": {
         "version": "1.4.5"
     },
+    "phpunit/php-invoker": {
+        "version": "3.0.0"
+    },
     "phpunit/php-text-template": {
         "version": "1.2.1"
     },
@@ -263,10 +257,16 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/event-dispatcher": {
+        "version": "1.0.0"
+    },
     "psr/log": {
         "version": "1.0.2"
     },
     "psr/simple-cache": {
+        "version": "1.0.1"
+    },
+    "ramsey/collection": {
         "version": "1.0.1"
     },
     "ramsey/uuid": {
@@ -286,6 +286,9 @@
     },
     "roave/security-advisories": {
         "version": "dev-master"
+    },
+    "sebastian/code-unit": {
+        "version": "1.0.0"
     },
     "sebastian/code-unit-reverse-lookup": {
         "version": "1.0.1"
@@ -373,9 +376,6 @@
     },
     "symfony/css-selector": {
         "version": "v4.0.4"
-    },
-    "symfony/debug": {
-        "version": "v4.0.2"
     },
     "symfony/dependency-injection": {
         "version": "v4.0.2"

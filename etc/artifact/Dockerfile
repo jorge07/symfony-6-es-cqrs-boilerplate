@@ -1,11 +1,10 @@
-ARG PHP_VERION=7.4.0
+ARG PHP_VERION=7.4.3
 FROM jorge07/alpine-php:${PHP_VERION}-dev as builder
 
 WORKDIR /app
 
 ENV APP_ENV prod
 ENV APP_SECRET default-secret
-ENV RABBITMQ_URL amqp://guest:guest@rmq:5672
 
 COPY composer.json /app
 COPY composer.lock /app

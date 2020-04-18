@@ -17,11 +17,6 @@ services:
         class: App\Infrastructure\Share\Event\Query\EventElasticRepository
         autowire: true
 
-    App\Tests\Infrastructure\Share\Event\Publisher\InMemoryProducer: ~
-
-    old_sound_rabbit_mq.events_producer:
-      alias: 'App\Tests\Infrastructure\Share\Event\Publisher\InMemoryProducer'
-
     App\Infrastructure\Share\Bus\CommandBus:
       public: true
       arguments:
@@ -31,6 +26,10 @@ services:
       public: true
       arguments:
         - '@messenger.bus.query'
+
+    App\Infrastructure\Share\Bus\EventBus:
+      arguments:
+        - '@messenger.bus.event'
 
     _instanceof:
 

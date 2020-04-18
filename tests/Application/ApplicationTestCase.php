@@ -14,11 +14,24 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\TerminateEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Throwable;
 
 abstract class ApplicationTestCase extends KernelTestCase
 {
+    private ?CommandBus $commandBus;
+
+    private ?QueryBus $queryBus;
+
+    protected function setUp(): void
+    {
+        self::bootKernel();
+
+        $this->commandBus = $this->service(CommandBus::class);
+        $this->queryBus = $this->service(QueryBus::class);
+    }
+
     /**
-     * @throws \Throwable
+     * @throws Throwable
      */
     protected function ask(QueryInterface $query)
     {
@@ -26,7 +39,7 @@ abstract class ApplicationTestCase extends KernelTestCase
     }
 
     /**
-     * @throws \Throwable
+     * @throws Throwable
      */
     protected function handle(CommandInterface $command): void
     {
@@ -56,23 +69,9 @@ abstract class ApplicationTestCase extends KernelTestCase
         );
     }
 
-    protected function setUp(): void
-    {
-        self::bootKernel();
-
-        $this->commandBus = $this->service(CommandBus::class);
-        $this->queryBus = $this->service(QueryBus::class);
-    }
-
     protected function tearDown(): void
     {
         $this->commandBus = null;
         $this->queryBus = null;
     }
-
-    /** @var CommandBus|null */
-    private $commandBus;
-
-    /** @var QueryBus|null */
-    private $queryBus;
 }

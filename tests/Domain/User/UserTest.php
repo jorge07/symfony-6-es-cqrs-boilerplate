@@ -156,7 +156,7 @@ class UserTest extends TestCase implements UniqueEmailSpecificationInterface
         self::assertNull($user->updatedAt());
 
         $initialUpdatedAt = $user->updatedAt();
-        usleep(1000);
+        \usleep(1000);
         $newEmail = 'weba@aso.maximo';
         $user->changeEmail(Email::fromString($newEmail), $this);
 

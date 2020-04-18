@@ -11,7 +11,7 @@ services:
       - php
 
   php:
-    image: jorge07/alpine-php:7.4.0-dev
+    image: jorge07/alpine-php:7.4.3-dev
     volumes:
       - .:/app
     depends_on:
@@ -19,10 +19,10 @@ services:
       - rmq
 
   workers:
-    image: jorge07/alpine-php:7.4.0-dev
+    image: jorge07/alpine-php:7.4.3-dev
     volumes:
       - .:/app
-    command: ['/app/bin/console', 'rabbitmq:multiple-consumer', 'events']
+    command: ['/app/bin/console', 'messenger:consume', 'events', '-vv']
 
   mysql:
     image: mysql:8.0

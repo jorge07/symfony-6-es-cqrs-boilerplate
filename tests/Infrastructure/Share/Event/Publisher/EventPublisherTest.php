@@ -8,25 +8,36 @@ use App\Domain\Shared\ValueObject\DateTime as DomainDateTime;
 use App\Domain\User\Event\UserWasCreated;
 use App\Infrastructure\Share\Event\Publisher\AsyncEventPublisher;
 use App\Infrastructure\Share\Event\Publisher\EventPublisher;
+use App\Tests\Application\ApplicationTestCase;
 use Broadway\Domain\DateTime;
 use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
-use OldSound\RabbitMqBundle\RabbitMq\ConsumerInterface;
-use PhpAmqpLib\Message\AMQPMessage;
-use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\Messenger\Transport\TransportInterface;
 
-class EventPublisherTest extends TestCase
+class EventPublisherTest extends ApplicationTestCase
 {
+    private ?EventPublisher $publisher;
+
+    private ?TransportInterface $transport;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->publisher = $this->service(AsyncEventPublisher::class);
+        $this->transport = $this->service('messenger.transport.events');
+    }
+
     /**
      * @test
      *
-     * @group unit
+     * @group integration
      *
      * @throws \Exception
      * @throws \Assert\AssertionFailedException
      */
-    public function messages_are_consumed_by_routing_key(): void
+    public function events_are_consumed(): void
     {
         $current = DomainDateTime::now();
 
@@ -51,57 +62,18 @@ class EventPublisherTest extends TestCase
 
         $this->publisher->publish();
 
-        /** @var UserWasCreated $event */
-        $event = $this->consumer->getMessage()->getPayload();
+        $transportMessages = $this->transport->get();
+        self::assertCount(1, $transportMessages);
+
+        $event = $transportMessages[0]->getMessage()->getDomainMessage()->getPayload();
 
         self::assertInstanceOf(UserWasCreated::class, $event);
-
         self::assertSame($data, $event->serialize(), 'Check that its the same event');
-    }
-
-    private function createConsumer(): Consumer
-    {
-        return $this->consumer = new Consumer();
-    }
-
-    protected function setup(): void
-    {
-        $producer = new InMemoryProducer();
-
-        $this->publisher = new AsyncEventPublisher(
-            $producer
-                ->addConsumer(
-                    'App.Domain.User.Event.UserWasCreated',
-                    $this->createConsumer()
-                )
-        );
     }
 
     protected function tearDown(): void
     {
         $this->publisher = null;
-        $this->consumer = null;
-    }
-
-    /** @var Consumer|null */
-    private $consumer;
-
-    /** @var EventPublisher|null */
-    private $publisher;
-}
-
-class Consumer implements ConsumerInterface
-{
-    /** @var DomainMessage|null */
-    private $message;
-
-    public function getMessage(): ?DomainMessage
-    {
-        return $this->message;
-    }
-
-    public function execute(AMQPMessage $msg)
-    {
-        $this->message = unserialize($msg->body);
+        $this->transport = null;
     }
 }
