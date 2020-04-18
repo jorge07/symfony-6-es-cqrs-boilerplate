@@ -39,7 +39,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
     {
         $error = [
             'errors' => [
-                'title' => str_replace('\\', '.', \get_class($exception)),
+                'title' => \str_replace('\\', '.', \get_class($exception)),
                 'detail' => $this->getExceptionMessage($exception),
                 'code' => $exception->getCode(),
                 'status' => $response->getStatusCode(),
@@ -47,7 +47,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
         ];
 
         if ('dev' === $this->environment) {
-            $error = array_merge(
+            $error = \array_merge(
                 $error,
                 [
                     'meta' => [
@@ -109,7 +109,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
 
     public function __construct()
     {
-        $this->environment = (string) getenv('APP_ENV') ?? 'dev';
+        $this->environment = (string) \getenv('APP_ENV') ?? 'dev';
     }
 
     /** @var string */

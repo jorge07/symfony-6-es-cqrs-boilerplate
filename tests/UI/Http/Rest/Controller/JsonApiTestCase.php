@@ -48,7 +48,7 @@ abstract class JsonApiTestCase extends WebTestCase
             [],
             [],
             $this->headers(),
-            (string) json_encode($params)
+            (string) \json_encode($params)
         );
     }
 
@@ -73,7 +73,7 @@ abstract class JsonApiTestCase extends WebTestCase
         /** @var string $content */
         $content = $this->cli->getResponse()->getContent();
 
-        $response = json_decode($content, true);
+        $response = \json_decode($content, true);
 
         $this->token = $response['token'];
     }

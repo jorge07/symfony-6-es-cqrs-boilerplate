@@ -4,22 +4,23 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Share\Event\Consumer;
 
+use App\Infrastructure\Share\Event\Event;
+use App\Infrastructure\Share\Event\EventHandlerInterface;
 use App\Infrastructure\Share\Event\Query\EventElasticRepository;
-use OldSound\RabbitMqBundle\RabbitMq\ConsumerInterface;
-use PhpAmqpLib\Message\AMQPMessage;
 
-class SendEventsToElasticConsumer implements ConsumerInterface
+class SendEventsToElasticConsumer implements EventHandlerInterface
 {
-    public function execute(AMQPMessage $msg): void
-    {
-        $this->eventElasticRepository->store(unserialize($msg->body));
-    }
+    private EventElasticRepository $eventElasticRepository;
 
     public function __construct(EventElasticRepository $eventElasticRepository)
     {
         $this->eventElasticRepository = $eventElasticRepository;
     }
 
-    /** @var EventElasticRepository */
-    private $eventElasticRepository;
+    public function __invoke(Event $event): void
+    {
+        $this->eventElasticRepository->store(
+            $event->getDomainMessage()
+        );
+    }
 }

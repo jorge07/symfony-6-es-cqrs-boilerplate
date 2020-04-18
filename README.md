@@ -1,4 +1,4 @@
-# Symfony 4 ES CQRS Boilerplate
+# Symfony 5 ES CQRS Boilerplate
 
 A boilerplate for DDD, CQRS, Event Sourcing applications using Symfony as framework and running with php7
 
@@ -49,7 +49,7 @@ A boilerplate for DDD, CQRS, Event Sourcing applications using Symfony as framew
 
 ## Stack
 
-- PHP 7.3
+- PHP 7.4
 - Mysql 8.0
 - Elastic & Kibana 6.6
 - RabbitMQ 3

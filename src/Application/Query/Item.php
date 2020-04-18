@@ -34,8 +34,8 @@ final class Item
 
     private function type(SerializableReadModel $model): string
     {
-        $path = explode('\\', \get_class($model));
+        $path = \explode('\\', \get_class($model));
 
-        return array_pop($path);
+        return \array_pop($path);
     }
 }
