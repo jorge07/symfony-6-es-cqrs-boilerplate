@@ -77,6 +77,6 @@
             "require": "^5.0"
         }
     },
-    "name": "jorge07/symfony-4-es-cqrs-boilerplate",
+    "name": "jorge07/symfony-5-es-cqrs-boilerplate",
     "description": "Symfony 4 DDD ES CQRS backend boilerplate"
 }

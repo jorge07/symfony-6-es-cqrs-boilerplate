@@ -2,24 +2,26 @@
 
 A boilerplate for DDD, CQRS, Event Sourcing applications using Symfony as framework and running with php7
 
-![pr](https://github.com/jorge07/symfony-4-es-cqrs-boilerplate/workflows/pr/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/jorge07/symfony-4-es-cqrs-boilerplate/badge.svg?branch=master)](https://coveralls.io/github/jorge07/symfony-4-es-cqrs-boilerplate?branch=coverage)
+![pr](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/workflows/pr/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/jorge07/symfony-5-es-cqrs-boilerplate/badge.svg?branch=master)](https://coveralls.io/github/jorge07/symfony-5-es-cqrs-boilerplate?branch=coverage)
+
+Symfony 4 still available in [symfony-4 branch](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/tree/symfony-4)
 
 ## Documentation
 
-[Buses](https://github.com/jorge07/symfony-4-es-cqrs-boilerplate/tree/master/doc/GetStarted/Buses.md)
+[Buses](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/tree/master/doc/GetStarted/Buses.md)
 
-[Creating an Application Use Case](https://github.com/jorge07/symfony-4-es-cqrs-boilerplate/tree/master/doc/GetStarted/UseCases.md)
+[Creating an Application Use Case](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/tree/master/doc/GetStarted/UseCases.md)
 
-[Adding Projections](https://github.com/jorge07/symfony-4-es-cqrs-boilerplate/tree/master/doc/GetStarted/Projections.md)
+[Adding Projections](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/tree/master/doc/GetStarted/Projections.md)
 
-[Async executions](https://github.com/jorge07/symfony-4-es-cqrs-boilerplate/tree/master/doc/GetStarted/Async.md)
+[Async executions](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/tree/master/doc/GetStarted/Async.md)
 
-[UI workflow](https://github.com/jorge07/symfony-4-es-cqrs-boilerplate/blob/master/doc/Workflow.md)
+[UI workflow](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/blob/master/doc/Workflow.md)
 
-[Xdebug configuration](https://github.com/jorge07/symfony-4-es-cqrs-boilerplate/blob/master/doc/GetStarted/Xdebug.md)
+[Xdebug configuration](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/blob/master/doc/GetStarted/Xdebug.md)
 
-[Kubernetes Deployment](https://github.com/jorge07/symfony-4-es-cqrs-boilerplate/blob/master/doc/Deployment.md)
+[Kubernetes Deployment](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/blob/master/doc/Deployment.md)
 
 ## Architecture
 

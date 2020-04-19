@@ -1,7 +1,7 @@
 nelmio_api_doc:
     documentation:
         info:
-            title: jorge07/symfony-4-es-cqrs-boilerplate
+            title: jorge07/symfony-5-es-cqrs-boilerplate
             description: Symfony 4 DDD ES CQRS backend boilerplate
             version: 1.0.0
         securityDefinitions:
