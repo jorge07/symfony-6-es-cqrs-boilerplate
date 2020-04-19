@@ -22,6 +22,8 @@ final class QueryBus
     }
 
     /**
+     * @return mixed
+     *
      * @throws Throwable
      */
     public function handle(QueryInterface $query)

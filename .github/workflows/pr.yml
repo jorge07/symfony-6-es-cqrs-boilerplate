@@ -18,7 +18,7 @@ jobs:
     - name: DB Schema validation
       run: make env=ci schema-validate
     - name: CS
-      run: make env=ci cs-check;make style
+      run: make env=ci cs-check;make env=ci style;make env=ci layer
       continue-on-error: true
     - name: Tests
       run: make env=ci xon;make env=ci conf="--coverage-clover build/logs/clover.xml" phpunit

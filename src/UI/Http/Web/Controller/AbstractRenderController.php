@@ -35,6 +35,8 @@ class AbstractRenderController
     }
 
     /**
+     * @return mixed
+     *
      * @throws Throwable
      */
     protected function ask(QueryInterface $query)
