@@ -27,10 +27,6 @@ services:
       arguments:
         - '@messenger.bus.query'
 
-    App\Infrastructure\Share\Bus\EventBus:
-      arguments:
-        - '@messenger.bus.event'
-
     _instanceof:
 
         App\Application\Command\CommandHandlerInterface:

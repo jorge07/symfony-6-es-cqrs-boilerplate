@@ -32,7 +32,7 @@ services:
         App\Infrastructure\Share\Event\EventHandlerInterface:
           public: true
           tags:
-            - { name: messenger.message_handler, bus: messenger.bus.event }
+            - { name: messenger.message_handler, bus: messenger.bus.event.async }
 
         Broadway\EventHandling\EventListener:
           public: true
@@ -53,7 +53,7 @@ services:
 
     App\Infrastructure\Share\Bus\EventBus:
         arguments:
-          - '@messenger.bus.event'
+          - '@messenger.bus.event.async'
 
     ### Event Store
 

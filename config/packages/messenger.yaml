@@ -13,7 +13,7 @@ framework:
                 middleware:
                     - handle_message
 
-            messenger.bus.event: ~
+            messenger.bus.event.async: ~
 
         transports:
             events: "%env(MESSENGER_TRANSPORT_DSN)%"
