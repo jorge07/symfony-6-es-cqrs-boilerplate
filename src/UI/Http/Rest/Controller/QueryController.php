@@ -17,6 +17,8 @@ abstract class QueryController
     private const CACHE_MAX_AGE = 31536000; // Year.
 
     /**
+     * @return mixed
+     *
      * @throws \Throwable
      */
     protected function ask(QueryInterface $query)

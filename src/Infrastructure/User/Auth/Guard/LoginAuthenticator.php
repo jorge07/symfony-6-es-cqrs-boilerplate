@@ -110,6 +110,8 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      *
      * The *credentials* are the return value from getCredentials()
      *
+     * @param mixed $credentials
+     *
      * @throws AuthenticationException
      */
     public function checkCredentials($credentials, UserInterface $user): bool

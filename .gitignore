@@ -6,6 +6,7 @@
 ###< symfony/framework-bundle ###
 
 /.idea/
+.deptrac.cache
 
 ###> symfony/phpunit-bridge ###
 .phpunit

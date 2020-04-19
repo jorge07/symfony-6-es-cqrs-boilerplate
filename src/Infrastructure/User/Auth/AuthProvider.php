@@ -11,16 +11,21 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class AuthProvider implements UserProviderInterface
 {
+    private MysqlUserReadModelRepository $userReadModelRepository;
+
+    public function __construct(MysqlUserReadModelRepository $userReadModelRepository)
+    {
+        $this->userReadModelRepository = $userReadModelRepository;
+    }
+
     /**
-     * @param string $email
-     *
      * @throws \App\Domain\Shared\Query\Exception\NotFoundException
      * @throws \Assert\AssertionFailedException
      * @throws \Doctrine\ORM\NonUniqueResultException
      *
      * @return Auth|UserInterface
      */
-    public function loadUserByUsername($email)
+    public function loadUserByUsername(string $email)
     {
         // @var array $user
         [$uuid, $email, $hashedPassword] = $this->userReadModelRepository->getCredentialsByEmail(
@@ -40,16 +45,8 @@ class AuthProvider implements UserProviderInterface
         return $this->loadUserByUsername($user->getUsername());
     }
 
-    public function supportsClass($class): bool
+    public function supportsClass(string $class): bool
     {
         return Auth::class === $class;
     }
-
-    public function __construct(MysqlUserReadModelRepository $userReadModelRepository)
-    {
-        $this->userReadModelRepository = $userReadModelRepository;
-    }
-
-    /** @var MysqlUserReadModelRepository */
-    private $userReadModelRepository;
 }

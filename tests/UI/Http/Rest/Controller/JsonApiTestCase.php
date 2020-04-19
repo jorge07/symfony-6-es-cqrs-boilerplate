@@ -8,7 +8,6 @@ use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Infrastructure\Share\Bus\CommandBus;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -17,6 +16,18 @@ abstract class JsonApiTestCase extends WebTestCase
     public const DEFAULT_EMAIL = 'lol@lo.com';
 
     public const DEFAULT_PASS = '1234567890';
+
+    protected ?KernelBrowser $cli;
+
+    private ?string $token = null;
+
+    protected ?UuidInterface $userUuid;
+
+    protected function setUp(): void
+    {
+        self::ensureKernelShutdown();
+        $this->cli = static::createClient();
+    }
 
     /**
      * @throws \Assert\AssertionFailedException
@@ -96,25 +107,10 @@ abstract class JsonApiTestCase extends WebTestCase
         return $headers;
     }
 
-    protected function setUp(): void
-    {
-        self::ensureKernelShutdown();
-        $this->cli = static::createClient();
-    }
-
     protected function tearDown(): void
     {
         $this->cli = null;
         $this->token = null;
         $this->userUuid = null;
     }
-
-    /** @var Client|KernelBrowser|null */
-    protected $cli;
-
-    /** @var string|null */
-    private $token;
-
-    /** @var UuidInterface|null */
-    protected $userUuid;
 }

@@ -31,6 +31,8 @@ abstract class ApplicationTestCase extends KernelTestCase
     }
 
     /**
+     * @return mixed
+     *
      * @throws Throwable
      */
     protected function ask(QueryInterface $query)
