@@ -10,11 +10,21 @@ use Elasticsearch\ClientBuilder;
 
 abstract class ElasticRepository
 {
+    private string $index;
+
+    private Client $client;
+
+    public function __construct(array $config, string $index)
+    {
+        $this->client = ClientBuilder::fromConfig($config, true);
+        $this->index = $index;
+    }
+
     public function search(array $query): array
     {
         $finalQuery = [];
 
-        $finalQuery['index'] = $finalQuery['type'] = $this->index; // To be deleted in elastic 7
+        $finalQuery['index'] = $this->index;
         $finalQuery['body'] = $query;
 
         return $this->client->search($finalQuery);
@@ -49,7 +59,7 @@ abstract class ElasticRepository
 
     protected function add(array $document): array
     {
-        $query['index'] = $query['type'] = $this->index;
+        $query['index'] = $this->index;
         $query['id'] = $document['id'] ?? null;
         $query['body'] = $document;
 
@@ -62,7 +72,7 @@ abstract class ElasticRepository
 
         $query = [];
 
-        $query['index'] = $query['type'] = $this->index;
+        $query['index'] = $this->index;
         $query['from'] = ($page - 1) * $limit;
         $query['size'] = $limit;
 
@@ -73,16 +83,4 @@ abstract class ElasticRepository
             'total' => $response['hits']['total'],
         ];
     }
-
-    public function __construct(array $config, string $index)
-    {
-        $this->client = ClientBuilder::fromConfig($config, true);
-        $this->index = $index;
-    }
-
-    /** @var string */
-    private $index;
-
-    /** @var Client */
-    private $client;
 }

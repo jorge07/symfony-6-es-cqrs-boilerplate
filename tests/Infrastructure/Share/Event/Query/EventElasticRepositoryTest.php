@@ -15,6 +15,19 @@ use PHPUnit\Framework\TestCase;
 
 class EventElasticRepositoryTest extends TestCase
 {
+    private ?EventElasticRepository $repository;
+
+    protected function setUp(): void
+    {
+        $this->repository = new EventElasticRepository(
+            [
+                'hosts' => [
+                    'elasticsearch',
+                ],
+            ]
+        );
+    }
+
     /**
      * @test
      *
@@ -29,7 +42,8 @@ class EventElasticRepositoryTest extends TestCase
             'uuid' => $uuid = 'e937f793-45d8-41e9-a756-a2bc711e3172',
             'credentials' => [
                 'email' => 'lol@lol.com',
-                'password' => 'lkasjbdalsjdbalsdbaljsdhbalsjbhd987', ],
+                'password' => 'lkasjbdalsjdbalsdbaljsdhbalsjbhd987',
+            ],
             'created_at' => DomainDateTime::now()->toString(),
         ];
 
@@ -41,10 +55,10 @@ class EventElasticRepositoryTest extends TestCase
             DateTime::now()
         );
 
-        $this->repo->store($event);
-        $this->repo->refresh();
+        $this->repository->store($event);
+        $this->repository->refresh();
 
-        $result = $this->repo->search([
+        $result = $this->repository->search([
             'query' => [
                 'match' => [
                     'type' => $event->getType(),
@@ -52,27 +66,12 @@ class EventElasticRepositoryTest extends TestCase
             ],
         ]);
 
-        self::assertSame(1, $result['hits']['total']);
-    }
-
-    protected function setUp(): void
-    {
-        $this->repo = new EventElasticRepository(
-            [
-                'hosts' => [
-                    'elasticsearch',
-                ],
-            ]
-        );
+        self::assertSame(1, $result['hits']['total']['value']);
     }
 
     protected function tearDown(): void
     {
-        $this->repo->delete();
-
-        $this->repo = null;
+        $this->repository->delete();
+        $this->repository = null;
     }
-
-    /** @var EventElasticRepository|null */
-    private $repo;
 }
