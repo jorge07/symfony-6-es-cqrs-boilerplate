@@ -12,6 +12,11 @@ final class EventElasticRepository extends ElasticRepository implements EventRep
 {
     private const INDEX = 'events';
 
+    public function __construct(array $elasticConfig)
+    {
+        parent::__construct($elasticConfig, self::INDEX);
+    }
+
     public function store(DomainMessage $message): void
     {
         $document = [
@@ -21,10 +26,5 @@ final class EventElasticRepository extends ElasticRepository implements EventRep
         ];
 
         $this->add($document);
-    }
-
-    public function __construct(array $elasticConfig)
-    {
-        parent::__construct($elasticConfig, self::INDEX);
     }
 }

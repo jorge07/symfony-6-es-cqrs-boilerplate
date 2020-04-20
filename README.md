@@ -53,7 +53,7 @@ Symfony 4 still available in [symfony-4 branch](https://github.com/jorge07/symfo
 
 - PHP 7.4
 - Mysql 8.0
-- Elastic & Kibana 6.6
+- Elastic & Kibana 7.6
 - RabbitMQ 3
 
 ## Project Setup
