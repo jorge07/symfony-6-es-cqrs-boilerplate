@@ -12,6 +12,13 @@ use Broadway\ReadModel\Projector;
 
 class UserProjectionFactory extends Projector
 {
+    private MysqlUserReadModelRepository $repository;
+
+    public function __construct(MysqlUserReadModelRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * @throws \Assert\AssertionFailedException
      */
@@ -36,12 +43,4 @@ class UserProjectionFactory extends Projector
 
         $this->repository->apply();
     }
-
-    public function __construct(MysqlUserReadModelRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
-    /** @var MysqlUserReadModelRepository */
-    private $repository;
 }

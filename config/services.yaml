@@ -83,6 +83,8 @@ services:
     ### UI Listeners
 
     App\UI\Http\Rest\EventSubscriber\ExceptionSubscriber:
+        arguments:
+            - "%kernel.environment%"
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.exception' }
 

@@ -11,6 +11,18 @@ use App\Infrastructure\Share\Bus\Command\CommandHandlerInterface;
 
 class SignUpHandler implements CommandHandlerInterface
 {
+    private UserRepositoryInterface $userRepository;
+
+    private UniqueEmailSpecificationInterface $uniqueEmailSpecification;
+
+    public function __construct(
+        UserRepositoryInterface $userRepository,
+        UniqueEmailSpecificationInterface $uniqueEmailSpecification
+    ) {
+        $this->userRepository = $userRepository;
+        $this->uniqueEmailSpecification = $uniqueEmailSpecification;
+    }
+
     /**
      * @throws \App\Domain\Shared\Exception\DateTimeException
      */
@@ -20,16 +32,4 @@ class SignUpHandler implements CommandHandlerInterface
 
         $this->userRepository->store($user);
     }
-
-    public function __construct(UserRepositoryInterface $userRepository, UniqueEmailSpecificationInterface $uniqueEmailSpecification)
-    {
-        $this->userRepository = $userRepository;
-        $this->uniqueEmailSpecification = $uniqueEmailSpecification;
-    }
-
-    /** @var UserRepositoryInterface */
-    private $userRepository;
-
-    /** @var UniqueEmailSpecificationInterface */
-    private $uniqueEmailSpecification;
 }

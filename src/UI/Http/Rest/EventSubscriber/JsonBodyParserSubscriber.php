@@ -12,16 +12,21 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class JsonBodyParserSubscriber implements EventSubscriberInterface
 {
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            KernelEvents::REQUEST => 'onKernelRequest',
+        ];
+    }
+
     public function onKernelRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
-
         if (!$this->isJsonRequest($request)) {
             return;
         }
 
         $content = $request->getContent();
-
         if (empty($content)) {
             return;
         }
@@ -39,9 +44,14 @@ class JsonBodyParserSubscriber implements EventSubscriberInterface
 
     private function transformJsonBody(Request $request): bool
     {
-        $data = \json_decode((string) $request->getContent(), true);
-
-        if (\JSON_ERROR_NONE !== \json_last_error()) {
+        try {
+            $data = \json_decode(
+                (string) $request->getContent(),
+                true,
+                512,
+                \JSON_THROW_ON_ERROR
+            );
+        } catch (\JsonException $exception) {
             return false;
         }
 
@@ -52,12 +62,5 @@ class JsonBodyParserSubscriber implements EventSubscriberInterface
         $request->request->replace($data);
 
         return true;
-    }
-
-    public static function getSubscribedEvents()
-    {
-        return [
-            KernelEvents::REQUEST => 'onKernelRequest',
-        ];
     }
 }

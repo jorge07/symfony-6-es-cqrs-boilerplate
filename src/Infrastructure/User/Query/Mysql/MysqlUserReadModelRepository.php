@@ -15,6 +15,12 @@ use Ramsey\Uuid\UuidInterface;
 
 final class MysqlUserReadModelRepository extends MysqlRepository implements CheckUserByEmailInterface, GetUserCredentialsByEmailInterface
 {
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->class = UserView::class;
+        parent::__construct($entityManager);
+    }
+
     /**
      * @throws \App\Domain\Shared\Query\Exception\NotFoundException
      * @throws \Doctrine\ORM\NonUniqueResultException
@@ -66,12 +72,6 @@ final class MysqlUserReadModelRepository extends MysqlRepository implements Chec
     public function add(UserView $userRead): void
     {
         $this->register($userRead);
-    }
-
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->class = UserView::class;
-        parent::__construct($entityManager);
     }
 
     /**

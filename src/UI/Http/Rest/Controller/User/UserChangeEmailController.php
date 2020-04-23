@@ -18,6 +18,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class UserChangeEmailController extends CommandController
 {
+    private Session $session;
+
+    public function __construct(Session $session, CommandBus $commandBus)
+    {
+        parent::__construct($commandBus);
+
+        $this->session = $session;
+    }
+
     /**
      * @Route(
      *     "/users/{uuid}/email",
@@ -78,13 +87,4 @@ final class UserChangeEmailController extends CommandController
             throw new ForbiddenException();
         }
     }
-
-    public function __construct(Session $session, CommandBus $commandBus)
-    {
-        parent::__construct($commandBus);
-        $this->session = $session;
-    }
-
-    /** @var Session */
-    private $session;
 }

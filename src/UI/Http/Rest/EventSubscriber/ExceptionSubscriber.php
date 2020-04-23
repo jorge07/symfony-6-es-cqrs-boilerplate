@@ -16,8 +16,22 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Throwable;
 
-class ExceptionSubscriber implements EventSubscriberInterface
+final class ExceptionSubscriber implements EventSubscriberInterface
 {
+    private string $environment;
+
+    public function __construct(string $environment)
+    {
+        $this->environment = $environment;
+    }
+
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            KernelEvents::EXCEPTION => 'onKernelException',
+        ];
+    }
+
     public function onKernelException(ExceptionEvent $event): void
     {
         $exception = $event->getThrowable();
@@ -99,19 +113,4 @@ class ExceptionSubscriber implements EventSubscriberInterface
 
         return $statusCode;
     }
-
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            KernelEvents::EXCEPTION => 'onKernelException',
-        ];
-    }
-
-    public function __construct()
-    {
-        $this->environment = (string) \getenv('APP_ENV') ?? 'dev';
-    }
-
-    /** @var string */
-    private $environment;
 }

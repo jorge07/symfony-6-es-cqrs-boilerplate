@@ -14,19 +14,6 @@ use Ramsey\Uuid\UuidInterface;
 
 final class UserStore extends EventSourcingRepository implements UserRepositoryInterface
 {
-    public function store(User $user): void
-    {
-        $this->save($user);
-    }
-
-    public function get(UuidInterface $uuid): User
-    {
-        /** @var User $user */
-        $user = $this->load($uuid->toString());
-
-        return $user;
-    }
-
     public function __construct(
         EventStore $eventStore,
         EventBus $eventBus,
@@ -39,5 +26,18 @@ final class UserStore extends EventSourcingRepository implements UserRepositoryI
             new PublicConstructorAggregateFactory(),
             $eventStreamDecorators
         );
+    }
+
+    public function store(User $user): void
+    {
+        $this->save($user);
+    }
+
+    public function get(UuidInterface $uuid): User
+    {
+        /** @var User $user */
+        $user = $this->load($uuid->toString());
+
+        return $user;
     }
 }

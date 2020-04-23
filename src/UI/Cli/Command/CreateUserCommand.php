@@ -14,6 +14,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CreateUserCommand extends Command
 {
+    private CommandBus $commandBus;
+
+    public function __construct(CommandBus $commandBus)
+    {
+        parent::__construct();
+
+        $this->commandBus = $commandBus;
+    }
+
     protected function configure(): void
     {
         $this
@@ -50,13 +59,4 @@ class CreateUserCommand extends Command
 
         return 1;
     }
-
-    public function __construct(CommandBus $commandBus)
-    {
-        parent::__construct();
-        $this->commandBus = $commandBus;
-    }
-
-    /** @var CommandBus */
-    private $commandBus;
 }
