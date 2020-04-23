@@ -10,15 +10,9 @@ use App\Infrastructure\User\Auth\AuthenticationProvider;
 
 class GetTokenHandler implements QueryHandlerInterface
 {
-    /**
-     * @throws \Assert\AssertionFailedException
-     */
-    public function __invoke(GetTokenQuery $query): string
-    {
-        [$uuid, $email, $hashedPassword] = $this->userCredentialsByEmail->getCredentialsByEmail($query->email);
+    private GetUserCredentialsByEmailInterface $userCredentialsByEmail;
 
-        return $this->authenticationProvider->generateToken($uuid, $email, $hashedPassword);
-    }
+    private AuthenticationProvider $authenticationProvider;
 
     public function __construct(
         GetUserCredentialsByEmailInterface $userCredentialsByEmail,
@@ -28,9 +22,13 @@ class GetTokenHandler implements QueryHandlerInterface
         $this->userCredentialsByEmail = $userCredentialsByEmail;
     }
 
-    /** @var GetUserCredentialsByEmailInterface */
-    private $userCredentialsByEmail;
+    /**
+     * @throws \Assert\AssertionFailedException
+     */
+    public function __invoke(GetTokenQuery $query): string
+    {
+        [$uuid, $email, $hashedPassword] = $this->userCredentialsByEmail->getCredentialsByEmail($query->email);
 
-    /** @var AuthenticationProvider */
-    private $authenticationProvider;
+        return $this->authenticationProvider->generateToken($uuid, $email, $hashedPassword);
+    }
 }

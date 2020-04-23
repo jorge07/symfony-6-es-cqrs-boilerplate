@@ -12,6 +12,19 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class Auth implements UserInterface, EncoderAwareInterface
 {
+    private UuidInterface $uuid;
+
+    private Email $email;
+
+    private HashedPassword$hashedPassword;
+
+    private function __construct(UuidInterface $uuid, Email $email, HashedPassword $hashedPassword)
+    {
+        $this->uuid = $uuid;
+        $this->email = $email;
+        $this->hashedPassword = $hashedPassword;
+    }
+
     /**
      * @throws \Assert\AssertionFailedException
      */
@@ -61,20 +74,4 @@ class Auth implements UserInterface, EncoderAwareInterface
     {
         return $this->email->toString();
     }
-
-    private function __construct(UuidInterface $uuid, Email $email, HashedPassword $hashedPassword)
-    {
-        $this->uuid = $uuid;
-        $this->email = $email;
-        $this->hashedPassword = $hashedPassword;
-    }
-
-    /** @var UuidInterface */
-    private $uuid;
-
-    /** @var Email */
-    private $email;
-
-    /** @var HashedPassword */
-    private $hashedPassword;
 }

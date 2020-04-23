@@ -10,15 +10,9 @@ use App\Infrastructure\Share\Bus\Query\QueryBus;
 use App\UI\Http\Rest\Response\JsonApiFormatter;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class CommandQueryController extends QueryController
+abstract class CommandQueryController extends QueryController
 {
-    /**
-     * @throws \Throwable
-     */
-    protected function exec(CommandInterface $command): void
-    {
-        $this->commandBus->handle($command);
-    }
+    private CommandBus $commandBus;
 
     public function __construct(
         CommandBus $commandBus,
@@ -27,9 +21,15 @@ class CommandQueryController extends QueryController
         UrlGeneratorInterface $router
     ) {
         parent::__construct($queryBus, $formatter, $router);
+
         $this->commandBus = $commandBus;
     }
 
-    /** @var CommandBus */
-    private $commandBus;
+    /**
+     * @throws \Throwable
+     */
+    protected function exec(CommandInterface $command): void
+    {
+        $this->commandBus->handle($command);
+    }
 }

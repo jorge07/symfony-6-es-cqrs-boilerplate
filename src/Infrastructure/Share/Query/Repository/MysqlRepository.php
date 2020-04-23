@@ -12,6 +12,18 @@ use Doctrine\ORM\QueryBuilder;
 
 abstract class MysqlRepository
 {
+    protected string $class;
+
+    protected EntityRepository $repository;
+
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+        $this->setRepository($this->class);
+    }
+
     /**
      * @param object $model
      */
@@ -52,19 +64,4 @@ abstract class MysqlRepository
         $objectRepository = $this->entityManager->getRepository($model);
         $this->repository = $objectRepository;
     }
-
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-        $this->setRepository($this->class);
-    }
-
-    /** @var string */
-    protected $class;
-
-    /** @var EntityRepository */
-    protected $repository;
-
-    /** @var EntityManagerInterface */
-    private $entityManager;
 }

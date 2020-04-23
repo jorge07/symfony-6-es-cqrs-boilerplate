@@ -13,8 +13,7 @@ final class CommandBus
 {
     use MessageBusExceptionTrait;
 
-    /** @var MessageBusInterface */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     public function __construct(MessageBusInterface $messageBus)
     {

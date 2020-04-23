@@ -14,8 +14,7 @@ final class QueryBus
 {
     use MessageBusExceptionTrait;
 
-    /** @var MessageBusInterface */
-    private $messageBus;
+    private MessageBusInterface $messageBus;
 
     public function __construct(MessageBusInterface $messageBus)
     {
