@@ -9,11 +9,15 @@ use App\Infrastructure\Share\Bus\Query\QueryInterface;
 
 class GetTokenQuery implements QueryInterface
 {
-    /** @var Email */
-    public $email;
+    private Email $email;
 
     public function __construct(string $email)
     {
         $this->email = Email::fromString($email);
+    }
+
+    public function getEmail(): Email
+    {
+        return $this->email;
     }
 }

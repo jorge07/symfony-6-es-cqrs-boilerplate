@@ -24,9 +24,9 @@ class ChangeEmailHandler implements CommandHandlerInterface
 
     public function __invoke(ChangeEmailCommand $command): void
     {
-        $user = $this->userRepository->get($command->userUuid);
+        $user = $this->userRepository->get($command->getUserUuid());
 
-        $user->changeEmail($command->email, $this->uniqueEmailSpecification);
+        $user->changeEmail($command->getEmail(), $this->uniqueEmailSpecification);
 
         $this->userRepository->store($user);
     }

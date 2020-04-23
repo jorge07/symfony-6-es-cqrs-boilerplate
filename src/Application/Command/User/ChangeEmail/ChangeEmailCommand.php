@@ -7,14 +7,13 @@ namespace App\Application\Command\User\ChangeEmail;
 use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\Share\Bus\Command\CommandInterface;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class ChangeEmailCommand implements CommandInterface
 {
-    /** @var \Ramsey\Uuid\UuidInterface */
-    public $userUuid;
+    private UuidInterface $userUuid;
 
-    /** @var Email */
-    public $email;
+    private Email $email;
 
     /**
      * @throws \Assert\AssertionFailedException
@@ -23,5 +22,15 @@ class ChangeEmailCommand implements CommandInterface
     {
         $this->userUuid = Uuid::fromString($userUuid);
         $this->email = Email::fromString($email);
+    }
+
+    public function getUserUuid(): UuidInterface
+    {
+        return $this->userUuid;
+    }
+
+    public function getEmail(): Email
+    {
+        return $this->email;
     }
 }

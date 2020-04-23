@@ -109,7 +109,7 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
             $userItem = $this->queryBus->handle(new FindByEmailQuery($email));
 
             /** @var UserView $user */
-            $user = $userItem->readModel;
+            $user = $userItem->getReadModel();
 
             return Auth::create($user->uuid(), $user->email(), $user->hashedPassword());
         } catch (InvalidCredentialsException|\InvalidArgumentException $exception) {

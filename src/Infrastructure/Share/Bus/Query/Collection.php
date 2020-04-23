@@ -8,17 +8,14 @@ use App\Domain\Shared\Query\Exception\NotFoundException;
 
 class Collection
 {
-    /** @var int */
-    public $page;
+    private int $page;
 
-    /** @var int */
-    public $limit;
+    private int $limit;
 
-    /** @var int */
-    public $total;
+    private int $total;
 
     /** @var Item[] */
-    public $data;
+    private array $data;
 
     /**
      * @throws NotFoundException
@@ -40,5 +37,25 @@ class Collection
         if (($limit * ($page - 1)) >= $total) {
             throw new NotFoundException();
         }
+    }
+
+    public function getPage(): int
+    {
+        return $this->page;
+    }
+
+    public function getLimit(): int
+    {
+        return $this->limit;
+    }
+
+    public function getTotal(): int
+    {
+        return $this->total;
+    }
+
+    public function getData(): array
+    {
+        return $this->data;
     }
 }

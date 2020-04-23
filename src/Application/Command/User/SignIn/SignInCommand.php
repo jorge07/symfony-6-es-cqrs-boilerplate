@@ -9,11 +9,9 @@ use App\Infrastructure\Share\Bus\Command\CommandInterface;
 
 class SignInCommand implements CommandInterface
 {
-    /** @var Email */
-    public $email;
+    private Email $email;
 
-    /** @var string */
-    public $plainPassword;
+    private string $plainPassword;
 
     /**
      * @throws \Assert\AssertionFailedException
@@ -22,5 +20,15 @@ class SignInCommand implements CommandInterface
     {
         $this->email = Email::fromString($email);
         $this->plainPassword = $plainPassword;
+    }
+
+    public function getEmail(): Email
+    {
+        return $this->email;
+    }
+
+    public function getPlainPassword(): string
+    {
+        return $this->plainPassword;
     }
 }

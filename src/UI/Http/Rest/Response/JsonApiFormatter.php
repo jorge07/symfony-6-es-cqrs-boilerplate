@@ -13,7 +13,7 @@ final class JsonApiFormatter
     {
         return \array_filter([
             'data' => self::model($resource),
-            'relationships' => self::relations($resource->relationships),
+            'relationships' => self::relations($resource->getRelationships()),
         ]);
     }
 
@@ -23,13 +23,13 @@ final class JsonApiFormatter
             return $data instanceof Item ? self::model($data) : $data;
         };
 
-        $resources = \array_map($transformer, $collection->data);
+        $resources = \array_map($transformer, $collection->getData());
 
         return \array_filter([
             'meta' => [
-                'size' => $collection->limit,
-                'page' => $collection->page,
-                'total' => $collection->total,
+                'size' => $collection->getLimit(),
+                'page' => $collection->getPage(),
+                'total' => $collection->getTotal(),
             ],
             'data' => $resources,
         ]);
@@ -38,9 +38,9 @@ final class JsonApiFormatter
     private static function model(Item $resource): array
     {
         return [
-            'id' => $resource->id,
-            'type' => $resource->type,
-            'attributes' => $resource->resource,
+            'id' => $resource->getId(),
+            'type' => $resource->getType(),
+            'attributes' => $resource->getResource(),
         ];
     }
 
@@ -50,7 +50,7 @@ final class JsonApiFormatter
 
         /** @var Item $relation */
         foreach ($relations as $relation) {
-            $result[$relation->type] = [
+            $result[$relation->getType()] = [
                 'data' => self::model($relation),
             ];
         }

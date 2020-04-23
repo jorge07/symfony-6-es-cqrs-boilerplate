@@ -60,7 +60,7 @@ abstract class QueryController
 
     private function decorateWithCache(JsonResponse $response, Collection $collection, bool $isImmutable): void
     {
-        if ($isImmutable && $collection->limit === \count($collection->data)) {
+        if ($isImmutable && $collection->getLimit() === \count($collection->getData())) {
             $response
                 ->setMaxAge(self::CACHE_MAX_AGE)
                 ->setSharedMaxAge(self::CACHE_MAX_AGE);
