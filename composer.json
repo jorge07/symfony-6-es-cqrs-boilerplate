@@ -29,7 +29,7 @@
         "dama/doctrine-test-bundle": "^6.3",
         "phpstan/phpstan": "^0.12",
         "sylius-labs/coding-standard": "^3.1",
-        "phpunit/phpunit": "^9.1",
+        "phpunit/phpunit": "v9.1.1",
         "roave/security-advisories": "dev-master",
         "symfony/browser-kit": "^5.0",
         "symfony/css-selector": "^5.0",

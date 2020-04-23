@@ -25,7 +25,7 @@ class FindByEmailHandler implements QueryHandlerInterface
     public function __invoke(FindByEmailQuery $query): Item
     {
         /** @var UserView $userView */
-        $userView = $this->repository->oneByEmail($query->email);
+        $userView = $this->repository->oneByEmail($query->getEmail());
 
         return new Item($userView);
     }

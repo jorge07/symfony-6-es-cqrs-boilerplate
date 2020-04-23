@@ -13,11 +13,9 @@ use Ramsey\Uuid\UuidInterface;
 
 class SignUpCommand implements CommandInterface
 {
-    /** @var UuidInterface */
-    public $uuid;
+    private UuidInterface $uuid;
 
-    /** @var Credentials */
-    public $credentials;
+    private Credentials $credentials;
 
     /**
      * @throws \Assert\AssertionFailedException
@@ -26,5 +24,15 @@ class SignUpCommand implements CommandInterface
     {
         $this->uuid = Uuid::fromString($uuid);
         $this->credentials = new Credentials(Email::fromString($email), HashedPassword::encode($plainPassword));
+    }
+
+    public function getUuid(): UuidInterface
+    {
+        return $this->uuid;
+    }
+
+    public function getCredentials(): Credentials
+    {
+        return $this->credentials;
     }
 }

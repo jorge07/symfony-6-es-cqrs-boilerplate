@@ -31,7 +31,7 @@ class FindByEmailHandlerTest extends ApplicationTestCase
         $result = $this->ask(new FindByEmailQuery($email));
 
         /** @var UserView $userRead */
-        $userRead = $result->readModel;
+        $userRead = $result->getReadModel();
 
         self::assertInstanceOf(Item::class, $result);
         self::assertInstanceOf(UserView::class, $userRead);

@@ -8,20 +8,15 @@ use Broadway\ReadModel\SerializableReadModel;
 
 final class Item
 {
-    /** @var string */
-    public $id;
+    private string $id;
 
-    /** @var string */
-    public $type;
+    private string $type;
 
-    /** @var array */
-    public $resource;
+    private array $resource;
 
-    /** @var array */
-    public $relationships = [];
+    private array $relationships = [];
 
-    /** @var SerializableReadModel */
-    public $readModel;
+    private SerializableReadModel $readModel;
 
     public function __construct(SerializableReadModel $serializableReadModel, array $relations = [])
     {
@@ -30,6 +25,31 @@ final class Item
         $this->resource = $serializableReadModel->serialize();
         $this->relationships = $relations;
         $this->readModel = $serializableReadModel;
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function getResource(): array
+    {
+        return $this->resource;
+    }
+
+    public function getRelationships(): array
+    {
+        return $this->relationships;
+    }
+
+    public function getReadModel(): SerializableReadModel
+    {
+        return $this->readModel;
     }
 
     private function type(SerializableReadModel $model): string

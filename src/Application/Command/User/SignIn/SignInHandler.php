@@ -25,11 +25,11 @@ class SignInHandler implements CommandHandlerInterface
 
     public function __invoke(SignInCommand $command): void
     {
-        $uuid = $this->uuidFromEmail($command->email);
+        $uuid = $this->uuidFromEmail($command->getEmail());
 
         $user = $this->userStore->get($uuid);
 
-        $user->signIn($command->plainPassword);
+        $user->signIn($command->getPlainPassword());
 
         $this->userStore->store($user);
     }
