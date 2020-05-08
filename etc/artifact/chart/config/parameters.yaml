@@ -1,0 +1,38 @@
+- name: APP_ENV
+  value: {{ .Values.parameters.app.env | quote }}
+- name: APP_SECRET
+  valueFrom:
+    secretKeyRef:
+      name: {{ $.Chart.Name }}-secret
+      key: secret
+{{- if $.Values.parameters.app.proxy }}
+- name: TRUSTED_PROXIES
+  value: {{ $.Values.parameters.app.proxy | quote }}
+{{- end }}
+{{- if $.Values.parameters.app.hosts }}
+- name: TRUSTED_HOSTS
+  value: {{ $.Values.parameters.app.hosts | quote }}
+  {{- end }}
+- name: MESSENGER_TRANSPORT_DSN
+  valueFrom:
+    secretKeyRef:
+      name: {{ $.Chart.Name }}-rabbitmq
+      key: host
+- name: DATABASE_URL
+  valueFrom:
+    secretKeyRef:
+      name: {{ $.Chart.Name }}-mysql
+      key: url
+- name: JWT_SECRET_KEY
+  value: {{ $.Values.parameters.jwt.hostPath }}/private.pem
+- name: JWT_PUBLIC_KEY
+  value: {{ $.Values.parameters.jwt.hostPath }}/public.pem
+- name: JWT_PASSPHRASE
+  valueFrom:
+    secretKeyRef:
+      name: {{ $.Chart.Name }}-jwt
+      key: passphrase
+- name: JWT_TTL
+  value: {{ $.Values.parameters.jwt.ttl | quote }}
+- name: ELASTIC_HOST
+  value: {{- if $.Values.elasticsearch.selfHosted }} {{ template "elasticHost" . }} {{- else }} {{ $.Values.parameters.elastic.host | quote }} {{- end }}

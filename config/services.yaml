@@ -6,6 +6,7 @@ parameters:
       - '%env(ELASTIC_HOST)%'
 
   env(ELASTIC_HOST): 'elasticsearch:9200'
+  env(DATABASE_URL): 'mysql://root:api@mysql:3306/api?serverVersion=8.0'
 
 services:
     _defaults:

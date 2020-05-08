@@ -4,12 +4,12 @@ services:
   php:
     build:
       dockerfile: etc/artifact/Dockerfile
-      context: .
+      context: ../..
       target: php
     image: jorge07/cqrs:latest
   nginx:
     build:
       dockerfile: etc/artifact/Dockerfile
-      context: .
+      context: ../..
       target: nginx
     image: jorge07/cqrs:nginx-latest

@@ -158,6 +158,9 @@
             "ref": "509b1542f3180a1cfe248ade8b7bf5092c2d4127"
         }
     },
+    "monolog/monolog": {
+        "version": "2.0.2"
+    },
     "myclabs/deep-copy": {
         "version": "1.7.0"
     },
@@ -445,6 +448,23 @@
     },
     "symfony/mime": {
         "version": "v4.3.0"
+    },
+    "symfony/monolog-bridge": {
+        "version": "v5.0.8"
+    },
+    "symfony/monolog-bundle": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "a89f4cd8a232563707418eea6c2da36acd36a917"
+        },
+        "files": [
+            "config/packages/dev/monolog.yaml",
+            "config/packages/prod/monolog.yaml",
+            "config/packages/test/monolog.yaml"
+        ]
     },
     "symfony/options-resolver": {
         "version": "v4.1.3"

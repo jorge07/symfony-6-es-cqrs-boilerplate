@@ -19,6 +19,7 @@
         "symfony/flex": "^1.6",
         "symfony/framework-bundle": "^5.0",
         "symfony/messenger": "^5.0",
+        "symfony/monolog-bundle": "^3.5",
         "symfony/orm-pack": "^1.0",
         "symfony/security-bundle": "^5.0",
         "symfony/twig-bundle": "^5.0",

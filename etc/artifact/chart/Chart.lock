@@ -1,0 +1,15 @@
+dependencies:
+- name: rabbitmq
+  repository: https://charts.bitnami.com/bitnami
+  version: 6.25.2
+- name: traefik
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 1.86.2
+- name: mysql
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 1.6.3
+- name: elasticsearch
+  repository: https://helm.elastic.co
+  version: 7.6.2
+digest: sha256:4036a27f33dad876c6e4a0628e6d00b8d7746dba9bc406561d4fe399ff769ae6
+generated: "2020-05-08T11:19:24.259329+02:00"
