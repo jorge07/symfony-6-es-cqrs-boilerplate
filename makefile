@@ -1,5 +1,5 @@
 env=dev
-compose=docker-compose -f docker-compose.yml -f docker-compose.$(env).yml
+compose=docker-compose -f docker-compose.yml -f etc/$(env)/docker-compose.yml
 
 export compose env 
 
@@ -26,7 +26,7 @@ build: ## build environment and initialize composer and project dependencies
 
 .PHONY: artifact
 artifact: ## build production artifact
-		docker-compose -f docker-compose.prod.yml build
+		docker-compose -f etc/artifact/docker-compose.yml build
 
 .PHONY: composer-update
 composer-update: ## Update project dependencies
@@ -59,7 +59,7 @@ layer: ## Check issues with layers
 .PHONY: db
 db: ## recreate database
 		$(compose) exec -T php sh -lc './bin/console d:d:d --force || true'
-		$(compose) exec -T php sh -lc './bin/console d:d:c'
+		$(compose) exec -T php sh -lc './bin/console d:d:c || true'
 		$(compose) exec -T php sh -lc './bin/console d:m:m -n'
 .PHONY: schema-validate
 schema-validate: ## validate database schema
@@ -87,9 +87,13 @@ wait-for-elastic: ## Health check for elastic
 
 minikube:
 	@eval $$(minikube docker-env); \
-	docker-compose -f docker-compose.prod.yml build; \
-	helm dep up etc/artifact/chart
-	helm install --name cqrs etc/artifact/chart
+	docker-compose -f etc/artifact/docker-compose.yml build; \
+	helm dep up etc/artifact/chart; \
+	helm upgrade -i cqrs etc/artifact/chart
+
+htemplate:
+
+	helm template cqrs etc/artifact/chart
 
 .PHONY: help
 help: ## Display this help message

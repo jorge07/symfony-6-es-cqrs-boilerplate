@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "chart.fullname" . }}
+  name: {{ include "chart.fullname" . }}-workers
   labels:
-    app: {{ include "chart.name" . }}
+    app: {{ include "chart.name" . }}-workers
     chart: {{ include "chart.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -16,12 +16,12 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "chart.name" . }}
+      app: {{ include "chart.name" . }}-workers
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ include "chart.name" . }}
+        app: {{ include "chart.name" . }}-workers
         release: {{ .Release.Name }}
     spec:
       volumes:
@@ -31,6 +31,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.php.repository }}:{{ .Values.image.php.tag }}"
+          command: [ '/app/bin/console', 'messenger:consume', 'events', '-vv' ]
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
           - name: jwt
@@ -42,21 +43,6 @@ spec:
             - name: fast-cgi
               containerPort: 9000
               protocol: TCP
-        - name: {{ .Chart.Name }}-nginx
-          image: "{{ .Values.image.nginx.repository }}:{{ .Values.image.nginx.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-          - name: http
-            containerPort: 80
-            protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /api/healthz
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /api/healthz
-              port: http
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}

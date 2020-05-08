@@ -1,19 +1,10 @@
-parameters:
-    env(DATABASE_HOST): 'mysql'
-    env(DATABASE_PORT): '3306'
-    env(DATABASE_NAME): 'api'
-    env(DATABASE_USER): 'root'
-    env(DATABASE_PASS): 'api'
-
 doctrine:
     dbal:
+        url: '%env(resolve:DATABASE_URL)%'
         driver:   pdo_mysql
-        host:     "%env(DATABASE_HOST)%"
-        port:     "%env(DATABASE_PORT)%"
-        dbname:   "%env(DATABASE_NAME)%"
-        user:     "%env(DATABASE_USER)%"
-        password: "%env(DATABASE_PASS)%"
-        charset:  UTF8
+        charset: utf8mb4
+        default_table_options:
+            collate: utf8mb4_unicode_ci
         server_version: '8.0'
         types:
           uuid_binary: Ramsey\Uuid\Doctrine\UuidBinaryType

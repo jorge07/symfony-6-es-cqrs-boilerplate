@@ -1,0 +1,1 @@
+mysql://{{ $.Values.parameters.mysql.user }}:{{ $.Values.parameters.mysql.pass }}@{{ $.Values.parameters.mysql.host }}:{{ $.Values.parameters.mysql.port }}/{{ $.Values.parameters.mysql.database }}?serverVersion=8.0

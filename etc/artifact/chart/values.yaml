@@ -50,6 +50,15 @@ affinity: {}
 
 elasticsearch:
   selfHosted: true
+  replicas: 1
+  antiAffinity: "soft"
+  esJavaOpts: "-Xmx128m -Xms128m"
+  resources:
+    limits:
+      memory: 1G
+    requests:
+      cpu: 250m
+      memory: 512Mi
 
 rabbitmq:
   selfHosted: true
@@ -58,14 +67,15 @@ rabbitmq:
     username: guest
     password: guest
     erlangCookie: "SWQOKODSQALRPCLNMEQG"
-    plugins: rabbitmq_management
 
 mysql:
   selfHosted: true
   mysqlRootPassword: api
-  mysqlUser: root
+  mysqlUser: api
   mysqlDatabase: api
   imageTag: 8.0.16
+  args:
+  - --default-authentication-plugin=mysql_native_password
 
 traefik:
   enabled: true
@@ -81,15 +91,15 @@ parameters:
     env: prod
     secret: thisisnotasecret
   mysql:
-    host: mysql
-    port: 3006
-    databse: api
+    host: cqrs-mysql
+    port: 3306
+    database: api
     user: root
     pass: api
   rabbit:
-    host: "amqp://guest:guest@rmq:5672"
+    host: "amqp://guest:guest@cqrs-rabbitmq:5672"
   elastic:
-    host: "elasticsearch:9200"
+    host: "elasticsearch-master:9200"
   jwt:
     hostPath: "/app/config/jwt"
     secretKey: |
