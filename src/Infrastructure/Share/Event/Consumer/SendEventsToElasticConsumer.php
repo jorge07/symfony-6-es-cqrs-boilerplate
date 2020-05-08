@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Share\Event\Consumer;
 
-use App\Infrastructure\Share\Event\Event;
-use App\Infrastructure\Share\Event\EventHandlerInterface;
+use App\Infrastructure\Share\Bus\Event\Event;
+use App\Infrastructure\Share\Bus\Event\EventHandlerInterface;
 use App\Infrastructure\Share\Event\Query\EventElasticRepository;
 
 class SendEventsToElasticConsumer implements EventHandlerInterface

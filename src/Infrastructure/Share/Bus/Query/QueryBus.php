@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Share\Bus;
+namespace App\Infrastructure\Share\Bus\Query;
 
+use App\Infrastructure\Share\Bus\MessageBusExceptionTrait;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
@@ -22,7 +23,7 @@ final class QueryBus
     }
 
     /**
-     * @return mixed
+     * @return Item|Collection|mixed
      *
      * @throws Throwable
      */

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Share\Event\Publisher;
 
-use App\Infrastructure\Share\Bus\EventBus;
-use App\Infrastructure\Share\Event\Event;
+use App\Infrastructure\Share\Bus\Event\Event;
+use App\Infrastructure\Share\Bus\Event\EventBus;
 use Broadway\Domain\DomainMessage;
 use Broadway\EventHandling\EventListener;
 use Symfony\Component\Console\ConsoleEvents;

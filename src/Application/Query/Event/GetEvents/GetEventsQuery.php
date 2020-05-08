@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\Query\Event\GetEvents;
 
-use App\Infrastructure\Share\Bus\QueryInterface;
+use App\Infrastructure\Share\Bus\Query\QueryInterface;
 
 class GetEventsQuery implements QueryInterface
 {

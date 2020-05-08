@@ -6,7 +6,7 @@ namespace App\UI\Http\Rest\Controller\User;
 
 use App\Application\Command\User\ChangeEmail\ChangeEmailCommand;
 use App\Domain\User\Exception\ForbiddenException;
-use App\Infrastructure\Share\Bus\CommandBus;
+use App\Infrastructure\Share\Bus\Command\CommandBus;
 use App\Infrastructure\User\Auth\Session;
 use App\UI\Http\Rest\Controller\CommandController;
 use Assert\Assertion;

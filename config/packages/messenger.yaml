@@ -19,4 +19,4 @@ framework:
             events: "%env(MESSENGER_TRANSPORT_DSN)%"
 
         routing:
-            'App\Infrastructure\Share\Event\Event': events
+            'App\Infrastructure\Share\Bus\Event\EventInterface': events

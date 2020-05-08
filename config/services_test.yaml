@@ -9,32 +9,16 @@ services:
       tags:
           - { name: broadway.domain.event_listener }
 
-    events_to_elastic:
-        class: App\Infrastructure\Share\Event\Consumer\SendEventsToElasticConsumer
-        autowire: true
+    App\Infrastructure\Share\Event\Query\EventElasticRepository:
+      public: true
+      autowire: true
 
-    events_repository:
-        class: App\Infrastructure\Share\Event\Query\EventElasticRepository
-        autowire: true
-
-    App\Infrastructure\Share\Bus\CommandBus:
+    App\Infrastructure\Share\Bus\Command\CommandBus:
       public: true
       arguments:
         - '@messenger.bus.command'
 
-    App\Infrastructure\Share\Bus\QueryBus:
+    App\Infrastructure\Share\Bus\Query\QueryBus:
       public: true
       arguments:
         - '@messenger.bus.query'
-
-    _instanceof:
-
-        App\Application\Command\CommandHandlerInterface:
-          public: true
-          tags:
-            - { name: messenger.message_handler, bus: messenger.bus.command }
-
-        App\Application\Query\QueryHandlerInterface:
-          public: true
-          tags:
-            - { name: messenger.message_handler, bus: messenger.bus.query }

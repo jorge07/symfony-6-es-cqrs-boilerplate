@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\UI\Http\Rest\Controller;
 
 use App\Application\Command\User\SignUp\SignUpCommand;
-use App\Infrastructure\Share\Bus\CommandBus;
+use App\Infrastructure\Share\Bus\Command\CommandBus;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;

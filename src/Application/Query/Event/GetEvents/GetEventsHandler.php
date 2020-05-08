@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Application\Query\Event\GetEvents;
 
-use App\Application\Query\Collection;
-use App\Application\Query\QueryHandlerInterface;
 use App\Domain\Shared\Event\EventRepositoryInterface;
 use App\Domain\Shared\Query\Exception\NotFoundException;
+use App\Infrastructure\Share\Bus\Query\Collection;
+use App\Infrastructure\Share\Bus\Query\QueryHandlerInterface;
 
 class GetEventsHandler implements QueryHandlerInterface
 {

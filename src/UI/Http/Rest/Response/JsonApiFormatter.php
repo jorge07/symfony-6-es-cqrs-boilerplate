@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Response;
 
-use App\Application\Query\Collection;
-use App\Application\Query\Item;
+use App\Infrastructure\Share\Bus\Query\Collection;
+use App\Infrastructure\Share\Bus\Query\Item;
 
 final class JsonApiFormatter
 {
