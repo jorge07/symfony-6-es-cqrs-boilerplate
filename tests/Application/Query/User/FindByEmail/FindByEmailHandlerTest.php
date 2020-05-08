@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\Application\Query\User\FindByEmail;
 
 use App\Application\Command\User\SignUp\SignUpCommand;
-use App\Application\Query\Item;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
+use App\Infrastructure\Share\Bus\Query\Item;
 use App\Infrastructure\User\Query\Projections\UserView;
 use App\Tests\Application\ApplicationTestCase;
 use Ramsey\Uuid\Uuid;
@@ -18,8 +18,8 @@ class FindByEmailHandlerTest extends ApplicationTestCase
      *
      * @group integration
      *
-     * @throws \Exception
      * @throws \Assert\AssertionFailedException
+     * @throws \Throwable
      */
     public function query_command_integration(): void
     {
@@ -39,7 +39,7 @@ class FindByEmailHandlerTest extends ApplicationTestCase
     }
 
     /**
-     * @throws \Exception
+     * @throws \Throwable
      * @throws \Assert\AssertionFailedException
      */
     private function createUserRead(): string

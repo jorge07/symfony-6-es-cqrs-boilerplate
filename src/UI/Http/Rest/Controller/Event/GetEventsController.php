@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller\Event;
 
-use App\Application\Query\Collection;
 use App\Application\Query\Event\GetEvents\GetEventsQuery;
+use App\Infrastructure\Share\Bus\Query\Collection;
 use App\UI\Http\Rest\Controller\QueryController;
 use Assert\Assertion;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -51,6 +51,7 @@ class GetEventsController extends QueryController
      * @Security(name="Bearer")
      *
      * @throws \Assert\AssertionFailedException
+     * @throws \Throwable
      */
     public function __invoke(Request $request): JsonResponse
     {

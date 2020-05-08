@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller;
 
-use App\Infrastructure\Share\Bus\CommandBus;
-use App\Infrastructure\Share\Bus\CommandInterface;
-use App\Infrastructure\Share\Bus\QueryBus;
+use App\Infrastructure\Share\Bus\Command\CommandBus;
+use App\Infrastructure\Share\Bus\Command\CommandInterface;
+use App\Infrastructure\Share\Bus\Query\QueryBus;
 use App\UI\Http\Rest\Response\JsonApiFormatter;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 

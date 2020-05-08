@@ -21,6 +21,7 @@ class ChangeEmailHandlerTest extends ApplicationTestCase
      *
      * @throws \Exception
      * @throws \Assert\AssertionFailedException
+     * @throws \Throwable
      */
     public function update_user_email_should_command_should_fire_event(): void
     {

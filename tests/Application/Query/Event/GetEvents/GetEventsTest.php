@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Tests\Application\Query\Event\GetEvents;
 
 use App\Application\Command\User\SignUp\SignUpCommand;
-use App\Application\Query\Collection;
 use App\Application\Query\Event\GetEvents\GetEventsQuery;
 use App\Domain\User\Event\UserWasCreated;
+use App\Infrastructure\Share\Bus\Event\Event;
+use App\Infrastructure\Share\Bus\Query\Collection;
 use App\Infrastructure\Share\Event\Consumer\SendEventsToElasticConsumer;
-use App\Infrastructure\Share\Event\Event;
 use App\Infrastructure\Share\Event\Query\EventElasticRepository;
 use App\Tests\Application\ApplicationTestCase;
 use Broadway\Domain\DateTime;
@@ -20,15 +20,16 @@ use Ramsey\Uuid\Uuid;
 final class GetEventsTest extends ApplicationTestCase
 {
     /**
-     * @throws \Exception
+     * @throws \App\Domain\Shared\Exception\DateTimeException
      * @throws \Assert\AssertionFailedException
+     * @throws \Throwable
      */
     protected function setUp(): void
     {
         parent::setUp();
 
         /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->service('events_repository');
+        $eventReadStore = $this->service(EventElasticRepository::class);
         $eventReadStore->reboot();
 
         $command = new SignUpCommand(
@@ -40,7 +41,7 @@ final class GetEventsTest extends ApplicationTestCase
         $this->handle($command);
 
         /** @var SendEventsToElasticConsumer $consumer */
-        $consumer = $this->service('events_to_elastic');
+        $consumer = $this->service(SendEventsToElasticConsumer::class);
         $data = [
             'uuid' => $uuid = Uuid::uuid4()->toString(),
             'credentials' => [
@@ -62,7 +63,7 @@ final class GetEventsTest extends ApplicationTestCase
         $this->fireTerminateEvent();
 
         /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->service('events_repository');
+        $eventReadStore = $this->service(EventElasticRepository::class);
         $eventReadStore->refresh();
     }
 
@@ -83,7 +84,7 @@ final class GetEventsTest extends ApplicationTestCase
     protected function tearDown(): void
     {
         /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->service('events_repository');
+        $eventReadStore = $this->service(EventElasticRepository::class);
         $eventReadStore->delete();
 
         parent::tearDown();

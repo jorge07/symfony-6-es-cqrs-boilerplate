@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace App\Application\Command\User\SignUp;
 
-use App\Application\Command\CommandHandlerInterface;
 use App\Domain\User\Repository\UserRepositoryInterface;
 use App\Domain\User\Specification\UniqueEmailSpecificationInterface;
 use App\Domain\User\User;
+use App\Infrastructure\Share\Bus\Command\CommandHandlerInterface;
 
 class SignUpHandler implements CommandHandlerInterface
 {
+    /**
+     * @throws \App\Domain\Shared\Exception\DateTimeException
+     */
     public function __invoke(SignUpCommand $command): void
     {
         $user = User::create($command->uuid, $command->credentials, $this->uniqueEmailSpecification);

@@ -58,7 +58,7 @@ layer: ## Check issues with layers
 
 .PHONY: db
 db: ## recreate database
-		$(compose) exec -T php sh -lc './bin/console d:d:d --force'
+		$(compose) exec -T php sh -lc './bin/console d:d:d --force || true'
 		$(compose) exec -T php sh -lc './bin/console d:d:c'
 		$(compose) exec -T php sh -lc './bin/console d:m:m -n'
 .PHONY: schema-validate
@@ -84,6 +84,12 @@ logs: ## look for 's' service logs, make s=php logs
 .PHONY: wait-for-elastic
 wait-for-elastic: ## Health check for elastic
 		$(compose) run --rm php sh -lc 'sh ./etc/ci/wait-for-elastic.sh elasticsearch:9200'
+
+minikube:
+	@eval $$(minikube docker-env); \
+	docker-compose -f docker-compose.prod.yml build; \
+	helm dep up etc/artifact/chart
+	helm install --name cqrs etc/artifact/chart
 
 .PHONY: help
 help: ## Display this help message

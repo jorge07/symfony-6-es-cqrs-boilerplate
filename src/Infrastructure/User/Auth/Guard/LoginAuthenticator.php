@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Infrastructure\User\Auth\Guard;
 
 use App\Application\Command\User\SignIn\SignInCommand;
-use App\Application\Query\Item;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
 use App\Domain\User\Exception\InvalidCredentialsException;
-use App\Infrastructure\Share\Bus\CommandBus;
-use App\Infrastructure\Share\Bus\QueryBus;
+use App\Infrastructure\Share\Bus\Command\CommandBus;
+use App\Infrastructure\Share\Bus\Query\Item;
+use App\Infrastructure\Share\Bus\Query\QueryBus;
 use App\Infrastructure\User\Auth\Auth;
 use App\Infrastructure\User\Query\Projections\UserView;
 use Symfony\Component\HttpFoundation\RedirectResponse;

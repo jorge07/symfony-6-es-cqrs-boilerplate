@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Application;
 
-use App\Infrastructure\Share\Bus\CommandBus;
-use App\Infrastructure\Share\Bus\CommandInterface;
-use App\Infrastructure\Share\Bus\QueryBus;
-use App\Infrastructure\Share\Bus\QueryInterface;
+use App\Infrastructure\Share\Bus\Command\CommandBus;
+use App\Infrastructure\Share\Bus\Command\CommandInterface;
+use App\Infrastructure\Share\Bus\Query\QueryBus;
+use App\Infrastructure\Share\Bus\Query\QueryInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;

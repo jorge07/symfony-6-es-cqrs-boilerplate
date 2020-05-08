@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Share\Event;
+namespace App\Infrastructure\Share\Bus\Event;
 
-use App\Infrastructure\Share\Bus\EventInterface;
 use Broadway\Domain\DomainMessage;
 
 final class Event implements EventInterface

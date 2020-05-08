@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller;
 
-use App\Application\Query\Collection;
-use App\Application\Query\Item;
-use App\Infrastructure\Share\Bus\QueryBus;
-use App\Infrastructure\Share\Bus\QueryInterface;
+use App\Infrastructure\Share\Bus\Query\Collection;
+use App\Infrastructure\Share\Bus\Query\Item;
+use App\Infrastructure\Share\Bus\Query\QueryBus;
+use App\Infrastructure\Share\Bus\Query\QueryInterface;
 use App\UI\Http\Rest\Response\JsonApiFormatter;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;

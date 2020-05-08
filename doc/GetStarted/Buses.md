@@ -1,41 +1,14 @@
-# Command Bus and Query Bus
+# Command Bus, Query Bus and Async Event Bus
 
-### Why tactician bus and not broadway bus?
+### Symfony Messenger Component
 
-Broadway has a CommandBus implementation but not a QueryBus. The interface does not allow you to return content so you 
-need to build your own.
+[Symfony Messenger](https://symfony.com/doc/current/messenger.html) is what we use to distribute messages synchronous and asynchronously.
 
-Tactician `CommandHandlerMiddleware::execute` has:
+We've 3 different type of bus:
+	- Command: `public function handle(CommandInterface $command): void`
+	- Query: `public function handle(QueryInterface $query): Item|Collection|string|int|null`
+	- Async Event: `public function handle(EventInterface $command): void`
+	
+To define a new use case just implement the required interfaces.
 
-```php
-  return $handler->{$methodName}($command);
-```
-
-It allows you to return content from you `Handlers`, something required for a QueryBus. 
-
-The configuration for a Symfony app will be like that:
-
-```yaml
-tactician:
-    default_bus: command
-    method_inflector: tactician.handler.method_name_inflector.invoke
-    commandbus:
-        query:
-            middleware:
-                - tactician.commandbus.query.middleware.command_handler
-        command:
-            middleware:
-                - tactician.commandbus.command.middleware.command_handler
-```
-
-So you can create your own middleware for example to generate a backend caching for your read model. 
-
-```yaml
-tactician:
-	...
-    commandbus:
-        query:
-            middleware:
-+               - app.bus.query.middleware.cache
-                - tactician.commandbus.query.middleware.command_handler
-```
+Use `./bin/console debug:messenger` to check the configuration.

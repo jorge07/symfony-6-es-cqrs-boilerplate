@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\UI\Cli\Command;
 
-use App\Application\Query\Item;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
-use App\Infrastructure\Share\Bus\CommandBus;
+use App\Infrastructure\Share\Bus\Command\CommandBus;
+use App\Infrastructure\Share\Bus\Query\Item;
 use App\Infrastructure\User\Query\Projections\UserView;
 use App\Tests\UI\Cli\AbstractConsoleTestCase;
 use App\UI\Cli\Command\CreateUserCommand;
@@ -19,7 +19,7 @@ class CreateUserCommandTest extends AbstractConsoleTestCase
      *
      * @group unit
      *
-     * @throws \Exception
+     * @throws \Throwable
      * @throws \Assert\AssertionFailedException
      */
     public function command_integration_with_bus_success(): void

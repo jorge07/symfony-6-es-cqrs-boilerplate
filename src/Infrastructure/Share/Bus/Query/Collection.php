@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Query;
+namespace App\Infrastructure\Share\Bus\Query;
 
 use App\Domain\Shared\Query\Exception\NotFoundException;
 

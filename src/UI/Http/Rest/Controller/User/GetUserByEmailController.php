@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller\User;
 
-use App\Application\Query\Item;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
+use App\Infrastructure\Share\Bus\Query\Item;
 use App\UI\Http\Rest\Controller\QueryController;
 use Assert\Assertion;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -45,6 +45,7 @@ final class GetUserByEmailController extends QueryController
      * @Security(name="Bearer")
      *
      * @throws \Assert\AssertionFailedException
+     * @throws \Throwable
      */
     public function __invoke(string $email): JsonResponse
     {

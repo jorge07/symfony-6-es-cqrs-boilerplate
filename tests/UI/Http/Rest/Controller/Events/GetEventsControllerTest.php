@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\UI\Http\Rest\Controller\Events;
 
 use App\Domain\User\Event\UserWasCreated;
+use App\Infrastructure\Share\Bus\Event\Event;
 use App\Infrastructure\Share\Event\Consumer\SendEventsToElasticConsumer;
-use App\Infrastructure\Share\Event\Event;
 use App\Infrastructure\Share\Event\Query\EventElasticRepository;
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
 use Broadway\Domain\DateTime;
@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 class GetEventsControllerTest extends JsonApiTestCase
 {
     /**
+     * @throws \App\Domain\Shared\Exception\DateTimeException
      * @throws \Assert\AssertionFailedException
      */
     protected function setUp(): void
@@ -25,11 +26,11 @@ class GetEventsControllerTest extends JsonApiTestCase
         parent::setUp();
 
         /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->cli->getContainer()->get('events_repository');
+        $eventReadStore = $this->cli->getContainer()->get(EventElasticRepository::class);
         $eventReadStore->boot();
 
         /** @var SendEventsToElasticConsumer $consumer */
-        $consumer = $this->cli->getContainer()->get('events_to_elastic');
+        $consumer = $this->cli->getContainer()->get(SendEventsToElasticConsumer::class);
         $data = [
             'uuid' => $uuid = Uuid::uuid4()->toString(),
             'credentials' => [
@@ -121,14 +122,14 @@ class GetEventsControllerTest extends JsonApiTestCase
     private function refreshIndex(): void
     {
         /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->cli->getContainer()->get('events_repository');
+        $eventReadStore = $this->cli->getContainer()->get(EventElasticRepository::class);
         $eventReadStore->refresh();
     }
 
     protected function tearDown(): void
     {
         /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->cli->getContainer()->get('events_repository');
+        $eventReadStore = $this->cli->getContainer()->get(EventElasticRepository::class);
         $eventReadStore->delete();
 
         parent::tearDown();

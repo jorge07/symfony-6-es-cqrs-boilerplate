@@ -1,18 +1,6 @@
 ## Kubernetes Deployment
 
-Only in Minikube: `eval $(minikube docker-env)`
-
-### Build docker images:
-
-`docker-compose -f docker-compose.prod.yml build`
-
-### Install chart dependencies
-
-`helm dep up etc/deploy/chart`
-
-### Install chart
-
-`helm install --name cqrs etc/deploy/chart`
+`make minikube`
 
 ### Update
 
