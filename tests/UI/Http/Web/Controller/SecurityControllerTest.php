@@ -94,6 +94,29 @@ class SecurityControllerTest extends WebTestCase
         self::assertSame(1, $crawler->filter('html:contains("An authentication exception occurred.")')->count());
     }
 
+    /**
+     * @test
+     *
+     * @group e2e
+     */
+    public function login_should_display_an_error_when_bad_invalid_email(): void
+    {
+        self::ensureKernelShutdown();
+        $client = self::createClient();
+
+        $crawler = $client->request('GET', '/sign-in');
+
+        $form = $crawler->selectButton('Sign in')->form();
+
+        $form->get('_email')->setValue('an@email');
+        $form->get('_password')->setValue('password-so-safe');
+
+        $client->submit($form);
+
+        $crawler = $client->followRedirect();
+        self::assertSame(1, $crawler->filter('html:contains("An authentication exception occurred.")')->count());
+    }
+
     private function createUser(string $email, string $password = 'crqs-demo'): Crawler
     {
         self::ensureKernelShutdown();
