@@ -5,7 +5,7 @@
         <div class="columns is-centered">
             <div class="column is-half">
                 {% if error %}
-                    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    <div class="notification is-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                 {% endif %}
                 <form action="{{ path('login') }}" method="post">
                     <div class="field">
