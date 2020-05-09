@@ -112,7 +112,7 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
             $user = $userItem->getReadModel();
 
             return Auth::create($user->uuid(), $user->email(), $user->hashedPassword());
-        } catch (InvalidCredentialsException|\InvalidArgumentException $exception) {
+        } catch (InvalidCredentialsException | \InvalidArgumentException $exception) {
             throw new AuthenticationException();
         }
     }
