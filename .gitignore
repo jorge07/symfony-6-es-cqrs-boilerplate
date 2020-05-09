@@ -25,3 +25,4 @@ build/
 /.php_cs.cache
 /.phpunit.result.cache
 ###< friendsofphp/php-cs-fixer ###
+etc/artifact/chart/charts/
