@@ -25,7 +25,7 @@ services:
     ports:
       - 5601:5601
     volumes:
-      -./etc/dev/kibana/config:/usr/share/kibana/config/kibana.yml"
+      - ./etc/dev/kibana/config:/usr/share/kibana/config/kibana.yml"
 
   elasticsearch:
     ports:
