@@ -58,8 +58,8 @@ layer: ## Check issues with layers
 
 .PHONY: db
 db: ## recreate database
-		$(compose) exec -T php sh -lc './bin/console d:d:d --force || true'
-		$(compose) exec -T php sh -lc './bin/console d:d:c || true'
+		$(compose) exec -T php sh -lc './bin/console d:d:d --force --if-exists'
+		$(compose) exec -T php sh -lc './bin/console d:d:c --if-not-exists'
 		$(compose) exec -T php sh -lc './bin/console d:m:m -n'
 .PHONY: schema-validate
 schema-validate: ## validate database schema
