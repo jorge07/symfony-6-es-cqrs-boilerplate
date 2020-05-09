@@ -85,15 +85,16 @@ logs: ## look for 's' service logs, make s=php logs
 wait-for-elastic: ## Health check for elastic
 		$(compose) run --rm php sh -lc 'sh ./etc/ci/wait-for-elastic.sh elasticsearch:9200'
 
+.PHONY: minikube
 minikube:
-	@eval $$(minikube docker-env); \
-	docker-compose -f etc/artifact/docker-compose.yml build; \
-	helm dep up etc/artifact/chart; \
-	helm upgrade -i cqrs etc/artifact/chart
+		@eval $$(minikube docker-env); \
+		docker-compose -f etc/artifact/docker-compose.yml build; \
+		helm dep up etc/artifact/chart; \
+		helm upgrade -i cqrs etc/artifact/chart
 
+.PHONY: htemplate
 htemplate:
-
-	helm template cqrs etc/artifact/chart
+		helm template cqrs etc/artifact/chart
 
 .PHONY: help
 help: ## Display this help message
