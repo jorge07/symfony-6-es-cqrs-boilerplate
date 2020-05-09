@@ -3,8 +3,6 @@ doctrine:
         url: '%env(resolve:DATABASE_URL)%'
         driver:   pdo_mysql
         charset: utf8mb4
-        default_table_options:
-            collate: utf8mb4_unicode_ci
         server_version: '8.0'
         types:
           uuid_binary: Ramsey\Uuid\Doctrine\UuidBinaryType
