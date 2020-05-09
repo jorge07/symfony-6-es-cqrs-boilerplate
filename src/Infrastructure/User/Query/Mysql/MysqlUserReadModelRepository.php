@@ -10,15 +10,13 @@ use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\Share\Query\Repository\MysqlRepository;
 use App\Infrastructure\User\Query\Projections\UserView;
 use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\UuidInterface;
 
 final class MysqlUserReadModelRepository extends MysqlRepository implements CheckUserByEmailInterface, GetUserCredentialsByEmailInterface
 {
-    public function __construct(EntityManagerInterface $entityManager)
+    protected function getClass(): string
     {
-        $this->class = UserView::class;
-        parent::__construct($entityManager);
+        return UserView::class;
     }
 
     /**
