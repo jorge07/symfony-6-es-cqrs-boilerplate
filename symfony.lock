@@ -1,4 +1,10 @@
 {
+    "amphp/amp": {
+        "version": "v2.4.4"
+    },
+    "amphp/byte-stream": {
+        "version": "v1.7.3"
+    },
     "beberlei/assert": {
         "version": "v2.8.1"
     },
@@ -119,6 +125,12 @@
     "ezimuel/ringphp": {
         "version": "1.1.2"
     },
+    "felixfbecker/advanced-json-rpc": {
+        "version": "v3.1.1"
+    },
+    "felixfbecker/language-server-protocol": {
+        "version": "v1.4.0"
+    },
     "friendsofphp/php-cs-fixer": {
         "version": "2.2",
         "recipe": {
@@ -176,6 +188,9 @@
             "ref": "c8e0c38e1a280ab9e37587a8fa32b251d5bc1c94"
         }
     },
+    "netresearch/jsonmapper": {
+        "version": "v2.1.0"
+    },
     "nette/finder": {
         "version": "v2.5.2"
     },
@@ -185,11 +200,17 @@
     "nette/utils": {
         "version": "v3.1.1"
     },
+    "nikic/php-parser": {
+        "version": "v4.4.0"
+    },
     "ocramius/package-versions": {
         "version": "1.2.0"
     },
     "ocramius/proxy-manager": {
         "version": "2.1.1"
+    },
+    "openlss/lib-array2xml": {
+        "version": "1.0.0"
     },
     "paragonie/random_compat": {
         "version": "v2.0.11"
@@ -502,6 +523,9 @@
     "symfony/polyfill-php73": {
         "version": "v1.11.0"
     },
+    "symfony/polyfill-php80": {
+        "version": "v1.16.0"
+    },
     "symfony/polyfill-util": {
         "version": "v1.8.0"
     },
@@ -607,11 +631,20 @@
     "twig/twig": {
         "version": "v2.4.4"
     },
+    "vimeo/psalm": {
+        "version": "3.11.2"
+    },
     "webimpress/safe-writer": {
         "version": "2.0.0"
     },
     "webmozart/assert": {
         "version": "1.2.0"
+    },
+    "webmozart/glob": {
+        "version": "4.1.0"
+    },
+    "webmozart/path-util": {
+        "version": "2.3.0"
     },
     "zendframework/zend-code": {
         "version": "3.3.0"

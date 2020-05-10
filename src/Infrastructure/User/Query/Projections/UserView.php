@@ -13,8 +13,23 @@ use Broadway\Serializer\Serializable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * @psalm-suppress MissingConstructor
+ */
 class UserView implements SerializableReadModel
 {
+    /** @var UuidInterface */
+    private $uuid;
+
+    /** @var Credentials */
+    private $credentials;
+
+    /** @var DateTime */
+    private $createdAt;
+
+    /** @var DateTime */
+    private $updatedAt;
+
     /**
      * @throws \App\Domain\Shared\Exception\DateTimeException
      * @throws \Assert\AssertionFailedException
@@ -85,16 +100,4 @@ class UserView implements SerializableReadModel
     {
         return $this->uuid->toString();
     }
-
-    /** @var UuidInterface */
-    private $uuid;
-
-    /** @var Credentials */
-    private $credentials;
-
-    /** @var DateTime */
-    private $createdAt;
-
-    /** @var DateTime */
-    private $updatedAt;
 }

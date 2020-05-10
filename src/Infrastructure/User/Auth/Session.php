@@ -25,7 +25,6 @@ final class Session
         }
 
         $user = $token->getUser();
-
         if (!$user instanceof Auth) {
             throw new InvalidCredentialsException();
         }

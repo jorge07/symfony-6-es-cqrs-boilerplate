@@ -59,6 +59,8 @@ abstract class ElasticRepository
 
     protected function add(array $document): array
     {
+        $query = [];
+
         $query['index'] = $this->index;
         $query['id'] = $document['id'] ?? null;
         $query['body'] = $document;

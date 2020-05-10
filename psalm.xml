@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<psalm
+        totallyTyped="false"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="https://getpsalm.org/schema/config"
+        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+>
+    <projectFiles>
+        <directory name="src" />
+        <ignoreFiles>
+            <file name="src/Infrastructure/Kernel.php"/>
+            <directory name="tests" />
+            <directory name="vendor" />
+        </ignoreFiles>
+    </projectFiles>
+
+    <issueHandlers>
+        <!-- level 3 issues - slightly lazy code writing, but provably low false-negatives -->
+
+        <DeprecatedClass>
+            <errorLevel type="info">
+                <referencedClass name="Doctrine\Common\Persistence\ManagerRegistry" />
+                <referencedClass name="Doctrine\Common\Persistence\Mapping\ClassMetadata" />
+                <referencedClass name="Doctrine\Common\Persistence\ObjectManager" />
+                <referencedClass name="Doctrine\Common\Persistence\ObjectRepository" />
+                <referencedClass name="Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand" />
+                <referencedClass name="Symfony\Bundle\FrameworkBundle\Controller\Controller" />
+                <referencedClass name="Symfony\Bundle\FrameworkBundle\Templating\EngineInterface" />
+                <referencedClass name="Symfony\Component\Security\Core\Role\Role" />
+            </errorLevel>
+        </DeprecatedClass>
+        <DeprecatedInterface>
+            <errorLevel type="info">
+                <referencedClass name="Doctrine\Common\Persistence\ObjectManager" />
+                <referencedClass name="Doctrine\Common\Persistence\ObjectRepository" />
+                <referencedClass name="Symfony\Component\Security\Core\User\AdvancedUserInterface" />
+            </errorLevel>
+        </DeprecatedInterface>
+        <DeprecatedMethod>
+            <errorLevel type="info">
+                <referencedMethod name="Symfony\Component\EventDispatcher\Event::stopPropagation" />
+                <referencedMethod name="Symfony\Component\HttpKernel\Kernel::getRootDir" />
+                <referencedMethod name="Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent::getException" />
+            </errorLevel>
+        </DeprecatedMethod>
+
+        <InternalMethod>
+            <errorLevel type="info">
+                <referencedMethod name="PHPUnit\Framework\TestCase::__construct" />
+                <referencedMethod name="Symfony\Bundle\SecurityBundle\Security\_FirewallMap::getFirewallConfig" />
+            </errorLevel>
+        </InternalMethod>
+
+        <MissingReturnType errorLevel="info" />
+
+        <PropertyNotSetInConstructor errorLevel="info" />
+        <MissingParamType errorLevel="info" />
+
+        <!-- level 4 issues - points to possible deficiencies in logic, higher false-positives -->
+
+        <MoreSpecificReturnType errorLevel="info" />
+        <LessSpecificReturnStatement errorLevel="info" />
+        <TypeCoercion errorLevel="info" />
+
+        <PossiblyInvalidArgument errorLevel="info" />
+        <PossiblyInvalidArrayAccess errorLevel="info" />
+        <PossiblyInvalidArrayAssignment errorLevel="info" />
+        <PossiblyInvalidArrayOffset errorLevel="info" />
+        <PossiblyInvalidCast errorLevel="info" />
+        <PossiblyInvalidFunctionCall errorLevel="info" />
+        <PossiblyInvalidIterator errorLevel="info" />
+        <PossiblyInvalidMethodCall errorLevel="info" />
+        <PossiblyInvalidOperand errorLevel="info" />
+        <PossiblyInvalidPropertyAssignment errorLevel="info" />
+        <PossiblyInvalidPropertyAssignmentValue errorLevel="info" />
+        <PossiblyInvalidPropertyFetch errorLevel="info" />
+        <PossiblyNullArgument errorLevel="info" />
+        <PossiblyNullArrayAccess errorLevel="info" />
+        <PossiblyNullArrayAssignment errorLevel="info" />
+        <PossiblyNullArrayOffset errorLevel="info" />
+        <PossiblyNullFunctionCall errorLevel="info" />
+        <PossiblyNullIterator errorLevel="info" />
+        <PossiblyNullOperand errorLevel="info" />
+        <PossiblyNullPropertyAssignment errorLevel="info" />
+        <PossiblyNullPropertyAssignmentValue errorLevel="info" />
+        <PossiblyNullPropertyFetch errorLevel="info" />
+        <PossiblyNullReference errorLevel="info" />
+        <PossiblyUndefinedMethod>
+            <errorLevel type="info">
+                <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::arrayNode" />
+                <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::booleanNode" />
+                <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::children" />
+                <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::integerNode" />
+                <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::scalarNode" />
+                <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::variableNode" />
+                <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeParentInterface::end" />
+            </errorLevel>
+        </PossiblyUndefinedMethod>
+
+        <!-- level 5 issues - should be avoided at mosts costs... -->
+
+        <TooManyArguments>
+            <errorLevel type="info">
+                <referencedFunction name="Symfony\Contracts\EventDispatcher\EventDispatcherInterface::dispatch" />
+                <referencedFunction name="Symfony\Component\HttpKernel\Config\FileLocator::__construct" />
+                <referencedFunction name="Symfony\Contracts\EventDispatcher\EventDispatcherInterface::dispatch" />
+            </errorLevel>
+            <errorLevel type="suppress">
+                <referencedFunction name="Doctrine\ORM\Query\Expr::andX" />
+                <referencedFunction name="Doctrine\ORM\Query\Expr::orX" />
+            </errorLevel>
+        </TooManyArguments>
+
+        <!-- level 6 issues - really bad things -->
+
+        <InvalidNullableReturnType errorLevel="info" />
+        <NullableReturnStatement errorLevel="info" />
+        <InvalidFalsableReturnType errorLevel="info" />
+        <FalsableReturnStatement errorLevel="info" />
+
+        <MoreSpecificImplementedParamType errorLevel="info" />
+        <LessSpecificImplementedReturnType errorLevel="info" />
+
+        <!-- level 7 issues - even worse -->
+
+        <InvalidArgument>
+            <errorLevel type="info">
+                <referencedFunction name="Symfony\Component\EventDispatcher\EventDispatcherInterface::dispatch" />
+            </errorLevel>
+        </InvalidArgument>
+
+        <!-- level 8 issues - some fatal errors in PHP -->
+
+        <MethodSignatureMismatch errorLevel="info" />
+
+        <!-- Custom -->
+
+        <!-- remove after guzzlehttp-release -->
+        <!-- see https://github.com/guzzle/guzzle/pull/2273 -->
+        <InvalidCatch errorLevel="info" />
+    </issueHandlers>
+</psalm>

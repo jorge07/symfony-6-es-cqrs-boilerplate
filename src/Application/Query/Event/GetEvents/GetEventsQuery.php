@@ -8,11 +8,11 @@ use App\Infrastructure\Share\Bus\Query\QueryInterface;
 
 class GetEventsQuery implements QueryInterface
 {
-    /** @var int */
-    public $page;
+    /** @psalm-readonly */
+    public int $page;
 
-    /** @var int */
-    public $limit;
+    /** @psalm-readonly */
+    public int $limit;
 
     public function __construct(int $page = 1, int $limit = 50)
     {

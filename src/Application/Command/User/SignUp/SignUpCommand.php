@@ -13,11 +13,11 @@ use Ramsey\Uuid\UuidInterface;
 
 class SignUpCommand implements CommandInterface
 {
-    /** @var UuidInterface */
-    public $uuid;
+    /** @psalm-readonly */
+    public UuidInterface $uuid;
 
-    /** @var Credentials */
-    public $credentials;
+    /** @psalm-readonly */
+    public Credentials $credentials;
 
     /**
      * @throws \Assert\AssertionFailedException

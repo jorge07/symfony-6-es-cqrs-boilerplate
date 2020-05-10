@@ -9,11 +9,11 @@ use App\Infrastructure\Share\Bus\Command\CommandInterface;
 
 class SignInCommand implements CommandInterface
 {
-    /** @var Email */
-    public $email;
+    /** @psalm-readonly */
+    public Email $email;
 
-    /** @var string */
-    public $plainPassword;
+    /** @psalm-readonly */
+    public string $plainPassword;
 
     /**
      * @throws \Assert\AssertionFailedException
