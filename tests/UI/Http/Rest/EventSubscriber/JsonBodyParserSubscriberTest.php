@@ -6,6 +6,7 @@ namespace App\Tests\UI\Http\Rest\EventSubscriber;
 
 use App\UI\Http\Rest\EventSubscriber\JsonBodyParserSubscriber;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -13,6 +14,8 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class JsonBodyParserSubscriberTest extends TestCase
 {
+    use ProphecyTrait;
+
     private JsonBodyParserSubscriber $jsonBodyParserSubscriber;
 
     public function setUp(): void

@@ -27,7 +27,7 @@ class GetTokenHandler implements QueryHandlerInterface
      */
     public function __invoke(GetTokenQuery $query): string
     {
-        [$uuid, $email, $hashedPassword] = $this->userCredentialsByEmail->getCredentialsByEmail($query->getEmail());
+        [$uuid, $email, $hashedPassword] = $this->userCredentialsByEmail->getCredentialsByEmail($query->email);
 
         return $this->authenticationProvider->generateToken($uuid, $email, $hashedPassword);
     }
