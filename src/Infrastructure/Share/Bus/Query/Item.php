@@ -8,20 +8,20 @@ use Broadway\ReadModel\SerializableReadModel;
 
 final class Item
 {
-    /** @var string */
-    public $id;
+    /** @psalm-readonly */
+    public string $id;
 
-    /** @var string */
-    public $type;
+    /** @psalm-readonly */
+    public string $type;
 
-    /** @var array */
-    public $resource;
+    /** @psalm-readonly */
+    public array $resource;
 
-    /** @var array */
-    public $relationships = [];
+    /** @psalm-readonly */
+    public array $relationships = [];
 
-    /** @var SerializableReadModel */
-    public $readModel;
+    /** @psalm-readonly */
+    public SerializableReadModel $readModel;
 
     public function __construct(SerializableReadModel $serializableReadModel, array $relations = [])
     {
@@ -36,6 +36,6 @@ final class Item
     {
         $path = \explode('\\', \get_class($model));
 
-        return \array_pop($path);
+        return (string) \array_pop($path);
     }
 }

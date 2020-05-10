@@ -9,8 +9,8 @@ use App\Infrastructure\Share\Bus\Query\QueryInterface;
 
 class FindByEmailQuery implements QueryInterface
 {
-    /** @var Email */
-    public $email;
+    /** @psalm-readonly */
+    public Email $email;
 
     /**
      * @throws \Assert\AssertionFailedException

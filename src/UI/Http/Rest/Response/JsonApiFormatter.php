@@ -19,6 +19,10 @@ final class JsonApiFormatter
 
     public static function collection(Collection $collection): array
     {
+        /**
+         * @psalm-suppress MissingClosureParamType
+         * @psalm-suppress MissingClosureReturnType
+         */
         $transformer = function ($data) {
             return $data instanceof Item ? self::model($data) : $data;
         };

@@ -7,14 +7,15 @@ namespace App\Application\Command\User\ChangeEmail;
 use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\Share\Bus\Command\CommandInterface;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class ChangeEmailCommand implements CommandInterface
 {
-    /** @var \Ramsey\Uuid\UuidInterface */
-    public $userUuid;
+    /** @psalm-readonly */
+    public UuidInterface $userUuid;
 
-    /** @var Email */
-    public $email;
+    /** @psalm-readonly */
+    public Email $email;
 
     /**
      * @throws \Assert\AssertionFailedException

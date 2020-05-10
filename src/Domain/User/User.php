@@ -17,8 +17,26 @@ use Assert\Assertion;
 use Broadway\EventSourcing\EventSourcedAggregateRoot;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * @psalm-suppress MissingConstructor
+ */
 class User extends EventSourcedAggregateRoot
 {
+    /** @var UuidInterface */
+    private $uuid;
+
+    /** @var Email */
+    private $email;
+
+    /** @var HashedPassword */
+    private $hashedPassword;
+
+    /** @var DateTime */
+    private $createdAt;
+
+    /** @var DateTime|null */
+    private $updatedAt;
+
     /**
      * @throws \App\Domain\Shared\Exception\DateTimeException
      */
@@ -123,19 +141,4 @@ class User extends EventSourcedAggregateRoot
     {
         return $this->uuid->toString();
     }
-
-    /** @var UuidInterface */
-    private $uuid;
-
-    /** @var Email */
-    private $email;
-
-    /** @var HashedPassword */
-    private $hashedPassword;
-
-    /** @var DateTime */
-    private $createdAt;
-
-    /** @var DateTime|null */
-    private $updatedAt;
 }

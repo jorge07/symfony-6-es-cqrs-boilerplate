@@ -44,6 +44,10 @@ phpunit: db ## execute project unit tests
 style: ## executes php analizers
 		$(compose) run --rm php sh -lc './vendor/bin/phpstan analyse -l 6 -c phpstan.neon src tests'
 
+.PHONY: psalm
+psalm: ## execute psalm analyzer
+		$(compose) run --rm php sh -lc './vendor/bin/psalm --show-info=false'
+
 .PHONY: cs
 cs: ## executes coding standards
 		$(compose) run --rm php sh -lc './vendor/bin/ecs check src tests --fix'

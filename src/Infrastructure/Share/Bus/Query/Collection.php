@@ -8,17 +8,20 @@ use App\Domain\Shared\Query\Exception\NotFoundException;
 
 class Collection
 {
-    /** @var int */
-    public $page;
+    /** @psalm-readonly */
+    public int $page;
 
-    /** @var int */
-    public $limit;
+    /** @psalm-readonly */
+    public int $limit;
 
-    /** @var int */
-    public $total;
+    /** @psalm-readonly */
+    public int $total;
 
-    /** @var Item[] */
-    public $data;
+    /**
+     * @var Item[]
+     * @psalm-readonly
+     */
+    public array $data;
 
     /**
      * @throws NotFoundException

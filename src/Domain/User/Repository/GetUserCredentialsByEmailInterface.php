@@ -9,7 +9,7 @@ use App\Domain\User\ValueObject\Email;
 interface GetUserCredentialsByEmailInterface
 {
     /**
-     * @return array[Uuid, string $email, string $hashedPassword]
+     * @return array{0: \Ramsey\Uuid\Uuid, 1: string, 2: string}
      */
     public function getCredentialsByEmail(Email $email): array;
 }

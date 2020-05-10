@@ -8,6 +8,14 @@ use Assert\Assertion;
 
 final class HashedPassword
 {
+    private string $hashedPassword;
+
+    public const COST = 12;
+
+    private function __construct()
+    {
+    }
+
     /**
      * @throws \Assert\AssertionFailedException
      */
@@ -41,6 +49,7 @@ final class HashedPassword
     {
         $this->validate($plainPassword);
 
+        /** @var string|bool|null $hashedPassword */
         $hashedPassword = \password_hash($plainPassword, \PASSWORD_BCRYPT, ['cost' => self::COST]);
 
         if (\is_bool($hashedPassword)) {
@@ -67,13 +76,4 @@ final class HashedPassword
     {
         Assertion::minLength($raw, 6, 'Min 6 characters password');
     }
-
-    private function __construct()
-    {
-    }
-
-    /** @var string */
-    private $hashedPassword;
-
-    public const COST = 12;
 }
