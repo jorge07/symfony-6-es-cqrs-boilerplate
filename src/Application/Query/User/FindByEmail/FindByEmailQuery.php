@@ -9,7 +9,8 @@ use App\Infrastructure\Share\Bus\Query\QueryInterface;
 
 class FindByEmailQuery implements QueryInterface
 {
-    private Email $email;
+    /** @var Email */
+    public $email;
 
     /**
      * @throws \Assert\AssertionFailedException
@@ -17,10 +18,5 @@ class FindByEmailQuery implements QueryInterface
     public function __construct(string $email)
     {
         $this->email = Email::fromString($email);
-    }
-
-    public function getEmail(): Email
-    {
-        return $this->email;
     }
 }

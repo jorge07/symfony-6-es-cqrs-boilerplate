@@ -23,8 +23,8 @@ class GetEventsHandler implements QueryHandlerInterface
      */
     public function __invoke(GetEventsQuery $query): Collection
     {
-        $result = $this->eventRepository->page($query->getPage(), $query->getLimit());
+        $result = $this->eventRepository->page($query->page, $query->limit);
 
-        return new Collection($query->getPage(), $query->getLimit(), $result['total']['value'], $result['data']);
+        return new Collection($query->page, $query->limit, $result['total']['value'], $result['data']);
     }
 }

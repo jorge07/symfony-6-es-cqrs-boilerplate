@@ -77,8 +77,8 @@ final class GetEventsTest extends ApplicationTestCase
         $response = $this->ask(new GetEventsQuery());
 
         self::assertInstanceOf(Collection::class, $response);
-        self::assertSame(1, $response->getTotal());
-        self::assertSame('App.Domain.User.Event.UserWasCreated', $response->getData()[0]['type']);
+        self::assertSame(1, $response->total);
+        self::assertSame('App.Domain.User.Event.UserWasCreated', $response->data[0]['type']);
     }
 
     protected function tearDown(): void
