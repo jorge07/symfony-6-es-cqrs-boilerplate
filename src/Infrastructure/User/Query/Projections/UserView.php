@@ -18,17 +18,25 @@ use Ramsey\Uuid\UuidInterface;
  */
 class UserView implements SerializableReadModel
 {
-    /** @var UuidInterface */
-    private $uuid;
+    private UuidInterface $uuid;
 
-    /** @var Credentials */
-    private $credentials;
+    private Credentials $credentials;
 
-    /** @var DateTime */
-    private $createdAt;
+    private DateTime$createdAt;
 
-    /** @var DateTime */
-    private $updatedAt;
+    private ?DateTime $updatedAt;
+
+    private function __construct(
+        UuidInterface $uuid,
+        Credentials $credentials,
+        DateTime $createdAt,
+        ?DateTime $updatedAt
+    ) {
+        $this->uuid = $uuid;
+        $this->credentials = $credentials;
+        $this->createdAt = $createdAt;
+        $this->updatedAt = $updatedAt;
+    }
 
     /**
      * @throws \App\Domain\Shared\Exception\DateTimeException
@@ -47,18 +55,15 @@ class UserView implements SerializableReadModel
      */
     public static function deserialize(array $data): self
     {
-        $instance = new self();
-
-        $instance->uuid = Uuid::fromString($data['uuid']);
-        $instance->credentials = new Credentials(
-            Email::fromString($data['credentials']['email']),
-            HashedPassword::fromHash($data['credentials']['password'] ?? '')
+        return new self(
+            Uuid::fromString($data['uuid']),
+            new Credentials(
+                Email::fromString($data['credentials']['email']),
+                HashedPassword::fromHash($data['credentials']['password'] ?? '')
+            ),
+            DateTime::fromString($data['created_at']),
+            isset($data['updated_at']) ? DateTime::fromString($data['updated_at']) : null
         );
-
-        $instance->createdAt = DateTime::fromString($data['created_at']);
-        $instance->updatedAt = isset($data['updated_at']) ? DateTime::fromString($data['updated_at']) : null;
-
-        return $instance;
     }
 
     public function serialize(): array

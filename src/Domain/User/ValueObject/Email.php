@@ -8,6 +8,13 @@ use Assert\Assertion;
 
 class Email
 {
+    private string $email;
+
+    private function __construct(string $email)
+    {
+        $this->email = $email;
+    }
+
     /**
      * @throws \Assert\AssertionFailedException
      */
@@ -15,11 +22,7 @@ class Email
     {
         Assertion::email($email, 'Not a valid email');
 
-        $mail = new self();
-
-        $mail->email = $email;
-
-        return $mail;
+        return new self($email);
     }
 
     public function toString(): string
@@ -31,11 +34,4 @@ class Email
     {
         return $this->email;
     }
-
-    private function __construct()
-    {
-    }
-
-    /** @var string */
-    private $email;
 }
