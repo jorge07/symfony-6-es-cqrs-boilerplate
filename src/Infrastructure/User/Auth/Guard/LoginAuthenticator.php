@@ -89,11 +89,13 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      * You may throw an AuthenticationException if you wish. If you return
      * null, then a UsernameNotFoundException is thrown for you.
      *
-     * @param array $credentials
+     * @param array<string, string> $credentials
      *
      * @throws AuthenticationException
      * @throws \Assert\AssertionFailedException
      * @throws \Throwable
+     *
+     * @psalm-suppress MoreSpecificImplementedParamType
      */
     public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
     {

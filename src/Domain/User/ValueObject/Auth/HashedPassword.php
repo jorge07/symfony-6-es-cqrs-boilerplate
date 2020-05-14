@@ -12,8 +12,9 @@ final class HashedPassword
 
     public const COST = 12;
 
-    private function __construct()
+    private function __construct(string $hashedPassword)
     {
+        $this->hashedPassword = $hashedPassword;
     }
 
     /**
@@ -21,20 +22,12 @@ final class HashedPassword
      */
     public static function encode(string $plainPassword): self
     {
-        $pass = new self();
-
-        $pass->hash($plainPassword);
-
-        return $pass;
+        return new self(self::hash($plainPassword));
     }
 
     public static function fromHash(string $hashedPassword): self
     {
-        $pass = new self();
-
-        $pass->hashedPassword = $hashedPassword;
-
-        return $pass;
+        return new self($hashedPassword);
     }
 
     public function match(string $plainPassword): bool
@@ -45,9 +38,9 @@ final class HashedPassword
     /**
      * @throws \Assert\AssertionFailedException
      */
-    private function hash(string $plainPassword): void
+    private static function hash(string $plainPassword): string
     {
-        $this->validate($plainPassword);
+        Assertion::minLength($plainPassword, 6, 'Min 6 characters password');
 
         /** @var string|bool|null $hashedPassword */
         $hashedPassword = \password_hash($plainPassword, \PASSWORD_BCRYPT, ['cost' => self::COST]);
@@ -56,7 +49,7 @@ final class HashedPassword
             throw new \RuntimeException('Server error hashing password');
         }
 
-        $this->hashedPassword = $hashedPassword;
+        return (string) $hashedPassword;
     }
 
     public function toString(): string
@@ -67,13 +60,5 @@ final class HashedPassword
     public function __toString(): string
     {
         return $this->hashedPassword;
-    }
-
-    /**
-     * @throws \Assert\AssertionFailedException
-     */
-    private function validate(string $raw): void
-    {
-        Assertion::minLength($raw, 6, 'Min 6 characters password');
     }
 }

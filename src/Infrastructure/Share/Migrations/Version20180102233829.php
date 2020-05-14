@@ -7,15 +7,37 @@ namespace DoctrineMigrations;
 use Broadway\EventStore\Dbal\DBALEventStore;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Auto-generated Migration: Please modify to your needs!
+ * @psalm-suppress PropertyNotSetInConstructor
  */
 class Version20180102233829 extends AbstractMigration implements ContainerAwareInterface
 {
+    private EntityManagerInterface $em;
+
+    private DBALEventStore $eventStore;
+
+    /**
+     * @throws \Exception
+     */
+    public function setContainer(ContainerInterface $container = null): void
+    {
+        if ($container === null) {
+            throw new \Exception('Container is not loaded');
+        }
+
+        /** @var DBALEventStore $eventStore */
+        $eventStore = $container->get(DBALEventStore::class);
+        $this->eventStore = $eventStore;
+
+        /** @var EntityManagerInterface $em */
+        $em = $container->get('doctrine.orm.entity_manager');
+        $this->em = $em;
+    }
+
     public function up(Schema $schema): void
     {
         $this->eventStore->configureSchema($schema);
@@ -29,16 +51,4 @@ class Version20180102233829 extends AbstractMigration implements ContainerAwareI
 
         $this->em->flush();
     }
-
-    public function setContainer(ContainerInterface $container = null)
-    {
-        $this->eventStore = $container->get(DBALEventStore::class);
-        $this->em = $container->get('doctrine.orm.entity_manager');
-    }
-
-    /** @var EntityManager */
-    private $em;
-
-    /** @var DBALEventStore */
-    private $eventStore;
 }

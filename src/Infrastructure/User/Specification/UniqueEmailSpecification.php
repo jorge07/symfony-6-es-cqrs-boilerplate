@@ -30,6 +30,7 @@ final class UniqueEmailSpecification extends AbstractSpecification implements Un
 
     /**
      * @param Email $value
+     * @psalm-suppress MoreSpecificImplementedParamType
      */
     public function isSatisfiedBy($value): bool
     {
