@@ -19,10 +19,12 @@ use Throwable;
 final class ExceptionSubscriber implements EventSubscriberInterface
 {
     private string $environment;
+    private array $exceptionToStatus;
 
-    public function __construct(string $environment)
+    public function __construct(string $environment, array $exceptionToStatus)
     {
         $this->environment = $environment;
+        $this->exceptionToStatus = $exceptionToStatus;
     }
 
     public static function getSubscribedEvents(): array
@@ -85,32 +87,22 @@ final class ExceptionSubscriber implements EventSubscriberInterface
 
     private function determineStatusCode(Throwable $exception): int
     {
-        // Default status code is always 500
-        $statusCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+        $exceptionClass = \get_class($exception);
 
-        switch (true) {
-            case $exception instanceof HttpExceptionInterface:
-                $statusCode = $exception->getStatusCode();
-
-                break;
-            case $exception instanceof InvalidCredentialsException:
-                $statusCode = Response::HTTP_UNAUTHORIZED;
+        foreach ($this->exceptionToStatus as $class => $status) {
+            if (is_a($exceptionClass, $class, true)) {
+                return $status;
 
                 break;
-            case $exception instanceof ForbiddenException:
-                $statusCode = Response::HTTP_FORBIDDEN;
-
-                break;
-            case $exception instanceof AggregateNotFoundException || $exception instanceof NotFoundException:
-                $statusCode = Response::HTTP_NOT_FOUND;
-
-                break;
-            case $exception instanceof \InvalidArgumentException:
-                $statusCode = Response::HTTP_BAD_REQUEST;
-
-                break;
+            }
         }
 
-        return $statusCode;
+        // Process HttpExceptionInterface after `exceptionToStatus` to allow overrides from config
+        if ($exception instanceof HttpExceptionInterface) {
+            return $exception->getStatusCode();
+        }
+
+        // Default status code is always 500
+        return Response::HTTP_INTERNAL_SERVER_ERROR;
     }
 }

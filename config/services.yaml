@@ -8,6 +8,13 @@ parameters:
   env(ELASTIC_HOST): 'elasticsearch:9200'
   env(DATABASE_URL): 'mysql://root:api@mysql:3306/api?serverVersion=8.0'
 
+  exception_to_status:
+    InvalidArgumentException: 400
+    App\Domain\User\Exception\InvalidCredentialsException: 401
+    App\Domain\User\Exception\ForbiddenException: 403
+    App\Domain\Shared\Query\Exception\NotFoundException: 404
+    Broadway\Repository\AggregateNotFoundException: 404
+
 services:
     _defaults:
         autowire: true
@@ -85,6 +92,7 @@ services:
     App\UI\Http\Rest\EventSubscriber\ExceptionSubscriber:
         arguments:
             - "%kernel.environment%"
+            - "%exception_to_status%"
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.exception' }
 

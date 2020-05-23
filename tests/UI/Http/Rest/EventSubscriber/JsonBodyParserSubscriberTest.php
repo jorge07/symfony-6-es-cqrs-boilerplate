@@ -33,7 +33,7 @@ class JsonBodyParserSubscriberTest extends TestCase
         $request->headers->set('Content-Type', 'application/json');
 
         $requestEvent = new RequestEvent(
-            $this->prophesize(HttpKernelInterface::class)->reveal(),
+            $this->createMock(HttpKernelInterface::class),
             $request,
             HttpKernelInterface::MASTER_REQUEST
         );
