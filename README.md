@@ -58,57 +58,35 @@ Symfony 4 still available in [symfony-4 branch](https://github.com/jorge07/symfo
 
 ## Project Setup
 
-Up environment:
 
-`make start`
-
-Execute tests:
-
-`make phpunit`
-
-Static code analysis:
-
-`make style`
-
-Code style fixer:
-
-`make cs`
-
-Code style checker:
-
-`make cs-check`
-
-Enter in php container:
-
-`make s=php sh`
-
-Disable\Enable Xdebug:
-
-`make xoff`
-
-`make xon`
-
-Build image to deploy
-
-`make artifact`
+|    Action        	|     Command    |
+|------------------	|---------------	|
+|  Setup 	          | `make start`   |
+|  Run Tests       	| `make phpunit` |
+|  Static Analisys 	| `make style`  	|
+|  Code Style      	| `make cs`     	|
+|  Code style check	| `make cs-check`|
+|  PHP Shell 	      | `make s=php sh`|
+|  Xdebug 	         | `make xoff/xon`|
+|  Build Artifacts  | `make artifact`|
 
 ## PHPStorm integration
 
-PHPSTORM has native integration with Docker compose. That's nice but will stop your php container after run the test scenario. That's not nice when using fpm. A solution could be use another container just for that purpose. But I don't want. For that reason I use ssh connection.
+PHPSTORM has native integration with Docker compose. That's nice but will stop your php container after run the test scenario. That's not nice when using fpm. A solution could be use another container just for that purpose but is way slower and I don't want. For that reason I use ssh connection.
 
-IMPORTANT
+### IMPORTANT
 
-> ssh in the container it's ONLY for that reason, if you've ssh installed in your production container, you're doing it wrong... 
+> **ssh in the container it's ONLY for that reason and ONLY in the DEV TAG, if you've ssh installed in your production container, you're doing it wrong...***
 
-Use ssh remote connection.
----
+[Click here for the detailed instructions about how to setup the PHP remote interpreter in PHPStorm.](https://github.com/jorge07/alpine-php/blob/master/doc/IDE.md)
 
-Host: 
-- Docker 4 Mac: `localhost`
-- docker machine OR dinghy: `192.168.99.100`
+If you're already familiar with it, here a quick configuration reference:
 
-Port: 
- - `2323`
+|    Host          	|    Direction  |
+|------------------	|--------------	|
+|  Docker 4 mac 	   | `localhost`   |
+|  Dinghy       	   | `$ dinghy ip` |
 
-Filesystem mapping:
- - `{PROJECT_PATH}` -> `/app`
+**Port:** `2323`
+
+**Filesystem mapping:** `{PROJECT_PATH}` -> `/app`
