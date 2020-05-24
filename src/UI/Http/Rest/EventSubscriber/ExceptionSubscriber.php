@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\EventSubscriber;
 
-use App\Domain\Shared\Query\Exception\NotFoundException;
-use App\Domain\User\Exception\ForbiddenException;
-use App\Domain\User\Exception\InvalidCredentialsException;
-use Broadway\Repository\AggregateNotFoundException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,9 +15,10 @@ use Throwable;
 final class ExceptionSubscriber implements EventSubscriberInterface
 {
     private string $environment;
+
     private array $exceptionToStatus;
 
-    public function __construct(string $environment, array $exceptionToStatus)
+    public function __construct(string $environment, array $exceptionToStatus = [])
     {
         $this->environment = $environment;
         $this->exceptionToStatus = $exceptionToStatus;
@@ -90,10 +87,8 @@ final class ExceptionSubscriber implements EventSubscriberInterface
         $exceptionClass = \get_class($exception);
 
         foreach ($this->exceptionToStatus as $class => $status) {
-            if (is_a($exceptionClass, $class, true)) {
+            if (\is_a($exceptionClass, $class, true)) {
                 return $status;
-
-                break;
             }
         }
 
