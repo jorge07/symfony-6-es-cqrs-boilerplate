@@ -7,24 +7,31 @@ namespace App\Infrastructure\Share\Query\Repository;
 use Assert\Assertion;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
+use Psr\Log\LoggerInterface;
 
 abstract class ElasticRepository
 {
-    private string $index;
-
     private Client $client;
 
-    public function __construct(array $config, string $index)
+    public function __construct(array $elasticConfig, LoggerInterface $elasticsearchLogger = null)
     {
-        $this->client = ClientBuilder::fromConfig($config, true);
-        $this->index = $index;
+        $defaultConfig = [];
+
+        if ($elasticsearchLogger) {
+            $defaultConfig['logger'] = $elasticsearchLogger;
+            $defaultConfig['tracer'] = $elasticsearchLogger;
+        }
+
+        $this->client = ClientBuilder::fromConfig(\array_replace($defaultConfig, $elasticConfig), true);
     }
+
+    abstract protected function index(): string;
 
     public function search(array $query): array
     {
         $finalQuery = [];
 
-        $finalQuery['index'] = $this->index;
+        $finalQuery['index'] = $this->index();
         $finalQuery['body'] = $query;
 
         return $this->client->search($finalQuery);
@@ -32,15 +39,15 @@ abstract class ElasticRepository
 
     public function refresh(): void
     {
-        if ($this->client->indices()->exists(['index' => $this->index])) {
-            $this->client->indices()->refresh(['index' => $this->index]);
+        if ($this->client->indices()->exists(['index' => $this->index()])) {
+            $this->client->indices()->refresh(['index' => $this->index()]);
         }
     }
 
     public function delete(): void
     {
-        if ($this->client->indices()->exists(['index' => $this->index])) {
-            $this->client->indices()->delete(['index' => $this->index]);
+        if ($this->client->indices()->exists(['index' => $this->index()])) {
+            $this->client->indices()->delete(['index' => $this->index()]);
         }
     }
 
@@ -52,8 +59,8 @@ abstract class ElasticRepository
 
     public function boot(): void
     {
-        if (!$this->client->indices()->exists(['index' => $this->index])) {
-            $this->client->indices()->create(['index' => $this->index]);
+        if (!$this->client->indices()->exists(['index' => $this->index()])) {
+            $this->client->indices()->create(['index' => $this->index()]);
         }
     }
 
@@ -61,7 +68,7 @@ abstract class ElasticRepository
     {
         $query = [];
 
-        $query['index'] = $this->index;
+        $query['index'] = $this->index();
         $query['id'] = $document['id'] ?? null;
         $query['body'] = $document;
 
@@ -74,7 +81,7 @@ abstract class ElasticRepository
 
         $query = [];
 
-        $query['index'] = $this->index;
+        $query['index'] = $this->index();
         $query['from'] = ($page - 1) * $limit;
         $query['size'] = $limit;
 
