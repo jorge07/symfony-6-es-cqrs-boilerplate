@@ -90,3 +90,23 @@ If you're already familiar with it, here a quick configuration reference:
 **Port:** `2323`
 
 **Filesystem mapping:** `{PROJECT_PATH}` -> `/app`
+
+### Xdebug
+
+To ease your development process, you can use Xdebug with PHPSTORM.
+
+1. Validate your config. Note that path to create validation script must target `/public` folder of your project.
+   
+   ![Xdebug validation](doc/xdebug-validation.png)
+   
+   Additionally, you can check `Break at first line in PHP scripts` to ensure your debug is working.
+
+2. Enable Xdebug listenning. Don't forget to also activate Xdebug helper from your browser.
+   
+   ![Xdebug activation](doc/xdebug-activation.png)
+
+3. Make a request from you API at http://127.0.0.1/api/doc for example. You should see this popup:
+
+   ![Xdebug mapping](doc/xdebug-mapping.png)
+   
+   Click on `Accept` and you should be ready to debug ! Start placing breakpoints on your code and enjoy debugging !
