@@ -22,11 +22,13 @@ class DateTimeType extends DateTimeImmutableType
 
     /**
      * {@inheritdoc}
+     *
+     * @throws ConversionException
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         if (null === $value) {
-            return $value;
+            return null;
         }
 
         if ($value instanceof DateTime) {
@@ -42,6 +44,8 @@ class DateTimeType extends DateTimeImmutableType
 
     /**
      * {@inheritdoc}
+     *
+     * @throws ConversionException
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {

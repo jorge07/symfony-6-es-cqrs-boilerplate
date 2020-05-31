@@ -7,17 +7,20 @@ namespace App\Infrastructure\Share\Event\Query;
 use App\Domain\Shared\Event\EventRepositoryInterface;
 use App\Infrastructure\Share\Query\Repository\ElasticRepository;
 use Broadway\Domain\DomainMessage;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class EventElasticRepository extends ElasticRepository implements EventRepositoryInterface
 {
     private NormalizerInterface $normalizer;
 
-    /**
-     * @required
-     */
-    public function setNormalizer(NormalizerInterface $normalizer): void
-    {
+    public function __construct(
+        array $elasticConfig,
+        NormalizerInterface $normalizer,
+        LoggerInterface $elasticsearchLogger = null
+    ) {
+        parent::__construct($elasticConfig, $elasticsearchLogger);
+
         $this->normalizer = $normalizer;
     }
 

@@ -24,12 +24,14 @@ class EventElasticRepositoryTest extends TestCase
 
     protected function setUp(): void
     {
+        $mockNormalizer = $this->createStub(NormalizerInterface::class);
         $this->repository = new EventElasticRepository(
             [
                 'hosts' => [
                     'elasticsearch',
                 ],
-            ]
+            ],
+            $mockNormalizer
         );
     }
 
@@ -43,9 +45,6 @@ class EventElasticRepositoryTest extends TestCase
      */
     public function an_event_should_be_stored_in_elastic(): void
     {
-        $mockNormalizer = $this->createStub(NormalizerInterface::class);
-        $this->repository->setNormalizer($mockNormalizer);
-
         $uuid = Uuid::uuid4();
         $event = new DomainMessage(
             $uuid->toString(),

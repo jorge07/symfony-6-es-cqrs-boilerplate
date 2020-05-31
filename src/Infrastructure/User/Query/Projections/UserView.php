@@ -10,14 +10,11 @@ use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\Share\Query\Projections\ViewItem;
 use Ramsey\Uuid\UuidInterface;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 class UserView implements ViewItem
 {
-    /** @Groups("user_view")  */
     private UuidInterface $uuid;
 
-    /** @Groups("user_view") */
     private Credentials $credentials;
 
     private DateTime $createdAt;

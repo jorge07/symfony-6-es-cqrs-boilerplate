@@ -1,0 +1,8 @@
+App\Domain\User\Event\UserWasCreated:
+  attributes:
+    uuid:
+      groups: [user_was_created]
+    credentials:
+      groups: [user_was_created]
+    createdAt:
+      groups: [user_was_created]
