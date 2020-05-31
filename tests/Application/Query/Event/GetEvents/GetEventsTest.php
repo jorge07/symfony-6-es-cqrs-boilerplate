@@ -6,7 +6,11 @@ namespace App\Tests\Application\Query\Event\GetEvents;
 
 use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Application\Query\Event\GetEvents\GetEventsQuery;
+use App\Domain\Shared\ValueObject\DateTime as DomainDateTime;
 use App\Domain\User\Event\UserWasCreated;
+use App\Domain\User\ValueObject\Auth\Credentials;
+use App\Domain\User\ValueObject\Auth\HashedPassword;
+use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\Share\Bus\Event\Event;
 use App\Infrastructure\Share\Bus\Query\Collection;
 use App\Infrastructure\Share\Event\Consumer\SendEventsToElasticConsumer;
@@ -40,22 +44,23 @@ final class GetEventsTest extends ApplicationTestCase
 
         $this->handle($command);
 
+        $uuid = Uuid::uuid4();
+
         /** @var SendEventsToElasticConsumer $consumer */
         $consumer = $this->service(SendEventsToElasticConsumer::class);
-        $data = [
-            'uuid' => $uuid = Uuid::uuid4()->toString(),
-            'credentials' => [
-                'email' => 'asd@asd.asd',
-                'password' => 'lkasjbdalsjdbalsdbaljsdhbalsjbhd987',
-            ],
-            'created_at' => '2020-02-20',
-        ];
         $consumer(new Event(
             new DomainMessage(
-                $uuid,
+                $uuid->toString(),
                 1,
                 new Metadata(),
-                UserWasCreated::deserialize($data),
+                new UserWasCreated(
+                    $uuid,
+                    new Credentials(
+                        Email::fromString('lol@lol.com'),
+                        HashedPassword::fromHash('hashed_password')
+                    ),
+                    DomainDateTime::now()
+                ),
                 DateTime::now()
             )
         ));

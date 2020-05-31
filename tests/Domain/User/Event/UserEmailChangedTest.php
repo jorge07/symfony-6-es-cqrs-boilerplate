@@ -7,9 +7,10 @@ namespace App\Tests\Domain\User\Event;
 use App\Domain\Shared\ValueObject\DateTime;
 use App\Domain\User\Event\UserEmailChanged;
 use App\Domain\User\ValueObject\Email;
-use PHPUnit\Framework\TestCase;
+use App\Tests\Domain\DomainEventTestCase;
+use Ramsey\Uuid\Uuid;
 
-class UserEmailChangedTest extends TestCase
+class UserEmailChangedTest extends DomainEventTestCase
 {
     /**
      * @test
@@ -21,11 +22,12 @@ class UserEmailChangedTest extends TestCase
      */
     public function event_should_be_deserializable(): void
     {
-        $event = UserEmailChanged::deserialize([
+        /** @var UserEmailChanged $event */
+        $event = $this->denormalizer->denormalize([
             'uuid' => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
             'email' => 'asd@asd.asd',
             'updated_at' => DateTime::now()->toString(),
-        ]);
+        ], UserEmailChanged::class);
 
         self::assertInstanceOf(UserEmailChanged::class, $event);
         self::assertSame('eb62dfdc-2086-11e8-b467-0ed5f89f718b', $event->uuid->toString());
@@ -40,36 +42,47 @@ class UserEmailChangedTest extends TestCase
      * @throws \App\Domain\Shared\Exception\DateTimeException
      * @throws \Assert\AssertionFailedException
      */
-    public function event_should_fail_when_deserialize_with_wrong_data(): void
+    public function event_should_be_serializable(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $event = new UserEmailChanged(
+            Uuid::fromString('eb62dfdc-2086-11e8-b467-0ed5f89f718b'),
+            Email::fromString('asd@asd.asd'),
+            DateTime::now()
+        );
 
-        UserEmailChanged::deserialize([
-            'uuids' => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
-            'emails' => 'asd@asd.asd',
-            'updated_at' => DateTime::now()->toString(),
-        ]);
+        $serialized = $this->normalizer->normalize($event);
+
+        self::assertArrayHasKey('uuid', $serialized);
+        self::assertArrayHasKey('email', $serialized);
     }
 
     /**
      * @test
      *
      * @group unit
-     *
-     * @throws \App\Domain\Shared\Exception\DateTimeException
-     * @throws \Assert\AssertionFailedException
      */
-    public function event_should_be_serializable(): void
+    public function event_should_fail_when_deserialize_with_incorrect_keys(): void
     {
-        $event = UserEmailChanged::deserialize([
-            'uuid' => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
-            'email' => 'asd@asd.asd',
-            'updated_at' => DateTime::now()->toString(),
-        ]);
+        $this->expectException(\Symfony\Component\Serializer\Exception\MissingConstructorArgumentsException::class);
 
-        $serialized = $event->serialize();
+        $this->denormalizer->denormalize([
+            'notAnUuid' => 'eb62dfdc-2086-11e8-b467-0ed5f89f718b',
+            'notAnEmail' => 'an@email.com',
+        ], UserEmailChanged::class);
+    }
 
-        self::assertArrayHasKey('uuid', $serialized);
-        self::assertArrayHasKey('email', $serialized);
+    /**
+     * @test
+     *
+     * @group unit
+     */
+    public function event_should_fail_when_deserialize_with_incorrect_values(): void
+    {
+        $this->expectException(\Symfony\Component\Serializer\Exception\InvalidArgumentException::class);
+
+        $this->denormalizer->denormalize([
+            'uuid' => 'uuid',
+            'email' => 'email',
+        ], UserEmailChanged::class);
     }
 }

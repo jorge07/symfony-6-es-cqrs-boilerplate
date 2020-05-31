@@ -24,7 +24,7 @@ class UserProjectionFactory extends Projector
      */
     protected function applyUserWasCreated(UserWasCreated $userWasCreated): void
     {
-        $userReadModel = UserView::fromSerializable($userWasCreated);
+        $userReadModel = UserView::fromUserWasCreated($userWasCreated);
 
         $this->repository->add($userReadModel);
     }
@@ -35,7 +35,6 @@ class UserProjectionFactory extends Projector
      */
     protected function applyUserEmailChanged(UserEmailChanged $emailChanged): void
     {
-        /** @var UserView $userReadModel */
         $userReadModel = $this->repository->oneByUuid($emailChanged->uuid);
 
         $userReadModel->changeEmail($emailChanged->email);

@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class JsonApiTestCase extends WebTestCase
 {
-    public const DEFAULT_EMAIL = 'lol@lo.com';
+    public const DEFAULT_EMAIL = 'lol@lol.com';
 
     public const DEFAULT_PASS = '1234567890';
 

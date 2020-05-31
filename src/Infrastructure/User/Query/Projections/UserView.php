@@ -5,24 +5,22 @@ declare(strict_types=1);
 namespace App\Infrastructure\User\Query\Projections;
 
 use App\Domain\Shared\ValueObject\DateTime;
+use App\Domain\User\Event\UserWasCreated;
 use App\Domain\User\ValueObject\Auth\Credentials;
-use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
-use Broadway\ReadModel\SerializableReadModel;
-use Broadway\Serializer\Serializable;
-use Ramsey\Uuid\Uuid;
+use App\Infrastructure\Share\Query\Projections\ViewItem;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @psalm-suppress MissingConstructor
- */
-class UserView implements SerializableReadModel
+class UserView implements ViewItem
 {
+    /** @Groups("user_view")  */
     private UuidInterface $uuid;
 
+    /** @Groups("user_view") */
     private Credentials $credentials;
 
-    private DateTime$createdAt;
+    private DateTime $createdAt;
 
     private ?DateTime $updatedAt;
 
@@ -38,42 +36,19 @@ class UserView implements SerializableReadModel
         $this->updatedAt = $updatedAt;
     }
 
-    /**
-     * @throws \App\Domain\Shared\Exception\DateTimeException
-     * @throws \Assert\AssertionFailedException
-     */
-    public static function fromSerializable(Serializable $event): self
-    {
-        return self::deserialize($event->serialize());
-    }
-
-    /**
-     * @throws \App\Domain\Shared\Exception\DateTimeException
-     * @throws \Assert\AssertionFailedException
-     *
-     * @return UserView
-     */
-    public static function deserialize(array $data): self
+    public static function fromUserWasCreated(UserWasCreated $event): self
     {
         return new self(
-            Uuid::fromString($data['uuid']),
-            new Credentials(
-                Email::fromString($data['credentials']['email']),
-                HashedPassword::fromHash($data['credentials']['password'] ?? '')
-            ),
-            DateTime::fromString($data['created_at']),
-            isset($data['updated_at']) ? DateTime::fromString($data['updated_at']) : null
+            $event->uuid,
+            $event->credentials,
+            $event->createdAt,
+            null
         );
     }
 
-    public function serialize(): array
+    public function id(): string
     {
-        return [
-            'uuid' => $this->getId(),
-            'credentials' => [
-                'email' => (string) $this->credentials->email,
-            ],
-        ];
+        return $this->uuid->toString();
     }
 
     public function uuid(): UuidInterface
@@ -81,9 +56,29 @@ class UserView implements SerializableReadModel
         return $this->uuid;
     }
 
+    public function credentials(): Credentials
+    {
+        return $this->credentials;
+    }
+
+    public function createdAt(): DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function updatedAt(): ?DateTime
+    {
+        return $this->updatedAt;
+    }
+
     public function email(): string
     {
         return (string) $this->credentials->email;
+    }
+
+    public function hashedPassword(): string
+    {
+        return (string) $this->credentials->password;
     }
 
     public function changeEmail(Email $email): void
@@ -94,15 +89,5 @@ class UserView implements SerializableReadModel
     public function changeUpdatedAt(DateTime $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
-    }
-
-    public function hashedPassword(): string
-    {
-        return (string) $this->credentials->password;
-    }
-
-    public function getId(): string
-    {
-        return $this->uuid->toString();
     }
 }

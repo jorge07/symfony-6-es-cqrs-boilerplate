@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace App\Tests\UI\Http\Rest\Controller\Events;
 
+use App\Domain\Shared\ValueObject\DateTime as DomainDateTime;
 use App\Domain\User\Event\UserWasCreated;
+use App\Domain\User\ValueObject\Auth\Credentials;
+use App\Domain\User\ValueObject\Auth\HashedPassword;
+use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\Share\Bus\Event\Event;
 use App\Infrastructure\Share\Event\Consumer\SendEventsToElasticConsumer;
 use App\Infrastructure\Share\Event\Query\EventElasticRepository;
@@ -29,22 +33,23 @@ class GetEventsControllerTest extends JsonApiTestCase
         $eventReadStore = $this->cli->getContainer()->get(EventElasticRepository::class);
         $eventReadStore->boot();
 
+        $uuid = Uuid::uuid4();
+
         /** @var SendEventsToElasticConsumer $consumer */
         $consumer = $this->cli->getContainer()->get(SendEventsToElasticConsumer::class);
-        $data = [
-            'uuid' => $uuid = Uuid::uuid4()->toString(),
-            'credentials' => [
-                'email' => self::DEFAULT_EMAIL,
-                'password' => 'lkasjbdalsjdbalsdbaljsdhbalsjbhd987',
-            ],
-            'created_at' => '2020-02-20',
-        ];
         $consumer(new Event(
             new DomainMessage(
-                $uuid,
+                $uuid->toString(),
                 1,
                 new Metadata(),
-                UserWasCreated::deserialize($data),
+                new UserWasCreated(
+                    $uuid,
+                    new Credentials(
+                        Email::fromString(self::DEFAULT_EMAIL),
+                        HashedPassword::fromHash(self::DEFAULT_PASS)
+                    ),
+                    DomainDateTime::now()
+                ),
                 DateTime::now()
             )
         ));

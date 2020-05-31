@@ -24,8 +24,8 @@ class SignUpControllerTest extends JsonApiTestCase
     {
         $this->post('/api/signup', [
             'uuid' => Uuid::uuid4()->toString(),
-            'email' => 'jo@jo.com',
-            'password' => 'oaisudaosudoaudo',
+            'email' => self::DEFAULT_EMAIL,
+            'password' => self::DEFAULT_PASS,
         ]);
 
         self::assertSame(Response::HTTP_CREATED, $this->cli->getResponse()->getStatusCode());

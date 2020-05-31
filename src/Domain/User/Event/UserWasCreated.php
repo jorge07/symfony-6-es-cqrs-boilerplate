@@ -6,45 +6,19 @@ namespace App\Domain\User\Event;
 
 use App\Domain\Shared\ValueObject\DateTime;
 use App\Domain\User\ValueObject\Auth\Credentials;
-use App\Domain\User\ValueObject\Auth\HashedPassword;
-use App\Domain\User\ValueObject\Email;
-use Assert\Assertion;
-use Broadway\Serializer\Serializable;
-use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-final class UserWasCreated implements Serializable
+final class UserWasCreated
 {
-    /**
-     * @throws \App\Domain\Shared\Exception\DateTimeException
-     * @throws \Assert\AssertionFailedException
-     */
-    public static function deserialize(array $data): self
-    {
-        Assertion::keyExists($data, 'uuid');
-        Assertion::keyExists($data, 'credentials');
+    /** @Groups("user_was_created") */
+    public UuidInterface $uuid;
 
-        return new self(
-            Uuid::fromString($data['uuid']),
-            new Credentials(
-                Email::fromString($data['credentials']['email']),
-                HashedPassword::fromHash($data['credentials']['password'])
-            ),
-            DateTime::fromString($data['created_at'])
-        );
-    }
+    /** @Groups("user_was_created") */
+    public Credentials $credentials;
 
-    public function serialize(): array
-    {
-        return [
-            'uuid' => $this->uuid->toString(),
-            'credentials' => [
-                'email' => $this->credentials->email->toString(),
-                'password' => $this->credentials->password->toString(),
-            ],
-            'created_at' => $this->createdAt->toString(),
-        ];
-    }
+    /** @Groups("user_was_created") */
+    public DateTime $createdAt;
 
     public function __construct(UuidInterface $uuid, Credentials $credentials, DateTime $createdAt)
     {
@@ -52,13 +26,4 @@ final class UserWasCreated implements Serializable
         $this->credentials = $credentials;
         $this->createdAt = $createdAt;
     }
-
-    /** @var UuidInterface */
-    public $uuid;
-
-    /** @var Credentials */
-    public $credentials;
-
-    /** @var DateTime */
-    public $createdAt;
 }

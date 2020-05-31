@@ -68,8 +68,8 @@ services:
         public: true
         arguments:
           - '@doctrine.dbal.default_connection'
-          - '@broadway.serializer.payload'
-          - '@broadway.serializer.metadata'
+          - '@App\Infrastructure\Share\Serializer\BroadwaySerializer'
+          - '@App\Infrastructure\Share\Serializer\BroadwaySerializer'
           - 'events'
           - true
           - '@broadway.uuid.converter'

@@ -6,6 +6,9 @@ namespace App\Tests\Infrastructure\Share\Event\Publisher;
 
 use App\Domain\Shared\ValueObject\DateTime as DomainDateTime;
 use App\Domain\User\Event\UserWasCreated;
+use App\Domain\User\ValueObject\Auth\Credentials;
+use App\Domain\User\ValueObject\Auth\HashedPassword;
+use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\Share\Event\Publisher\AsyncEventPublisher;
 use App\Infrastructure\Share\Event\Publisher\EventPublisher;
 use App\Tests\Application\ApplicationTestCase;
@@ -14,6 +17,7 @@ use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Messenger\Transport\TransportInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class EventPublisherTest extends ApplicationTestCase
 {
@@ -21,12 +25,15 @@ class EventPublisherTest extends ApplicationTestCase
 
     private ?TransportInterface $transport;
 
+    private ?NormalizerInterface $normalizer;
+
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->publisher = $this->service(AsyncEventPublisher::class);
         $this->transport = $this->service('messenger.transport.events');
+        $this->normalizer = $this->service(NormalizerInterface::class);
     }
 
     /**
@@ -40,22 +47,30 @@ class EventPublisherTest extends ApplicationTestCase
     public function events_are_consumed(): void
     {
         $current = DomainDateTime::now();
+        $uuid = Uuid::uuid4();
 
         $data = [
-            'uuid' => $uuid = Uuid::uuid4()->toString(),
+            'uuid' => $uuid->toString(),
             'credentials' => [
                 'email' => 'lol@lol.com',
-                'password' => 'lkasjbdalsjdbalsdbaljsdhbalsjbhd987',
+                'password' => 'hashed_password',
             ],
             'created_at' => $current->toString(),
         ];
 
         $this->publisher->handle(
             new DomainMessage(
-                $uuid,
+                $uuid->toString(),
                 1,
                 new Metadata(),
-                UserWasCreated::deserialize($data),
+                new UserWasCreated(
+                    $uuid,
+                    new Credentials(
+                        Email::fromString('lol@lol.com'),
+                        HashedPassword::fromHash('hashed_password')
+                    ),
+                    $current
+                ),
                 DateTime::now()
             )
         );
@@ -68,12 +83,13 @@ class EventPublisherTest extends ApplicationTestCase
         $event = $transportMessages[0]->getMessage()->getDomainMessage()->getPayload();
 
         self::assertInstanceOf(UserWasCreated::class, $event);
-        self::assertSame($data, $event->serialize(), 'Check that its the same event');
+        self::assertSame($data, $this->normalizer->normalize($event), 'Check that its the same event');
     }
 
     protected function tearDown(): void
     {
         $this->publisher = null;
         $this->transport = null;
+        $this->normalizer = null;
     }
 }
