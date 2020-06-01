@@ -15,6 +15,20 @@ parameters:
     App\Domain\Shared\Query\Exception\NotFoundException: 404
     Broadway\Repository\AggregateNotFoundException: 404
 
+
+  # Map domain events to serialization contexts.
+  # This allows us to hook into Broadway serialization process.
+  # Note that if a mapping doesn't exist, it will serialize the whole object.
+  #
+  # @see \App\Infrastructure\Share\Serializer\BroadwaySerializer
+  normalization_contexts:
+    App\Domain\User\Event\UserWasCreated:
+      groups: [user_was_created, credentials_sensitive]
+
+  denormalization_contexts:
+    App\Domain\User\Event\UserWasCreated:
+      groups: [user_was_created, credentials_sensitive]
+
 services:
     _defaults:
         autowire: true
@@ -24,6 +38,8 @@ services:
           $elasticConfig: '%elastic%'
           $eventBus: '@broadway.event_handling.event_bus'
           $eventStore: '@Broadway\EventStore\Dbal\DBALEventStore'
+          array $normalizationContexts: '%normalization_contexts%'
+          array $denormalizationContexts: '%denormalization_contexts%'
 
     _instanceof:
         App\Infrastructure\Share\Bus\Command\CommandHandlerInterface:
