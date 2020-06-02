@@ -1,0 +1,7 @@
+version: '3.7'
+
+services:
+
+  php:
+    environment:
+      XDEBUG_CONFIG: remote_connect_back=0 remote_host=host.docker.internal remote_port=9000

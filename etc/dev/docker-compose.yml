@@ -8,10 +8,9 @@ services:
   php:
     ports:
       - "2323:22"
-    volumes:
-      - ./etc/dev/php/docker-xdebug.ini:/etc/php7/conf.d/docker-php-ext-xdebug.ini
+    # Allows to debug php script run inside PHP container
     environment:
-      - PHP_IDE_CONFIG=serverName=es.local
+      PHP_IDE_CONFIG: serverName=es.local
 
   mysql:
     ports:

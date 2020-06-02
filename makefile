@@ -1,7 +1,14 @@
 env=dev
+docker-os=
 compose=docker-compose -f docker-compose.yml -f etc/$(env)/docker-compose.yml
 
-export compose env 
+ifeq ($(docker-os), windows)
+	ifeq ($(env), dev)
+		compose += -f etc/dev/docker-compose.windows.yml
+	endif
+endif
+
+export compose env docker-os
 
 .PHONY: start
 start: erase build up db ## clean current environment, recreate dependencies and spin up again
