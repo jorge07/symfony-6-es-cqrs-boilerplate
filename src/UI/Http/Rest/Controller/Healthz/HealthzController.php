@@ -30,6 +30,6 @@ final class HealthzController extends CommandQueryController
      */
     public function __invoke(): JsonResponse
     {
-        return JsonResponse::create();
+        return new JsonResponse();
     }
 }
