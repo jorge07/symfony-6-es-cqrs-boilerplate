@@ -41,7 +41,7 @@ abstract class QueryController
 
     protected function jsonCollection(Collection $collection, bool $isImmutable = false): JsonResponse
     {
-        $response = JsonResponse::create($this->formatter::collection($collection));
+        $response = new JsonResponse($this->formatter::collection($collection));
 
         $this->decorateWithCache($response, $collection, $isImmutable);
 
@@ -50,7 +50,7 @@ abstract class QueryController
 
     protected function json(Item $resource): JsonResponse
     {
-        return JsonResponse::create($this->formatter->one($resource));
+        return new JsonResponse($this->formatter->one($resource));
     }
 
     protected function route(string $name, array $params = []): string

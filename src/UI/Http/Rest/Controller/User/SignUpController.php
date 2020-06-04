@@ -62,6 +62,6 @@ final class SignUpController extends CommandController
 
         $this->exec($commandRequest);
 
-        return JsonResponse::create(null, JsonResponse::HTTP_CREATED);
+        return new JsonResponse(null, JsonResponse::HTTP_CREATED);
     }
 }

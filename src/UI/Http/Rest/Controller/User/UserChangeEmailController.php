@@ -78,7 +78,7 @@ final class UserChangeEmailController extends CommandController
 
         $this->exec($command);
 
-        return JsonResponse::create();
+        return new JsonResponse();
     }
 
     private function validateUuid(string $uuid): void
