@@ -33,6 +33,11 @@ final class ExceptionSubscriber implements EventSubscriberInterface
 
     public function onKernelException(ExceptionEvent $event): void
     {
+        $request = $event->getRequest();
+        if ($request->getRequestFormat() === 'html') {
+            return;
+        }
+
         $exception = $event->getThrowable();
 
         $response = new JsonResponse();

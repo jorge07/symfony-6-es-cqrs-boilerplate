@@ -41,6 +41,7 @@ security:
                 - lexik_jwt_authentication.jwt_token_authenticator
 
         secured_area:
+            pattern: "^/(?!api/.*|api$)[^/]++"
             provider: users
             anonymous: ~
             guard:
@@ -56,8 +57,9 @@ security:
 
     access_control:
         - { path: ^/profile/*,   roles: ROLE_USER                    }
+        - { path: ^/sign-up,     roles: IS_ANONYMOUS }
+        - { path: ^/sign-in,     roles: IS_ANONYMOUS }
         - { path: ^/api/healthz, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/login,       roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/auth,    roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/signup,  roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/doc,     roles: IS_AUTHENTICATED_ANONYMOUSLY }
