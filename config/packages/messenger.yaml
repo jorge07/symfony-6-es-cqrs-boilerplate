@@ -16,7 +16,11 @@ framework:
             messenger.bus.event.async: ~
 
         transports:
-            events: "%env(MESSENGER_TRANSPORT_DSN)%"
+            events:
+                dsn: "%env(MESSENGER_TRANSPORT_DSN)%"
+                retry_strategy:
+                    delay: 2000
+                    max_retries: 5
 
         routing:
             'App\Infrastructure\Share\Bus\Event\EventInterface': events
