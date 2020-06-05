@@ -17,12 +17,17 @@ services:
     depends_on:
       - mysql
       - rmq
+      - elasticsearch
 
   workers:
     image: jorge07/alpine-php:7.4.3-dev
     volumes:
       - .:/app
     command: ['/app/bin/console', 'messenger:consume', 'events', '-vv']
+    depends_on:
+      - mysql
+      - rmq
+      - elasticsearch
 
   mysql:
     image: mysql:8.0
