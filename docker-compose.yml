@@ -5,15 +5,20 @@ services:
   nginx:
     image: nginx:1.17-alpine
     volumes:
-      - ./etc/dev/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - .:/app
+      - ./etc/dev/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - .:/app:ro
     depends_on:
       - php
 
   php:
     image: jorge07/alpine-php:7.4.3-dev
     volumes:
-      - .:/app
+      - ./:/app:rw,cached
+      # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
+      - /app/var/
+      - /app/var/cache/
+      - /app/var/logs/
+      - /app/var/sessions/
     depends_on:
       - mysql
       - rmq
@@ -22,7 +27,12 @@ services:
   workers:
     image: jorge07/alpine-php:7.4.3-dev
     volumes:
-      - .:/app
+      - ./:/app:rw,cached
+      # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
+      - /app/var/
+      - /app/var/cache/
+      - /app/var/logs/
+      - /app/var/sessions/
     command: ['/app/bin/console', 'messenger:consume', 'events', '-vv']
     depends_on:
       - mysql
