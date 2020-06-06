@@ -47,6 +47,15 @@ up: ## spin up environment
 phpunit: db ## execute project unit tests
 		$(compose) exec -T php sh -lc "./vendor/bin/phpunit $(conf)"
 
+.PHONY: coverage
+coverage:
+		$(compose) run --rm php sh -lc "wget -q https://github.com/php-coveralls/php-coveralls/releases/download/v2.2.0/php-coveralls.phar; \
+			chmod +x php-coveralls.phar; \
+			export COVERALLS_RUN_LOCALLY=1; \
+			export COVERALLS_EVENT_TYPE='manual'; \
+			export CI_NAME='github-actions'; \
+			php ./php-coveralls.phar -v; \
+		"
 .PHONY: style
 style: ## executes php analizers
 		$(compose) run --rm php sh -lc './vendor/bin/phpstan analyse -l 6 -c phpstan.neon src tests'
