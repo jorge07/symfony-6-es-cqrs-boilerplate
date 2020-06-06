@@ -42,6 +42,11 @@ services:
   mysql:
     image: mysql:8.0
     command: --default-authentication-plugin=mysql_native_password
+    volumes:
+     - "./etc/ci/mysql/:/etc/mysql/conf.d"
+    tmpfs:
+     - /var/lib/mysql/:rw,noexec,nosuid,size=600m
+     - /tmp/:rw,noexec,nosuid,size=50m
     environment:
       - MYSQL_ROOT_PASSWORD=api
       - MYSQL_DATABASE=api
