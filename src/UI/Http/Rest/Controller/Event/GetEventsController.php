@@ -24,8 +24,8 @@ class GetEventsController extends QueryController
      * )
      *
      * @SWG\Response(
-     *     response=201,
-     *     description="User created successfully"
+     *     response=200,
+     *     description="Return events list"
      * )
      * @SWG\Response(
      *     response=400,
