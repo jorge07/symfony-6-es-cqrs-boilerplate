@@ -1,7 +1,7 @@
-name: pr
+name: push
 
 on:
-  pull_request:
+  push:
     branches:
       - master
 
@@ -11,6 +11,16 @@ jobs:
     name: Code build, lint and tests
     steps:
     - uses: actions/checkout@v1
+      with:
+        ref: master
+
+    - name: Reattach HEAD to Head Ref
+      run: git checkout "$(echo ${{ github.head_ref }} | sed -E 's|refs/[a-zA-Z]+/||')"
+      if: github.head_ref != ''
+
+    - name: Reattach HEAD to Ref
+      run: git checkout "$(echo ${{ github.ref }} | sed -E 's|refs/[a-zA-Z]+/||')"
+      if: github.head_ref == ''
 
     - name: Build
       run: make env=ci start;make env=ci wait-for-elastic;make env=ci xoff
