@@ -11,7 +11,11 @@ endif
 export compose env docker-os
 
 .PHONY: start
-start: erase build up db ## clean current environment, recreate dependencies and spin up again
+start: erase build start-deps up db ## clean current environment, recreate dependencies and spin up again
+
+.PHONY: start-deps
+start-deps:  ## Start all dependencies and wait for it
+		$(compose) run --rm start_dependencies
 
 .PHONY: stop
 stop: ## stop environment

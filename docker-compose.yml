@@ -64,3 +64,11 @@ services:
     environment:
       - "discovery.type=single-node"
       - "cluster.name=sf-events"
+
+  start_dependencies:
+    image: dadarek/wait-for-dependencies
+    depends_on:
+      - mysql
+      - rmq
+      - elasticsearch
+    command: mysql:3306 elasticsearch:9200 rmq:5672
