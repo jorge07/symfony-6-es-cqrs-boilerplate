@@ -12,13 +12,28 @@ services:
     # Allows to debug php script run inside PHP container
     environment:
       PHP_IDE_CONFIG: serverName=es.local
+      # Prod mode doesn't load .env file, remember to add here your new required env vars!
       APP_ENV: "prod"
-      APP_DEBUG: "false"
+      APP_DEBUG: 0
+      APP_SECRET: c7375619ac26c8671e52279c31c7f157
+      JWT_SECRET_KEY: '%kernel.project_dir%/config/jwt/private.pem'
+      JWT_PUBLIC_KEY: '%kernel.project_dir%/config/jwt/public.pem'
+      JWT_PASSPHRASE: productionfakesecret
+      JWT_TTL: 604800
+      MESSENGER_TRANSPORT_DSN: amqp://guest:guest@rmq:5672/%2f/messages
+
   workers:
     environment:
       PHP_IDE_CONFIG: serverName=es.local
       APP_ENV: "prod"
-      APP_DEBUG: "false"
+      APP_DEBUG: 0
+      APP_SECRET: c7375619ac26c8671e52279c31c7f157
+      JWT_SECRET_KEY: '%kernel.project_dir%/config/jwt/private.pem'
+      JWT_PUBLIC_KEY: '%kernel.project_dir%/config/jwt/public.pem'
+      JWT_PASSPHRASE: productionfakesecret
+      JWT_TTL: 604800
+      MESSENGER_TRANSPORT_DSN: amqp://guest:guest@rmq:5672/%2f/messages
+
   mysql:
     ports:
       - "3306:3306"
