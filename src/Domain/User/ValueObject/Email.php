@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Domain\User\ValueObject;
 
 use Assert\Assertion;
+use Assert\AssertionFailedException;
+use JsonSerializable;
 
-class Email
+final class Email implements JsonSerializable
 {
     private string $email;
 
@@ -16,7 +18,7 @@ class Email
     }
 
     /**
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
     public static function fromString(string $email): self
     {
@@ -33,5 +35,10 @@ class Email
     public function __toString(): string
     {
         return $this->email;
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->toString();
     }
 }

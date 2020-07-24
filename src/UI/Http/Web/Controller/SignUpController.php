@@ -7,10 +7,16 @@ namespace App\UI\Http\Web\Controller;
 use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Domain\User\Exception\EmailAlreadyExistException;
 use Assert\Assertion;
+use Assert\AssertionFailedException;
+use InvalidArgumentException;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Throwable;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class SignUpController extends AbstractRenderController
 {
@@ -21,9 +27,9 @@ class SignUpController extends AbstractRenderController
      *     methods={"GET"}
      * )
      *
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function get(): Response
     {
@@ -37,11 +43,11 @@ class SignUpController extends AbstractRenderController
      *     methods={"POST"}
      * )
      *
-     * @throws \Assert\AssertionFailedException
-     * @throws \Throwable
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws AssertionFailedException
+     * @throws Throwable
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function post(Request $request): Response
     {
@@ -58,7 +64,7 @@ class SignUpController extends AbstractRenderController
             return $this->render('signup/user_created.html.twig', ['uuid' => $uuid, 'email' => $email]);
         } catch (EmailAlreadyExistException $exception) {
             return $this->render('signup/index.html.twig', ['error' => 'Email already exists.'], Response::HTTP_CONFLICT);
-        } catch (\InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException $exception) {
             return $this->render('signup/index.html.twig', ['error' => $exception->getMessage()], Response::HTTP_BAD_REQUEST);
         }
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\User;
 
+use App\Domain\Shared\Exception\DateTimeException;
 use App\Domain\Shared\ValueObject\DateTime;
 use App\Domain\User\Event\UserEmailChanged;
 use App\Domain\User\Event\UserSignedIn;
@@ -14,6 +15,7 @@ use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 use Broadway\EventSourcing\EventSourcedAggregateRoot;
 use Ramsey\Uuid\UuidInterface;
 
@@ -22,23 +24,18 @@ use Ramsey\Uuid\UuidInterface;
  */
 class User extends EventSourcedAggregateRoot
 {
-    /** @var UuidInterface */
-    private $uuid;
+    private UuidInterface $uuid;
 
-    /** @var Email */
-    private $email;
+    private Email $email;
 
-    /** @var HashedPassword */
-    private $hashedPassword;
+    private HashedPassword $hashedPassword;
 
-    /** @var DateTime */
-    private $createdAt;
+    private ?DateTime $createdAt;
 
-    /** @var DateTime|null */
-    private $updatedAt;
+    private ?DateTime $updatedAt;
 
     /**
-     * @throws \App\Domain\Shared\Exception\DateTimeException
+     * @throws DateTimeException
      */
     public static function create(
         UuidInterface $uuid,
@@ -55,7 +52,7 @@ class User extends EventSourcedAggregateRoot
     }
 
     /**
-     * @throws \App\Domain\Shared\Exception\DateTimeException
+     * @throws DateTimeException
      */
     public function changeEmail(
         Email $email,
@@ -87,7 +84,7 @@ class User extends EventSourcedAggregateRoot
     }
 
     /**
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
     protected function applyUserEmailChanged(UserEmailChanged $event): void
     {

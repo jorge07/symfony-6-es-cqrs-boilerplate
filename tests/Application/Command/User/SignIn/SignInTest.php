@@ -10,8 +10,11 @@ use App\Domain\User\Event\UserSignedIn;
 use App\Domain\User\Exception\InvalidCredentialsException;
 use App\Tests\Application\ApplicationTestCase;
 use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
+use Assert\AssertionFailedException;
 use Broadway\Domain\DomainMessage;
+use Exception;
 use Ramsey\Uuid\Uuid;
+use Throwable;
 
 final class SignInTest extends ApplicationTestCase
 {
@@ -20,7 +23,7 @@ final class SignInTest extends ApplicationTestCase
      *
      * @group integration
      *
-     * @throws \Assert\AssertionFailedException
+     * @throws Throwable
      */
     public function user_sign_up_with_valid_credentials(): void
     {
@@ -46,7 +49,8 @@ final class SignInTest extends ApplicationTestCase
      *
      * @dataProvider invalidCredentials
      *
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
+     * @throws Throwable
      */
     public function user_sign_up_with_invalid_credentials_must_throw_domain_exception(string $email, string $pass): void
     {
@@ -72,8 +76,9 @@ final class SignInTest extends ApplicationTestCase
     }
 
     /**
-     * @throws \Exception
-     * @throws \Assert\AssertionFailedException
+     * @throws Exception
+     * @throws AssertionFailedException
+     * @throws Throwable
      */
     protected function setUp(): void
     {

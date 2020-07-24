@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Auth;
 
+use App\Domain\Shared\Query\Exception\NotFoundException;
 use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\User\Query\Mysql\MysqlUserReadModelRepository;
+use Assert\AssertionFailedException;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
@@ -19,9 +22,9 @@ class AuthProvider implements UserProviderInterface
     }
 
     /**
-     * @throws \App\Domain\Shared\Query\Exception\NotFoundException
-     * @throws \Assert\AssertionFailedException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NotFoundException
+     * @throws AssertionFailedException
+     * @throws NonUniqueResultException
      *
      * @return Auth|UserInterface
      */
@@ -36,9 +39,9 @@ class AuthProvider implements UserProviderInterface
     }
 
     /**
-     * @throws \App\Domain\Shared\Query\Exception\NotFoundException
-     * @throws \Assert\AssertionFailedException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NotFoundException
+     * @throws AssertionFailedException
+     * @throws NonUniqueResultException
      */
     public function refreshUser(UserInterface $user): UserInterface
     {

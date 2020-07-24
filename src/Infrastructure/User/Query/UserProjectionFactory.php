@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Query;
 
+use App\Domain\Shared\Exception\DateTimeException;
+use App\Domain\Shared\Query\Exception\NotFoundException;
 use App\Domain\User\Event\UserEmailChanged;
 use App\Domain\User\Event\UserWasCreated;
 use App\Infrastructure\User\Query\Mysql\MysqlUserReadModelRepository;
 use App\Infrastructure\User\Query\Projections\UserView;
+use Assert\AssertionFailedException;
 use Broadway\ReadModel\Projector;
+use Doctrine\ORM\NonUniqueResultException;
 
 class UserProjectionFactory extends Projector
 {
@@ -20,7 +24,8 @@ class UserProjectionFactory extends Projector
     }
 
     /**
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
+     * @throws DateTimeException
      */
     protected function applyUserWasCreated(UserWasCreated $userWasCreated): void
     {
@@ -30,12 +35,11 @@ class UserProjectionFactory extends Projector
     }
 
     /**
-     * @throws \App\Domain\Shared\Query\Exception\NotFoundException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NotFoundException
+     * @throws NonUniqueResultException
      */
     protected function applyUserEmailChanged(UserEmailChanged $emailChanged): void
     {
-        /** @var UserView $userReadModel */
         $userReadModel = $this->repository->oneByUuid($emailChanged->uuid);
 
         $userReadModel->changeEmail($emailChanged->email);

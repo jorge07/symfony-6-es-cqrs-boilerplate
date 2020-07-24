@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace App\Infrastructure\User\Auth\Guard;
 
 use App\Application\Command\User\SignIn\SignInCommand;
+use App\Application\Query\Auth\GetAuthUserByEmail\GetAuthUserByEmailQuery;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
 use App\Domain\User\Exception\InvalidCredentialsException;
 use App\Infrastructure\Share\Bus\Command\CommandBus;
 use App\Infrastructure\Share\Bus\Query\Item;
 use App\Infrastructure\Share\Bus\Query\QueryBus;
 use App\Infrastructure\User\Auth\Auth;
-use App\Infrastructure\User\Query\Projections\UserView;
+use Assert\AssertionFailedException;
+use InvalidArgumentException;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,6 +24,8 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
+use Throwable;
+use UnexpectedValueException;
 
 final class LoginAuthenticator extends AbstractFormLoginAuthenticator
 {
@@ -71,7 +76,7 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      *
      *      return array('api_key' => $request->headers->get('X-API-TOKEN'));
      *
-     * @throws \UnexpectedValueException If null is returned
+     * @throws UnexpectedValueException If null is returned
      */
     public function getCredentials(Request $request): array
     {
@@ -91,9 +96,10 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      *
      * @param array<string, string> $credentials
      *
+     * @return UserInterface|null
      * @throws AuthenticationException
-     * @throws \Assert\AssertionFailedException
-     * @throws \Throwable
+     * @throws AssertionFailedException
+     * @throws Throwable
      *
      * @psalm-suppress MoreSpecificImplementedParamType
      */
@@ -107,14 +113,8 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
 
             $this->bus->handle($signInCommand);
 
-            /** @var Item $userItem */
-            $userItem = $this->queryBus->handle(new FindByEmailQuery($email));
-
-            /** @var UserView $user */
-            $user = $userItem->readModel;
-
-            return Auth::create($user->uuid(), $user->email(), $user->hashedPassword());
-        } catch (InvalidCredentialsException | \InvalidArgumentException $exception) {
+            return $this->queryBus->handle(new GetAuthUserByEmailQuery($email));
+        } catch (InvalidCredentialsException | InvalidArgumentException $exception) {
             throw new AuthenticationException();
         }
     }
@@ -130,6 +130,7 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      *
      * @param mixed $credentials
      *
+     * @return bool
      * @throws AuthenticationException
      */
     public function checkCredentials($credentials, UserInterface $user): bool
@@ -147,6 +148,7 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      * will be authenticated. This makes sense, for example, with an API.
      *
      * @param string $providerKey The provider (i.e. firewall) key
+     * @return Response|null
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?Response
     {

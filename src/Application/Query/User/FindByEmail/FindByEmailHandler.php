@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Application\Query\User\FindByEmail;
 
+use App\Domain\Shared\Query\Exception\NotFoundException;
 use App\Infrastructure\Share\Bus\Query\Item;
 use App\Infrastructure\Share\Bus\Query\QueryHandlerInterface;
 use App\Infrastructure\User\Query\Mysql\MysqlUserReadModelRepository;
 use App\Infrastructure\User\Query\Projections\UserView;
+use Doctrine\ORM\NonUniqueResultException;
 
 class FindByEmailHandler implements QueryHandlerInterface
 {
@@ -19,14 +21,13 @@ class FindByEmailHandler implements QueryHandlerInterface
     }
 
     /**
-     * @throws \App\Domain\Shared\Query\Exception\NotFoundException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NotFoundException
+     * @throws NonUniqueResultException
      */
     public function __invoke(FindByEmailQuery $query): Item
     {
-        /** @var UserView $userView */
-        $userView = $this->repository->oneByEmail($query->email);
+        $userView = $this->repository->oneByEmailAsArray($query->email);
 
-        return new Item($userView);
+        return Item::fromPayload($userView['uuid']->toString(), UserView::TYPE, $userView);
     }
 }

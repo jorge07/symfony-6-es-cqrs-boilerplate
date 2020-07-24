@@ -8,9 +8,10 @@ use App\Infrastructure\Share\Bus\Query\Collection;
 use App\Infrastructure\Share\Bus\Query\Item;
 use App\Infrastructure\Share\Bus\Query\QueryBus;
 use App\Infrastructure\Share\Bus\Query\QueryInterface;
-use App\UI\Http\Rest\Response\JsonApiFormatter;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use App\UI\Http\Rest\Response\OpenApi;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Throwable;
+use function count;
 
 abstract class QueryController
 {
@@ -18,39 +19,36 @@ abstract class QueryController
 
     private QueryBus $queryBus;
 
-    private JsonApiFormatter $formatter;
-
     private UrlGeneratorInterface $router;
 
-    public function __construct(QueryBus $queryBus, JsonApiFormatter $formatter, UrlGeneratorInterface $router)
+    public function __construct(QueryBus $queryBus, UrlGeneratorInterface $router)
     {
         $this->queryBus = $queryBus;
-        $this->formatter = $formatter;
         $this->router = $router;
     }
 
     /**
-     * @return mixed
+     * @return Item|Collection|string|null
      *
-     * @throws \Throwable
+     * @throws Throwable
      */
     protected function ask(QueryInterface $query)
     {
         return $this->queryBus->handle($query);
     }
 
-    protected function jsonCollection(Collection $collection, bool $isImmutable = false): JsonResponse
+    protected function jsonCollection(Collection $collection, int $status = OpenApi::HTTP_OK, bool $isImmutable = false): OpenApi
     {
-        $response = new JsonResponse($this->formatter::collection($collection));
+        $response = OpenApi::collection($collection, $status);
 
         $this->decorateWithCache($response, $collection, $isImmutable);
 
         return $response;
     }
 
-    protected function json(Item $resource): JsonResponse
+    protected function json(Item $resource, int $status = OpenApi::HTTP_OK): OpenApi
     {
-        return new JsonResponse($this->formatter->one($resource));
+        return OpenApi::one($resource, $status);
     }
 
     protected function route(string $name, array $params = []): string
@@ -58,9 +56,9 @@ abstract class QueryController
         return $this->router->generate($name, $params);
     }
 
-    private function decorateWithCache(JsonResponse $response, Collection $collection, bool $isImmutable): void
+    private function decorateWithCache(OpenApi $response, Collection $collection, bool $isImmutable): void
     {
-        if ($isImmutable && $collection->limit === \count($collection->data)) {
+        if ($isImmutable && $collection->limit === count($collection->data)) {
             $response
                 ->setMaxAge(self::CACHE_MAX_AGE)
                 ->setSharedMaxAge(self::CACHE_MAX_AGE);

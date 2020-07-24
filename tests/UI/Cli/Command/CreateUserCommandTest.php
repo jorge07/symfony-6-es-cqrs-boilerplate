@@ -45,11 +45,8 @@ class CreateUserCommandTest extends AbstractConsoleTestCase
         /** @var Item $result */
         $result = $this->ask(new FindByEmailQuery($email));
 
-        /** @var UserView $userRead */
-        $userRead = $result->readModel;
-
         self::assertInstanceOf(Item::class, $result);
-        self::assertInstanceOf(UserView::class, $userRead);
-        self::assertSame($email, $userRead->email());
+        self::assertSame('UserView', $result->type);
+        self::assertSame($email, $result->resource['credentials.email']->toString());
     }
 }

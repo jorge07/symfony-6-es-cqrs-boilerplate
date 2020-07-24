@@ -20,22 +20,38 @@ final class Item
     /** @psalm-readonly */
     public array $relationships = [];
 
-    /** @psalm-readonly */
-    public SerializableReadModel $readModel;
-
-    public function __construct(SerializableReadModel $serializableReadModel, array $relations = [])
+    private function __construct(string $id, string $type, array $payload, array $relations = [])
     {
-        $this->id = $serializableReadModel->getId();
-        $this->type = $this->type($serializableReadModel);
-        $this->resource = $serializableReadModel->serialize();
+        $this->id = $id;
+        $this->type = $type;
+        $this->resource = $payload;
         $this->relationships = $relations;
-        $this->readModel = $serializableReadModel;
     }
 
-    private function type(SerializableReadModel $model): string
+    private static function type(SerializableReadModel $model): string
     {
         $path = \explode('\\', \get_class($model));
 
         return (string) \array_pop($path);
+    }
+
+    public static function fromSerializable(SerializableReadModel $serializableReadModel, array $relations = []): self
+    {
+        return new self(
+            $serializableReadModel->getId(),
+            self::type($serializableReadModel),
+            $serializableReadModel->serialize(),
+            $relations
+        );
+    }
+
+    public static function fromPayload(string $id, string $type, array $payload, array $relations = []): self
+    {
+        return new self(
+            $id,
+            $type,
+            $payload,
+            $relations
+        );
     }
 }

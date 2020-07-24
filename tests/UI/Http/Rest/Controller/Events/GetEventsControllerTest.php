@@ -4,22 +4,28 @@ declare(strict_types=1);
 
 namespace App\Tests\UI\Http\Rest\Controller\Events;
 
+use App\Domain\Shared\Exception\DateTimeException;
 use App\Domain\User\Event\UserWasCreated;
 use App\Infrastructure\Share\Bus\Event\Event;
 use App\Infrastructure\Share\Event\Consumer\SendEventsToElasticConsumer;
 use App\Infrastructure\Share\Event\Query\EventElasticRepository;
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
+use Assert\AssertionFailedException;
 use Broadway\Domain\DateTime;
 use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
+use Exception;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
+use function json_decode;
 
 class GetEventsControllerTest extends JsonApiTestCase
 {
     /**
-     * @throws \App\Domain\Shared\Exception\DateTimeException
-     * @throws \Assert\AssertionFailedException
+     * @throws DateTimeException
+     * @throws AssertionFailedException
+     * @throws Throwable
      */
     protected function setUp(): void
     {
@@ -39,6 +45,7 @@ class GetEventsControllerTest extends JsonApiTestCase
             ],
             'created_at' => '2020-02-20',
         ];
+
         $consumer(new Event(
             new DomainMessage(
                 $uuid,
@@ -72,7 +79,7 @@ class GetEventsControllerTest extends JsonApiTestCase
      *
      * @group e2e
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function events_should_be_present_in_elastic_search(): void
     {
@@ -85,7 +92,7 @@ class GetEventsControllerTest extends JsonApiTestCase
         /** @var string $content */
         $content = $this->cli->getResponse()->getContent();
 
-        $responseDecoded = \json_decode($content, true);
+        $responseDecoded = json_decode($content, true);
 
         self::assertSame(1, $responseDecoded['meta']['total']);
         self::assertSame(1, $responseDecoded['meta']['page']);

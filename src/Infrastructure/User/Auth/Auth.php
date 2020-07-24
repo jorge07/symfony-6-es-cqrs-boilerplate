@@ -6,6 +6,7 @@ namespace App\Infrastructure\User\Auth;
 
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
+use Assert\AssertionFailedException;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -16,7 +17,7 @@ class Auth implements UserInterface, EncoderAwareInterface
 
     private Email $email;
 
-    private HashedPassword$hashedPassword;
+    private HashedPassword $hashedPassword;
 
     private function __construct(UuidInterface $uuid, Email $email, HashedPassword $hashedPassword)
     {
@@ -25,12 +26,9 @@ class Auth implements UserInterface, EncoderAwareInterface
         $this->hashedPassword = $hashedPassword;
     }
 
-    /**
-     * @throws \Assert\AssertionFailedException
-     */
-    public static function create(UuidInterface $uuid, string $email, string $hashedPassword): self
+    public static function create(UuidInterface $uuid, Email $email, HashedPassword $hashedPassword): self
     {
-        return new self($uuid, Email::fromString($email), HashedPassword::fromHash($hashedPassword));
+        return new self($uuid, $email, $hashedPassword);
     }
 
     public function getUsername(): string

@@ -6,10 +6,14 @@ namespace App\Tests\UI\Http\Rest\Controller;
 
 use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Infrastructure\Share\Bus\Command\CommandBus;
+use Assert\AssertionFailedException;
+use Throwable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use function json_decode;
+use function json_encode;
 
 abstract class JsonApiTestCase extends WebTestCase
 {
@@ -30,8 +34,8 @@ abstract class JsonApiTestCase extends WebTestCase
     }
 
     /**
-     * @throws \Assert\AssertionFailedException
-     * @throws \Exception
+     * @throws AssertionFailedException
+     * @throws Throwable
      */
     protected function createUser(string $email = self::DEFAULT_EMAIL, string $password = self::DEFAULT_PASS): string
     {
@@ -59,7 +63,7 @@ abstract class JsonApiTestCase extends WebTestCase
             [],
             [],
             $this->headers(),
-            (string) \json_encode($params)
+            (string) json_encode($params)
         );
     }
 
@@ -84,7 +88,7 @@ abstract class JsonApiTestCase extends WebTestCase
         /** @var string $content */
         $content = $this->cli->getResponse()->getContent();
 
-        $response = \json_decode($content, true);
+        $response = json_decode($content, true);
 
         $this->token = $response['token'];
     }

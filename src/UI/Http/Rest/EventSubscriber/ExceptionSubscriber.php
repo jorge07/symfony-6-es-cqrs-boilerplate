@@ -11,6 +11,10 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Throwable;
+use function array_merge;
+use function get_class;
+use function is_a;
+use function str_replace;
 
 final class ExceptionSubscriber implements EventSubscriberInterface
 {
@@ -42,22 +46,17 @@ final class ExceptionSubscriber implements EventSubscriberInterface
 
         $response = new JsonResponse();
         $response->headers->set('Content-Type', 'application/vnd.api+json');
-        $response->setStatusCode($this->getStatusCode($exception));
+        $response->setStatusCode($this->determineStatusCode($exception));
         $response->setData($this->getErrorMessage($exception, $response));
 
         $event->setResponse($response);
-    }
-
-    private function getStatusCode(Throwable $exception): int
-    {
-        return $this->determineStatusCode($exception);
     }
 
     private function getErrorMessage(Throwable $exception, Response $response): array
     {
         $error = [
             'errors' => [
-                'title' => \str_replace('\\', '.', \get_class($exception)),
+                'title' => str_replace('\\', '.', get_class($exception)),
                 'detail' => $this->getExceptionMessage($exception),
                 'code' => $exception->getCode(),
                 'status' => $response->getStatusCode(),
@@ -65,7 +64,7 @@ final class ExceptionSubscriber implements EventSubscriberInterface
         ];
 
         if ('dev' === $this->environment) {
-            $error = \array_merge(
+            $error = array_merge(
                 $error,
                 [
                     'meta' => [
@@ -89,10 +88,10 @@ final class ExceptionSubscriber implements EventSubscriberInterface
 
     private function determineStatusCode(Throwable $exception): int
     {
-        $exceptionClass = \get_class($exception);
+        $exceptionClass = get_class($exception);
 
         foreach ($this->exceptionToStatus as $class => $status) {
-            if (\is_a($exceptionClass, $class, true)) {
+            if (is_a($exceptionClass, $class, true)) {
                 return $status;
             }
         }

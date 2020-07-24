@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Application\Query\Auth\GetToken;
+namespace App\Application\Query\Auth\GetAuthUserByEmail;
 
 use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\Share\Bus\Query\QueryInterface;
 use Assert\AssertionFailedException;
 
-class GetTokenQuery implements QueryInterface
+class GetAuthUserByEmailQuery implements QueryInterface
 {
     /** @psalm-readonly */
     public Email $email;

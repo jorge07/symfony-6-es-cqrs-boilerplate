@@ -10,11 +10,13 @@ use App\Infrastructure\Share\Bus\Command\CommandBus;
 use App\Infrastructure\User\Auth\Session;
 use App\UI\Http\Rest\Controller\CommandController;
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Throwable;
 
 final class UserChangeEmailController extends CommandController
 {
@@ -64,7 +66,8 @@ final class UserChangeEmailController extends CommandController
      *
      * @Security(name="Bearer")
      *
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
+     * @throws Throwable
      */
     public function __invoke(string $uuid, Request $request): JsonResponse
     {

@@ -5,6 +5,12 @@ declare(strict_types=1);
 namespace App\Domain\User\ValueObject\Auth;
 
 use Assert\Assertion;
+use Assert\AssertionFailedException;
+use RuntimeException;
+use function is_bool;
+use function password_hash;
+use function password_verify;
+use const PASSWORD_BCRYPT;
 
 final class HashedPassword
 {
@@ -18,7 +24,7 @@ final class HashedPassword
     }
 
     /**
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
     public static function encode(string $plainPassword): self
     {
@@ -32,21 +38,21 @@ final class HashedPassword
 
     public function match(string $plainPassword): bool
     {
-        return \password_verify($plainPassword, $this->hashedPassword);
+        return password_verify($plainPassword, $this->hashedPassword);
     }
 
     /**
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
     private static function hash(string $plainPassword): string
     {
         Assertion::minLength($plainPassword, 6, 'Min 6 characters password');
 
         /** @var string|bool|null $hashedPassword */
-        $hashedPassword = \password_hash($plainPassword, \PASSWORD_BCRYPT, ['cost' => self::COST]);
+        $hashedPassword = password_hash($plainPassword, PASSWORD_BCRYPT, ['cost' => self::COST]);
 
-        if (\is_bool($hashedPassword)) {
-            throw new \RuntimeException('Server error hashing password');
+        if (is_bool($hashedPassword)) {
+            throw new RuntimeException('Server error hashing password');
         }
 
         return (string) $hashedPassword;

@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Throwable;
 
 class JsonBodyParserSubscriber implements EventSubscriberInterface
 {
@@ -51,7 +52,7 @@ class JsonBodyParserSubscriber implements EventSubscriberInterface
                 512,
                 \JSON_THROW_ON_ERROR
             );
-        } catch (\JsonException $exception) {
+        } catch (Throwable $exception) {
             return false;
         }
 

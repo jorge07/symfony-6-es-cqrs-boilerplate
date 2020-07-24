@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\User\Auth;
 
 use App\Domain\User\Exception\InvalidCredentialsException;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 final class Session
@@ -38,6 +39,9 @@ final class Session
 
     public function sameByUuid(string $uuid): bool
     {
-        return $this->get()['uuid']->toString() === $uuid;
+        /** @var Uuid $userUuid */
+        $userUuid = $this->get()['uuid'];
+
+        return $userUuid->equals(Uuid::fromString($uuid));
     }
 }
