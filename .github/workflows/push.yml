@@ -3,7 +3,7 @@ name: push
 on:
   push:
     branches:
-      - master
+      - symfony-5
 
 jobs:
   build:
@@ -23,7 +23,7 @@ jobs:
       if: github.head_ref == ''
 
     - name: Build
-      run: make env=ci start;make env=ci wait-for-elastic;make env=ci xoff
+      run: make env=ci start;make env=ci xoff
 
     - name: DDD LAYERS
       run: make env=ci layer
