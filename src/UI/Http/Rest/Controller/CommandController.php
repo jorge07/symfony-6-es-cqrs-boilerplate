@@ -6,6 +6,7 @@ namespace App\UI\Http\Rest\Controller;
 
 use App\Infrastructure\Share\Bus\Command\CommandBus;
 use App\Infrastructure\Share\Bus\Command\CommandInterface;
+use Throwable;
 
 abstract class CommandController
 {
@@ -17,7 +18,7 @@ abstract class CommandController
     }
 
     /**
-     * @throws \Throwable
+     * @throws Throwable
      */
     protected function exec(CommandInterface $command): void
     {

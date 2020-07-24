@@ -8,8 +8,10 @@ use App\Domain\User\Event\UserEmailChanged;
 use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
 use Broadway\Domain\DomainMessage;
+use Exception;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 class ChangeEmailControllerTest extends JsonApiTestCase
 {
@@ -18,7 +20,7 @@ class ChangeEmailControllerTest extends JsonApiTestCase
      *
      * @group e2e
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function given_a_valid_uuid_and_email_should_return_a_201_status_code(): void
     {
@@ -64,7 +66,7 @@ class ChangeEmailControllerTest extends JsonApiTestCase
      *
      * @group e2e
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function given_a_invalid__email_should_return_a_400_status_code(): void
     {
@@ -76,7 +78,7 @@ class ChangeEmailControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @throws \Assert\AssertionFailedException
+     * @throws Throwable
      */
     protected function setUp(): void
     {

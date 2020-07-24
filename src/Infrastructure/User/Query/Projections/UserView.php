@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Query\Projections;
 
+use App\Domain\Shared\Exception\DateTimeException;
 use App\Domain\Shared\ValueObject\DateTime;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
+use Assert\AssertionFailedException;
 use Broadway\ReadModel\SerializableReadModel;
 use Broadway\Serializer\Serializable;
 use Ramsey\Uuid\Uuid;
@@ -18,11 +20,13 @@ use Ramsey\Uuid\UuidInterface;
  */
 class UserView implements SerializableReadModel
 {
+    public const TYPE = 'UserView';
+
     private UuidInterface $uuid;
 
     private Credentials $credentials;
 
-    private DateTime$createdAt;
+    private DateTime $createdAt;
 
     private ?DateTime $updatedAt;
 
@@ -39,8 +43,8 @@ class UserView implements SerializableReadModel
     }
 
     /**
-     * @throws \App\Domain\Shared\Exception\DateTimeException
-     * @throws \Assert\AssertionFailedException
+     * @throws DateTimeException
+     * @throws AssertionFailedException
      */
     public static function fromSerializable(Serializable $event): self
     {
@@ -48,8 +52,8 @@ class UserView implements SerializableReadModel
     }
 
     /**
-     * @throws \App\Domain\Shared\Exception\DateTimeException
-     * @throws \Assert\AssertionFailedException
+     * @throws DateTimeException
+     * @throws AssertionFailedException
      *
      * @return UserView
      */

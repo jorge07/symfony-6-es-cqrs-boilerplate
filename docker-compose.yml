@@ -13,7 +13,7 @@ services:
   php:
     image: jorge07/alpine-php:7.4.3-dev
     volumes:
-      - ./:/app:rw,cached
+      - ./:/app:rw,delegated
       # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
       - /app/var/
       - /app/var/cache/
@@ -27,7 +27,8 @@ services:
   workers:
     image: jorge07/alpine-php:7.4.3-dev
     volumes:
-      - ./:/app:rw,cached
+      - ./:/app:rw,delegated
+      # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
       # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
       - /app/var/
       - /app/var/cache/
@@ -43,7 +44,7 @@ services:
     image: mysql:8.0
     command: --default-authentication-plugin=mysql_native_password
     volumes:
-     - "./etc/ci/mysql/:/etc/mysql/conf.d"
+     - "./etc/ci/mysql:/etc/mysql/conf.d"
     tmpfs:
      - /var/lib/mysql/:rw,noexec,nosuid,size=600m
      - /tmp/:rw,noexec,nosuid,size=50m

@@ -6,6 +6,8 @@ namespace App\Infrastructure\Share\Doctrine;
 
 use App\Domain\Shared\Exception\DateTimeException;
 use App\Domain\Shared\ValueObject\DateTime;
+use DateTimeImmutable;
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeImmutableType;
@@ -14,6 +16,7 @@ class DateTimeType extends DateTimeImmutableType
 {
     /**
      * {@inheritdoc}
+     * @throws DBALException
      */
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
     {
@@ -22,18 +25,19 @@ class DateTimeType extends DateTimeImmutableType
 
     /**
      * {@inheritdoc}
+     * @throws ConversionException
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         if (null === $value) {
-            return $value;
+            return null;
         }
 
         if ($value instanceof DateTime) {
-            return $value->toNative()->format($platform->getDateTimeFormatString());
+            return $value->format($platform->getDateTimeFormatString());
         }
 
-        if ($value instanceof \DateTimeImmutable) {
+        if ($value instanceof DateTimeImmutable) {
             return $value->format($platform->getDateTimeFormatString());
         }
 
@@ -42,6 +46,7 @@ class DateTimeType extends DateTimeImmutableType
 
     /**
      * {@inheritdoc}
+     * @throws ConversionException
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {

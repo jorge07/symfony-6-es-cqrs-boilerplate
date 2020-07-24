@@ -7,6 +7,8 @@ doctrine:
         types:
           uuid_binary: Ramsey\Uuid\Doctrine\UuidBinaryType
           datetime_immutable: App\Infrastructure\Share\Doctrine\DateTimeType
+          email: App\Infrastructure\Share\Doctrine\EmailType
+          hashed_password: App\Infrastructure\Share\Doctrine\HashedPasswordType
         mapping_types:
           uuid_binary: binary
     orm:

@@ -7,6 +7,7 @@ namespace App\Application\Query\Auth\GetToken;
 use App\Domain\User\Repository\GetUserCredentialsByEmailInterface;
 use App\Infrastructure\Share\Bus\Query\QueryHandlerInterface;
 use App\Infrastructure\User\Auth\AuthenticationProvider;
+use Assert\AssertionFailedException;
 
 class GetTokenHandler implements QueryHandlerInterface
 {
@@ -22,9 +23,6 @@ class GetTokenHandler implements QueryHandlerInterface
         $this->userCredentialsByEmail = $userCredentialsByEmail;
     }
 
-    /**
-     * @throws \Assert\AssertionFailedException
-     */
     public function __invoke(GetTokenQuery $query): string
     {
         [$uuid, $email, $hashedPassword] = $this->userCredentialsByEmail->getCredentialsByEmail($query->email);

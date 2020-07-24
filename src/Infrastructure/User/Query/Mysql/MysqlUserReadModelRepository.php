@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Query\Mysql;
 
+use App\Domain\Shared\Query\Exception\NotFoundException;
 use App\Domain\User\Repository\CheckUserByEmailInterface;
 use App\Domain\User\Repository\GetUserCredentialsByEmailInterface;
 use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\Share\Query\Repository\MysqlRepository;
 use App\Infrastructure\User\Query\Projections\UserView;
 use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 
 final class MysqlUserReadModelRepository extends MysqlRepository implements CheckUserByEmailInterface, GetUserCredentialsByEmailInterface
@@ -19,9 +22,16 @@ final class MysqlUserReadModelRepository extends MysqlRepository implements Chec
         return UserView::class;
     }
 
+    private function getUserByEmailQueryBuilder(Email $email): QueryBuilder {
+        return $this->repository
+            ->createQueryBuilder('user')
+            ->where('user.credentials.email = :email')
+            ->setParameter('email', $email->toString());
+    }
+
     /**
-     * @throws \App\Domain\Shared\Query\Exception\NotFoundException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NotFoundException
+     * @throws NonUniqueResultException
      */
     public function oneByUuid(UuidInterface $uuid): UserView
     {
@@ -35,36 +45,46 @@ final class MysqlUserReadModelRepository extends MysqlRepository implements Chec
     }
 
     /**
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function existsEmail(Email $email): ?UuidInterface
     {
-        $userId = $this->repository
-            ->createQueryBuilder('user')
+        $userId = $this->getUserByEmailQueryBuilder($email)
             ->select('user.uuid')
-            ->where('user.credentials.email = :email')
-            ->setParameter('email', (string) $email)
             ->getQuery()
-            ->setHydrationMode(AbstractQuery::HYDRATE_ARRAY)
-            ->getOneOrNullResult()
+            ->getOneOrNullResult(AbstractQuery::HYDRATE_ARRAY)
         ;
 
         return $userId['uuid'] ?? null;
     }
 
     /**
-     * @throws \App\Domain\Shared\Query\Exception\NotFoundException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NotFoundException
+     * @throws NonUniqueResultException
      */
     public function oneByEmail(Email $email): UserView
     {
-        $qb = $this->repository
-            ->createQueryBuilder('user')
-            ->where('user.credentials.email = :email')
-            ->setParameter('email', $email->toString())
-        ;
+        return $this->oneOrException(
+            $this->getUserByEmailQueryBuilder($email)
+        );
+    }
 
-        return $this->oneOrException($qb);
+    /**
+     * @throws NotFoundException
+     * @throws NonUniqueResultException
+     */
+    public function oneByEmailAsArray(Email $email): array
+    {
+        return $this->oneOrException(
+            $this->getUserByEmailQueryBuilder($email)
+            ->select('
+                user.uuid, 
+                user.credentials.email, 
+                user.createdAt, 
+                user.updatedAt'
+            ),
+            AbstractQuery::HYDRATE_ARRAY
+        );
     }
 
     public function add(UserView $userRead): void
@@ -73,17 +93,24 @@ final class MysqlUserReadModelRepository extends MysqlRepository implements Chec
     }
 
     /**
-     * @throws \App\Domain\Shared\Query\Exception\NotFoundException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NotFoundException
+     * @throws NonUniqueResultException
+     *
+     * @return array{0: \Ramsey\Uuid\UuidInterface, 1: string, 2: string}
      */
     public function getCredentialsByEmail(Email $email): array
     {
-        $user = $this->oneByEmail($email);
+        $qb = $this->repository
+            ->createQueryBuilder('user')
+            ->where('user.credentials.email = :email')
+            ->setParameter('email', $email->toString());
+
+        $user = $this->oneOrException($qb, AbstractQuery::HYDRATE_ARRAY);
 
         return [
-            $user->uuid(),
-            $user->email(),
-            $user->hashedPassword(),
+            $user['uuid'],
+            $user['credentials.email'],
+            $user['credentials.password'],
         ];
     }
 }

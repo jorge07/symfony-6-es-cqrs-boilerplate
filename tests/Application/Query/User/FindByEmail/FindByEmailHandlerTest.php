@@ -7,9 +7,10 @@ namespace App\Tests\Application\Query\User\FindByEmail;
 use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
 use App\Infrastructure\Share\Bus\Query\Item;
-use App\Infrastructure\User\Query\Projections\UserView;
 use App\Tests\Application\ApplicationTestCase;
+use Assert\AssertionFailedException;
 use Ramsey\Uuid\Uuid;
+use Throwable;
 
 class FindByEmailHandlerTest extends ApplicationTestCase
 {
@@ -18,8 +19,8 @@ class FindByEmailHandlerTest extends ApplicationTestCase
      *
      * @group integration
      *
-     * @throws \Assert\AssertionFailedException
-     * @throws \Throwable
+     * @throws AssertionFailedException
+     * @throws Throwable
      */
     public function query_command_integration(): void
     {
@@ -30,17 +31,14 @@ class FindByEmailHandlerTest extends ApplicationTestCase
         /** @var Item $result */
         $result = $this->ask(new FindByEmailQuery($email));
 
-        /** @var UserView $userRead */
-        $userRead = $result->readModel;
-
         self::assertInstanceOf(Item::class, $result);
-        self::assertInstanceOf(UserView::class, $userRead);
-        self::assertSame($email, $userRead->email());
+        self::assertSame('UserView', $result->type);
+        self::assertSame($email, $result->resource['credentials.email']->toString());
     }
 
     /**
-     * @throws \Throwable
-     * @throws \Assert\AssertionFailedException
+     * @throws Throwable
+     * @throws AssertionFailedException
      */
     private function createUserRead(): string
     {

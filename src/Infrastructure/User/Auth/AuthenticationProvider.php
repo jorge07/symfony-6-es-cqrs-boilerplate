@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Auth;
 
+use App\Domain\User\ValueObject\Auth\HashedPassword;
+use App\Domain\User\ValueObject\Email;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Ramsey\Uuid\UuidInterface;
 
@@ -16,10 +18,7 @@ final class AuthenticationProvider
         $this->JWTManager = $JWTManager;
     }
 
-    /**
-     * @throws \Assert\AssertionFailedException
-     */
-    public function generateToken(UuidInterface $uuid, string $email, string $hashedPassword): string
+    public function generateToken(UuidInterface $uuid, Email $email, HashedPassword $hashedPassword): string
     {
         $auth = Auth::create($uuid, $email, $hashedPassword);
 

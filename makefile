@@ -112,10 +112,6 @@ sh: ## gets inside a container, use 's' variable to select a service. make s=php
 logs: ## look for 's' service logs, make s=php logs
 		$(compose) logs -f $(s)
 
-.PHONY: wait-for-elastic
-wait-for-elastic: ## Health check for elastic
-		$(compose) run --rm php sh -lc 'sh ./etc/ci/wait-for-elastic.sh elasticsearch:9200'
-
 .PHONY: minikube
 minikube:
 		@eval $$(minikube docker-env); \

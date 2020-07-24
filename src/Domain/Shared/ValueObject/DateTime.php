@@ -6,17 +6,11 @@ namespace App\Domain\Shared\ValueObject;
 
 use App\Domain\Shared\Exception\DateTimeException;
 use DateTimeImmutable;
+use Throwable;
 
-class DateTime
+final class DateTime extends DateTimeImmutable
 {
     public const FORMAT = 'Y-m-d\TH:i:s.uP';
-
-    private DateTimeImmutable $dateTime;
-
-    private function __construct(DateTimeImmutable $dateTime)
-    {
-        $this->dateTime = $dateTime;
-    }
 
     /**
      * @throws DateTimeException
@@ -40,19 +34,14 @@ class DateTime
     private static function create(string $dateTime = ''): self
     {
         try {
-            return new self(new DateTimeImmutable($dateTime));
-        } catch (\Exception $e) {
+            return new self($dateTime);
+        } catch (Throwable $e) {
             throw new DateTimeException($e);
         }
     }
 
     public function toString(): string
     {
-        return $this->dateTime->format(self::FORMAT);
-    }
-
-    public function toNative(): DateTimeImmutable
-    {
-        return $this->dateTime;
+        return $this->format(self::FORMAT);
     }
 }

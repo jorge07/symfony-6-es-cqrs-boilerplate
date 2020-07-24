@@ -6,7 +6,9 @@ namespace App\Tests\UI\Http\Rest\Controller\User;
 
 use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
+use Assert\AssertionFailedException;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 class GetUserByEmailControllerTest extends JsonApiTestCase
 {
@@ -15,7 +17,8 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
      *
      * @group e2e
      *
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
+     * @throws Throwable
      */
     public function invalid_input_parameters_should_return_400_status_code(): void
     {
@@ -39,7 +42,8 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
      *
      * @group e2e
      *
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
+     * @throws Throwable
      */
     public function valid_input_parameters_should_return_404_status_code_when_not_exist(): void
     {
@@ -63,7 +67,8 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
      *
      * @group e2e
      *
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
+     * @throws Throwable
      */
     public function valid_input_parameters_should_return_200_status_code_when_exist(): void
     {
@@ -73,6 +78,17 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
         $this->get('/api/user/' . $emailString);
 
         self::assertSame(Response::HTTP_OK, $this->cli->getResponse()->getStatusCode());
+
+        $response = json_decode($this->cli->getResponse()->getContent(), true);
+
+        self::assertArrayHasKey('data', $response);
+        self::assertArrayHasKey('id', $response['data']);
+        self::assertArrayHasKey('type', $response['data']);
+        self::assertArrayHasKey('attributes', $response['data']);
+        self::assertArrayHasKey('uuid', $response['data']['attributes']);
+        self::assertArrayHasKey('credentials.email', $response['data']['attributes']);
+        self::assertArrayHasKey('createdAt', $response['data']['attributes']);
+        self::assertEquals($emailString, $response['data']['attributes']['credentials.email']);
 
         /** @var EventCollectorListener $eventCollector */
         $eventCollector = $this->cli->getContainer()->get(EventCollectorListener::class);

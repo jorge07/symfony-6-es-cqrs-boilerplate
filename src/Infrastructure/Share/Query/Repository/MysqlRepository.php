@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Share\Query\Repository;
 
 use App\Domain\Shared\Query\Exception\NotFoundException;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -44,11 +45,11 @@ abstract class MysqlRepository
      * @throws NotFoundException
      * @throws NonUniqueResultException
      */
-    protected function oneOrException(QueryBuilder $queryBuilder)
+    protected function oneOrException(QueryBuilder $queryBuilder, int $hydration = AbstractQuery::HYDRATE_OBJECT)
     {
         $model = $queryBuilder
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getOneOrNullResult($hydration)
         ;
 
         if (null === $model) {

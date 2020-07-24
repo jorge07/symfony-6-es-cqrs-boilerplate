@@ -6,6 +6,7 @@ namespace App\Application\Query\User\FindByEmail;
 
 use App\Domain\User\ValueObject\Email;
 use App\Infrastructure\Share\Bus\Query\QueryInterface;
+use Assert\AssertionFailedException;
 
 class FindByEmailQuery implements QueryInterface
 {
@@ -13,7 +14,7 @@ class FindByEmailQuery implements QueryInterface
     public Email $email;
 
     /**
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
     public function __construct(string $email)
     {

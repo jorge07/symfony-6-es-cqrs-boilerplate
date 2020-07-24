@@ -8,11 +8,13 @@ use App\Application\Command\User\SignIn\SignInCommand;
 use App\Application\Query\Auth\GetToken\GetTokenQuery;
 use App\Domain\User\Exception\InvalidCredentialsException;
 use App\UI\Http\Rest\Controller\CommandQueryController;
+use App\UI\Http\Rest\Response\OpenApi;
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Throwable;
 
 final class CheckController extends CommandQueryController
 {
@@ -50,10 +52,11 @@ final class CheckController extends CommandQueryController
      *
      * @SWG\Tag(name="Auth")
      *
+     * @throws AssertionFailedException
      * @throws InvalidCredentialsException
-     * @throws \Assert\AssertionFailedException
+     * @throws Throwable
      */
-    public function __invoke(Request $request): JsonResponse
+    public function __invoke(Request $request): OpenApi
     {
         $username = $request->get('_username');
 
@@ -66,10 +69,11 @@ final class CheckController extends CommandQueryController
 
         $this->exec($signInCommand);
 
-        return new JsonResponse(
+        return OpenApi::fromPayload(
             [
                 'token' => $this->ask(new GetTokenQuery($username)),
-            ]
+            ],
+            OpenApi::HTTP_OK
         );
     }
 }

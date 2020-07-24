@@ -7,12 +7,15 @@ namespace App\UI\Http\Rest\Controller\Event;
 use App\Application\Query\Event\GetEvents\GetEventsQuery;
 use App\Infrastructure\Share\Bus\Query\Collection;
 use App\UI\Http\Rest\Controller\QueryController;
+use App\UI\Http\Rest\Response\OpenApi;
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Throwable;
 
 class GetEventsController extends QueryController
 {
@@ -50,10 +53,10 @@ class GetEventsController extends QueryController
      *
      * @Security(name="Bearer")
      *
-     * @throws \Assert\AssertionFailedException
-     * @throws \Throwable
+     * @throws AssertionFailedException
+     * @throws Throwable
      */
-    public function __invoke(Request $request): JsonResponse
+    public function __invoke(Request $request): OpenApi
     {
         $page = $request->get('page', 1);
         $limit = $request->get('limit', 50);
@@ -66,6 +69,6 @@ class GetEventsController extends QueryController
         /** @var Collection $response */
         $response = $this->ask($query);
 
-        return $this->jsonCollection($response, true);
+        return $this->jsonCollection($response, 200, true);
     }
 }

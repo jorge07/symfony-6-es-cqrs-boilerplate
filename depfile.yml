@@ -14,11 +14,19 @@ layers:
     collectors:
       - type: className
         regex: App\\Infrastructure\\.*
+  - name: UI
+    collectors:
+      - type: className
+        regex: App\\UI\\.*
+
 ruleset:
   Domain:
   Application:
     - Domain
     - Infrastructure
   Infrastructure:
+    - Domain
+    - Application
+  UI:
     - Domain
     - Application

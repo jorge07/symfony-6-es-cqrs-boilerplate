@@ -9,8 +9,11 @@ use App\Application\Command\User\SignUp\SignUpCommand;
 use App\Domain\User\Event\UserEmailChanged;
 use App\Tests\Application\ApplicationTestCase;
 use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
+use Assert\AssertionFailedException;
 use Broadway\Domain\DomainMessage;
+use Exception;
 use Ramsey\Uuid\Uuid;
+use Throwable;
 
 class ChangeEmailHandlerTest extends ApplicationTestCase
 {
@@ -19,9 +22,9 @@ class ChangeEmailHandlerTest extends ApplicationTestCase
      *
      * @group integration
      *
-     * @throws \Exception
-     * @throws \Assert\AssertionFailedException
-     * @throws \Throwable
+     * @throws Exception
+     * @throws AssertionFailedException
+     * @throws Throwable
      */
     public function update_user_email_should_command_should_fire_event(): void
     {

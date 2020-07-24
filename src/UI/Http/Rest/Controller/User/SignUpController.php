@@ -6,11 +6,13 @@ namespace App\UI\Http\Rest\Controller\User;
 
 use App\Application\Command\User\SignUp\SignUpCommand;
 use App\UI\Http\Rest\Controller\CommandController;
+use App\UI\Http\Rest\Response\OpenApi;
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Throwable;
 
 final class SignUpController extends CommandController
 {
@@ -46,9 +48,10 @@ final class SignUpController extends CommandController
      *
      * @SWG\Tag(name="User")
      *
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
+     * @throws Throwable
      */
-    public function __invoke(Request $request): JsonResponse
+    public function __invoke(Request $request): OpenApi
     {
         $uuid = $request->get('uuid');
         $email = $request->get('email');
@@ -62,6 +65,6 @@ final class SignUpController extends CommandController
 
         $this->exec($commandRequest);
 
-        return new JsonResponse(null, JsonResponse::HTTP_CREATED);
+        return OpenApi::created("/user/$email");
     }
 }
