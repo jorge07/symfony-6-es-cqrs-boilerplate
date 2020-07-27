@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Application\Query\Auth\GetAuthUserByEmail;
 
+use App\Application\Query\QueryHandlerInterface;
 use App\Domain\User\Repository\GetUserCredentialsByEmailInterface;
-use App\Infrastructure\Share\Bus\Query\QueryHandlerInterface;
 use App\Infrastructure\User\Auth\Auth;
-use Assert\AssertionFailedException;
 
 class GetAuthUserByEmailHandler implements QueryHandlerInterface
 {
@@ -19,9 +18,6 @@ class GetAuthUserByEmailHandler implements QueryHandlerInterface
         $this->userCredentialsByEmail = $userCredentialsByEmail;
     }
 
-    /**
-     * @throws AssertionFailedException
-     */
     public function __invoke(GetAuthUserByEmailQuery $query): Auth
     {
         [$uuid, $email, $hashedPassword] = $this->userCredentialsByEmail->getCredentialsByEmail($query->email);

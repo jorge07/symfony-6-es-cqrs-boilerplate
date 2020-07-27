@@ -26,12 +26,12 @@ services:
           $eventStore: '@Broadway\EventStore\Dbal\DBALEventStore'
 
     _instanceof:
-        App\Infrastructure\Share\Bus\Command\CommandHandlerInterface:
+        App\Application\Command\CommandHandlerInterface:
           public: true
           tags:
             - { name: messenger.message_handler, bus: messenger.bus.command }
 
-        App\Infrastructure\Share\Bus\Query\QueryHandlerInterface:
+        App\Application\Query\QueryHandlerInterface:
           public: true
           tags:
             - { name: messenger.message_handler, bus: messenger.bus.query }
@@ -50,11 +50,11 @@ services:
         resource: '../src/*'
         exclude: '../src/**/{Migrations,EventSubscriber}'
 
-    App\Infrastructure\Share\Bus\Command\CommandBus:
+    App\Infrastructure\Share\Bus\Command\MessengerCommandBus:
         arguments:
           - '@messenger.bus.command'
 
-    App\Infrastructure\Share\Bus\Query\QueryBus:
+    App\Infrastructure\Share\Bus\Query\MessengerQueryBus:
         arguments:
           - '@messenger.bus.query'
 

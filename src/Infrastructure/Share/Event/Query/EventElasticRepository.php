@@ -10,9 +10,11 @@ use Broadway\Domain\DomainMessage;
 
 final class EventElasticRepository extends ElasticRepository implements EventRepositoryInterface
 {
+    private const INDEX = 'events';
+
     protected function index(): string
     {
-        return 'events';
+        return self::INDEX;
     }
 
     public function store(DomainMessage $message): void

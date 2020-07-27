@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\User\Auth;
+namespace App\UI\Http;
 
 use App\Domain\User\Exception\InvalidCredentialsException;
-use Ramsey\Uuid\Uuid;
+use App\Infrastructure\User\Auth\Auth;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 final class Session
@@ -17,7 +17,7 @@ final class Session
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function get(): array
+    public function get(): Auth
     {
         $token = $this->tokenStorage->getToken();
 
@@ -26,22 +26,11 @@ final class Session
         }
 
         $user = $token->getUser();
+
         if (!$user instanceof Auth) {
             throw new InvalidCredentialsException();
         }
 
-        return [
-            'uuid' => $user->uuid(),
-            'username' => $user->getUsername(),
-            'roles' => $user->getRoles(),
-        ];
-    }
-
-    public function sameByUuid(string $uuid): bool
-    {
-        /** @var Uuid $userUuid */
-        $userUuid = $this->get()['uuid'];
-
-        return $userUuid->equals(Uuid::fromString($uuid));
+        return $user;
     }
 }

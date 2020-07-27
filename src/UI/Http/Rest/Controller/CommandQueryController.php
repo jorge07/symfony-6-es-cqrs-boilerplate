@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller;
 
-use App\Infrastructure\Share\Bus\Command\CommandBus;
-use App\Infrastructure\Share\Bus\Command\CommandInterface;
-use App\Infrastructure\Share\Bus\Query\QueryBus;
+use App\Application\Command\CommandBusInterface;
+use App\Application\Command\CommandInterface;
+use App\Application\Query\QueryBusInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Throwable;
 
 abstract class CommandQueryController extends QueryController
 {
-    private CommandBus $commandBus;
+    private CommandBusInterface $commandBus;
 
     public function __construct(
-        CommandBus $commandBus,
-        QueryBus $queryBus,
+        CommandBusInterface $commandBus,
+        QueryBusInterface $queryBus,
         UrlGeneratorInterface $router
     ) {
         parent::__construct($queryBus, $router);
@@ -26,7 +26,7 @@ abstract class CommandQueryController extends QueryController
     /**
      * @throws Throwable
      */
-    protected function exec(CommandInterface $command): void
+    protected function handle(CommandInterface $command): void
     {
         $this->commandBus->handle($command);
     }

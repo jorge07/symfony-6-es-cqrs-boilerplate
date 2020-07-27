@@ -5,24 +5,27 @@ declare(strict_types=1);
 namespace App\Tests\Application\Query\Event\GetEvents;
 
 use App\Application\Command\User\SignUp\SignUpCommand;
+use App\Application\Query\Collection;
 use App\Application\Query\Event\GetEvents\GetEventsQuery;
+use App\Domain\Shared\Exception\DateTimeException;
 use App\Domain\User\Event\UserWasCreated;
 use App\Infrastructure\Share\Bus\Event\Event;
-use App\Infrastructure\Share\Bus\Query\Collection;
 use App\Infrastructure\Share\Event\Consumer\SendEventsToElasticConsumer;
 use App\Infrastructure\Share\Event\Query\EventElasticRepository;
 use App\Tests\Application\ApplicationTestCase;
+use Assert\AssertionFailedException;
 use Broadway\Domain\DateTime;
 use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
 use Ramsey\Uuid\Uuid;
+use Throwable;
 
 final class GetEventsTest extends ApplicationTestCase
 {
     /**
-     * @throws \App\Domain\Shared\Exception\DateTimeException
-     * @throws \Assert\AssertionFailedException
-     * @throws \Throwable
+     * @throws DateTimeException
+     * @throws AssertionFailedException
+     * @throws Throwable
      */
     protected function setUp(): void
     {
@@ -71,6 +74,7 @@ final class GetEventsTest extends ApplicationTestCase
      * @test
      *
      * @group integration
+     * @throws Throwable
      */
     public function processed_events_must_be_in_elastic_search(): void
     {

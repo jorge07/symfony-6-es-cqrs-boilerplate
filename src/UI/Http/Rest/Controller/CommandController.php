@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller;
 
-use App\Infrastructure\Share\Bus\Command\CommandBus;
-use App\Infrastructure\Share\Bus\Command\CommandInterface;
+use App\Application\Command\CommandBusInterface;
+use App\Application\Command\CommandInterface;
 use Throwable;
 
 abstract class CommandController
 {
-    private CommandBus $commandBus;
+    private CommandBusInterface $commandBus;
 
-    public function __construct(CommandBus $commandBus)
+    public function __construct(CommandBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
@@ -20,7 +20,7 @@ abstract class CommandController
     /**
      * @throws Throwable
      */
-    protected function exec(CommandInterface $command): void
+    protected function handle(CommandInterface $command): void
     {
         $this->commandBus->handle($command);
     }

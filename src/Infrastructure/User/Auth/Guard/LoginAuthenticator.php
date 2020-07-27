@@ -8,9 +8,9 @@ use App\Application\Command\User\SignIn\SignInCommand;
 use App\Application\Query\Auth\GetAuthUserByEmail\GetAuthUserByEmailQuery;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
 use App\Domain\User\Exception\InvalidCredentialsException;
-use App\Infrastructure\Share\Bus\Command\CommandBus;
+use App\Infrastructure\Share\Bus\Command\MessengerCommandBus;
 use App\Infrastructure\Share\Bus\Query\Item;
-use App\Infrastructure\Share\Bus\Query\QueryBus;
+use App\Infrastructure\Share\Bus\Query\MessengerQueryBus;
 use App\Infrastructure\User\Auth\Auth;
 use Assert\AssertionFailedException;
 use InvalidArgumentException;
@@ -33,15 +33,15 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
 
     private const SUCCESS_REDIRECT = 'profile';
 
-    private CommandBus $bus;
+    private MessengerCommandBus $bus;
 
-    private QueryBus $queryBus;
+    private MessengerQueryBus $queryBus;
 
     private UrlGeneratorInterface $router;
 
     public function __construct(
-        CommandBus $commandBus,
-        QueryBus $queryBus,
+        MessengerCommandBus $commandBus,
+        MessengerQueryBus $queryBus,
         UrlGeneratorInterface $router
     ) {
         $this->bus = $commandBus;
@@ -113,7 +113,7 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
 
             $this->bus->handle($signInCommand);
 
-            return $this->queryBus->handle(new GetAuthUserByEmailQuery($email));
+            return $this->queryBus->ask(new GetAuthUserByEmailQuery($email));
         } catch (InvalidCredentialsException | InvalidArgumentException $exception) {
             throw new AuthenticationException();
         }

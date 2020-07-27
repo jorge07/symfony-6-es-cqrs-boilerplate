@@ -4,19 +4,22 @@ declare(strict_types=1);
 
 namespace App\UI\Cli\Command;
 
+use App\Application\Command\CommandBusInterface;
 use App\Application\Command\User\SignUp\SignUpCommand as CreateUser;
-use App\Infrastructure\Share\Bus\Command\CommandBus;
+use Assert\AssertionFailedException;
+use Exception;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Throwable;
 
 class CreateUserCommand extends Command
 {
-    private CommandBus $commandBus;
+    private CommandBusInterface $commandBus;
 
-    public function __construct(CommandBus $commandBus)
+    public function __construct(CommandBusInterface $commandBus)
     {
         parent::__construct();
 
@@ -35,9 +38,9 @@ class CreateUserCommand extends Command
     }
 
     /**
-     * @throws \Exception
-     * @throws \Assert\AssertionFailedException
-     * @throws \Throwable
+     * @throws Exception
+     * @throws AssertionFailedException
+     * @throws Throwable
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Application\Command\User\ChangeEmail;
 
+use App\Application\Command\CommandInterface;
 use App\Domain\User\ValueObject\Email;
-use App\Infrastructure\Share\Bus\Command\CommandInterface;
+use Assert\AssertionFailedException;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -18,7 +19,7 @@ class ChangeEmailCommand implements CommandInterface
     public Email $email;
 
     /**
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
     public function __construct(string $userUuid, string $email)
     {

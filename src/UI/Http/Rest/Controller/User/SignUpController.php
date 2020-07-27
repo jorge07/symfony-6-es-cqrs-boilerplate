@@ -63,7 +63,7 @@ final class SignUpController extends CommandController
 
         $commandRequest = new SignUpCommand($uuid, $email, $plainPassword);
 
-        $this->exec($commandRequest);
+        $this->handle($commandRequest);
 
         return OpenApi::created("/user/$email");
     }

@@ -67,7 +67,7 @@ final class CheckController extends CommandQueryController
             $request->get('_password')
         );
 
-        $this->exec($signInCommand);
+        $this->handle($signInCommand);
 
         return OpenApi::fromPayload(
             [

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Tests\UI\Http\Rest\Response;
 
+use App\Application\Query\Collection;
+use App\Application\Query\Item;
 use App\Domain\Shared\Exception\DateTimeException;
 use App\Domain\Shared\ValueObject\DateTime;
 use App\Domain\User\ValueObject\Email;
-use App\Infrastructure\Share\Bus\Query\Collection;
-use App\Infrastructure\Share\Bus\Query\Item;
 use App\Infrastructure\User\Query\Projections\UserView;
 use App\UI\Http\Rest\Response\OpenApi;
 use Assert\AssertionFailedException;
