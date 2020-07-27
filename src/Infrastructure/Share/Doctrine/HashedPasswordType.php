@@ -15,7 +15,7 @@ final class HashedPasswordType extends StringType
     private const TYPE = 'hashed_password';
 
     /**
-     * @param ?HashedPassword|mixed $value
+     * @param mixed $value
      *
      * @return mixed|string|null
      *
@@ -54,6 +54,14 @@ final class HashedPasswordType extends StringType
         }
 
         return $hashedPassword;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function requiresSQLCommentHint(AbstractPlatform $platform)
+    {
+        return true;
     }
 
     /**

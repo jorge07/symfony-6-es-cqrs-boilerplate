@@ -15,7 +15,7 @@ final class EmailType extends StringType
     private const TYPE = 'email';
 
     /**
-     * @param ?Email|mixed $value
+     * @param mixed $value
      *
      * @return mixed|string|null
      *
@@ -54,6 +54,14 @@ final class EmailType extends StringType
         }
 
         return $email;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function requiresSQLCommentHint(AbstractPlatform $platform)
+    {
+        return true;
     }
 
     /**
