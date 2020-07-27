@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\Application\Query\User\FindByEmail;
 
 use App\Application\Command\User\SignUp\SignUpCommand;
+use App\Application\Query\Item;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
-use App\Infrastructure\Share\Bus\Query\Item;
 use App\Tests\Application\ApplicationTestCase;
 use Assert\AssertionFailedException;
 use Ramsey\Uuid\Uuid;

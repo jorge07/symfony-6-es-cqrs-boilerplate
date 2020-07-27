@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Application\Command\User\SignIn;
 
+use App\Application\Command\CommandInterface;
 use App\Domain\User\ValueObject\Email;
-use App\Infrastructure\Share\Bus\Command\CommandInterface;
+use Assert\AssertionFailedException;
 
 class SignInCommand implements CommandInterface
 {
@@ -16,7 +17,7 @@ class SignInCommand implements CommandInterface
     public string $plainPassword;
 
     /**
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
     public function __construct(string $email, string $plainPassword)
     {

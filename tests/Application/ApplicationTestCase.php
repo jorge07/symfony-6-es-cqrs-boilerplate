@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Application;
 
-use App\Infrastructure\Share\Bus\Command\CommandBus;
-use App\Infrastructure\Share\Bus\Command\CommandInterface;
-use App\Infrastructure\Share\Bus\Query\QueryBus;
-use App\Infrastructure\Share\Bus\Query\QueryInterface;
+use App\Application\Command\CommandBusInterface;
+use App\Application\Command\CommandInterface;
+use App\Application\Query\QueryBusInterface;
+use App\Application\Query\QueryInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,16 +18,16 @@ use Throwable;
 
 abstract class ApplicationTestCase extends KernelTestCase
 {
-    private ?CommandBus $commandBus;
+    private ?CommandBusInterface $commandBus;
 
-    private ?QueryBus $queryBus;
+    private ?QueryBusInterface $queryBus;
 
     protected function setUp(): void
     {
         self::bootKernel();
 
-        $this->commandBus = $this->service(CommandBus::class);
-        $this->queryBus = $this->service(QueryBus::class);
+        $this->commandBus = $this->service(CommandBusInterface::class);
+        $this->queryBus = $this->service(QueryBusInterface::class);
     }
 
     /**
@@ -37,7 +37,7 @@ abstract class ApplicationTestCase extends KernelTestCase
      */
     protected function ask(QueryInterface $query)
     {
-        return $this->queryBus->handle($query);
+        return $this->queryBus->ask($query);
     }
 
     /**
@@ -65,7 +65,7 @@ abstract class ApplicationTestCase extends KernelTestCase
             new TerminateEvent(
                 static::$kernel,
                 Request::create('/'),
-                Response::create()
+                new Response()
             ),
             KernelEvents::TERMINATE
         );

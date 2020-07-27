@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller\User;
 
+use App\Application\Query\Item;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
-use App\Infrastructure\Share\Bus\Query\Item;
 use App\UI\Http\Rest\Controller\QueryController;
 use App\UI\Http\Rest\Response\OpenApi;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Throwable;
 

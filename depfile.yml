@@ -12,8 +12,17 @@ layers:
         regex: App\\Application\\.*
   - name: Infrastructure
     collectors:
+      - type: bool
+        must:
+          - type: className
+            regex: App\\Infrastructure\\.*
+        must_not:
+          - type: className
+            regex: App\\Infrastructure\\User\\Auth\\Auth
+  - name: Auth
+    collectors:
       - type: className
-        regex: App\\Infrastructure\\.*
+        regex: App\\Infrastructure\\User\\Auth\\Auth;
   - name: UI
     collectors:
       - type: className
@@ -21,12 +30,18 @@ layers:
 
 ruleset:
   Domain:
+  Auth:
+    - Domain
+    - Infrastructure
   Application:
     - Domain
     - Infrastructure
+    - Auth
   Infrastructure:
     - Domain
     - Application
+    - Auth
   UI:
+    - Auth
     - Domain
     - Application

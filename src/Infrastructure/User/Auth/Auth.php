@@ -6,12 +6,11 @@ namespace App\Infrastructure\User\Auth;
 
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
-use Assert\AssertionFailedException;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class Auth implements UserInterface, EncoderAwareInterface
+final class Auth implements UserInterface, EncoderAwareInterface
 {
     private UuidInterface $uuid;
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Application\Query\Auth\GetToken;
 
+use App\Application\Query\QueryInterface;
 use App\Domain\User\ValueObject\Email;
-use App\Infrastructure\Share\Bus\Query\QueryInterface;
 use Assert\AssertionFailedException;
 
 class GetTokenQuery implements QueryInterface

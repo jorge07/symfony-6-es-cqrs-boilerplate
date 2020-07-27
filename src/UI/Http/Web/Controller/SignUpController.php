@@ -59,7 +59,7 @@ class SignUpController extends AbstractRenderController
             Assertion::notNull($email, 'Email can\'t be null');
             Assertion::notNull($password, 'Password can\'t be null');
 
-            $this->exec(new SignUpCommand($uuid, $email, $password));
+            $this->handle(new SignUpCommand($uuid, $email, $password));
 
             return $this->render('signup/user_created.html.twig', ['uuid' => $uuid, 'email' => $email]);
         } catch (EmailAlreadyExistException $exception) {

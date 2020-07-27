@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Tests\UI\Cli\Command;
 
+use App\Application\Command\CommandBusInterface;
+use App\Application\Query\Item;
 use App\Application\Query\User\FindByEmail\FindByEmailQuery;
-use App\Infrastructure\Share\Bus\Command\CommandBus;
-use App\Infrastructure\Share\Bus\Query\Item;
-use App\Infrastructure\User\Query\Projections\UserView;
 use App\Tests\UI\Cli\AbstractConsoleTestCase;
 use App\UI\Cli\Command\CreateUserCommand;
+use Assert\AssertionFailedException;
 use Ramsey\Uuid\Uuid;
+use Throwable;
 
 class CreateUserCommandTest extends AbstractConsoleTestCase
 {
@@ -19,15 +20,15 @@ class CreateUserCommandTest extends AbstractConsoleTestCase
      *
      * @group unit
      *
-     * @throws \Throwable
-     * @throws \Assert\AssertionFailedException
+     * @throws Throwable
+     * @throws AssertionFailedException
      */
     public function command_integration_with_bus_success(): void
     {
         $email = 'jorge.arcoma@gmail.com';
 
-        /** @var CommandBus $commandBus */
-        $commandBus = $this->service(CommandBus::class);
+        /** @var CommandBusInterface $commandBus */
+        $commandBus = $this->service(CommandBusInterface::class);
         $commandTester = $this->app($command = new CreateUserCommand($commandBus), 'app:create-user');
 
         $commandTester->execute([

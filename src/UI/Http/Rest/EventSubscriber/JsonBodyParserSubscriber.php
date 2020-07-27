@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Throwable;
+use function json_decode;
+use const JSON_THROW_ON_ERROR;
 
 class JsonBodyParserSubscriber implements EventSubscriberInterface
 {
@@ -46,11 +48,11 @@ class JsonBodyParserSubscriber implements EventSubscriberInterface
     private function transformJsonBody(Request $request): bool
     {
         try {
-            $data = \json_decode(
+            $data = json_decode(
                 (string) $request->getContent(),
                 true,
                 512,
-                \JSON_THROW_ON_ERROR
+                JSON_THROW_ON_ERROR
             );
         } catch (Throwable $exception) {
             return false;

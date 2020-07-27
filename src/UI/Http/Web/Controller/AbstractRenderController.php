@@ -4,28 +4,28 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Web\Controller;
 
-use App\Infrastructure\Share\Bus\Command\CommandBus;
-use App\Infrastructure\Share\Bus\Command\CommandInterface;
-use App\Infrastructure\Share\Bus\Query\QueryBus;
-use App\Infrastructure\Share\Bus\Query\QueryInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
+use App\Application\Command\CommandBusInterface;
+use App\Application\Command\CommandInterface;
+use App\Application\Query\Collection;
+use App\Application\Query\Item;
+use App\Application\Query\QueryBusInterface;
+use App\Application\Query\QueryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 use Twig;
 
 abstract class AbstractRenderController
 {
-    private CommandBus $commandBus;
+    private CommandBusInterface $commandBus;
 
-    private QueryBus $queryBus;
+    private QueryBusInterface $queryBus;
 
     private Twig\Environment $template;
 
     public function __construct(
         Twig\Environment $template,
-        CommandBus $commandBus,
-        QueryBus $queryBus
+        CommandBusInterface $commandBus,
+        QueryBusInterface $queryBus
     ) {
         $this->template = $template;
         $this->commandBus = $commandBus;
@@ -47,18 +47,18 @@ abstract class AbstractRenderController
     /**
      * @throws Throwable
      */
-    protected function exec(CommandInterface $command): void
+    protected function handle(CommandInterface $command): void
     {
         $this->commandBus->handle($command);
     }
 
     /**
-     * @return mixed
+     * @return Item|Collection|mixed
      *
      * @throws Throwable
      */
     protected function ask(QueryInterface $query)
     {
-        return $this->queryBus->handle($query);
+        return $this->queryBus->ask($query);
     }
 }

@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Application\Command\User\SignUp;
 
+use App\Application\Command\CommandInterface;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
-use App\Infrastructure\Share\Bus\Command\CommandInterface;
+use Assert\AssertionFailedException;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -20,7 +21,7 @@ class SignUpCommand implements CommandInterface
     public Credentials $credentials;
 
     /**
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
     public function __construct(string $uuid, string $email, string $plainPassword)
     {

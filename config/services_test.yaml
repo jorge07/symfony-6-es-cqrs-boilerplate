@@ -13,12 +13,12 @@ services:
       public: true
       autowire: true
 
-    App\Infrastructure\Share\Bus\Command\CommandBus:
+    App\Infrastructure\Share\Bus\Command\MessengerCommandBus:
       public: true
       arguments:
         - '@messenger.bus.command'
 
-    App\Infrastructure\Share\Bus\Query\QueryBus:
+    App\Infrastructure\Share\Bus\Query\MessengerQueryBus:
       public: true
       arguments:
         - '@messenger.bus.query'

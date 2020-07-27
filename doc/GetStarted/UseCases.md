@@ -53,7 +53,7 @@ declare(strict_types=1);
 
 namespace App\UI\Cli\Command;
 
-use App\Infrastructure\Share\Bus\Command\CommandBus;
+use App\Infrastructure\Share\Bus\Command\MessengerCommandBus;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -74,14 +74,14 @@ class EchoCli extends Command
         $this->commandBus->handle($echoCommand);
     }
 
-    public function __construct(CommandBus $commandBus)
+    public function __construct(MessengerCommandBus $commandBus)
     {
         parent::__construct();
         $this->commandBus = $commandBus;
     }
 
     /**
-     * @var CommandBus
+     * @var MessengerCommandBus
      */
     private $commandBus;
 }

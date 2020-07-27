@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller\User;
 
+use App\Application\Command\CommandBusInterface;
 use App\Application\Command\User\ChangeEmail\ChangeEmailCommand;
 use App\Domain\User\Exception\ForbiddenException;
-use App\Infrastructure\Share\Bus\Command\CommandBus;
-use App\Infrastructure\User\Auth\Session;
+use App\UI\Http\Session;
 use App\UI\Http\Rest\Controller\CommandController;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use Nelmio\ApiDocBundle\Annotation\Security;
+use Ramsey\Uuid\Uuid;
 use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +23,7 @@ final class UserChangeEmailController extends CommandController
 {
     private Session $session;
 
-    public function __construct(Session $session, CommandBus $commandBus)
+    public function __construct(Session $session, CommandBusInterface $commandBus)
     {
         parent::__construct($commandBus);
 
@@ -79,14 +80,14 @@ final class UserChangeEmailController extends CommandController
 
         $command = new ChangeEmailCommand($uuid, $email);
 
-        $this->exec($command);
+        $this->handle($command);
 
         return new JsonResponse();
     }
 
     private function validateUuid(string $uuid): void
     {
-        if (!$this->session->sameByUuid($uuid)) {
+        if (!$this->session->get()->uuid()->equals(Uuid::fromString($uuid))) {
             throw new ForbiddenException();
         }
     }

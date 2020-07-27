@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller;
 
-use App\Infrastructure\Share\Bus\Query\Collection;
-use App\Infrastructure\Share\Bus\Query\Item;
-use App\Infrastructure\Share\Bus\Query\QueryBus;
-use App\Infrastructure\Share\Bus\Query\QueryInterface;
+use App\Application\Query\Collection;
+use App\Application\Query\Item;
+use App\Application\Query\QueryBusInterface;
+use App\Application\Query\QueryInterface;
 use App\UI\Http\Rest\Response\OpenApi;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Throwable;
@@ -17,11 +17,11 @@ abstract class QueryController
 {
     private const CACHE_MAX_AGE = 31536000; // Year.
 
-    private QueryBus $queryBus;
+    private QueryBusInterface $queryBus;
 
     private UrlGeneratorInterface $router;
 
-    public function __construct(QueryBus $queryBus, UrlGeneratorInterface $router)
+    public function __construct(QueryBusInterface $queryBus, UrlGeneratorInterface $router)
     {
         $this->queryBus = $queryBus;
         $this->router = $router;
@@ -34,7 +34,7 @@ abstract class QueryController
      */
     protected function ask(QueryInterface $query)
     {
-        return $this->queryBus->handle($query);
+        return $this->queryBus->ask($query);
     }
 
     protected function jsonCollection(Collection $collection, int $status = OpenApi::HTTP_OK, bool $isImmutable = false): OpenApi

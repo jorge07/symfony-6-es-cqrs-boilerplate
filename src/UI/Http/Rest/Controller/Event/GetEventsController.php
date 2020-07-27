@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\UI\Http\Rest\Controller\Event;
 
+use App\Application\Query\Collection;
 use App\Application\Query\Event\GetEvents\GetEventsQuery;
-use App\Infrastructure\Share\Bus\Query\Collection;
 use App\UI\Http\Rest\Controller\QueryController;
 use App\UI\Http\Rest\Response\OpenApi;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use Swagger\Annotations as SWG;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Throwable;
