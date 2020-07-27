@@ -15,8 +15,10 @@ final class HashedPasswordType extends StringType
     private const TYPE = 'hashed_password';
 
     /**
-     * @param ?HashedPassword $value
+     * @param ?HashedPassword|mixed $value
+     *
      * @return mixed|string|null
+     *
      * @throws ConversionException
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
@@ -25,17 +27,18 @@ final class HashedPasswordType extends StringType
             return null;
         }
 
-        if ($value instanceof HashedPassword) {
-            return $value->toString();
+        if (!$value instanceof HashedPassword) {
+            throw ConversionException::conversionFailedInvalidType($value, $this->getName(), ['null', HashedPassword::class]);
         }
 
-        throw ConversionException::conversionFailedInvalidType($value, $this->getName(), ['null', HashedPassword::class]);
+        return $value->toString();
     }
 
     /**
-     * @param string $value
-     * @param AbstractPlatform $platform
+     * @param HashedPassword|string|null $value
+     *
      * @return HashedPassword|null
+     *
      * @throws ConversionException
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)

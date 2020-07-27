@@ -25,7 +25,9 @@ class Collection
 
     /**
      * @throws NotFoundException
+     *
      * @param Item[]|array $data
+     *
      * @throws NotFoundException
      */
     public function __construct(int $page, int $limit, int $total, array $data)

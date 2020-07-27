@@ -74,6 +74,7 @@ final class GetEventsTest extends ApplicationTestCase
      * @test
      *
      * @group integration
+     *
      * @throws Throwable
      */
     public function processed_events_must_be_in_elastic_search(): void

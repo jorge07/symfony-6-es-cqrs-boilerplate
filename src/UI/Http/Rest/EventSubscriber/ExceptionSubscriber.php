@@ -11,10 +11,6 @@ use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Throwable;
-use function array_merge;
-use function get_class;
-use function is_a;
-use function str_replace;
 
 final class ExceptionSubscriber implements EventSubscriberInterface
 {
@@ -56,7 +52,7 @@ final class ExceptionSubscriber implements EventSubscriberInterface
     {
         $error = [
             'errors' => [
-                'title' => str_replace('\\', '.', get_class($exception)),
+                'title' => \str_replace('\\', '.', \get_class($exception)),
                 'detail' => $this->getExceptionMessage($exception),
                 'code' => $exception->getCode(),
                 'status' => $response->getStatusCode(),
@@ -64,7 +60,7 @@ final class ExceptionSubscriber implements EventSubscriberInterface
         ];
 
         if ('dev' === $this->environment) {
-            $error = array_merge(
+            $error = \array_merge(
                 $error,
                 [
                     'meta' => [
@@ -88,10 +84,10 @@ final class ExceptionSubscriber implements EventSubscriberInterface
 
     private function determineStatusCode(Throwable $exception): int
     {
-        $exceptionClass = get_class($exception);
+        $exceptionClass = \get_class($exception);
 
         foreach ($this->exceptionToStatus as $class => $status) {
-            if (is_a($exceptionClass, $class, true)) {
+            if (\is_a($exceptionClass, $class, true)) {
                 return $status;
             }
         }

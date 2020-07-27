@@ -18,7 +18,6 @@ use Exception;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
-use function json_decode;
 
 class GetEventsControllerTest extends JsonApiTestCase
 {
@@ -92,7 +91,7 @@ class GetEventsControllerTest extends JsonApiTestCase
         /** @var string $content */
         $content = $this->cli->getResponse()->getContent();
 
-        $responseDecoded = json_decode($content, true);
+        $responseDecoded = \json_decode($content, true);
 
         self::assertSame(1, $responseDecoded['meta']['total']);
         self::assertSame(1, $responseDecoded['meta']['page']);
