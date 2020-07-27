@@ -6,15 +6,11 @@ namespace App\Infrastructure\User\Auth\Guard;
 
 use App\Application\Command\User\SignIn\SignInCommand;
 use App\Application\Query\Auth\GetAuthUserByEmail\GetAuthUserByEmailQuery;
-use App\Application\Query\User\FindByEmail\FindByEmailQuery;
 use App\Domain\User\Exception\InvalidCredentialsException;
 use App\Infrastructure\Share\Bus\Command\MessengerCommandBus;
-use App\Infrastructure\Share\Bus\Query\Item;
 use App\Infrastructure\Share\Bus\Query\MessengerQueryBus;
-use App\Infrastructure\User\Auth\Auth;
 use Assert\AssertionFailedException;
 use InvalidArgumentException;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -96,7 +92,6 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      *
      * @param array<string, string> $credentials
      *
-     * @return UserInterface|null
      * @throws AuthenticationException
      * @throws AssertionFailedException
      * @throws Throwable
@@ -130,7 +125,6 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      *
      * @param mixed $credentials
      *
-     * @return bool
      * @throws AuthenticationException
      */
     public function checkCredentials($credentials, UserInterface $user): bool
@@ -148,7 +142,6 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
      * will be authenticated. This makes sense, for example, with an API.
      *
      * @param string $providerKey The provider (i.e. firewall) key
-     * @return Response|null
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?Response
     {

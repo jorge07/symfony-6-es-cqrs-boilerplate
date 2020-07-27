@@ -16,8 +16,6 @@ use Exception;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use function count;
-use function json_decode;
 
 class OpenApiResponseTest extends TestCase
 {
@@ -36,7 +34,7 @@ class OpenApiResponseTest extends TestCase
             Item::fromSerializable(self::createUserView(Uuid::uuid4(), Email::fromString('asd2@asd.asd'))),
         ];
 
-        $response = json_decode(OpenApi::collection(new Collection(1, 10, count($users), $users))->getContent(), true);
+        $response = \json_decode(OpenApi::collection(new Collection(1, 10, \count($users), $users))->getContent(), true);
 
         self::assertArrayHasKey('data', $response);
         self::assertArrayHasKey('meta', $response);
@@ -58,7 +56,7 @@ class OpenApiResponseTest extends TestCase
     {
         $userView = self::createUserView(Uuid::uuid4(), Email::fromString('demo@asd.asd'));
 
-        $response = json_decode(OpenApi::one(Item::fromSerializable($userView))->getContent(), true);
+        $response = \json_decode(OpenApi::one(Item::fromSerializable($userView))->getContent(), true);
 
         self::assertArrayHasKey('data', $response);
         self::assertSame('UserView', $response['data']['type']);

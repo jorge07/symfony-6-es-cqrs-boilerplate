@@ -22,7 +22,8 @@ final class MysqlUserReadModelRepository extends MysqlRepository implements Chec
         return UserView::class;
     }
 
-    private function getUserByEmailQueryBuilder(Email $email): QueryBuilder {
+    private function getUserByEmailQueryBuilder(Email $email): QueryBuilder
+    {
         return $this->repository
             ->createQueryBuilder('user')
             ->where('user.credentials.email = :email')
@@ -96,7 +97,7 @@ final class MysqlUserReadModelRepository extends MysqlRepository implements Chec
      * @throws NotFoundException
      * @throws NonUniqueResultException
      *
-     * @return array{0: \Ramsey\Uuid\UuidInterface, 1: string, 2: string}
+     * @return array{0: \Ramsey\Uuid\UuidInterface, 1: Email, 2: \App\Domain\User\ValueObject\Auth\HashedPassword}
      */
     public function getCredentialsByEmail(Email $email): array
     {

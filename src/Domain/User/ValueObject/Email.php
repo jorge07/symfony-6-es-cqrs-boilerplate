@@ -37,7 +37,7 @@ final class Email implements JsonSerializable
         return $this->email;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): string
     {
         return $this->toString();
     }

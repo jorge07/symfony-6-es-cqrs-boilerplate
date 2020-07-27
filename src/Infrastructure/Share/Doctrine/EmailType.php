@@ -15,9 +15,10 @@ final class EmailType extends StringType
     private const TYPE = 'email';
 
     /**
-     * @param ?Email $value
-     * @param AbstractPlatform $platform
+     * @param ?Email|mixed $value
+     *
      * @return mixed|string|null
+     *
      * @throws ConversionException
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
@@ -26,17 +27,18 @@ final class EmailType extends StringType
             return null;
         }
 
-        if ($value instanceof Email) {
-            return $value->toString();
+        if (!$value instanceof Email) {
+            throw ConversionException::conversionFailedInvalidType($value, $this->getName(), ['null', Email::class]);
         }
 
-        throw ConversionException::conversionFailedInvalidType($value, $this->getName(), ['null', Email::class]);
+        return $value->toString();
     }
 
     /**
-     * @param string $value
-     * @param AbstractPlatform $platform
+     * @param Email|string|null $value
+     *
      * @return Email|null
+     *
      * @throws ConversionException
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)

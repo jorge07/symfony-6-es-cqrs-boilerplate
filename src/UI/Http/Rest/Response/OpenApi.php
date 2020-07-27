@@ -7,7 +7,6 @@ namespace App\UI\Http\Rest\Response;
 use App\Application\Query\Collection;
 use App\Application\Query\Item;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use function array_map;
 
 class OpenApi extends JsonResponse
 {
@@ -28,7 +27,7 @@ class OpenApi extends JsonResponse
 
     public static function one(Item $resource, int $status = self::HTTP_OK): self
     {
-        return new self (
+        return new self(
             [
                 'data' => self::model($resource),
                 'relationships' => self::relations($resource->relationships),
@@ -39,33 +38,36 @@ class OpenApi extends JsonResponse
 
     public static function created(string $location = null): self
     {
-        return new self (
+        return new self(
             null,
             self::HTTP_CREATED,
-            ($location) ? [ 'location' => $location ] : []
+            ($location) ? ['location' => $location] : []
         );
     }
 
-    public static function collection(Collection $collection, int $status = self::HTTP_OK): OpenApi
+    public static function collection(Collection $collection, int $status = self::HTTP_OK): self
     {
         /**
+         * @psalm-suppress MissingClosureParamType
+         *
          * @param Item|array $data
+         *
          * @return array
          */
         $transformer = function ($data): array {
             return $data instanceof Item ? self::model($data) : $data;
         };
 
-        $resources = array_map($transformer, $collection->data);
+        $resources = \array_map($transformer, $collection->data);
 
-        return new OpenApi(
+        return new self(
             [
                 'meta' => [
                     'size' => $collection->limit,
                     'page' => $collection->page,
                     'total' => $collection->total,
                 ],
-                'data' => $resources
+                'data' => $resources,
             ],
             $status
         );
@@ -82,7 +84,6 @@ class OpenApi extends JsonResponse
 
     /**
      * @param Item[] $relations
-     * @return array
      */
     private static function relations($relations): array
     {

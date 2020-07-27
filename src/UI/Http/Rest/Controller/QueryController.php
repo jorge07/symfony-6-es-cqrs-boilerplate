@@ -11,7 +11,6 @@ use App\Application\Query\QueryInterface;
 use App\UI\Http\Rest\Response\OpenApi;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Throwable;
-use function count;
 
 abstract class QueryController
 {
@@ -58,7 +57,7 @@ abstract class QueryController
 
     private function decorateWithCache(OpenApi $response, Collection $collection, bool $isImmutable): void
     {
-        if ($isImmutable && $collection->limit === count($collection->data)) {
+        if ($isImmutable && $collection->limit === \count($collection->data)) {
             $response
                 ->setMaxAge(self::CACHE_MAX_AGE)
                 ->setSharedMaxAge(self::CACHE_MAX_AGE);

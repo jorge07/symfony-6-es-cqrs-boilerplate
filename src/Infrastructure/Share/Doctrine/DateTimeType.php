@@ -16,6 +16,7 @@ class DateTimeType extends DateTimeImmutableType
 {
     /**
      * {@inheritdoc}
+     *
      * @throws DBALException
      */
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
@@ -25,6 +26,7 @@ class DateTimeType extends DateTimeImmutableType
 
     /**
      * {@inheritdoc}
+     *
      * @throws ConversionException
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
@@ -46,6 +48,7 @@ class DateTimeType extends DateTimeImmutableType
 
     /**
      * {@inheritdoc}
+     *
      * @throws ConversionException
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)

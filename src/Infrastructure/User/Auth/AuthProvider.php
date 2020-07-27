@@ -30,7 +30,6 @@ class AuthProvider implements UserProviderInterface
      */
     public function loadUserByUsername(string $email)
     {
-        // @var array $user
         [$uuid, $email, $hashedPassword] = $this->userReadModelRepository->getCredentialsByEmail(
             Email::fromString($email)
         );

@@ -6,8 +6,10 @@ namespace App\Domain\Shared\ValueObject;
 
 use App\Domain\Shared\Exception\DateTimeException;
 use DateTimeImmutable;
+use Exception;
 use Throwable;
 
+/** @psalm-immutable */
 final class DateTime extends DateTimeImmutable
 {
     public const FORMAT = 'Y-m-d\TH:i:s.uP';
@@ -36,7 +38,7 @@ final class DateTime extends DateTimeImmutable
         try {
             return new self($dateTime);
         } catch (Throwable $e) {
-            throw new DateTimeException($e);
+            throw new DateTimeException(new Exception($e->getMessage(), (int) $e->getCode(), $e));
         }
     }
 
