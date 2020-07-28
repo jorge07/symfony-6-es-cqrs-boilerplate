@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
       with:
-        ref: master
+        ref: symfony-5
 
     - name: Reattach HEAD to Head Ref
       run: git checkout "$(echo ${{ github.head_ref }} | sed -E 's|refs/[a-zA-Z]+/||')"
