@@ -6,9 +6,9 @@ doctrine:
         server_version: '8.0'
         types:
           uuid_binary: Ramsey\Uuid\Doctrine\UuidBinaryType
-          datetime_immutable: App\Infrastructure\Share\Doctrine\DateTimeType
-          email: App\Infrastructure\Share\Doctrine\EmailType
-          hashed_password: App\Infrastructure\Share\Doctrine\HashedPasswordType
+          datetime_immutable: App\Infrastructure\Share\Persistence\Doctrine\Types\DateTimeType
+          email: App\Infrastructure\Share\Persistence\Doctrine\Types\EmailType
+          hashed_password: App\Infrastructure\Share\Persistence\Doctrine\Types\HashedPasswordType
         mapping_types:
           uuid_binary: binary
     orm:
@@ -19,12 +19,12 @@ doctrine:
             Domain:
                 is_bundle: false
                 type: xml
-                dir: '%kernel.project_dir%/config/mapping/orm/domain'
+                dir: '%kernel.project_dir%/config/persistence/mapping/domain'
                 prefix: 'App\Domain'
                 alias: Domain
             Projections:
                 is_bundle: false
                 type: xml
-                dir: '%kernel.project_dir%/config/mapping/orm/projections'
+                dir: '%kernel.project_dir%/config/persistence/mapping/projections'
                 prefix: 'App\Infrastructure'
                 alias: Projections

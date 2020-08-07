@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace DoctrineMigrations;
+namespace App\Infrastructure\Share\Persistence\Doctrine\Migrations;
 
 use Broadway\EventStore\Dbal\DBALEventStore;
 use Doctrine\DBAL\Schema\Schema;

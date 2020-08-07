@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Infrastructure\Share\Event\Query;
 
 use App\Domain\Shared\Event\EventRepositoryInterface;
-use App\Infrastructure\Share\Query\Repository\ElasticRepository;
+use App\Infrastructure\Share\Persistence\Query\Repository\ElasticSearchRepository;
 use Broadway\Domain\DomainMessage;
 
-final class EventElasticRepository extends ElasticRepository implements EventRepositoryInterface
+final class ElasticSearchEventRepository extends ElasticSearchRepository implements EventRepositoryInterface
 {
     private const INDEX = 'events';
 

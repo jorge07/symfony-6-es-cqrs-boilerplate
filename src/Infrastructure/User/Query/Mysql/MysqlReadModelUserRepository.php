@@ -8,14 +8,14 @@ use App\Domain\Shared\Query\Exception\NotFoundException;
 use App\Domain\User\Repository\CheckUserByEmailInterface;
 use App\Domain\User\Repository\GetUserCredentialsByEmailInterface;
 use App\Domain\User\ValueObject\Email;
-use App\Infrastructure\Share\Query\Repository\MysqlRepository;
+use App\Infrastructure\Share\Persistence\Query\Repository\MysqlRepository;
 use App\Infrastructure\User\Query\Projections\UserView;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 
-final class MysqlUserReadModelRepository extends MysqlRepository implements CheckUserByEmailInterface, GetUserCredentialsByEmailInterface
+final class MysqlReadModelUserRepository extends MysqlRepository implements CheckUserByEmailInterface, GetUserCredentialsByEmailInterface
 {
     protected function getClass(): string
     {

@@ -8,17 +8,17 @@ use App\Domain\Shared\Exception\DateTimeException;
 use App\Domain\Shared\Query\Exception\NotFoundException;
 use App\Domain\User\Event\UserEmailChanged;
 use App\Domain\User\Event\UserWasCreated;
-use App\Infrastructure\User\Query\Mysql\MysqlUserReadModelRepository;
+use App\Infrastructure\User\Query\Mysql\MysqlReadModelUserRepository;
 use App\Infrastructure\User\Query\Projections\UserView;
 use Assert\AssertionFailedException;
 use Broadway\ReadModel\Projector;
 use Doctrine\ORM\NonUniqueResultException;
 
-class UserProjectionFactory extends Projector
+final class UserProjectionFactory extends Projector
 {
-    private MysqlUserReadModelRepository $repository;
+    private MysqlReadModelUserRepository $repository;
 
-    public function __construct(MysqlUserReadModelRepository $repository)
+    public function __construct(MysqlReadModelUserRepository $repository)
     {
         $this->repository = $repository;
     }

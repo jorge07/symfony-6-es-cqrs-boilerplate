@@ -2,14 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Share\Query\Repository;
+namespace App\Infrastructure\Share\Persistence\Query\Repository;
 
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use Psr\Log\LoggerInterface;
+use function array_column;
+use function array_replace;
 
-abstract class ElasticRepository
+abstract class ElasticSearchRepository
 {
     private Client $client;
 
@@ -22,7 +25,7 @@ abstract class ElasticRepository
             $defaultConfig['tracer'] = $elasticsearchLogger;
         }
 
-        $this->client = ClientBuilder::fromConfig(\array_replace($defaultConfig, $elasticConfig), true);
+        $this->client = ClientBuilder::fromConfig(array_replace($defaultConfig, $elasticConfig), true);
     }
 
     abstract protected function index(): string;
@@ -75,6 +78,9 @@ abstract class ElasticRepository
         return $this->client->index($query);
     }
 
+    /**
+     * @throws AssertionFailedException
+     */
     public function page(int $page = 1, int $limit = 50): array
     {
         Assertion::greaterThan($page, 0, 'Pagination need to be > 0');
@@ -88,7 +94,7 @@ abstract class ElasticRepository
         $response = $this->client->search($query);
 
         return [
-            'data' => \array_column($response['hits']['hits'], '_source'),
+            'data' => array_column($response['hits']['hits'], '_source'),
             'total' => $response['hits']['total'],
         ];
     }
