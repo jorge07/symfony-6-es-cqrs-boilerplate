@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Infrastructure\Share\Doctrine;
 
-use App\Infrastructure\Share\Doctrine\DateTimeType;
+use App\Infrastructure\Share\Persistence\Doctrine\Types\DateTimeType;
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Platforms\MySqlPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
@@ -19,6 +20,9 @@ class DateTimeTypeTest extends TestCase
     /** @var Type */
     private $dateTimeType;
 
+    /**
+     * @throws DBALException
+     */
     public function setUp(): void
     {
         if (!Type::hasType(self::TYPE)) {

@@ -11,7 +11,7 @@ use App\Domain\Shared\Exception\DateTimeException;
 use App\Domain\User\Event\UserWasCreated;
 use App\Infrastructure\Share\Bus\Event\Event;
 use App\Infrastructure\Share\Event\Consumer\SendEventsToElasticConsumer;
-use App\Infrastructure\Share\Event\Query\EventElasticRepository;
+use App\Infrastructure\Share\Event\Query\ElasticSearchEventRepository;
 use App\Tests\Application\ApplicationTestCase;
 use Assert\AssertionFailedException;
 use Broadway\Domain\DateTime;
@@ -31,8 +31,8 @@ final class GetEventsTest extends ApplicationTestCase
     {
         parent::setUp();
 
-        /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->service(EventElasticRepository::class);
+        /** @var ElasticSearchEventRepository $eventReadStore */
+        $eventReadStore = $this->service(ElasticSearchEventRepository::class);
         $eventReadStore->reboot();
 
         $command = new SignUpCommand(
@@ -65,8 +65,8 @@ final class GetEventsTest extends ApplicationTestCase
 
         $this->fireTerminateEvent();
 
-        /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->service(EventElasticRepository::class);
+        /** @var ElasticSearchEventRepository $eventReadStore */
+        $eventReadStore = $this->service(ElasticSearchEventRepository::class);
         $eventReadStore->refresh();
     }
 
@@ -88,8 +88,8 @@ final class GetEventsTest extends ApplicationTestCase
 
     protected function tearDown(): void
     {
-        /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->service(EventElasticRepository::class);
+        /** @var ElasticSearchEventRepository $eventReadStore */
+        $eventReadStore = $this->service(ElasticSearchEventRepository::class);
         $eventReadStore->delete();
 
         parent::tearDown();

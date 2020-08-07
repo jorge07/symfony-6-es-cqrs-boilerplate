@@ -8,7 +8,7 @@ use App\Domain\Shared\Exception\DateTimeException;
 use App\Domain\User\Event\UserWasCreated;
 use App\Infrastructure\Share\Bus\Event\Event;
 use App\Infrastructure\Share\Event\Consumer\SendEventsToElasticConsumer;
-use App\Infrastructure\Share\Event\Query\EventElasticRepository;
+use App\Infrastructure\Share\Event\Query\ElasticSearchEventRepository;
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
 use Assert\AssertionFailedException;
 use Broadway\Domain\DateTime;
@@ -30,8 +30,8 @@ class GetEventsControllerTest extends JsonApiTestCase
     {
         parent::setUp();
 
-        /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->cli->getContainer()->get(EventElasticRepository::class);
+        /** @var ElasticSearchEventRepository $eventReadStore */
+        $eventReadStore = $this->cli->getContainer()->get(ElasticSearchEventRepository::class);
         $eventReadStore->boot();
 
         /** @var SendEventsToElasticConsumer $consumer */
@@ -127,15 +127,15 @@ class GetEventsControllerTest extends JsonApiTestCase
 
     private function refreshIndex(): void
     {
-        /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->cli->getContainer()->get(EventElasticRepository::class);
+        /** @var ElasticSearchEventRepository $eventReadStore */
+        $eventReadStore = $this->cli->getContainer()->get(ElasticSearchEventRepository::class);
         $eventReadStore->refresh();
     }
 
     protected function tearDown(): void
     {
-        /** @var EventElasticRepository $eventReadStore */
-        $eventReadStore = $this->cli->getContainer()->get(EventElasticRepository::class);
+        /** @var ElasticSearchEventRepository $eventReadStore */
+        $eventReadStore = $this->cli->getContainer()->get(ElasticSearchEventRepository::class);
         $eventReadStore->delete();
 
         parent::tearDown();

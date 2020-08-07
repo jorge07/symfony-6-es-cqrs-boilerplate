@@ -9,7 +9,7 @@ services:
       tags:
           - { name: broadway.domain.event_listener }
 
-    App\Infrastructure\Share\Event\Query\EventElasticRepository:
+    App\Infrastructure\Share\Event\Query\ElasticSearchEventRepository:
       public: true
       autowire: true
 

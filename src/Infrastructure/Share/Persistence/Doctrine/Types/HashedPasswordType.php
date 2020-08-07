@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Share\Doctrine;
+namespace App\Infrastructure\Share\Persistence\Doctrine\Types;
 
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use Doctrine\DBAL\Platforms\AbstractPlatform;

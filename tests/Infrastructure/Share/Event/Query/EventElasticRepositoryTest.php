@@ -7,7 +7,7 @@ namespace App\Tests\Infrastructure\Share\Event\Query;
 use App\Domain\Shared\Exception\DateTimeException;
 use App\Domain\Shared\ValueObject\DateTime as DomainDateTime;
 use App\Domain\User\Event\UserWasCreated;
-use App\Infrastructure\Share\Event\Query\EventElasticRepository;
+use App\Infrastructure\Share\Event\Query\ElasticSearchEventRepository;
 use Broadway\Domain\DateTime;
 use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
@@ -15,11 +15,11 @@ use PHPUnit\Framework\TestCase;
 
 class EventElasticRepositoryTest extends TestCase
 {
-    private ?EventElasticRepository $repository;
+    private ?ElasticSearchEventRepository $repository;
 
     protected function setUp(): void
     {
-        $this->repository = new EventElasticRepository(
+        $this->repository = new ElasticSearchEventRepository(
             [
                 'hosts' => [
                     'elasticsearch',

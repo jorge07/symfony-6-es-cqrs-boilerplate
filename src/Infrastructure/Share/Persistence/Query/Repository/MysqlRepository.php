@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Share\Query\Repository;
+namespace App\Infrastructure\Share\Persistence\Query\Repository;
 
 use App\Domain\Shared\Query\Exception\NotFoundException;
 use Doctrine\ORM\AbstractQuery;

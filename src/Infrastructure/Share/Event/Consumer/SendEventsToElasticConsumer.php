@@ -6,13 +6,13 @@ namespace App\Infrastructure\Share\Event\Consumer;
 
 use App\Infrastructure\Share\Bus\Event\Event;
 use App\Infrastructure\Share\Bus\Event\EventHandlerInterface;
-use App\Infrastructure\Share\Event\Query\EventElasticRepository;
+use App\Infrastructure\Share\Event\Query\ElasticSearchEventRepository;
 
 class SendEventsToElasticConsumer implements EventHandlerInterface
 {
-    private EventElasticRepository $eventElasticRepository;
+    private ElasticSearchEventRepository $eventElasticRepository;
 
-    public function __construct(EventElasticRepository $eventElasticRepository)
+    public function __construct(ElasticSearchEventRepository $eventElasticRepository)
     {
         $this->eventElasticRepository = $eventElasticRepository;
     }
