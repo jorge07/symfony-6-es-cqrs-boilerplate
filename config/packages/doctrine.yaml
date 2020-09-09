@@ -1,14 +1,15 @@
 doctrine:
     dbal:
+        schema_filter: ~^(?!event)~ # this will ignore broadway event store table
         url: '%env(resolve:DATABASE_URL)%'
         driver:   pdo_mysql
         charset: utf8mb4
         server_version: '8.0'
         types:
           uuid_binary: Ramsey\Uuid\Doctrine\UuidBinaryType
-          datetime_immutable: App\Infrastructure\Share\Persistence\Doctrine\Types\DateTimeType
-          email: App\Infrastructure\Share\Persistence\Doctrine\Types\EmailType
-          hashed_password: App\Infrastructure\Share\Persistence\Doctrine\Types\HashedPasswordType
+          datetime_immutable: App\Infrastructure\Shared\Persistence\Doctrine\Types\DateTimeType
+          email: App\Infrastructure\Shared\Persistence\Doctrine\Types\EmailType
+          hashed_password: App\Infrastructure\Shared\Persistence\Doctrine\Types\HashedPasswordType
         mapping_types:
           uuid_binary: binary
     orm:
@@ -19,12 +20,12 @@ doctrine:
             Domain:
                 is_bundle: false
                 type: xml
-                dir: '%kernel.project_dir%/config/persistence/mapping/domain'
+                dir: '%kernel.project_dir%/config/packages/doctrine/mapping/domain'
                 prefix: 'App\Domain'
                 alias: Domain
             Projections:
                 is_bundle: false
                 type: xml
-                dir: '%kernel.project_dir%/config/persistence/mapping/projections'
+                dir: '%kernel.project_dir%/config/packages/doctrine/mapping/projections'
                 prefix: 'App\Infrastructure'
                 alias: Projections

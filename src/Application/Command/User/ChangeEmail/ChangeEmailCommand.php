@@ -10,7 +10,7 @@ use Assert\AssertionFailedException;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class ChangeEmailCommand implements CommandInterface
+final class ChangeEmailCommand implements CommandInterface
 {
     /** @psalm-readonly */
     public UuidInterface $userUuid;

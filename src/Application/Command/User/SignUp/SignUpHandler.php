@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Application\Command\User\SignUp;
 
 use App\Application\Command\CommandHandlerInterface;
+use App\Domain\Shared\Exception\DateTimeException;
 use App\Domain\User\Repository\UserRepositoryInterface;
 use App\Domain\User\Specification\UniqueEmailSpecificationInterface;
 use App\Domain\User\User;
 
-class SignUpHandler implements CommandHandlerInterface
+final class SignUpHandler implements CommandHandlerInterface
 {
     private UserRepositoryInterface $userRepository;
 
@@ -24,7 +25,7 @@ class SignUpHandler implements CommandHandlerInterface
     }
 
     /**
-     * @throws \App\Domain\Shared\Exception\DateTimeException
+     * @throws DateTimeException
      */
     public function __invoke(SignUpCommand $command): void
     {

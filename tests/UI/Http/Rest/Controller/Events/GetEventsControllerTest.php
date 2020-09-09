@@ -4,25 +4,20 @@ declare(strict_types=1);
 
 namespace App\Tests\UI\Http\Rest\Controller\Events;
 
-use App\Domain\Shared\Exception\DateTimeException;
-use App\Domain\User\Event\UserWasCreated;
-use App\Infrastructure\Share\Bus\Event\Event;
-use App\Infrastructure\Share\Event\Consumer\SendEventsToElasticConsumer;
-use App\Infrastructure\Share\Event\Query\ElasticSearchEventRepository;
+use App\Infrastructure\Shared\Event\ReadModel\ElasticSearchEventRepository;
 use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
 use Assert\AssertionFailedException;
-use Broadway\Domain\DateTime;
-use Broadway\Domain\DomainMessage;
-use Broadway\Domain\Metadata;
 use Exception;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\EventListener\StopWorkerOnMessageLimitListener;
+use Symfony\Component\Messenger\Worker;
 use Throwable;
 
 class GetEventsControllerTest extends JsonApiTestCase
 {
+    private ?Worker $worker;
+
     /**
-     * @throws DateTimeException
      * @throws AssertionFailedException
      * @throws Throwable
      */
@@ -31,34 +26,27 @@ class GetEventsControllerTest extends JsonApiTestCase
         parent::setUp();
 
         /** @var ElasticSearchEventRepository $eventReadStore */
-        $eventReadStore = $this->cli->getContainer()->get(ElasticSearchEventRepository::class);
-        $eventReadStore->boot();
+        $eventReadStore = self::$container->get(ElasticSearchEventRepository::class);
 
-        /** @var SendEventsToElasticConsumer $consumer */
-        $consumer = $this->cli->getContainer()->get(SendEventsToElasticConsumer::class);
-        $data = [
-            'uuid' => $uuid = Uuid::uuid4()->toString(),
-            'credentials' => [
-                'email' => self::DEFAULT_EMAIL,
-                'password' => 'lkasjbdalsjdbalsdbaljsdhbalsjbhd987',
-            ],
-            'created_at' => '2020-02-20',
-        ];
-
-        $consumer(new Event(
-            new DomainMessage(
-                $uuid,
-                1,
-                new Metadata(),
-                UserWasCreated::deserialize($data),
-                DateTime::now()
-            )
-        ));
-
-        $this->refreshIndex();
+        $eventReadStore->reboot();
 
         $this->createUser();
         $this->auth();
+        $this->fireTerminateEvent();
+        $eventDispatcher = self::$container->get('event_dispatcher');
+        $eventDispatcher->addSubscriber(new StopWorkerOnMessageLimitListener(2));
+        $this->worker = new Worker(
+            [
+                'events' => self::$container->get('messenger.transport.events'),
+                'users' => self::$container->get('messenger.transport.users'),
+            ],
+            self::$container->get('messenger.bus.event.async'),
+            $eventDispatcher,
+            self::$container->get('logger')
+        );
+
+        $this->worker->run();
+        $this->refreshIndex();
     }
 
     /**
@@ -80,12 +68,9 @@ class GetEventsControllerTest extends JsonApiTestCase
      *
      * @throws Exception
      */
-    public function events_should_be_present_in_elastic_search(): void
+    public function user_was_created_and_sign_in_events_should_be_present_in_elastic_search(): void
     {
-        $this->refreshIndex();
-
-        $this->get('/api/events', ['limit' => 1]);
-
+        $this->get('/api/events', ['limit' => 2]);
         self::assertSame(Response::HTTP_OK, $this->cli->getResponse()->getStatusCode());
 
         /** @var string $content */
@@ -93,12 +78,14 @@ class GetEventsControllerTest extends JsonApiTestCase
 
         $responseDecoded = \json_decode($content, true);
 
-        self::assertSame(1, $responseDecoded['meta']['total']);
+        self::assertSame(2, $responseDecoded['meta']['total']);
         self::assertSame(1, $responseDecoded['meta']['page']);
-        self::assertSame(1, $responseDecoded['meta']['size']);
+        self::assertSame(2, $responseDecoded['meta']['size']);
 
         self::assertSame('App.Domain.User.Event.UserWasCreated', $responseDecoded['data'][0]['type']);
         self::assertSame(self::DEFAULT_EMAIL, $responseDecoded['data'][0]['payload']['credentials']['email']);
+        self::assertSame('App.Domain.User.Event.UserSignedIn', $responseDecoded['data'][1]['type']);
+        self::assertSame(self::DEFAULT_EMAIL, $responseDecoded['data'][1]['payload']['email']);
     }
 
     /**
@@ -128,16 +115,18 @@ class GetEventsControllerTest extends JsonApiTestCase
     private function refreshIndex(): void
     {
         /** @var ElasticSearchEventRepository $eventReadStore */
-        $eventReadStore = $this->cli->getContainer()->get(ElasticSearchEventRepository::class);
+        $eventReadStore = self::$container->get(ElasticSearchEventRepository::class);
         $eventReadStore->refresh();
     }
 
     protected function tearDown(): void
     {
         /** @var ElasticSearchEventRepository $eventReadStore */
-        $eventReadStore = $this->cli->getContainer()->get(ElasticSearchEventRepository::class);
+        $eventReadStore = self::$container->get(ElasticSearchEventRepository::class);
         $eventReadStore->delete();
-
+        if ($this->worker) {
+            $this->worker->stop();
+        }
         parent::tearDown();
     }
 }

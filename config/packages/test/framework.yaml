@@ -2,3 +2,8 @@ framework:
     test: true
     session:
         storage_id: session.storage.mock_file
+    messenger:
+        transports:
+            events: 'in-memory://'
+            users: 'in-memory://'
+            failed: 'in-memory://'

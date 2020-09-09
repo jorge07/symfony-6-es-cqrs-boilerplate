@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace App\Application\Command\Log;
 
-use App\Infrastructure\Share\Bus\Command\CommandInterface;
+use App\Infrastructure\Shared\Bus\Command\CommandInterface;
 
 class EchoCommand implements CommandInterface
 {
@@ -31,7 +31,7 @@ declare(strict_types=1);
 
 namespace App\Application\Command\Log;
 
-use App\Infrastructure\Share\Bus\Command\CommandHandlerInterface;
+use App\Infrastructure\Shared\Bus\Command\CommandHandlerInterface;
 
 class EchoHandler implements CommandHandlerInterface
 {
@@ -53,7 +53,7 @@ declare(strict_types=1);
 
 namespace App\UI\Cli\Command;
 
-use App\Infrastructure\Share\Bus\Command\MessengerCommandBus;
+use App\Infrastructure\Shared\Bus\Command\MessengerCommandBus;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

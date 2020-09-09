@@ -4,20 +4,35 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Event;
 
+use App\Domain\Shared\Exception\DateTimeException;
 use App\Domain\Shared\ValueObject\DateTime;
 use App\Domain\User\ValueObject\Auth\Credentials;
 use App\Domain\User\ValueObject\Auth\HashedPassword;
 use App\Domain\User\ValueObject\Email;
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 use Broadway\Serializer\Serializable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 final class UserWasCreated implements Serializable
 {
+    public UuidInterface $uuid;
+
+    public Credentials $credentials;
+
+    public DateTime $createdAt;
+
+    public function __construct(UuidInterface $uuid, Credentials $credentials, DateTime $createdAt)
+    {
+        $this->uuid = $uuid;
+        $this->credentials = $credentials;
+        $this->createdAt = $createdAt;
+    }
+
     /**
-     * @throws \App\Domain\Shared\Exception\DateTimeException
-     * @throws \Assert\AssertionFailedException
+     * @throws DateTimeException
+     * @throws AssertionFailedException
      */
     public static function deserialize(array $data): self
     {
@@ -45,20 +60,4 @@ final class UserWasCreated implements Serializable
             'created_at' => $this->createdAt->toString(),
         ];
     }
-
-    public function __construct(UuidInterface $uuid, Credentials $credentials, DateTime $createdAt)
-    {
-        $this->uuid = $uuid;
-        $this->credentials = $credentials;
-        $this->createdAt = $createdAt;
-    }
-
-    /** @var UuidInterface */
-    public $uuid;
-
-    /** @var Credentials */
-    public $credentials;
-
-    /** @var DateTime */
-    public $createdAt;
 }

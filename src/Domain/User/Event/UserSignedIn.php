@@ -6,14 +6,25 @@ namespace App\Domain\User\Event;
 
 use App\Domain\User\ValueObject\Email;
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 use Broadway\Serializer\Serializable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 final class UserSignedIn implements Serializable
 {
+    public Email $email;
+
+    public UuidInterface $uuid;
+
+    public function __construct(UuidInterface $uuid, Email $email)
+    {
+        $this->uuid = $uuid;
+        $this->email = $email;
+    }
+
     /**
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
     public static function deserialize(array $data): self
     {
@@ -33,16 +44,4 @@ final class UserSignedIn implements Serializable
             'email' => $this->email->toString(),
         ];
     }
-
-    public function __construct(UuidInterface $uuid, Email $email)
-    {
-        $this->uuid = $uuid;
-        $this->email = $email;
-    }
-
-    /** @var Email */
-    public $email;
-
-    /** @var UuidInterface */
-    public $uuid;
 }

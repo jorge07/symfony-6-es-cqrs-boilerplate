@@ -4,20 +4,21 @@ declare(strict_types=1);
 
 namespace App\Tests\Infrastructure\Share\Event\Publisher;
 
+use App\Domain\Shared\Exception\DateTimeException;
 use App\Domain\Shared\ValueObject\DateTime as DomainDateTime;
 use App\Domain\User\Event\UserWasCreated;
-use App\Infrastructure\Share\Event\Publisher\AsyncEventPublisher;
-use App\Infrastructure\Share\Event\Publisher\EventPublisher;
+use App\Infrastructure\Shared\Event\Publisher\AsyncEventPublisher;
 use App\Tests\Application\ApplicationTestCase;
-use Broadway\Domain\DateTime;
+use Assert\AssertionFailedException;
 use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Messenger\Transport\TransportInterface;
+use Throwable;
 
 class EventPublisherTest extends ApplicationTestCase
 {
-    private ?EventPublisher $publisher;
+    private ?AsyncEventPublisher $publisher;
 
     private ?TransportInterface $transport;
 
@@ -34,8 +35,9 @@ class EventPublisherTest extends ApplicationTestCase
      *
      * @group integration
      *
-     * @throws \Exception
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
+     * @throws DateTimeException
+     * @throws Throwable
      */
     public function events_are_consumed(): void
     {
@@ -50,22 +52,14 @@ class EventPublisherTest extends ApplicationTestCase
             'created_at' => $current->toString(),
         ];
 
-        $this->publisher->handle(
-            new DomainMessage(
-                $uuid,
-                1,
-                new Metadata(),
-                UserWasCreated::deserialize($data),
-                DateTime::now()
-            )
-        );
+        $this->publisher->handle(DomainMessage::recordNow($uuid, 1, new Metadata(), UserWasCreated::deserialize($data)));
 
         $this->publisher->publish();
 
         $transportMessages = $this->transport->get();
         self::assertCount(1, $transportMessages);
 
-        $event = $transportMessages[0]->getMessage()->getDomainMessage()->getPayload();
+        $event = $transportMessages[0]->getMessage()->getPayload();
 
         self::assertInstanceOf(UserWasCreated::class, $event);
         self::assertSame($data, $event->serialize(), 'Check that its the same event');

@@ -1,55 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!-- https://phpunit.de/manual/current/en/appendixes.configuration.html -->
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/9.1/phpunit.xsd"
-         colors="true"
-         bootstrap="vendor/autoload.php"
->
-    <php>
-        <ini name="error_reporting" value="-1" />
-        <env name="KERNEL_CLASS" value="App\Infrastructure\Kernel" />
-        <env name="APP_ENV" value="test" />
-        <env name="APP_DEBUG" value="1" />
-        <env name="APP_SECRET" value="s$cretf0rt3st" />
-        <env name="SHELL_VERBOSITY" value="-1" />
-        <!-- Deprecations disabled as not breaking the app -->
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled" />
-        <!-- define your env variables for the test env here -->
-        <!-- ###+ lexik/jwt-authentication-bundle ### -->
-        <env name="JWT_SECRET_KEY" value="%kernel.project_dir%/config/jwt/private.pem"/>
-        <env name="JWT_PUBLIC_KEY" value="%kernel.project_dir%/config/jwt/public.pem"/>
-        <env name="JWT_PASSPHRASE" value="development"/>
-        <env name="JWT_TTL" value="604800"/>
-        <!-- ###- lexik/jwt-authentication-bundle ### -->
-
-        <!-- ###+ symfony/messenger ### -->
-        <env name="MESSENGER_TRANSPORT_DSN" value="in-memory://" force="true" />
-        <!-- ###- symfony/messenger ### -->
-    </php>
-
-    <testsuites>
-        <testsuite name="Api Test Suite">
-            <directory>tests/</directory>
-        </testsuite>
-    </testsuites>
-
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory>./src/</directory>
-            <exclude>
-                <directory>./src/Infrastructure/Share/Migrations/</directory>
-                <file>./src/Infrastructure/Kernel.php</file>
-            </exclude>
-        </whitelist>
-    </filter>
-
-    <logging>
-        <log type="coverage-html" target="report/html" />
-    </logging>
-
-    <listeners>
-        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
-        <listener class="\DAMA\DoctrineTestBundle\PHPUnit\PHPUnitListener" />
-    </listeners>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" colors="true" bootstrap="vendor/autoload.php">
+  <coverage processUncoveredFiles="true">
+    <include>
+      <directory>./src/</directory>
+    </include>
+    <exclude>
+      <directory>./src/Infrastructure/Shared/Persistence/Doctrine/Migrations</directory>
+      <file>./src/Infrastructure/Kernel.php</file>
+    </exclude>
+    <report>
+      <html outputDirectory="report/html"/>
+    </report>
+  </coverage>
+  <php>
+    <ini name="error_reporting" value="-1"/>
+    <env name="KERNEL_CLASS" value="App\Infrastructure\Kernel"/>
+    <env name="APP_ENV" value="test"/>
+    <env name="APP_DEBUG" value="1"/>
+    <env name="APP_SECRET" value="s$cretf0rt3st"/>
+    <env name="SHELL_VERBOSITY" value="-1"/>
+    <!-- Deprecations disabled as not breaking the app -->
+    <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
+    <!-- define your env variables for the test env here -->
+    <!-- ###+ lexik/jwt-authentication-bundle ### -->
+    <env name="JWT_SECRET_KEY" value="%kernel.project_dir%/config/packages/jwt/private.pem"/>
+    <env name="JWT_PUBLIC_KEY" value="%kernel.project_dir%/config/packages/jwt/public.pem"/>
+    <env name="JWT_PASSPHRASE" value="development"/>
+    <env name="JWT_TTL" value="604800"/>
+    <!-- ###- lexik/jwt-authentication-bundle ### -->
+    <!-- ###+ symfony/messenger ### -->
+    <env name="MESSENGER_TRANSPORT_DSN" value="in-memory://" force="true"/>
+    <!-- ###- symfony/messenger ### -->
+  </php>
+  <testsuites>
+    <testsuite name="Api Test Suite">
+      <directory>tests/</directory>
+    </testsuite>
+  </testsuites>
+  <logging/>
+  <listeners>
+    <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
+    <listener class="\DAMA\DoctrineTestBundle\PHPUnit\PHPUnitListener"/>
+  </listeners>
 </phpunit>

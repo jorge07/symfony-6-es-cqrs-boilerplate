@@ -1,6 +1,6 @@
 # Async Jobs
 
-All events are published in RabbitMQ through `App\Infrastructure\Share\Event\Publisher\AsyncEventPublisher`. The reason of this is that others can consume this events in background.
+All events are published in RabbitMQ through `App\Infrastructure\Shared\Event\Publisher\AsyncEventPublisher`. The reason of this is that others can consume this events in background.
 
 #### How it works?
 

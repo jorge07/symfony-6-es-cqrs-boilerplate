@@ -8,7 +8,7 @@ use App\Application\Query\QueryInterface;
 use App\Domain\User\ValueObject\Email;
 use Assert\AssertionFailedException;
 
-class FindByEmailQuery implements QueryInterface
+final class FindByEmailQuery implements QueryInterface
 {
     /** @psalm-readonly */
     public Email $email;
