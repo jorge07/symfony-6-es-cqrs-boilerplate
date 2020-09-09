@@ -6,7 +6,7 @@ namespace App\Application\Query\Event\GetEvents;
 
 use App\Application\Query\QueryInterface;
 
-class GetEventsQuery implements QueryInterface
+final class GetEventsQuery implements QueryInterface
 {
     /** @psalm-readonly */
     public int $page;

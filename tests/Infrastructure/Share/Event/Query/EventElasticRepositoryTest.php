@@ -7,8 +7,8 @@ namespace App\Tests\Infrastructure\Share\Event\Query;
 use App\Domain\Shared\Exception\DateTimeException;
 use App\Domain\Shared\ValueObject\DateTime as DomainDateTime;
 use App\Domain\User\Event\UserWasCreated;
-use App\Infrastructure\Share\Event\Query\ElasticSearchEventRepository;
-use Broadway\Domain\DateTime;
+use App\Infrastructure\Shared\Event\ReadModel\ElasticSearchEventRepository;
+use Assert\AssertionFailedException;
 use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
 use PHPUnit\Framework\TestCase;
@@ -26,6 +26,8 @@ class EventElasticRepositoryTest extends TestCase
                 ],
             ]
         );
+        $this->repository->reboot();
+        $this->repository->refresh();
     }
 
     /**
@@ -33,7 +35,7 @@ class EventElasticRepositoryTest extends TestCase
      *
      * @group integration
      *
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      * @throws DateTimeException
      */
     public function an_event_should_be_stored_in_elastic(): void
@@ -47,13 +49,7 @@ class EventElasticRepositoryTest extends TestCase
             'created_at' => DomainDateTime::now()->toString(),
         ];
 
-        $event = new DomainMessage(
-            $uuid,
-            1,
-            new Metadata(),
-            UserWasCreated::deserialize($data),
-            DateTime::now()
-        );
+        $event = DomainMessage::recordNow($uuid, 1, new Metadata(), UserWasCreated::deserialize($data));
 
         $this->repository->store($event);
         $this->repository->refresh();

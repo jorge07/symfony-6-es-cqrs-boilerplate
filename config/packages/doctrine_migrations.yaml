@@ -1,3 +1,5 @@
 doctrine_migrations:
-    dir_name: '%kernel.project_dir%/src/Infrastructure/Share/Persistence/Doctrine/Migrations'
-    namespace: App\Infrastructure\Share\Persistence\Doctrine\Migrations
+    services:
+        Doctrine\Migrations\Version\MigrationFactory: 'App\Infrastructure\Shared\Persistence\Doctrine\MigrationsFactory\ContainerAwareFactory'
+    migrations_paths:
+        App\Infrastructure\Shared\Persistence\Doctrine\Migrations: '%kernel.project_dir%/src/Infrastructure/Shared/Persistence/Doctrine/Migrations'

@@ -1,4 +1,4 @@
 parameters:
 	checkMissingIterableValueType: false
 	excludes_analyse:
-		- src/Infrastructure/Share/Migrations/*
+		- src/Infrastructure/Shared/Persistence/Doctrine/Migrations/*

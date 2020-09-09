@@ -32,7 +32,7 @@ jobs:
       run: make env=ci schema-validate
 
     - name: Static tools (analyzers)
-      run: make env=ci cs-check;make env=ci style;make env=ci layer;make env=ci psalm
+      run: make env=ci cs-check;make env=ci phpstan;make env=ci layer;make env=ci psalm
 
     - name: Tests
       run: make env=ci xon;make env=ci conf="--coverage-clover build/logs/clover.xml" phpunit

@@ -10,6 +10,16 @@ services:
     depends_on:
       - php
 
+  code:
+    image: jorge07/alpine-php:7.4.3-dev
+    volumes:
+      - ./:/app:rw,delegated
+      # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
+      - /app/var/
+      - /app/var/cache/
+      - /app/var/logs/
+      - /app/var/sessions/
+
   php:
     image: jorge07/alpine-php:7.4.3-dev
     volumes:
@@ -24,17 +34,30 @@ services:
       - rmq
       - elasticsearch
 
-  workers:
+  workers_events:
     image: jorge07/alpine-php:7.4.3-dev
     volumes:
       - ./:/app:rw,delegated
-      # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
       # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
       - /app/var/
       - /app/var/cache/
       - /app/var/logs/
       - /app/var/sessions/
     command: ['/app/bin/console', 'messenger:consume', 'events', '-vv']
+    depends_on:
+      - mysql
+      - rmq
+      - elasticsearch
+  workers_users:
+    image: jorge07/alpine-php:7.4.3-dev
+    volumes:
+      - ./:/app:rw,delegated
+      # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
+      - /app/var/
+      - /app/var/cache/
+      - /app/var/logs/
+      - /app/var/sessions/
+    command: ['/app/bin/console', 'messenger:consume', 'users', '-vv']
     depends_on:
       - mysql
       - rmq
@@ -61,7 +84,7 @@ services:
       RABBITMQ_DEFAULT_VHOST: "/"
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
     environment:
       - "discovery.type=single-node"
       - "cluster.name=sf-events"

@@ -4,17 +4,33 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Event;
 
+use App\Domain\Shared\Exception\DateTimeException;
 use App\Domain\Shared\ValueObject\DateTime;
 use App\Domain\User\ValueObject\Email;
 use Assert\Assertion;
+use Assert\AssertionFailedException;
 use Broadway\Serializer\Serializable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 final class UserEmailChanged implements Serializable
 {
+    public UuidInterface $uuid;
+
+    public Email $email;
+
+    public DateTime $updatedAt;
+
+    public function __construct(UuidInterface $uuid, Email $email, DateTime $updatedAt)
+    {
+        $this->email = $email;
+        $this->uuid = $uuid;
+        $this->updatedAt = $updatedAt;
+    }
+
     /**
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
+     * @throws DateTimeException
      */
     public static function deserialize(array $data): self
     {
@@ -36,20 +52,4 @@ final class UserEmailChanged implements Serializable
             'updated_at' => $this->updatedAt->toString(),
         ];
     }
-
-    public function __construct(UuidInterface $uuid, Email $email, DateTime $updatedAt)
-    {
-        $this->email = $email;
-        $this->uuid = $uuid;
-        $this->updatedAt = $updatedAt;
-    }
-
-    /** @var UuidInterface */
-    public $uuid;
-
-    /** @var Email */
-    public $email;
-
-    /** @var DateTime */
-    public $updatedAt;
 }

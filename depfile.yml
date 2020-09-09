@@ -25,9 +25,17 @@ layers:
         regex: App\\Infrastructure\\User\\Auth\\Auth;
   - name: UI
     collectors:
+      - type: bool
+        must:
+          - type: className
+            regex: App\\UI\\.*
+        must_not:
+          - type: className
+            regex: App\\UI\\Http\\Rest\\Controller\\Healthz\\.*
+  - name: UIHealth
+    collectors:
       - type: className
-        regex: App\\UI\\.*
-
+        regex: App\\UI\\Http\\Rest\\Controller\\Healthz\\.*
 ruleset:
   Domain:
   Auth:
@@ -45,3 +53,6 @@ ruleset:
     - Auth
     - Domain
     - Application
+  UIHealth: # Allow access to infra for health checks
+    - Infrastructure
+    - UI

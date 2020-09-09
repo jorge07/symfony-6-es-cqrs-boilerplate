@@ -12,7 +12,7 @@ Let's say we want to store the list of emails in a separated ElasticSearch index
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\User\Query\Projections;
+namespace App\Infrastructure\User\ReadModel\Projections;
 
 use App\Domain\User\ValueObject\Email;
 use Broadway\Serializer\Serializable;
@@ -69,7 +69,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\User\Query;
 
 use App\Domain\User\Event\UserWasCreated;
-use App\Infrastructure\User\Query\Projections\UserListProjection;
+use App\Infrastructure\User\ReadModel\Projections\UserListProjection;
 use Broadway\ReadModel\Projector;
 
 class UserEmailReadProjectionFactory extends Projector

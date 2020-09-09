@@ -12,7 +12,7 @@ parameters:
     InvalidArgumentException: 400
     App\Domain\User\Exception\InvalidCredentialsException: 401
     App\Domain\User\Exception\ForbiddenException: 403
-    App\Domain\Shared\Query\Exception\NotFoundException: 404
+    App\Infrastructure\Shared\Persistence\ReadModel\Exception\NotFoundException: 404
     Broadway\Repository\AggregateNotFoundException: 404
 
 services:
@@ -36,7 +36,7 @@ services:
           tags:
             - { name: messenger.message_handler, bus: messenger.bus.query }
 
-        App\Infrastructure\Share\Bus\Event\EventHandlerInterface:
+        App\Infrastructure\Shared\Bus\AsyncEvent\AsyncEventHandlerInterface:
           public: true
           tags:
             - { name: messenger.message_handler, bus: messenger.bus.event.async }
@@ -50,15 +50,15 @@ services:
         resource: '../src/*'
         exclude: '../src/**/{Migrations,EventSubscriber}'
 
-    App\Infrastructure\Share\Bus\Command\MessengerCommandBus:
+    App\Infrastructure\Shared\Bus\Command\MessengerCommandBus:
         arguments:
           - '@messenger.bus.command'
 
-    App\Infrastructure\Share\Bus\Query\MessengerQueryBus:
+    App\Infrastructure\Shared\Bus\Query\MessengerQueryBus:
         arguments:
           - '@messenger.bus.query'
 
-    App\Infrastructure\Share\Bus\Event\EventBus:
+    App\Infrastructure\Shared\Bus\AsyncEvent\MessengerAsyncEventBus:
         arguments:
           - '@messenger.bus.event.async'
 

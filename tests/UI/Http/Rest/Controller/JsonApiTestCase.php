@@ -5,12 +5,17 @@ declare(strict_types=1);
 namespace App\Tests\UI\Http\Rest\Controller;
 
 use App\Application\Command\User\SignUp\SignUpCommand;
-use App\Infrastructure\Share\Bus\Command\MessengerCommandBus;
+use App\Infrastructure\Shared\Bus\Command\MessengerCommandBus;
 use Assert\AssertionFailedException;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\TerminateEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 use Throwable;
 
 abstract class JsonApiTestCase extends WebTestCase
@@ -46,7 +51,7 @@ abstract class JsonApiTestCase extends WebTestCase
         );
 
         /** @var MessengerCommandBus $commandBus */
-        $commandBus = $this->cli->getContainer()->get(MessengerCommandBus::class);
+        $commandBus = self::$container->get(MessengerCommandBus::class);
 
         $commandBus->handle($signUp);
 
@@ -107,6 +112,21 @@ abstract class JsonApiTestCase extends WebTestCase
         }
 
         return $headers;
+    }
+
+    protected function fireTerminateEvent(): void
+    {
+        /** @var EventDispatcher $dispatcher */
+        $dispatcher = $this->cli->getContainer()->get('event_dispatcher');
+
+        $dispatcher->dispatch(
+            new TerminateEvent(
+                static::$kernel,
+                Request::create('/'),
+                new Response()
+            ),
+            KernelEvents::TERMINATE
+        );
     }
 
     protected function tearDown(): void

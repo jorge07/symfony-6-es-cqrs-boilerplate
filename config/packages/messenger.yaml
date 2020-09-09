@@ -1,6 +1,7 @@
 framework:
     messenger:
         default_bus: messenger.bus.command
+        failure_transport: failed
 
         buses:
             messenger.bus.command:
@@ -13,7 +14,8 @@ framework:
                 middleware:
                     - handle_message
 
-            messenger.bus.event.async: ~
+            messenger.bus.event.async:
+                default_middleware: allow_no_handlers
 
         transports:
             events:
@@ -21,6 +23,32 @@ framework:
                 retry_strategy:
                     delay: 2000
                     max_retries: 5
+                    multiplier: 2
+                    max_delay: 0
+                options:
+                    exchange:
+                        type: topic
+                        name: events
+                    queues:
+                        events:
+                            binding_keys: ['#']
+
+            users:
+                dsn: "%env(MESSENGER_TRANSPORT_DSN)%"
+                retry_strategy:
+                    delay: 2000
+                    max_retries: 5
+                    multiplier: 2
+                    max_delay: 0
+                options:
+                    exchange:
+                        type: topic
+                        name: events
+                    queues:
+                        users:
+                            binding_keys: ['#.User.#']
+            failed:
+                dsn: "%env(MESSENGER_TRANSPORT_DSN)%?queue_name=failed"
 
         routing:
-            'App\Infrastructure\Share\Bus\Event\EventInterface': events
+            'Broadway\Domain\DomainMessage': events

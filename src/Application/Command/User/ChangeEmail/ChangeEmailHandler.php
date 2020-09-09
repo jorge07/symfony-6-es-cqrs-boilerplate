@@ -8,7 +8,7 @@ use App\Application\Command\CommandHandlerInterface;
 use App\Domain\User\Repository\UserRepositoryInterface;
 use App\Domain\User\Specification\UniqueEmailSpecificationInterface;
 
-class ChangeEmailHandler implements CommandHandlerInterface
+final class ChangeEmailHandler implements CommandHandlerInterface
 {
     private UserRepositoryInterface $userRepository;
 

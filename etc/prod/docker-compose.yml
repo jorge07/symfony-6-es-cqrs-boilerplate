@@ -16,8 +16,8 @@ services:
       APP_ENV: "prod"
       APP_DEBUG: 0
       APP_SECRET: c7375619ac26c8671e52279c31c7f157
-      JWT_SECRET_KEY: '%kernel.project_dir%/config/jwt/private.pem'
-      JWT_PUBLIC_KEY: '%kernel.project_dir%/config/jwt/public.pem'
+      JWT_SECRET_KEY: '%kernel.project_dir%/config/packages/jwt/private.pem'
+      JWT_PUBLIC_KEY: '%kernel.project_dir%/config/packages/jwt/public.pem'
       JWT_PASSPHRASE: productionfakesecret
       JWT_TTL: 604800
       MESSENGER_TRANSPORT_DSN: amqp://guest:guest@rmq:5672/%2f/messages
@@ -28,8 +28,8 @@ services:
       APP_ENV: "prod"
       APP_DEBUG: 0
       APP_SECRET: c7375619ac26c8671e52279c31c7f157
-      JWT_SECRET_KEY: '%kernel.project_dir%/config/jwt/private.pem'
-      JWT_PUBLIC_KEY: '%kernel.project_dir%/config/jwt/public.pem'
+      JWT_SECRET_KEY: '%kernel.project_dir%/config/packages/jwt/private.pem'
+      JWT_PUBLIC_KEY: '%kernel.project_dir%/config/packages/jwt/public.pem'
       JWT_PASSPHRASE: productionfakesecret
       JWT_TTL: 604800
       MESSENGER_TRANSPORT_DSN: amqp://guest:guest@rmq:5672/%2f/messages
@@ -44,7 +44,7 @@ services:
       - "5672:5672"
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:7.6.2
+    image: docker.elastic.co/kibana/kibana:7.9.1
     ports:
       - 5601:5601
     volumes:

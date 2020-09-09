@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\User\Auth;
 
-use App\Domain\Shared\Query\Exception\NotFoundException;
 use App\Domain\User\ValueObject\Email;
-use App\Infrastructure\User\Query\Mysql\MysqlReadModelUserRepository;
+use App\Infrastructure\Shared\Persistence\ReadModel\Exception\NotFoundException;
+use App\Infrastructure\User\ReadModel\Mysql\MysqlReadModelUserRepository;
 use Assert\AssertionFailedException;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class AuthProvider implements UserProviderInterface
+final class AuthProvider implements UserProviderInterface
 {
     private MysqlReadModelUserRepository $userReadModelRepository;
 

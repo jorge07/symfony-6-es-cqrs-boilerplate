@@ -8,7 +8,7 @@ use App\Application\Command\CommandInterface;
 use App\Domain\User\ValueObject\Email;
 use Assert\AssertionFailedException;
 
-class SignInCommand implements CommandInterface
+final class SignInCommand implements CommandInterface
 {
     /** @psalm-readonly */
     public Email $email;

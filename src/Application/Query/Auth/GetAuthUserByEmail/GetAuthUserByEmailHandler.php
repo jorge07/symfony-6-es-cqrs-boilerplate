@@ -8,7 +8,7 @@ use App\Application\Query\QueryHandlerInterface;
 use App\Domain\User\Repository\GetUserCredentialsByEmailInterface;
 use App\Infrastructure\User\Auth\Auth;
 
-class GetAuthUserByEmailHandler implements QueryHandlerInterface
+final class GetAuthUserByEmailHandler implements QueryHandlerInterface
 {
     private GetUserCredentialsByEmailInterface $userCredentialsByEmail;
 

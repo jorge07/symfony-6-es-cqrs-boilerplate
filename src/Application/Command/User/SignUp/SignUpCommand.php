@@ -12,7 +12,7 @@ use Assert\AssertionFailedException;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class SignUpCommand implements CommandInterface
+final class SignUpCommand implements CommandInterface
 {
     /** @psalm-readonly */
     public UuidInterface $uuid;

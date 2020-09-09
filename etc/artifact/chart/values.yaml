@@ -101,7 +101,7 @@ parameters:
   elastic:
     host: "elasticsearch-master:9200"
   jwt:
-    hostPath: "/app/config/jwt"
+    hostPath: "/app/config/packages/jwt"
     secretKey: |
       -----BEGIN RSA PRIVATE KEY-----
       Proc-Type: 4,ENCRYPTED

@@ -67,25 +67,25 @@ coverage:
 			export CI_NAME='github-actions'; \
 			php ./php-coveralls.phar -v; \
 		"
-.PHONY: style
-style: ## executes php analizers
-		$(compose) run --rm php sh -lc './vendor/bin/phpstan analyse -l 6 -c phpstan.neon src tests'
+.PHONY: phpstan
+phpstan: ## executes php analizers
+		$(compose) run --rm code sh -lc './vendor/bin/phpstan analyse -l 6 -c phpstan.neon src tests'
 
 .PHONY: psalm
 psalm: ## execute psalm analyzer
-		$(compose) run --rm php sh -lc './vendor/bin/psalm --show-info=false'
+		$(compose) run --rm code sh -lc './vendor/bin/psalm --show-info=false'
 
 .PHONY: cs
 cs: ## executes coding standards
-		$(compose) run --rm php sh -lc './vendor/bin/ecs check src tests --fix'
+		$(compose) run --rm code sh -lc './vendor/bin/ecs check src tests --fix'
 
 .PHONY: cs-check
 cs-check: ## executes coding standards in dry run mode
-		$(compose) run --rm php sh -lc './vendor/bin/ecs check src tests'
+		$(compose) run --rm code sh -lc './vendor/bin/ecs check src tests'
 
 .PHONY: layer
 layer: ## Check issues with layers
-		$(compose) run --rm php sh -lc 'php bin/deptrac.phar analyze --formatter-graphviz=0'
+		$(compose) run --rm code sh -lc 'php bin/deptrac.phar analyze --formatter-graphviz=0'
 
 .PHONY: db
 db: ## recreate database

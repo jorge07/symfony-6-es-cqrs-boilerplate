@@ -50,6 +50,12 @@
             "ref": "56eaa387b5e48ebcc7c95a893b47dfa1ad51449c"
         }
     },
+    "dealerdirect/phpcodesniffer-composer-installer": {
+        "version": "v0.7.0"
+    },
+    "dnoegel/php-xdg-base-dir": {
+        "version": "v0.1.1"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -263,9 +269,6 @@
     "phpunit/php-timer": {
         "version": "1.0.9"
     },
-    "phpunit/php-token-stream": {
-        "version": "2.0.2"
-    },
     "phpunit/phpunit": {
         "version": "4.7",
         "recipe": {
@@ -320,6 +323,9 @@
     "sebastian/comparator": {
         "version": "2.1.0"
     },
+    "sebastian/complexity": {
+        "version": "2.0.0"
+    },
     "sebastian/diff": {
         "version": "2.0.1"
     },
@@ -331,6 +337,9 @@
     },
     "sebastian/global-state": {
         "version": "2.0.0"
+    },
+    "sebastian/lines-of-code": {
+        "version": "1.0.0"
     },
     "sebastian/object-enumerator": {
         "version": "3.0.3"
@@ -460,9 +469,6 @@
     },
     "symfony/http-kernel": {
         "version": "v4.0.2"
-    },
-    "symfony/inflector": {
-        "version": "v4.0.4"
     },
     "symfony/messenger": {
         "version": "4.3",
@@ -625,8 +631,17 @@
     "symfony/yaml": {
         "version": "v4.0.2"
     },
+    "symplify/auto-bind-parameter": {
+        "version": "8.2.26"
+    },
+    "symplify/autowire-array-parameter": {
+        "version": "8.2.26"
+    },
     "symplify/coding-standard": {
         "version": "v6.1.0"
+    },
+    "symplify/console-color-diff": {
+        "version": "8.2.26"
     },
     "symplify/easy-coding-standard": {
         "version": "v6.1.0"

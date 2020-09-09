@@ -9,12 +9,10 @@ use App\Application\Query\Collection;
 use App\Application\Query\Event\GetEvents\GetEventsQuery;
 use App\Domain\Shared\Exception\DateTimeException;
 use App\Domain\User\Event\UserWasCreated;
-use App\Infrastructure\Share\Bus\Event\Event;
-use App\Infrastructure\Share\Event\Consumer\SendEventsToElasticConsumer;
-use App\Infrastructure\Share\Event\Query\ElasticSearchEventRepository;
+use App\Infrastructure\Shared\Event\Consumer\SendEventsToElasticConsumer;
+use App\Infrastructure\Shared\Event\ReadModel\ElasticSearchEventRepository;
 use App\Tests\Application\ApplicationTestCase;
 use Assert\AssertionFailedException;
-use Broadway\Domain\DateTime;
 use Broadway\Domain\DomainMessage;
 use Broadway\Domain\Metadata;
 use Ramsey\Uuid\Uuid;
@@ -49,19 +47,12 @@ final class GetEventsTest extends ApplicationTestCase
             'uuid' => $uuid = Uuid::uuid4()->toString(),
             'credentials' => [
                 'email' => 'asd@asd.asd',
-                'password' => 'lkasjbdalsjdbalsdbaljsdhbalsjbhd987',
+                'password' => '$2y$12$90mmbScglod8M3adPNvXsOIyiFC.AqOpgTktQTnnu1.Pvn5inVcUm',
             ],
             'created_at' => '2020-02-20',
         ];
-        $consumer(new Event(
-            new DomainMessage(
-                $uuid,
-                1,
-                new Metadata(),
-                UserWasCreated::deserialize($data),
-                DateTime::now()
-            )
-        ));
+
+        $consumer(DomainMessage::recordNow($uuid, 1, new Metadata(), UserWasCreated::deserialize($data)));
 
         $this->fireTerminateEvent();
 
@@ -84,6 +75,7 @@ final class GetEventsTest extends ApplicationTestCase
         self::assertInstanceOf(Collection::class, $response);
         self::assertSame(1, $response->total);
         self::assertSame('App.Domain.User.Event.UserWasCreated', $response->data[0]['type']);
+        self::assertSame('asd@asd.asd', $response->data[0]['payload']['credentials']['email']);
     }
 
     protected function tearDown(): void

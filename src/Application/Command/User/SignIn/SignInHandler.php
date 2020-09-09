@@ -11,7 +11,7 @@ use App\Domain\User\Repository\UserRepositoryInterface;
 use App\Domain\User\ValueObject\Email;
 use Ramsey\Uuid\UuidInterface;
 
-class SignInHandler implements CommandHandlerInterface
+final class SignInHandler implements CommandHandlerInterface
 {
     private UserRepositoryInterface $userStore;
 

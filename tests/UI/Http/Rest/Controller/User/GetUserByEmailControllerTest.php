@@ -30,7 +30,7 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
         self::assertSame(Response::HTTP_BAD_REQUEST, $this->cli->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
-        $eventCollector = $this->cli->getContainer()->get(EventCollectorListener::class);
+        $eventCollector = self::$container->get(EventCollectorListener::class);
 
         $events = $eventCollector->popEvents();
 
@@ -55,7 +55,7 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
         self::assertSame(Response::HTTP_NOT_FOUND, $this->cli->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
-        $eventCollector = $this->cli->getContainer()->get(EventCollectorListener::class);
+        $eventCollector = self::$container->get(EventCollectorListener::class);
 
         $events = $eventCollector->popEvents();
 
@@ -91,7 +91,7 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
         self::assertEquals($emailString, $response['data']['attributes']['credentials.email']);
 
         /** @var EventCollectorListener $eventCollector */
-        $eventCollector = $this->cli->getContainer()->get(EventCollectorListener::class);
+        $eventCollector = self::$container->get(EventCollectorListener::class);
 
         $events = $eventCollector->popEvents();
 
