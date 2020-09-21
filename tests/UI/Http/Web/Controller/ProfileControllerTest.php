@@ -17,7 +17,6 @@ class ProfileControllerTest extends WebTestCase
      */
     public function anon_user_should_be_redirected_to_sign_in(): void
     {
-        self::ensureKernelShutdown();
         $client = self::createClient();
 
         $client->request('GET', '/profile');

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\UI\Http\Web\Controller;
 
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\DomCrawler\Crawler;
 
 class SecurityControllerTest extends WebTestCase
 {
@@ -16,10 +16,7 @@ class SecurityControllerTest extends WebTestCase
      */
     public function sign_in_after_create_user(): void
     {
-        $this->createUser('jorge@gmail.com');
-
-        self::ensureKernelShutdown();
-        $client = self::createClient();
+        $client = $this->createUser('jorge@gmail.com');
 
         $crawler = $client->request('GET', '/sign-in');
 
@@ -43,10 +40,7 @@ class SecurityControllerTest extends WebTestCase
      */
     public function logout_should_remove_session_and_profile_redirect_sign_in(): void
     {
-        $this->createUser('jorge@gmail.com');
-
-        self::ensureKernelShutdown();
-        $client = self::createClient();
+        $client = $this->createUser('jorge@gmail.com');
 
         $crawler = $client->request('GET', '/sign-in');
 
@@ -101,7 +95,6 @@ class SecurityControllerTest extends WebTestCase
      */
     public function login_should_display_an_error_when_bad_invalid_email(): void
     {
-        self::ensureKernelShutdown();
         $client = self::createClient();
 
         $crawler = $client->request('GET', '/sign-in');
@@ -117,9 +110,8 @@ class SecurityControllerTest extends WebTestCase
         self::assertSame(1, $crawler->filter('html:contains("An authentication exception occurred.")')->count());
     }
 
-    private function createUser(string $email, string $password = 'crqs-demo'): Crawler
+    private function createUser(string $email, string $password = 'crqs-demo'): KernelBrowser
     {
-        self::ensureKernelShutdown();
         $client = self::createClient();
 
         $crawler = $client->request('GET', '/sign-up');
@@ -129,8 +121,8 @@ class SecurityControllerTest extends WebTestCase
         $form->get('email')->setValue($email);
         $form->get('password')->setValue($password);
 
-        $crawler = $client->submit($form);
+        $client->submit($form);
 
-        return $crawler;
+        return $client;
     }
 }

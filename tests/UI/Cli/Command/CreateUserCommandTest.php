@@ -18,7 +18,7 @@ class CreateUserCommandTest extends AbstractConsoleTestCase
     /**
      * @test
      *
-     * @group unit
+     * @group e2e
      *
      * @throws Throwable
      * @throws AssertionFailedException

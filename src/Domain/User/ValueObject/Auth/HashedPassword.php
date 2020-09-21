@@ -35,6 +35,12 @@ final class HashedPassword
 
     public function match(string $plainPassword): bool
     {
+        $env = \getenv('APP_ENV');
+
+        if ($env === 'test') {
+            return $this->hashedPassword === $plainPassword;
+        }
+
         return \password_verify($plainPassword, $this->hashedPassword);
     }
 
@@ -44,6 +50,12 @@ final class HashedPassword
     private static function hash(string $plainPassword): string
     {
         Assertion::minLength($plainPassword, 6, 'Min 6 characters password');
+
+        $env = \getenv('APP_ENV');
+
+        if ($env === 'test') {
+            return $plainPassword;
+        }
 
         /** @var string|bool|null $hashedPassword */
         $hashedPassword = \password_hash($plainPassword, PASSWORD_BCRYPT, ['cost' => self::COST]);

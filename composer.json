@@ -27,6 +27,7 @@
         "symfony/yaml": "^5.1"
     },
     "require-dev": {
+        "blackfire/php-sdk": "^1.23",
         "dama/doctrine-test-bundle": "^6.3",
         "phpstan/phpstan": "^0.12.42",
         "phpunit/phpunit": "v9.3",
