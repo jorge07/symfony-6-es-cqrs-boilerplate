@@ -57,7 +57,7 @@ up: ## spin up environment
 
 .PHONY: phpunit
 phpunit: db ## execute project unit tests
-		$(compose) exec -T php sh -lc "./vendor/bin/phpunit $(conf)"
+		$(compose) exec -T php sh -lc "php -dpcov.enabled='1' -dpcov.directory=. -dpcov.exclude='~vendor~' ./vendor/bin/phpunit $(conf)"
 
 .PHONY: coverage
 coverage:
@@ -99,11 +99,11 @@ schema-validate: ## validate database schema
 
 .PHONY: xon
 xon: ## activate xdebug simlink
-		$(compose) exec -T php sh -lc 'xon'
+		$(compose) exec -T php sh -lc 'xon | true'
 
 .PHONY: xoff
 xoff: ## deactivate xdebug
-		$(compose) exec -T php sh -lc 'xoff'
+		$(compose) exec -T php sh -lc 'xoff | true'
 
 .PHONY: sh
 sh: ## gets inside a container, use 's' variable to select a service. make s=php sh
