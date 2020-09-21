@@ -1,0 +1,5 @@
+security:
+    encoders:
+        bcrypt:
+            algorithm: bcrypt
+            cost: 4

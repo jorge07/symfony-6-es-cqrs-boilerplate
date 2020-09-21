@@ -16,7 +16,6 @@ class SignUpControllerTest extends WebTestCase
      */
     public function sign_up_page_form_format(): void
     {
-        self::ensureKernelShutdown();
         $client = self::createClient();
 
         $crawler = $client->request('GET', '/sign-up');

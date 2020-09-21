@@ -11,7 +11,10 @@ services:
       - php
 
   code:
-    image: jorge07/alpine-php:7.4.3-dev
+    build:
+      dockerfile: etc/artifact/Dockerfile
+      context: .
+      target: php-dev
     volumes:
       - ./:/app:rw,delegated
       # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
@@ -21,7 +24,10 @@ services:
       - /app/var/sessions/
 
   php:
-    image: jorge07/alpine-php:7.4.3-dev
+    build:
+      dockerfile: etc/artifact/Dockerfile
+      context: .
+      target: php-dev
     volumes:
       - ./:/app:rw,delegated
       # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
@@ -35,7 +41,10 @@ services:
       - elasticsearch
 
   workers_events:
-    image: jorge07/alpine-php:7.4.3-dev
+    build:
+      dockerfile: etc/artifact/Dockerfile
+      context: .
+      target: php-dev
     volumes:
       - ./:/app:rw,delegated
       # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
@@ -49,7 +58,10 @@ services:
       - rmq
       - elasticsearch
   workers_users:
-    image: jorge07/alpine-php:7.4.3-dev
+    build:
+      dockerfile: etc/artifact/Dockerfile
+      context: .
+      target: php-dev
     volumes:
       - ./:/app:rw,delegated
       # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host

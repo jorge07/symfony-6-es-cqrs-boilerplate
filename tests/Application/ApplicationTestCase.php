@@ -73,6 +73,7 @@ abstract class ApplicationTestCase extends KernelTestCase
 
     protected function tearDown(): void
     {
+        parent::tearDown();
         $this->commandBus = null;
         $this->queryBus = null;
     }

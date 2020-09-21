@@ -1,5 +1,6 @@
 ###> symfony/framework-bundle ###
 .env
+.env.blackfire
 /public/bundles/
 /var/
 /vendor/

@@ -13,15 +13,6 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class JsonBodyParserSubscriberTest extends TestCase
 {
-    private JsonBodyParserSubscriber $jsonBodyParserSubscriber;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->jsonBodyParserSubscriber = new JsonBodyParserSubscriber();
-    }
-
     /**
      * @test
      *
@@ -29,6 +20,7 @@ class JsonBodyParserSubscriberTest extends TestCase
      */
     public function when_json_body_is_invalid(): void
     {
+        $jsonBodyParserSubscriber = new JsonBodyParserSubscriber();
         $request = new Request([], [], [], [], [], [], '{"test":');
         $request->headers->set('Content-Type', 'application/json');
 
@@ -38,7 +30,7 @@ class JsonBodyParserSubscriberTest extends TestCase
             HttpKernelInterface::MASTER_REQUEST
         );
 
-        $this->jsonBodyParserSubscriber->onKernelRequest($requestEvent);
+        $jsonBodyParserSubscriber->onKernelRequest($requestEvent);
 
         $response = $requestEvent->getResponse();
 
