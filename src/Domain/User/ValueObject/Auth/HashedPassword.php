@@ -35,9 +35,7 @@ final class HashedPassword
 
     public function match(string $plainPassword): bool
     {
-        $env = \getenv('APP_ENV');
-
-        if ($env === 'test') {
+        if (self::isTestSuite()) {
             return $this->hashedPassword === $plainPassword;
         }
 
@@ -51,9 +49,7 @@ final class HashedPassword
     {
         Assertion::minLength($plainPassword, 6, 'Min 6 characters password');
 
-        $env = \getenv('APP_ENV');
-
-        if ($env === 'test') {
+        if (self::isTestSuite()) {
             return $plainPassword;
         }
 
@@ -75,5 +71,10 @@ final class HashedPassword
     public function __toString(): string
     {
         return $this->hashedPassword;
+    }
+
+    private static function isTestSuite(): bool
+    {
+        return \getenv('APP_ENV') === 'test';
     }
 }

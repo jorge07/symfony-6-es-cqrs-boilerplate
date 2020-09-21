@@ -15,7 +15,12 @@ RUN apk add -U sqlite \
     && mkdir -p /tmp/blackfire \
     && curl -A "Docker" -L https://blackfire.io/api/v1/releases/client/linux_static/amd64 | tar zxp -C /tmp/blackfire \
     && mv /tmp/blackfire/blackfire /usr/bin/blackfire \
-    && rm -Rf /tmp/blackfire
+    && rm -Rf /tmp/blackfire \
+    && apk add --no-cache php-dev g++ autoconf make pcre2-dev \
+    && pecl install pcov \
+    && apk del --no-cache php-dev g++ autoconf make pcre2-dev \
+    && echo "extension=pcov.so" >> /etc/php7/php.ini \
+    && echo "pcov.enabled=0" >> /etc/php7/php.ini
 
 FROM jorge07/alpine-php:${PHP_VERION}-dev as builder
 
