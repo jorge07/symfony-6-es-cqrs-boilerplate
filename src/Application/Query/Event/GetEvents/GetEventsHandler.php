@@ -7,6 +7,7 @@ namespace App\Application\Query\Event\GetEvents;
 use App\Application\Query\Collection;
 use App\Application\Query\QueryHandlerInterface;
 use App\Infrastructure\Shared\Event\ReadModel\ElasticSearchEventRepository;
+use App\Infrastructure\Shared\Persistence\ReadModel\Exception\NotFoundException;
 use Assert\AssertionFailedException;
 
 final class GetEventsHandler implements QueryHandlerInterface
@@ -20,6 +21,7 @@ final class GetEventsHandler implements QueryHandlerInterface
 
     /**
      * @throws AssertionFailedException
+     * @throws NotFoundException
      */
     public function __invoke(GetEventsQuery $query): Collection
     {

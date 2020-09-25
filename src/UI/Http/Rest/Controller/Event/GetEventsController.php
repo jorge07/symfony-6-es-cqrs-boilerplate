@@ -11,7 +11,7 @@ use App\UI\Http\Rest\Response\OpenApi;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use Nelmio\ApiDocBundle\Annotation\Security;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Throwable;
@@ -25,30 +25,26 @@ class GetEventsController extends QueryController
      *     methods={"GET"}
      * )
      *
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
-     *     description="Return events list"
+     *     description="Return events list",
+     *     ref="#/components/responses/events"
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
-     *     description="Bad request"
+     *     description="Bad request",
+     *     @OA\JsonContent(ref="#/components/schemas/Error")
+     *
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=409,
      *     description="Conflict"
      * )
-     * @SWG\Parameter(
-     *     name="page",
-     *     type="integer",
-     *     in="path"
-     * )
-     * @SWG\Parameter(
-     *     name="limit",
-     *     type="integer",
-     *     in="path"
-     * )
      *
-     * @SWG\Tag(name="Events")
+     * @OA\Parameter(ref="#/components/parameters/page")
+     * @OA\Parameter(ref="#/components/parameters/limit")
+     *
+     * @OA\Tag(name="Events")
      *
      * @Security(name="Bearer")
      *

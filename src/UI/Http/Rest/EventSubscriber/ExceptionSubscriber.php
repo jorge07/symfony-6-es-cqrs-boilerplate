@@ -51,11 +51,10 @@ final class ExceptionSubscriber implements EventSubscriberInterface
     private function getErrorMessage(Throwable $exception, Response $response): array
     {
         $error = [
-            'errors' => [
+            'error' => [
                 'title' => \str_replace('\\', '.', \get_class($exception)),
                 'detail' => $this->getExceptionMessage($exception),
                 'code' => $exception->getCode(),
-                'status' => $response->getStatusCode(),
             ],
         ];
 

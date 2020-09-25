@@ -125,9 +125,6 @@
     "elasticsearch/elasticsearch": {
         "version": "v6.0.1"
     },
-    "exsyst/swagger": {
-        "version": "v0.4.1"
-    },
     "ezimuel/guzzlestreams": {
         "version": "3.0.1"
     },
@@ -630,9 +627,6 @@
     },
     "symfony/yaml": {
         "version": "v4.0.2"
-    },
-    "symplify/auto-bind-parameter": {
-        "version": "8.2.26"
     },
     "symplify/autowire-array-parameter": {
         "version": "8.2.26"

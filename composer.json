@@ -10,7 +10,7 @@
         "broadway/event-store-dbal": "^0.5",
         "elasticsearch/elasticsearch": "^7.9",
         "lexik/jwt-authentication-bundle": "^2.8",
-        "nelmio/api-doc-bundle": "^3.6",
+        "nelmio/api-doc-bundle": "4.0.0-BETA2",
         "ramsey/uuid": "^4.0",
         "ramsey/uuid-doctrine": "^1.6",
         "sensio/framework-extra-bundle": "^5.5",
