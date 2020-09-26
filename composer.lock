@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d6afdd476b4c051bef58d0bfc8f6c834",
+    "content-hash": "85d3914bd0dbf768692723312fc88056",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -2602,6 +2602,58 @@
                 "rest"
             ],
             "time": "2020-08-12T08:50:21+00:00"
+        },
+        {
+            "name": "nikic/php-parser",
+            "version": "v4.10.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nikic/PHP-Parser.git",
+                "reference": "658f1be311a230e0907f5dfe0213742aff0596de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/658f1be311a230e0907f5dfe0213742aff0596de",
+                "reference": "658f1be311a230e0907f5dfe0213742aff0596de",
+                "shasum": ""
+            },
+            "require": {
+                "ext-tokenizer": "*",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "ircmaxell/php-yacc": "^0.0.7",
+                "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0 || ^9.0"
+            },
+            "bin": [
+                "bin/php-parse"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.9-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PhpParser\\": "lib/PhpParser"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Nikita Popov"
+                }
+            ],
+            "description": "A PHP parser written in PHP",
+            "keywords": [
+                "parser",
+                "php"
+            ],
+            "time": "2020-09-26T10:30:38+00:00"
         },
         {
             "name": "ocramius/proxy-manager",
@@ -8732,58 +8784,6 @@
             "time": "2020-08-07T10:34:21+00:00"
         },
         {
-            "name": "nikic/php-parser",
-            "version": "v4.10.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "1b479e7592812411c20c34d9ed33db3957bde66e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/1b479e7592812411c20c34d9ed33db3957bde66e",
-                "reference": "1b479e7592812411c20c34d9ed33db3957bde66e",
-                "shasum": ""
-            },
-            "require": {
-                "ext-tokenizer": "*",
-                "php": ">=7.0"
-            },
-            "require-dev": {
-                "ircmaxell/php-yacc": "^0.0.7",
-                "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0 || ^9.0"
-            },
-            "bin": [
-                "bin/php-parse"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.9-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "PhpParser\\": "lib/PhpParser"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Nikita Popov"
-                }
-            ],
-            "description": "A PHP parser written in PHP",
-            "keywords": [
-                "parser",
-                "php"
-            ],
-            "time": "2020-09-23T18:23:49+00:00"
-        },
-        {
             "name": "openlss/lib-array2xml",
             "version": "1.0.0",
             "source": {
@@ -11650,12 +11650,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/autowire-array-parameter.git",
-                "reference": "8209896d20648f3a300536f5e73489e34c13ee7b"
+                "reference": "13d7f1696480d4c04aa3f0609d43c15d08881fa7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/autowire-array-parameter/zipball/8209896d20648f3a300536f5e73489e34c13ee7b",
-                "reference": "8209896d20648f3a300536f5e73489e34c13ee7b",
+                "url": "https://api.github.com/repos/symplify/autowire-array-parameter/zipball/13d7f1696480d4c04aa3f0609d43c15d08881fa7",
+                "reference": "13d7f1696480d4c04aa3f0609d43c15d08881fa7",
                 "shasum": ""
             },
             "require": {
@@ -11701,12 +11701,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/coding-standard.git",
-                "reference": "84d8f072fcfa0291d0849a4496054fe2644b8411"
+                "reference": "b1b9cf4319bd4d2699fec6452f3f9ca59dd5e40d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/coding-standard/zipball/84d8f072fcfa0291d0849a4496054fe2644b8411",
-                "reference": "84d8f072fcfa0291d0849a4496054fe2644b8411",
+                "url": "https://api.github.com/repos/symplify/coding-standard/zipball/b1b9cf4319bd4d2699fec6452f3f9ca59dd5e40d",
+                "reference": "b1b9cf4319bd4d2699fec6452f3f9ca59dd5e40d",
                 "shasum": ""
             },
             "require": {
@@ -11766,12 +11766,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/console-color-diff.git",
-                "reference": "9cb09910d90435132759c286a78ff51137ff2841"
+                "reference": "20384e3fd2ecb3107da91ce16995795332f7b869"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/console-color-diff/zipball/9cb09910d90435132759c286a78ff51137ff2841",
-                "reference": "9cb09910d90435132759c286a78ff51137ff2841",
+                "url": "https://api.github.com/repos/symplify/console-color-diff/zipball/20384e3fd2ecb3107da91ce16995795332f7b869",
+                "reference": "20384e3fd2ecb3107da91ce16995795332f7b869",
                 "shasum": ""
             },
             "require": {
@@ -11820,12 +11820,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/easy-coding-standard.git",
-                "reference": "d759f3338256131fe051d67ecf827eeafa37fbd1"
+                "reference": "8ecc41309582c0158310bd7754941155fa065584"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/easy-coding-standard/zipball/d759f3338256131fe051d67ecf827eeafa37fbd1",
-                "reference": "d759f3338256131fe051d67ecf827eeafa37fbd1",
+                "url": "https://api.github.com/repos/symplify/easy-coding-standard/zipball/8ecc41309582c0158310bd7754941155fa065584",
+                "reference": "8ecc41309582c0158310bd7754941155fa065584",
                 "shasum": ""
             },
             "require": {
@@ -11899,12 +11899,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/package-builder.git",
-                "reference": "9d58cd3b96d9f29b871a8330e02284c13f8246f4"
+                "reference": "798059dde8fc8acdc426e88e3c4f3659b077fae8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/package-builder/zipball/9d58cd3b96d9f29b871a8330e02284c13f8246f4",
-                "reference": "9d58cd3b96d9f29b871a8330e02284c13f8246f4",
+                "url": "https://api.github.com/repos/symplify/package-builder/zipball/798059dde8fc8acdc426e88e3c4f3659b077fae8",
+                "reference": "798059dde8fc8acdc426e88e3c4f3659b077fae8",
                 "shasum": ""
             },
             "require": {
@@ -11955,12 +11955,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/set-config-resolver.git",
-                "reference": "24ef3ecab2abb1ab65269a48c1b8b9c9021802a5"
+                "reference": "058c3f0652b7dcfaea7893131c0bf157aa318d2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/set-config-resolver/zipball/24ef3ecab2abb1ab65269a48c1b8b9c9021802a5",
-                "reference": "24ef3ecab2abb1ab65269a48c1b8b9c9021802a5",
+                "url": "https://api.github.com/repos/symplify/set-config-resolver/zipball/058c3f0652b7dcfaea7893131c0bf157aa318d2d",
+                "reference": "058c3f0652b7dcfaea7893131c0bf157aa318d2d",
                 "shasum": ""
             },
             "require": {
@@ -12011,12 +12011,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symplify/smart-file-system.git",
-                "reference": "97e93880405a8b3818c27d0e93aed943a1666f00"
+                "reference": "4c5b22d0aa8ae0c5a14d577440b6036ab18c827d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symplify/smart-file-system/zipball/97e93880405a8b3818c27d0e93aed943a1666f00",
-                "reference": "97e93880405a8b3818c27d0e93aed943a1666f00",
+                "url": "https://api.github.com/repos/symplify/smart-file-system/zipball/4c5b22d0aa8ae0c5a14d577440b6036ab18c827d",
+                "reference": "4c5b22d0aa8ae0c5a14d577440b6036ab18c827d",
                 "shasum": ""
             },
             "require": {
