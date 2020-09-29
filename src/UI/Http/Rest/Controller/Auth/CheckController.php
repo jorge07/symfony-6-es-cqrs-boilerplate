@@ -11,7 +11,6 @@ use App\UI\Http\Rest\Controller\CommandQueryController;
 use App\UI\Http\Rest\Response\OpenApi;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
-use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;

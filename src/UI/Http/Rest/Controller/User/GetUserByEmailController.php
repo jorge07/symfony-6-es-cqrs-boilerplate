@@ -10,7 +10,6 @@ use App\UI\Http\Rest\Controller\QueryController;
 use App\UI\Http\Rest\Response\OpenApi;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
-use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Routing\Annotation\Route;
