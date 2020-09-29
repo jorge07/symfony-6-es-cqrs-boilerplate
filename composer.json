@@ -30,7 +30,7 @@
     "require-dev": {
         "blackfire/php-sdk": "^1.23",
         "dama/doctrine-test-bundle": "^6.3",
-        "phpstan/phpstan": "^0.12.42",
+        "phpstan/phpstan": "^0.12.46",
         "phpunit/phpunit": "v9.3",
         "roave/security-advisories": "dev-master",
         "sylius-labs/coding-standard": "^3.1",
