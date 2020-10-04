@@ -12,8 +12,8 @@ use App\UI\Http\Session;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
 use Ramsey\Uuid\Uuid;
-use Swagger\Annotations as SWG;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,33 +37,33 @@ final class UserChangeEmailController extends CommandController
      *     methods={"POST"}
      * )
      *
-     * @SWG\Response(
+     * @OA\Response(
      *     response=201,
      *     description="Email changed"
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Bad request"
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=409,
      *     description="Conflict"
      * )
-     * @SWG\Parameter(
-     *     name="change-email",
-     *     type="object",
-     *     in="body",
-     *     schema=@SWG\Schema(type="object",
-     *         @SWG\Property(property="email", type="string")
+     *
+     * @OA\RequestBody(
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(property="email", type="string"),
      *     )
      * )
-     * @SWG\Parameter(
+     *
+     * @OA\Parameter(
      *     name="uuid",
-     *     type="string",
-     *     in="path"
+     *     in="path",
+     *     @OA\Schema(type="string")
      * )
      *
-     * @SWG\Tag(name="User")
+     * @OA\Tag(name="User")
      *
      * @Security(name="Bearer")
      *

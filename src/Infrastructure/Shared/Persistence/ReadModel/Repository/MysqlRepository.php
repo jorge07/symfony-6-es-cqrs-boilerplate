@@ -79,9 +79,16 @@ abstract class MysqlRepository
 
     public function isHealthy(): bool
     {
+        $connection = $this->entityManager->getConnection();
+
         try {
-            return $this->entityManager->getConnection()->ping() === true;
+            $dummySelectSQL = $connection->getDatabasePlatform()->getDummySelectSQL();
+            $connection->executeQuery($dummySelectSQL);
+
+            return true;
         } catch (Throwable $exception) {
+            $connection->close();
+
             return false;
         }
     }

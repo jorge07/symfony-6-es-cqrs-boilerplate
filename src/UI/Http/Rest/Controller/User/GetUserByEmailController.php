@@ -11,7 +11,7 @@ use App\UI\Http\Rest\Response\OpenApi;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use Nelmio\ApiDocBundle\Annotation\Security;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 use Symfony\Component\Routing\Annotation\Route;
 use Throwable;
 
@@ -23,26 +23,27 @@ final class GetUserByEmailController extends QueryController
      *     name="find_user",
      *     methods={"GET"}
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
-     *     description="Returns the user of the given email"
+     *     description="Returns the user of the given email",
+     *     ref="#/components/responses/users"
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Bad request"
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=404,
      *     description="Not found"
      * )
-     * @SWG\Parameter(
-     *     name="email",
-     *     in="path",
-     *     type="string",
-     *     description="email"
+     * @OA\RequestBody(
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(property="email", type="string"),
+     *     )
      * )
      *
-     * @SWG\Tag(name="User")
+     * @OA\Tag(name="User")
      *
      * @Security(name="Bearer")
      *

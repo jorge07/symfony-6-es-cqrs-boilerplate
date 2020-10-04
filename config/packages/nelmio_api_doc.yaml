@@ -1,15 +1,156 @@
 nelmio_api_doc:
+
     documentation:
+        servers:
+            - url: http://es.local
+              description: API over HTTP
         info:
             title: jorge07/symfony-5-es-cqrs-boilerplate
             description: Symfony 4 DDD ES CQRS backend boilerplate
             version: 1.0.0
-        securityDefinitions:
-            Bearer:
-                type: apiKey
-                description: 'Value: Bearer {jwt}'
-                name: Authorization
-                in: header
+        components:
+            securitySchemes:
+                Bearer:
+                    type: http
+                    scheme: bearer
+                    bearerFormat: JWT
+            parameters:
+                page:
+                    name: page
+                    in: query
+                    example: 1
+                    schema:
+                        type: integer
+                limit:
+                    name: limit
+                    in: query
+                    example: 10
+                    schema:
+                        type: integer
+            responses:
+                events:
+                    description: Event list
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    meta:
+                                        ref: "#/components/schemas/ResponseCollectionMeta"
+                                    data:
+                                        type: array
+                                        items:
+                                            $ref: "#/components/schemas/DomainMessage"
+                                    relationships:
+                                        ref: "#/components/schemas/Relationships"
+
+                users:
+                    description: Users list
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    data:
+                                        $ref: "#/components/schemas/UserView"
+                                    relationships:
+                                        ref: "#/components/schemas/Relationships"
+
+            schemas:
+                UserView:
+                    type: object
+                    properties:
+                        uuid:
+                            type: string
+                            example: 7be33fd4-ff46-11ea-adc1-0242ac120002
+                        createdAt:
+                            type: string
+                            format: date-time
+                        updatedAt:
+                            type: string
+                            format: date-time
+                        credentials:
+                            type: object
+                            properties:
+                                email:
+                                    type: string
+                                    example: 'j@j.com'
+                                password:
+                                    type: string
+                                    example: ;klsdjhsd;gjkdhg;sldkgjhs;dlkgjsd;lfgkj
+
+                ResponseCollectionMeta:
+                    type: object
+                    properties:
+                        size:
+                            type: integer
+                        page:
+                            type: integer
+                        total:
+                            type: integer
+
+                Relationships:
+                    type: object
+                    properties:
+                        data:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                    type:
+                                        type: string
+                                    attributes:
+                                        type: object
+                Error:
+                    type: object
+                    properties:
+                        error:
+                            type: object
+                            properties:
+                                title:
+                                    type: string
+                                    example: InvalidArgumentException
+                                detail:
+                                    type: string
+                                    example: 'Password should contain at least 6 characters'
+                                code:
+                                    type: string
+                                    example: 500005322
+
+                DomainMessage:
+                    type: object
+                    properties:
+                        playhead:
+                            type: integer
+                        metadata:
+                            type: object
+                            $ref: "#/components/schemas/MessageMetadata"
+                        payload:
+                            type: object
+                            example:
+                                uuid: "7be33fd4-ff46-11ea-adc1-0242ac120002"
+                                credentials:
+                                    email: "j@j.com"
+                                    password: "$2y$12$v4wrj2vgndDpWfMzTaTDTeftCo0jchvXWJliZ0GNN9bYM9Q0rACSC"
+                                created_at: "2020-09-25T15:49:31.750754+00:00"
+                        id:
+                            type: string
+                        recordedOn:
+                            type: string
+                            format: data-time
+
+                MessageMetadata:
+                    type: object
+                    properties:
+                        values:
+                            type: array
+                            items:
+                                type: string
+                                example:
+                                    - { stream: master }
+
         security:
             - Bearer: []
     areas: # to filter documented areas

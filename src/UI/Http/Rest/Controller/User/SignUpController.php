@@ -9,7 +9,7 @@ use App\UI\Http\Rest\Controller\CommandController;
 use App\UI\Http\Rest\Response\OpenApi;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Throwable;
@@ -23,30 +23,29 @@ final class SignUpController extends CommandController
      *     methods={"POST"}
      * )
      *
-     * @SWG\Response(
+     * @OA\Response(
      *     response=201,
      *     description="User created successfully"
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Bad request"
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=409,
      *     description="Conflict"
      * )
-     * @SWG\Parameter(
-     *     name="user",
-     *     type="object",
-     *     in="body",
-     *     schema=@SWG\Schema(type="object",
-     *         @SWG\Property(property="uuid", type="string"),
-     *         @SWG\Property(property="email", type="string"),
-     *         @SWG\Property(property="password", type="string")
+     * @OA\RequestBody(
+     *     @OA\Schema(type="object"),
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(property="uuid", type="string"),
+     *         @OA\Property(property="email", type="string"),
+     *         @OA\Property(property="password", type="string")
      *     )
      * )
      *
-     * @SWG\Tag(name="User")
+     * @OA\Tag(name="User")
      *
      * @throws AssertionFailedException
      * @throws Throwable

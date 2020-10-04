@@ -11,7 +11,7 @@ use App\UI\Http\Rest\Controller\CommandQueryController;
 use App\UI\Http\Rest\Response\OpenApi;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Throwable;
@@ -28,29 +28,33 @@ final class CheckController extends CommandQueryController
      *      "_password": "\w+"
      *     }
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
-     *     description="Login success"
+     *     description="Login success",
+     *     @OA\JsonContent(
+     *        type="object",
+     *        @OA\Property(
+     *          property="token", type="string"
+     *        )
+     *     )
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=400,
      *     description="Bad request"
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=401,
-     *     description="ad credentials"
+     *     description="Bad credentials"
      * )
-     * @SWG\Parameter(
-     *     name="credentials",
-     *     type="object",
-     *     in="body",
-     *     schema=@SWG\Schema(type="object",
-     *         @SWG\Property(property="_password", type="string"),
-     *         @SWG\Property(property="_username", type="string")
+     * @OA\RequestBody(
+     *     @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(property="_password", type="string"),
+     *         @OA\Property(property="_username", type="string")
      *     )
      * )
      *
-     * @SWG\Tag(name="Auth")
+     * @OA\Tag(name="Auth")
      *
      * @throws AssertionFailedException
      * @throws InvalidCredentialsException

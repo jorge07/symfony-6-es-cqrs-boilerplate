@@ -7,7 +7,7 @@ namespace App\UI\Http\Rest\Controller\Healthz;
 use App\Infrastructure\Shared\Event\ReadModel\ElasticSearchEventRepository;
 use App\Infrastructure\User\ReadModel\Mysql\MysqlReadModelUserRepository;
 use App\UI\Http\Rest\Response\OpenApi;
-use Swagger\Annotations as SWG;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -31,16 +31,16 @@ final class HealthzController
      *     name="healthz",
      *     methods={"GET"}
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
      *     description="OK"
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=500,
      *     description="Something not ok"
      * )
      *
-     * @SWG\Tag(name="Healthz")
+     * @OA\Tag(name="Healthz")
      */
     public function __invoke(Request $request): OpenApi
     {

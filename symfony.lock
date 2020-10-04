@@ -125,9 +125,6 @@
     "elasticsearch/elasticsearch": {
         "version": "v6.0.1"
     },
-    "exsyst/swagger": {
-        "version": "v0.4.1"
-    },
     "ezimuel/guzzlestreams": {
         "version": "3.0.1"
     },
@@ -464,6 +461,9 @@
             "ref": "70e6c7b1c83d975cf1ca40f9685feeb009d70792"
         }
     },
+    "symfony/http-client-contracts": {
+        "version": "v2.2.0"
+    },
     "symfony/http-foundation": {
         "version": "v4.0.2"
     },
@@ -631,9 +631,6 @@
     "symfony/yaml": {
         "version": "v4.0.2"
     },
-    "symplify/auto-bind-parameter": {
-        "version": "8.2.26"
-    },
     "symplify/autowire-array-parameter": {
         "version": "8.2.26"
     },
@@ -654,6 +651,9 @@
     },
     "symplify/smart-file-system": {
         "version": "v7.1.3"
+    },
+    "symplify/symplify-kernel": {
+        "version": "8.3.27"
     },
     "theseer/tokenizer": {
         "version": "1.1.0"
