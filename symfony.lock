@@ -8,6 +8,9 @@
     "beberlei/assert": {
         "version": "v2.8.1"
     },
+    "blackfire/php-sdk": {
+        "version": "v1.23.0"
+    },
     "brick/math": {
         "version": "0.8.15"
     },
@@ -34,6 +37,9 @@
     },
     "broadway/uuid-generator": {
         "version": "0.4.0"
+    },
+    "composer/ca-bundle": {
+        "version": "1.2.8"
     },
     "composer/semver": {
         "version": "1.5.1"
