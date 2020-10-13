@@ -53,7 +53,7 @@ Symfony 4 still available in [symfony-4 branch](https://github.com/jorge07/symfo
 
 - PHP 7.4
 - Mysql 8.0
-- Elastic & Kibana 7.6
+- Elastic & Kibana 7.9.2
 - RabbitMQ 3
 
 ## Project Setup
@@ -68,7 +68,7 @@ Symfony 4 still available in [symfony-4 branch](https://github.com/jorge07/symfo
 |  Code style check	| `make cs-check`|
 |  PHP Shell 	      | `make s=php sh`|
 |  Xdebug 	         | `make xoff/xon`|
-|  Build Artifacts  | `make artifact`|
+|  Build Artifacts   | `make artifact`|
 
 ## PHPStorm integration
 
