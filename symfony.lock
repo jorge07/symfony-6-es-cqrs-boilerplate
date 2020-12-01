@@ -122,9 +122,6 @@
     "doctrine/persistence": {
         "version": "v1.0.0"
     },
-    "doctrine/reflection": {
-        "version": "v1.0.0"
-    },
     "doctrine/sql-formatter": {
         "version": "1.1.0"
     },
@@ -166,6 +163,9 @@
     },
     "laminas/laminas-zendframework-bridge": {
         "version": "1.0.1"
+    },
+    "lcobucci/clock": {
+        "version": "2.0.0"
     },
     "lcobucci/jwt": {
         "version": "3.2.3"
@@ -220,9 +220,6 @@
     },
     "openlss/lib-array2xml": {
         "version": "1.0.0"
-    },
-    "paragonie/random_compat": {
-        "version": "v2.0.11"
     },
     "phar-io/manifest": {
         "version": "1.0.1"
@@ -546,9 +543,6 @@
     },
     "symfony/polyfill-php80": {
         "version": "v1.16.0"
-    },
-    "symfony/polyfill-util": {
-        "version": "v1.8.0"
     },
     "symfony/process": {
         "version": "v4.4.4"

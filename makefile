@@ -19,7 +19,7 @@ start-deps:  ## Start all dependencies and wait for it
 
 .PHONY: stop
 stop: ## stop environment
-		$(compose) stop
+		$(compose) stop $(s)
 
 .PHONY: rebuild
 rebuild: start ## same as start
@@ -104,6 +104,8 @@ xon: ## activate xdebug simlink
 .PHONY: xoff
 xoff: ## deactivate xdebug
 		$(compose) exec -T php sh -lc 'xoff | true'
+		make s='php workers_events workers_users' stop
+		make up
 
 .PHONY: sh
 sh: ## gets inside a container, use 's' variable to select a service. make s=php sh

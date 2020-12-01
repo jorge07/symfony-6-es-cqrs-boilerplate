@@ -52,7 +52,7 @@ final class GetUserByEmailController extends QueryController
      */
     public function __invoke(string $email): OpenApi
     {
-        Assertion::notNull($email, "Email can\'t be null");
+        Assertion::email($email, "Email can\'t be null");
 
         $command = new FindByEmailQuery($email);
 
