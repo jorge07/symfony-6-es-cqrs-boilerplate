@@ -31,6 +31,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "patrykwozinski",
+      "name": "Patryk Woziński",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/17459288?v=4",
+      "profile": "http://patryk.it",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
