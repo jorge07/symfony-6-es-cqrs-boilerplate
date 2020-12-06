@@ -1,9 +1,15 @@
 ARG PHP_VERION=7.4.3
 
-FROM jorge07/alpine-php:${PHP_VERION}-dev as php-dev
+FROM jorge07/alpine-php:${PHP_VERION}-dev as php-base
+
+# Install your project dependencies here
+# RUN apk add -U --no-cache php7-soap
+
+FROM php-base as php-dev
 
 ENV PHP_INI_DIR /etc/php7
 
+# Install your project DEVELOPMENT dependencies here
 RUN apk add -U sqlite \
 	&& version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/alpine/amd64/$version \
@@ -22,7 +28,7 @@ RUN apk add -U sqlite \
     && echo "extension=pcov.so" >> /etc/php7/php.ini \
     && echo "pcov.enabled=0" >> /etc/php7/php.ini
 
-FROM jorge07/alpine-php:${PHP_VERION}-dev as builder
+FROM php-dev as builder
 
 WORKDIR /app
 
@@ -42,7 +48,7 @@ COPY public /app/public
 
 RUN composer run-script post-install-cmd
 
-FROM jorge07/alpine-php:${PHP_VERION} as php
+FROM php-base as php
 
 ENV APP_ENV prod
 
