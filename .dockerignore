@@ -14,7 +14,7 @@ docker-compose*
 .git/
 .php_cs*
 .travis.yml
-depfile.yml
+depfile.yaml
 .idea
 phpunit.xml.dist
 makefile
