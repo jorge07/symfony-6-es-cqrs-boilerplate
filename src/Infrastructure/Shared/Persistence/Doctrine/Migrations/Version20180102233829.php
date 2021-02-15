@@ -51,4 +51,9 @@ class Version20180102233829 extends AbstractMigration implements ContainerAwareI
 
         $this->em->flush();
     }
+
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

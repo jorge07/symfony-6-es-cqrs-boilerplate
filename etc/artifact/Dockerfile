@@ -1,13 +1,18 @@
-ARG PHP_VERSION=7.4.3
+ARG PHP_VERSION=8.0.0
 
-FROM jorge07/alpine-php:${PHP_VERSION}-dev as php-base
+FROM jorge07/alpine-php:${PHP_VERSION} as php-base
+RUN  echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+# List your dependencies here
+ARG PHP_MODULES="php-pdo@cast php-pdo_mysql@cast php8-pecl-amqp@cast"
+RUN apk add -U --no-cache ${PHP_MODULES}
 
-# Install your project dependencies here
-# RUN apk add -U --no-cache php7-soap
+FROM jorge07/alpine-php:${PHP_VERSION}-dev as php-dev
+RUN  echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+# List your dependencies here
+ARG PHP_MODULES="php-pdo@cast php-pdo_mysql@cast php8-pecl-amqp@cast"
+RUN apk add -U --no-cache ${PHP_MODULES}
 
-FROM php-base as php-dev
-
-ENV PHP_INI_DIR /etc/php7
+ENV PHP_INI_DIR /etc/php8
 
 # Install your project DEVELOPMENT dependencies here
 RUN apk add -U sqlite \
@@ -21,12 +26,7 @@ RUN apk add -U sqlite \
     && mkdir -p /tmp/blackfire \
     && curl -A "Docker" -L https://blackfire.io/api/v1/releases/client/linux_static/amd64 | tar zxp -C /tmp/blackfire \
     && mv /tmp/blackfire/blackfire /usr/bin/blackfire \
-    && rm -Rf /tmp/blackfire \
-    && apk add --no-cache php-dev g++ autoconf make pcre2-dev \
-    && pecl install pcov \
-    && apk del --no-cache php-dev g++ autoconf make pcre2-dev \
-    && echo "extension=pcov.so" >> /etc/php7/php.ini \
-    && echo "pcov.enabled=0" >> /etc/php7/php.ini
+    && rm -Rf /tmp/blackfire
 
 FROM php-dev as builder
 

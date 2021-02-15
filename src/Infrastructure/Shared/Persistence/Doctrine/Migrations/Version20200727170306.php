@@ -32,4 +32,12 @@ final class Version20200727170306 extends AbstractMigration
 
         $this->addSql('DROP TABLE users');
     }
+
+    /**
+     * https://github.com/doctrine/migrations/issues/1104
+     */
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }
