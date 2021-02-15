@@ -57,7 +57,7 @@ up: ## spin up environment
 
 .PHONY: phpunit
 phpunit: db ## execute project unit tests
-		$(compose) exec -T php sh -lc "php -dpcov.enabled='1' -dpcov.directory=. -dpcov.exclude='~vendor~' ./vendor/bin/phpunit $(conf)"
+		$(compose) exec -T php sh -lc "php -dxdebug.mode=coverage -dxdebug.log_level=0 ./vendor/bin/phpunit $(conf)"
 
 .PHONY: coverage
 coverage:

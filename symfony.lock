@@ -556,6 +556,9 @@
     "symfony/property-info": {
         "version": "v4.1.3"
     },
+    "symfony/proxy-manager-bridge": {
+        "version": "v5.2.3"
+    },
     "symfony/redis-messenger": {
         "version": "v5.1.0"
     },
@@ -663,9 +666,6 @@
     },
     "vimeo/psalm": {
         "version": "3.11.2"
-    },
-    "webimpress/safe-writer": {
-        "version": "2.0.0"
     },
     "webmozart/assert": {
         "version": "1.2.0"

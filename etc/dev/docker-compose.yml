@@ -30,7 +30,7 @@ services:
       - "5672:5672"
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:7.9.1
+    image: docker.elastic.co/kibana/kibana:7.11.0
     ports:
       - 5601:5601
     volumes:
