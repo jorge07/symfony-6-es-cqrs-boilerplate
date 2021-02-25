@@ -1,6 +1,6 @@
-ARG PHP_VERION=7.4.3
+ARG PHP_VERSION=7.4.3
 
-FROM jorge07/alpine-php:${PHP_VERION}-dev as php-base
+FROM jorge07/alpine-php:${PHP_VERSION}-dev as php-base
 
 # Install your project dependencies here
 # RUN apk add -U --no-cache php7-soap
