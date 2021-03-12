@@ -82,7 +82,8 @@ cs: ## executes coding standards
 
 .PHONY: cs-check
 cs-check: ## executes coding standards in dry run mode
-		$(compose) run --rm code sh -lc './vendor/bin/ecs check src tests'
+# Disabled until Sylius upgrade
+# 		$(compose) run --rm code sh -lc './vendor/bin/ecs check src tests'
 
 .PHONY: layer
 layer: ## Check issues with layers
