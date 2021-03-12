@@ -57,7 +57,7 @@ up: ## spin up environment
 
 .PHONY: phpunit
 phpunit: db ## execute project unit tests
-		$(compose) exec -T php sh -lc "XDEBUG_MODE=coverage php -dxdebug.log_level=0 ./vendor/bin/phpunit $(conf)"
+		$(compose) exec -T php sh -lc "XDEBUG_MODE=coverage ./vendor/bin/phpunit $(conf)"
 
 .PHONY: coverage
 coverage:

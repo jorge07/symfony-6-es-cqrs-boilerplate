@@ -1,4 +1,4 @@
-ARG PHP_VERSION=8.0.0
+ARG PHP_VERSION=8.0.1
 
 FROM jorge07/alpine-php:${PHP_VERSION} as php-base
 RUN  echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
