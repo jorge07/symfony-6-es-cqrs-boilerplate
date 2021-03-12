@@ -32,7 +32,7 @@ erase: ## stop and delete containers, clean volumes.
 
 .PHONY: build
 build: ## build environment and initialize composer and project dependencies
-		$(compose) build
+		$(compose) build --parallel
 
 		if [ env = "prod" ]; then \
 			echo Building in $(env) mode; \
@@ -119,7 +119,7 @@ logs: ## look for 's' service logs, make s=php logs
 .PHONY: minikube
 minikube:
 		@eval $$(minikube docker-env); \
-		docker-compose -f etc/artifact/docker-compose.yml build; \
+		docker-compose -f etc/artifact/docker-compose.yml build --parallel; \
 		helm dep up etc/artifact/chart; \
 		helm upgrade -i cqrs etc/artifact/chart
 
