@@ -12,6 +12,7 @@
 ## Setup
 
 - Start the project using `make start`. It will start the containers and setup the project. You'll end seeing something like that:
+
 ```bash
 ➜ docker-compose ps        
        Name                      Command               State                                             Ports                                           

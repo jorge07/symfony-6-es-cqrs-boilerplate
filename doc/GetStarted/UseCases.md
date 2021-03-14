@@ -12,9 +12,9 @@ Let's create a Use Case that just do: `echo "LOOL"`.
 
 declare(strict_types=1);
 
-namespace App\Application\Command\Log;
+namespace App\Echo\Application\Command\Log;
 
-use App\Infrastructure\Shared\Bus\Command\CommandInterface;
+use App\Shared\Infrastructure\Bus\Command\CommandInterface;
 
 class EchoCommand implements CommandInterface
 {
@@ -29,9 +29,9 @@ class EchoCommand implements CommandInterface
 
 declare(strict_types=1);
 
-namespace App\Application\Command\Log;
+namespace App\Echo\Application\Command\Log;
 
-use App\Infrastructure\Shared\Bus\Command\CommandHandlerInterface;
+use App\Shared\Infrastructure\Bus\Command\CommandHandlerInterface;
 
 class EchoHandler implements CommandHandlerInterface
 {
@@ -51,9 +51,10 @@ Now you can use this from UI
 
 declare(strict_types=1);
 
-namespace App\UI\Cli\Command;
+namespace UI\Cli\Command;
 
-use App\Infrastructure\Shared\Bus\Command\MessengerCommandBus;
+use App\Shared\Infrastructure\Bus\Command\MessengerCommandBus;
+use App\Echo\Application\Command\Log\EchoCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -70,7 +71,7 @@ class EchoCli extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $echoCommand = new \App\Application\Command\Log\EchoCommand();
+        $echoCommand = new EchoCommand();
         $this->commandBus->handle($echoCommand);
     }
 
@@ -97,6 +98,6 @@ Execute:
 
 `./bin/console app:echo`
 
-And you should see: `LOOL`
+You should see: `LOOL`
 
-And that's all with 0 config thanks to Symfony 4!
+And that's all with 0 config thanks to Symfony 4|5!
