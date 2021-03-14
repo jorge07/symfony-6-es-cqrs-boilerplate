@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\UI\Cli\Command;
+namespace Tests\UI\Cli\Command;
 
-use App\Application\Command\CommandBusInterface;
-use App\Application\Query\Item;
-use App\Application\Query\User\FindByEmail\FindByEmailQuery;
-use App\Tests\UI\Cli\AbstractConsoleTestCase;
-use App\UI\Cli\Command\CreateUserCommand;
+use App\Shared\Application\Command\CommandBusInterface;
+use App\Shared\Application\Query\Item;
+use App\User\Application\Query\User\FindByEmail\FindByEmailQuery;
 use Assert\AssertionFailedException;
 use Ramsey\Uuid\Uuid;
+use Tests\UI\Cli\AbstractConsoleTestCase;
 use Throwable;
+use UI\Cli\Command\CreateUserCommand;
 
 class CreateUserCommandTest extends AbstractConsoleTestCase
 {

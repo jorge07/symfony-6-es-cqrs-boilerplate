@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests;
+namespace Tests;
 
 use PHPUnit\Framework\Test;
 use PHPUnit\Framework\TestListener;

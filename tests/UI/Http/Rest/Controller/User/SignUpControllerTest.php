@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\UI\Http\Rest\Controller\User;
+namespace Tests\UI\Http\Rest\Controller\User;
 
-use App\Domain\User\Event\UserWasCreated;
-use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
-use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
+use App\User\Domain\Event\UserWasCreated;
+use Tests\App\Shared\Infrastructure\Event\EventCollectorListener;
+use Tests\UI\Http\Rest\Controller\JsonApiTestCase;
 use Broadway\Domain\DomainMessage;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Response;

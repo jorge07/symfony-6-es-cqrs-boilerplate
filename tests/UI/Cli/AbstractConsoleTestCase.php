@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\UI\Cli;
+namespace Tests\UI\Cli;
 
-use App\Tests\Application\ApplicationTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
+use Tests\App\Shared\Application\ApplicationTestCase;
 
 class AbstractConsoleTestCase extends ApplicationTestCase
 {

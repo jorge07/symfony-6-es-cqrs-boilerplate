@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\UI\Http\Rest\Controller;
+namespace UI\Http\Rest\Controller;
 
-use App\Application\Command\CommandBusInterface;
-use App\Application\Command\CommandInterface;
-use App\Application\Query\QueryBusInterface;
+use App\Shared\Application\Command\CommandBusInterface;
+use App\Shared\Application\Command\CommandInterface;
+use App\Shared\Application\Query\QueryBusInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Throwable;
 

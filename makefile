@@ -87,7 +87,7 @@ cs-check: ## executes coding standards in dry run mode
 
 .PHONY: layer
 layer: ## Check issues with layers
-		$(compose) run --rm code sh -lc 'php bin/deptrac.phar analyze --formatter-graphviz=0'
+		$(compose) run --rm code sh -lc 'bin/deptrac.phar analyze --formatter-graphviz=0'
 
 .PHONY: db
 db: ## recreate database

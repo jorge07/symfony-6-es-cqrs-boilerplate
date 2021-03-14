@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\UI\Http\Rest\Controller;
+namespace Tests\UI\Http\Rest\Controller;
 
-use App\Application\Command\User\SignUp\SignUpCommand;
-use App\Infrastructure\Shared\Bus\Command\MessengerCommandBus;
+use App\Shared\Infrastructure\Bus\Command\MessengerCommandBus;
+use App\User\Application\Command\SignUp\SignUpCommand;
 use Assert\AssertionFailedException;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;

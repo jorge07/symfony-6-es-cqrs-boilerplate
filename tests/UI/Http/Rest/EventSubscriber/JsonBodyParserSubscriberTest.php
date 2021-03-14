@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\UI\Http\Rest\EventSubscriber;
+namespace Tests\UI\Http\Rest\EventSubscriber;
 
-use App\UI\Http\Rest\EventSubscriber\JsonBodyParserSubscriber;
+use UI\Http\Rest\EventSubscriber\JsonBodyParserSubscriber;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

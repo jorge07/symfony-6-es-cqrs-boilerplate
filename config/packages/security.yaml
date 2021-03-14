@@ -5,7 +5,7 @@ security:
             cost: 12
     providers:
         users:
-            id: 'App\Infrastructure\User\Auth\AuthProvider'
+            id: 'App\User\Infrastructure\Auth\AuthProvider'
 
     firewalls:
         dev:
@@ -21,7 +21,7 @@ security:
             pattern:  ^/api/doc
             stateless: true
             anonymous: true
-            
+
         api_auth:
             pattern:  ^/api/auth
             stateless: true
@@ -45,9 +45,9 @@ security:
             provider: users
             anonymous: ~
             guard:
-              entry_point: 'App\Infrastructure\User\Auth\Guard\LoginAuthenticator'
+              entry_point: 'App\User\Infrastructure\Auth\Guard\LoginAuthenticator'
               authenticators:
-                - 'App\Infrastructure\User\Auth\Guard\LoginAuthenticator'
+                - 'App\User\Infrastructure\Auth\Guard\LoginAuthenticator'
             form_login:
               login_path: /sign-in
               check_path: sign-in

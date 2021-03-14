@@ -15,7 +15,7 @@
   </coverage>
   <php>
     <ini name="error_reporting" value="-1"/>
-    <env name="KERNEL_CLASS" value="App\Infrastructure\Kernel"/>
+    <env name="KERNEL_CLASS" value="App\Shared\Infrastructure\Kernel"/>
     <env name="APP_ENV" value="test"/>
     <env name="APP_DEBUG" value="1"/>
     <env name="APP_SECRET" value="s$cretf0rt3st"/>
@@ -40,7 +40,7 @@
   </testsuites>
   <logging/>
   <listeners>
-    <listener class="App\Tests\TidierListener"/>
+<!--    <listener class="Tests\TidierListener"/>-->
     <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
     <listener class="\DAMA\DoctrineTestBundle\PHPUnit\PHPUnitListener"/>
   </listeners>

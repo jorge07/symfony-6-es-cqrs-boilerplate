@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\UI\Http\Rest\Controller;
+namespace UI\Http\Rest\Controller;
 
-use App\Application\Query\Collection;
-use App\Application\Query\Item;
-use App\Application\Query\QueryBusInterface;
-use App\Application\Query\QueryInterface;
-use App\UI\Http\Rest\Response\OpenApi;
+use App\Shared\Application\Query\Collection;
+use App\Shared\Application\Query\Item;
+use App\Shared\Application\Query\QueryBusInterface;
+use App\Shared\Application\Query\QueryInterface;
+use UI\Http\Rest\Response\OpenApi;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Throwable;
 

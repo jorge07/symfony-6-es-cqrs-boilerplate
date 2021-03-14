@@ -1,7 +1,7 @@
 services:
     _defaults: {}
 
-    App\Tests\Infrastructure\Share\Event\EventCollectorListener:
+    Tests\App\Shared\Infrastructure\Event\EventCollectorListener:
       public: true
       tags:
           - { name: broadway.domain.event_listener }

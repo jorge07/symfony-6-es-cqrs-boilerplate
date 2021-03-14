@@ -5,37 +5,37 @@ layers:
   - name: Domain
     collectors:
       - type: className
-        regex: App\\Domain\\.*
+        regex: .*\\Domain\\.*
   - name: Application
     collectors:
       - type: className
-        regex: App\\Application\\.*
+        regex: .*Application\\.*
   - name: Infrastructure
     collectors:
       - type: bool
         must:
           - type: className
-            regex: App\\Infrastructure\\.*
+            regex: .*Infrastructure\\.*
         must_not:
           - type: className
-            regex: App\\Infrastructure\\User\\Auth\\Auth
+            regex: .*User\\Infrastructure\\Auth\\Auth
   - name: Auth
     collectors:
       - type: className
-        regex: App\\Infrastructure\\User\\Auth\\Auth;
+        regex: .*User\\Infrastructure\\Auth\\Auth;
   - name: UI
     collectors:
       - type: bool
         must:
           - type: className
-            regex: App\\UI\\.*
+            regex: UI\\.*
         must_not:
           - type: className
-            regex: App\\UI\\Http\\Rest\\Controller\\Healthz\\.*
+            regex: UI\\Http\\Rest\\Controller\\Healthz\\.*
   - name: UIHealth
     collectors:
       - type: className
-        regex: App\\UI\\Http\\Rest\\Controller\\Healthz\\.*
+        regex: UI\\Http\\Rest\\Controller\\Healthz\\.*
 ruleset:
   Domain:
   Auth:

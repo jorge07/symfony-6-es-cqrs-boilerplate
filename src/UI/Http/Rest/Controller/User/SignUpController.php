@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\UI\Http\Rest\Controller\User;
+namespace UI\Http\Rest\Controller\User;
 
-use App\Application\Command\User\SignUp\SignUpCommand;
-use App\UI\Http\Rest\Controller\CommandController;
-use App\UI\Http\Rest\Response\OpenApi;
+use App\User\Application\Command\SignUp\SignUpCommand;
+use UI\Http\Rest\Controller\CommandController;
+use UI\Http\Rest\Response\OpenApi;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use OpenApi\Annotations as OA;

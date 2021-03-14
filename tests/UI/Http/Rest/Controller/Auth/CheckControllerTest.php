@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\UI\Http\Rest\Controller\Auth;
+namespace Tests\UI\Http\Rest\Controller\Auth;
 
-use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
+use Tests\UI\Http\Rest\Controller\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 class CheckControllerTest extends JsonApiTestCase
