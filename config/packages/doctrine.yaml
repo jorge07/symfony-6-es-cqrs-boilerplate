@@ -7,9 +7,9 @@ doctrine:
         server_version: '8.0'
         types:
           uuid_binary: Ramsey\Uuid\Doctrine\UuidBinaryType
-          datetime_immutable: App\Infrastructure\Shared\Persistence\Doctrine\Types\DateTimeType
-          email: App\Infrastructure\Shared\Persistence\Doctrine\Types\EmailType
-          hashed_password: App\Infrastructure\Shared\Persistence\Doctrine\Types\HashedPasswordType
+          datetime_immutable: App\Shared\Infrastructure\Persistence\Doctrine\Types\DateTimeType
+          email: App\Shared\Infrastructure\Persistence\Doctrine\Types\EmailType
+          hashed_password: App\Shared\Infrastructure\Persistence\Doctrine\Types\HashedPasswordType
         mapping_types:
           uuid_binary: binary
     orm:
@@ -17,15 +17,9 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            Domain:
+            User:
                 is_bundle: false
                 type: xml
-                dir: '%kernel.project_dir%/config/packages/doctrine/mapping/domain'
-                prefix: 'App\Domain'
-                alias: Domain
-            Projections:
-                is_bundle: false
-                type: xml
-                dir: '%kernel.project_dir%/config/packages/doctrine/mapping/projections'
-                prefix: 'App\Infrastructure'
-                alias: Projections
+                dir: '%kernel.project_dir%/config/packages/doctrine/mapping/user'
+                prefix: 'App\User'
+                alias: App

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\UI\Http\Web\Controller;
+namespace Tests\App\UI\Http\Web\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
@@ -59,7 +59,7 @@ class SignUpControllerTest extends WebTestCase
         $this->createUser('jorge.arcoma@gmail.com');
         $crawler = $this->createUser('jorge.arcoma@gmail.com');
 
-        self::assertSame(1, $crawler->filter('html:contains("Email already exists.")')->count());
+        self::assertSame(1, $crawler->filter('html:contains("Email already registered.")')->count());
     }
 
     private function createUser(string $email, string $password = 'crqs-demo'): Crawler

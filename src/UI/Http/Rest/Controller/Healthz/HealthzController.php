@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\UI\Http\Rest\Controller\Healthz;
+namespace UI\Http\Rest\Controller\Healthz;
 
-use App\Infrastructure\Shared\Event\ReadModel\ElasticSearchEventRepository;
-use App\Infrastructure\User\ReadModel\Mysql\MysqlReadModelUserRepository;
-use App\UI\Http\Rest\Response\OpenApi;
+use App\Shared\Infrastructure\Event\ReadModel\ElasticSearchEventRepository;
+use App\User\Infrastructure\ReadModel\Mysql\MysqlReadModelUserRepository;
+use UI\Http\Rest\Response\OpenApi;
 use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\UI\Http\Rest\Controller\Auth;
+namespace UI\Http\Rest\Controller\Auth;
 
-use App\Application\Command\User\SignIn\SignInCommand;
-use App\Application\Query\Auth\GetToken\GetTokenQuery;
-use App\Domain\User\Exception\InvalidCredentialsException;
-use App\UI\Http\Rest\Controller\CommandQueryController;
-use App\UI\Http\Rest\Response\OpenApi;
+use App\User\Application\Command\SignIn\SignInCommand;
+use App\User\Application\Query\Auth\GetToken\GetTokenQuery;
+use App\User\Domain\Exception\InvalidCredentialsException;
+use UI\Http\Rest\Controller\CommandQueryController;
+use UI\Http\Rest\Response\OpenApi;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use OpenApi\Annotations as OA;

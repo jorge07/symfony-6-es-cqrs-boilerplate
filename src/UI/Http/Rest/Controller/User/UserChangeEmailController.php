@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\UI\Http\Rest\Controller\User;
+namespace UI\Http\Rest\Controller\User;
 
-use App\Application\Command\CommandBusInterface;
-use App\Application\Command\User\ChangeEmail\ChangeEmailCommand;
-use App\Domain\User\Exception\ForbiddenException;
-use App\UI\Http\Rest\Controller\CommandController;
-use App\UI\Http\Session;
+use App\Shared\Application\Command\CommandBusInterface;
+use App\User\Application\Command\ChangeEmail\ChangeEmailCommand;
+use App\User\Domain\Exception\ForbiddenException;
+use UI\Http\Rest\Controller\CommandController;
+use UI\Http\Session;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use Nelmio\ApiDocBundle\Annotation\Security;

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\UI\Http\Rest\Controller\User;
+namespace UI\Http\Rest\Controller\User;
 
-use App\Application\Query\Item;
-use App\Application\Query\User\FindByEmail\FindByEmailQuery;
-use App\UI\Http\Rest\Controller\QueryController;
-use App\UI\Http\Rest\Response\OpenApi;
+use App\Shared\Application\Query\Item;
+use App\User\Application\Query\User\FindByEmail\FindByEmailQuery;
+use UI\Http\Rest\Controller\QueryController;
+use UI\Http\Rest\Response\OpenApi;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use Nelmio\ApiDocBundle\Annotation\Security;

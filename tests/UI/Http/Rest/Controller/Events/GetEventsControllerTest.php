@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\UI\Http\Rest\Controller\Events;
+namespace Tests\UI\Http\Rest\Controller\Events;
 
-use App\Infrastructure\Shared\Event\ReadModel\ElasticSearchEventRepository;
-use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
+use App\Shared\Infrastructure\Event\ReadModel\ElasticSearchEventRepository;
+use Tests\UI\Http\Rest\Controller\JsonApiTestCase;
 use Assert\AssertionFailedException;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
@@ -82,9 +82,9 @@ class GetEventsControllerTest extends JsonApiTestCase
         self::assertSame(1, $responseDecoded['meta']['page']);
         self::assertSame(2, $responseDecoded['meta']['size']);
 
-        self::assertSame('App.Domain.User.Event.UserWasCreated', $responseDecoded['data'][0]['type']);
+        self::assertSame('App.User.Domain.Event.UserWasCreated', $responseDecoded['data'][0]['type']);
         self::assertSame(self::DEFAULT_EMAIL, $responseDecoded['data'][0]['payload']['credentials']['email']);
-        self::assertSame('App.Domain.User.Event.UserSignedIn', $responseDecoded['data'][1]['type']);
+        self::assertSame('App.User.Domain.Event.UserSignedIn', $responseDecoded['data'][1]['type']);
         self::assertSame(self::DEFAULT_EMAIL, $responseDecoded['data'][1]['payload']['email']);
     }
 

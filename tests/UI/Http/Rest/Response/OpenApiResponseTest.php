@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\UI\Http\Rest\Response;
+namespace Tests\UI\Http\Rest\Response;
 
-use App\Application\Query\Collection;
-use App\Application\Query\Item;
-use App\Domain\Shared\Exception\DateTimeException;
-use App\Domain\Shared\ValueObject\DateTime;
-use App\Domain\User\ValueObject\Email;
-use App\Infrastructure\User\ReadModel\UserView;
-use App\UI\Http\Rest\Response\OpenApi;
+use App\Shared\Application\Query\Collection;
+use App\Shared\Application\Query\Item;
+use App\Shared\Domain\Exception\DateTimeException;
+use App\Shared\Domain\ValueObject\DateTime;
+use App\User\Domain\ValueObject\Email;
+use App\User\Infrastructure\ReadModel\UserView;
+use UI\Http\Rest\Response\OpenApi;
 use Assert\AssertionFailedException;
 use Exception;
 use PHPUnit\Framework\TestCase;

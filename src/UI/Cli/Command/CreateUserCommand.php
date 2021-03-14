@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\UI\Cli\Command;
+namespace UI\Cli\Command;
 
-use App\Application\Command\CommandBusInterface;
-use App\Application\Command\User\SignUp\SignUpCommand as CreateUser;
+use App\Shared\Application\Command\CommandBusInterface;
+use App\User\Application\Command\SignUp\SignUpCommand as CreateUser;
 use Assert\AssertionFailedException;
 use Exception;
 use Ramsey\Uuid\Uuid;

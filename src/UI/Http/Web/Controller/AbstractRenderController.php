@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\UI\Http\Web\Controller;
+namespace UI\Http\Web\Controller;
 
-use App\Application\Command\CommandBusInterface;
-use App\Application\Command\CommandInterface;
-use App\Application\Query\Collection;
-use App\Application\Query\Item;
-use App\Application\Query\QueryBusInterface;
-use App\Application\Query\QueryInterface;
+use App\Shared\Application\Command\CommandBusInterface;
+use App\Shared\Application\Command\CommandInterface;
+use App\Shared\Application\Query\Collection;
+use App\Shared\Application\Query\Item;
+use App\Shared\Application\Query\QueryBusInterface;
+use App\Shared\Application\Query\QueryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 use Twig;

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\UI\Http\Web\Controller;
+namespace UI\Http\Web\Controller;
 
-use App\Application\Command\User\SignUp\SignUpCommand;
-use App\Domain\User\Exception\EmailAlreadyExistException;
+use App\User\Application\Command\SignUp\SignUpCommand;
+use App\User\Domain\Exception\EmailAlreadyExistException;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use InvalidArgumentException;
@@ -63,7 +63,7 @@ class SignUpController extends AbstractRenderController
 
             return $this->render('signup/user_created.html.twig', ['uuid' => $uuid, 'email' => $email]);
         } catch (EmailAlreadyExistException $exception) {
-            return $this->render('signup/index.html.twig', ['error' => 'Email already exists.'], Response::HTTP_CONFLICT);
+            return $this->render('signup/index.html.twig', ['error' => $exception->getMessage()], Response::HTTP_CONFLICT);
         } catch (InvalidArgumentException $exception) {
             return $this->render('signup/index.html.twig', ['error' => $exception->getMessage()], Response::HTTP_BAD_REQUEST);
         }

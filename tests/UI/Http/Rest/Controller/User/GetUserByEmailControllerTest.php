@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\UI\Http\Rest\Controller\User;
+namespace Tests\UI\Http\Rest\Controller\User;
 
-use App\Tests\Infrastructure\Share\Event\EventCollectorListener;
-use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
+use Tests\App\Shared\Infrastructure\Event\EventCollectorListener;
+use Tests\UI\Http\Rest\Controller\JsonApiTestCase;
 use Assert\AssertionFailedException;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;

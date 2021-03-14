@@ -10,9 +10,9 @@ parameters:
 
   exception_to_status:
     InvalidArgumentException: 400
-    App\Domain\User\Exception\InvalidCredentialsException: 401
-    App\Domain\User\Exception\ForbiddenException: 403
-    App\Infrastructure\Shared\Persistence\ReadModel\Exception\NotFoundException: 404
+    App\User\Domain\Exception\InvalidCredentialsException: 401
+    App\User\Domain\Exception\ForbiddenException: 403
+    App\Shared\Infrastructure\Persistence\ReadModel\Exception\NotFoundException: 404
     Broadway\Repository\AggregateNotFoundException: 404
 
 services:
@@ -29,17 +29,17 @@ services:
           $eventStore: '@Broadway\EventStore\Dbal\DBALEventStore'
 
     _instanceof:
-        App\Application\Command\CommandHandlerInterface:
+        App\Shared\Application\Command\CommandHandlerInterface:
           public: true
           tags:
             - { name: messenger.message_handler, bus: messenger.bus.command }
 
-        App\Application\Query\QueryHandlerInterface:
+        App\Shared\Application\Query\QueryHandlerInterface:
           public: true
           tags:
             - { name: messenger.message_handler, bus: messenger.bus.query }
 
-        App\Infrastructure\Shared\Bus\AsyncEvent\AsyncEventHandlerInterface:
+        App\Shared\Infrastructure\Bus\AsyncEvent\AsyncEventHandlerInterface:
           public: true
           tags:
             - { name: messenger.message_handler, bus: messenger.bus.event.async }
@@ -50,18 +50,21 @@ services:
               - { name: broadway.domain.event_listener }
 
     App\:
-        resource: '../src/*'
-        exclude: '../src/**/{Migrations,EventSubscriber}'
+        resource: '../src/App/*'
+        exclude: '../src/App/**/{Migrations,EventSubscriber}'
+    UI\:
+        resource: '../src/UI/*'
+        exclude: '../src/UI/**/{EventSubscriber}'
 
-    App\Infrastructure\Shared\Bus\Command\MessengerCommandBus:
+    App\Shared\Infrastructure\Bus\Command\MessengerCommandBus:
         arguments:
           - '@messenger.bus.command'
 
-    App\Infrastructure\Shared\Bus\Query\MessengerQueryBus:
+    App\Shared\Infrastructure\Bus\Query\MessengerQueryBus:
         arguments:
           - '@messenger.bus.query'
 
-    App\Infrastructure\Shared\Bus\AsyncEvent\MessengerAsyncEventBus:
+    App\Shared\Infrastructure\Bus\AsyncEvent\MessengerAsyncEventBus:
         arguments:
           - '@messenger.bus.event.async'
 
@@ -79,26 +82,26 @@ services:
 
     ### UI
 
-    App\UI\Cli\Command\:
+    UI\Cli\Command\:
         resource: '../src/UI/Cli/Command'
 
-    App\UI\Http\Rest\Controller\:
+    UI\Http\Rest\Controller\:
         resource: '../src/UI/Http/Rest/Controller/*'
         tags: [ 'controller.service_arguments' ]
 
-    App\UI\Http\Web\Controller\:
+    UI\Http\Web\Controller\:
         resource: '../src/UI/Http/Web/Controller/*'
         tags: [ 'controller.service_arguments' ]
 
     ### UI Listeners
 
-    App\UI\Http\Rest\EventSubscriber\ExceptionSubscriber:
+    UI\Http\Rest\EventSubscriber\ExceptionSubscriber:
         arguments:
             - "%kernel.environment%"
             - "%exception_to_status%"
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.exception' }
 
-    App\UI\Http\Rest\EventSubscriber\JsonBodyParserSubscriber:
+    UI\Http\Rest\EventSubscriber\JsonBodyParserSubscriber:
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.request', method: 'onKernelRequest', priority: 100 }

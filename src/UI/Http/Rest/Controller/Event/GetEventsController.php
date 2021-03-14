@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\UI\Http\Rest\Controller\Event;
+namespace UI\Http\Rest\Controller\Event;
 
-use App\Application\Query\Collection;
-use App\Application\Query\Event\GetEvents\GetEventsQuery;
-use App\UI\Http\Rest\Controller\QueryController;
-use App\UI\Http\Rest\Response\OpenApi;
+use App\Shared\Application\Query\Collection;
+use App\Shared\Application\Query\Event\GetEvents\GetEventsQuery;
+use UI\Http\Rest\Controller\QueryController;
+use UI\Http\Rest\Response\OpenApi;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use Nelmio\ApiDocBundle\Annotation\Security;

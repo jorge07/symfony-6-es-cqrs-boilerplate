@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\UI\Http\Rest\Controller\Healthz;
+namespace Tests\UI\Http\Rest\Controller\Healthz;
 
-use App\Tests\UI\Http\Rest\Controller\JsonApiTestCase;
+use Tests\UI\Http\Rest\Controller\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 class HealthzControllerTest extends JsonApiTestCase

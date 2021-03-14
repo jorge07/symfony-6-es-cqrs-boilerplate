@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\UI\Http\Rest\Response;
+namespace UI\Http\Rest\Response;
 
-use App\Application\Query\Collection;
-use App\Application\Query\Item;
+use App\Shared\Application\Query\Collection;
+use App\Shared\Application\Query\Item;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class OpenApi extends JsonResponse
