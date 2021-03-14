@@ -12,9 +12,9 @@ Let's say we want to store the list of emails in a separated ElasticSearch index
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\User\ReadModel\Projections;
+namespace App\User\Infrastructure\ReadModel\Projections;
 
-use App\Domain\User\ValueObject\Email;
+use App\User\Domain\ValueObject\Email;
 use Broadway\Serializer\Serializable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -66,10 +66,10 @@ class UserListProjection implements SerializableReadModel
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\User\Query;
+namespace App\User\Infrastructure\Query;
 
-use App\Domain\User\Event\UserWasCreated;
-use App\Infrastructure\User\ReadModel\Projections\UserListProjection;
+use App\User\Domain\Event\UserWasCreated;
+use App\User\Infrastructure\ReadModel\Projections\UserListProjection;
 use Broadway\ReadModel\Projector;
 
 class UserEmailReadProjectionFactory extends Projector

@@ -21,7 +21,7 @@ Create you own consumer:
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Demo\Event\Consumer;
+namespace App\Demo\Infrastructure\Event\Consumer;
 
 use OldSound\RabbitMqBundle\RabbitMq\ConsumerInterface;
 use PhpAmqpLib\Message\AMQPMessage;
@@ -49,7 +49,7 @@ old_sound_rabbit_mq:
 +                    name: var_dump_all_events
 +                    routing_keys:
 +                        - 'App.Domain.#'
-+                    callback: App\Infrastructure\Demo\Event\Consumer\DemoEventsConsumer
++                    callback: App\Demo\Infrastructure\Event\Consumer\DemoEventsConsumer
 ```
 
 ### Running the Consumer
@@ -74,19 +74,18 @@ Full doc with much better example here: https://github.com/php-amqplib/RabbitMqB
 
 So simple, it replaces namespaces `\` for `.`, example:
 
-`App\Domain\User\Event\UserWasCreated` -> `App.Domain.User.Event.UserWasCreated`
+`App\User\Domain\Event\UserWasCreated` -> `App.User.Domain.Event.UserWasCreated`
 
 You can bind you consumer to:
  
  - All events: `#` 
- - All domain events: `App.Domain.#`
- - All domain context boundary events: `App.Domain.User.#`
- - A one particular event: `App.Domain.User.Event.UserWasCreated`
+ - All domain events: `#.Domain.#`
+ - All domain context boundary events: `#.User.Domain.#`
+ - A one particular event: `App.User.Domain.Event.UserWasCreated`
  - Combination of keys:
-    - `App.Domain.User.#`
-    - `App.Domain.Payments.#`
-    - `App.Domain.Cart.Event.OrderWasCreated`
-    - `App.Domain.Cart.Event.OrderWasCanceled`
+    - `App.User.Domain.#`
+    - `App.Payments.Domain.#`
+    - `App.Cart.Domain.Event.OrderWasCreated`
+    - `App.Cart.Domain.Event.OrderWasCanceled`
  
  Much better explained in the official documentation: https://www.rabbitmq.com/tutorials/tutorial-five-python.html
- 
