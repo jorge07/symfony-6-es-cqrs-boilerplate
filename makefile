@@ -94,6 +94,9 @@ db: ## recreate database
 		$(compose) exec -T php sh -lc './bin/console d:d:d --force --if-exists'
 		$(compose) exec -T php sh -lc './bin/console d:d:c --if-not-exists'
 		$(compose) exec -T php sh -lc './bin/console d:m:m -n'
+.PHONY: dmd
+dmd: ## Generate migrations diff file
+		$(compose) exec -T php sh -lc './bin/console d:m:diff'
 .PHONY: schema-validate
 schema-validate: ## validate database schema
 		$(compose) exec -T php sh -lc './bin/console d:s:v'
