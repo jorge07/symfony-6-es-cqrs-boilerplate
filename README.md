@@ -3,12 +3,12 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-A boilerplate for DDD, CQRS, Event Sourcing applications using Symfony as framework and running with php7
+A boilerplate for DDD, CQRS, Event Sourcing applications using Symfony as framework and running with PHP 8.
 
 ![push](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/workflows/push/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/jorge07/symfony-5-es-cqrs-boilerplate/badge.svg?branch=symfony-5)](https://coveralls.io/github/jorge07/symfony-5-es-cqrs-boilerplate)
 
-Symfony 4 still available in [symfony-4 branch](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/tree/symfony-4)
+> Symfony 4 still available in [symfony-4 branch](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/tree/symfony-4)
 
 ## Documentation
 
@@ -54,9 +54,9 @@ Symfony 4 still available in [symfony-4 branch](https://github.com/jorge07/symfo
 
 ## Stack
 
-- PHP 7.4
+- PHP 80.1
 - Mysql 8.0
-- Elastic & Kibana 7.9.2
+- Elastic & Kibana 7.11.0
 - RabbitMQ 3
 
 ## Project Setup
