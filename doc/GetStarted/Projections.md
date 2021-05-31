@@ -59,6 +59,17 @@ class UserListProjection implements SerializableReadModel
 
 > Then you need to implement the Infrastructure for this. Something like `App\Infrastructure\User\Query\Repository\UserEmailListElasticSearchRepository`
 
+> If a Doctrine mapping is required, define your mapping in `config/packages/doctrine/mapping` and configure doctrine mapping too if required `config/packages/doctrine.yaml`.
+
+### Migrations
+
+This boilerplate comes with built in migrations thanks to DoctrineMigrationsBundle. 2 options:
+
+- Add your mapping and then use the makefile shortcut: `make dmd`
+- Shell into the php container and run ti manually: 
+  - `make s=php shell`
+  - `./bin/console d:m:diff`
+
 #### Create the Projector Listener
 
 ```php
