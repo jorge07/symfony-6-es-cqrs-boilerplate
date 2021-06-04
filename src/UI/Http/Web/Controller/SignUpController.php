@@ -51,7 +51,7 @@ class SignUpController extends AbstractRenderController
      */
     public function post(Request $request): Response
     {
-        $email = $request->request->get('email');
+        $email =$request->request->get('email');
         $password = $request->request->get('password');
         $uuid = Uuid::uuid4()->toString();
 
@@ -59,7 +59,7 @@ class SignUpController extends AbstractRenderController
             Assertion::notNull($email, 'Email can\'t be null');
             Assertion::notNull($password, 'Password can\'t be null');
 
-            $this->handle(new SignUpCommand($uuid, $email, $password));
+            $this->handle(new SignUpCommand($uuid,(string) $email,(string) $password));
 
             return $this->render('signup/user_created.html.twig', ['uuid' => $uuid, 'email' => $email]);
         } catch (EmailAlreadyExistException $exception) {

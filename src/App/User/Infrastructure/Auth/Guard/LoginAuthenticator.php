@@ -17,13 +17,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
+use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
+use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Throwable;
-use UnexpectedValueException;
 
-final class LoginAuthenticator extends AbstractFormLoginAuthenticator
+final class LoginAuthenticator extends AbstractLoginFormAuthenticator
 {
     private const LOGIN = 'login';
 
@@ -55,26 +53,7 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
         return $request->getPathInfo() === $this->router->generate(self::LOGIN) && $request->isMethod('POST');
     }
 
-    /**
-     * Get the authentication credentials from the request and return them
-     * as any type (e.g. an associate array).
-     *
-     * Whatever value you return here will be passed to getUser() and checkCredentials()
-     *
-     * For example, for a form login, you might:
-     *
-     *      return array(
-     *          'username' => $request->request->get('_username'),
-     *          'password' => $request->request->get('_password'),
-     *      );
-     *
-     * Or for an API token that's on a header, you might use:
-     *
-     *      return array('api_key' => $request->headers->get('X-API-TOKEN'));
-     *
-     * @throws UnexpectedValueException If null is returned
-     */
-    public function getCredentials(Request $request): array
+    private function getCredentials(Request $request): array
     {
         return [
             'email' => $request->request->get('_email'),
@@ -82,24 +61,26 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
         ];
     }
 
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
+    {
+        return new RedirectResponse($this->router->generate(self::SUCCESS_REDIRECT));
+    }
+
+    protected function getLoginUrl(Request $request): string
+    {
+        return $this->router->generate(self::LOGIN);
+    }
+
     /**
-     * Return a UserInterface object based on the credentials.
-     *
-     * The *credentials* are the return value from getCredentials()
-     *
-     * You may throw an AuthenticationException if you wish. If you return
-     * null, then a UsernameNotFoundException is thrown for you.
-     *
-     * @param array<string, string> $credentials
-     *
-     * @throws AuthenticationException
+     * @param Request $request
+     * @return PassportInterface
      * @throws AssertionFailedException
      * @throws Throwable
-     *
-     * @psalm-suppress MoreSpecificImplementedParamType
      */
-    public function getUser($credentials, UserProviderInterface $userProvider): ?UserInterface
+    public function authenticate(Request $request): PassportInterface
     {
+        $credentials = $this->getCredentials($request);
+
         try {
             $email = $credentials['email'];
             $plainPassword = $credentials['password'];
@@ -112,44 +93,5 @@ final class LoginAuthenticator extends AbstractFormLoginAuthenticator
         } catch (InvalidCredentialsException | InvalidArgumentException $exception) {
             throw new AuthenticationException();
         }
-    }
-
-    /**
-     * Returns true if the credentials are valid.
-     *
-     * If any value other than true is returned, authentication will
-     * fail. You may also throw an AuthenticationException if you wish
-     * to cause authentication to fail.
-     *
-     * The *credentials* are the return value from getCredentials()
-     *
-     * @param mixed $credentials
-     *
-     * @throws AuthenticationException
-     */
-    public function checkCredentials($credentials, UserInterface $user): bool
-    {
-        return true;
-    }
-
-    /**
-     * Called when authentication executed and was successful!
-     *
-     * This should return the Response sent back to the user, like a
-     * RedirectResponse to the last page they visited.
-     *
-     * If you return null, the current request will continue, and the user
-     * will be authenticated. This makes sense, for example, with an API.
-     *
-     * @param string $providerKey The provider (i.e. firewall) key
-     */
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey): ?Response
-    {
-        return new RedirectResponse($this->router->generate(self::SUCCESS_REDIRECT));
-    }
-
-    protected function getLoginUrl(): string
-    {
-        return $this->router->generate(self::LOGIN);
     }
 }

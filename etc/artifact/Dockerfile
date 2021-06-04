@@ -15,7 +15,7 @@ RUN apk add -U --no-cache ${PHP_MODULES}
 ENV PHP_INI_DIR /etc/php8
 
 # Install your project DEVELOPMENT dependencies here
-RUN apk add -U sqlite \
+RUN apk add -U sqlite php8-posix@cast \
 	&& version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/alpine/amd64/$version \
     && mkdir -p /tmp/blackfire \
