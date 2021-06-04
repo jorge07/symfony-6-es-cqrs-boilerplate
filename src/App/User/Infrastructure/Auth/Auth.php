@@ -7,10 +7,10 @@ namespace App\User\Infrastructure\Auth;
 use App\User\Domain\ValueObject\Auth\HashedPassword;
 use App\User\Domain\ValueObject\Email;
 use Ramsey\Uuid\UuidInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherAwareInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-final class Auth implements UserInterface, EncoderAwareInterface
+final class Auth implements UserInterface, PasswordHasherAwareInterface
 {
     private UuidInterface $uuid;
 
@@ -28,6 +28,11 @@ final class Auth implements UserInterface, EncoderAwareInterface
     public static function create(UuidInterface $uuid, Email $email, HashedPassword $hashedPassword): self
     {
         return new self($uuid, $email, $hashedPassword);
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email->toString();
     }
 
     public function getUsername(): string
@@ -57,7 +62,7 @@ final class Auth implements UserInterface, EncoderAwareInterface
         // noop
     }
 
-    public function getEncoderName(): string
+    public function getPasswordHasherName(): string
     {
         return 'bcrypt';
     }
