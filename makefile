@@ -49,7 +49,7 @@ artifact: ## build production artifact
 
 .PHONY: composer-update
 composer-update: ## Update project dependencies
-		$(compose) run --rm php sh -lc 'xoff;COMPOSER_MEMORY_LIMIT=-1 composer update'
+		$(compose) run --rm code sh -lc 'xoff;COMPOSER_MEMORY_LIMIT=-1 composer update'
 
 .PHONY: up
 up: ## spin up environment
