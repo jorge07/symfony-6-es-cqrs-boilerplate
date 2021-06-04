@@ -11,21 +11,21 @@
         "broadway/event-store-dbal": "^0.5",
         "elasticsearch/elasticsearch": "^7.11",
         "lexik/jwt-authentication-bundle": "^2.11",
-        "nelmio/api-doc-bundle": "4.1.1",
+        "nelmio/api-doc-bundle": "^4.1|4.x-dev",
         "ramsey/uuid": "^4.1",
         "ramsey/uuid-doctrine": "^1.6",
         "sensio/framework-extra-bundle": "^5.6",
-        "symfony/amqp-messenger": "^5.2",
-        "symfony/asset": "^5.2",
-        "symfony/console": "^5.2",
+        "symfony/amqp-messenger": "^5.3",
+        "symfony/asset": "^5.3",
+        "symfony/console": "^5.3",
         "symfony/flex": "^1.12",
-        "symfony/framework-bundle": "^5.2",
-        "symfony/messenger": "^5.2",
+        "symfony/framework-bundle": "^5.3",
+        "symfony/messenger": "^5.3",
         "symfony/monolog-bundle": "^3.6",
         "symfony/orm-pack": "^2.1",
-        "symfony/security-bundle": "^5.2",
-        "symfony/twig-bundle": "^5.2",
-        "symfony/yaml": "^5.2"
+        "symfony/security-bundle": "^5.3",
+        "symfony/twig-bundle": "^5.3",
+        "symfony/yaml": "^5.3"
     },
     "require-dev": {
         "blackfire/php-sdk": "^1.24",
@@ -34,10 +34,10 @@
         "phpunit/phpunit": "v9.3",
         "roave/security-advisories": "dev-master",
         "sylius-labs/coding-standard": "^3.2.2",
-        "symfony/browser-kit": "^5.2",
-        "symfony/css-selector": "^5.2",
-        "symfony/dotenv": "^5.2",
-        "symfony/phpunit-bridge": "^5.2",
+        "symfony/browser-kit": "^5.3",
+        "symfony/css-selector": "^5.3",
+        "symfony/dotenv": "^5.3",
+        "symfony/phpunit-bridge": "^5.3",
         "symfony/profiler-pack": "^1.0",
         "vimeo/psalm": "^3.18"
     },
@@ -80,7 +80,7 @@
         "symfony": {
             "id": "01C1QKYZ4DSB74RHER7JCF8Q1K",
             "allow-contrib": false,
-            "require": "^5.2"
+            "require": "^5.3"
         }
     },
     "name": "jorge07/symfony-5-es-cqrs-boilerplate",
