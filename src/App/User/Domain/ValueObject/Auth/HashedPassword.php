@@ -7,6 +7,7 @@ namespace App\User\Domain\ValueObject\Auth;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use const PASSWORD_BCRYPT;
+use function password_verify;
 use RuntimeException;
 
 final class HashedPassword
@@ -35,11 +36,7 @@ final class HashedPassword
 
     public function match(string $plainPassword): bool
     {
-        if (self::isTestSuite()) {
-            return $this->hashedPassword === $plainPassword;
-        }
-
-        return \password_verify($plainPassword, $this->hashedPassword);
+        return password_verify($plainPassword, $this->hashedPassword);
     }
 
     /**
@@ -48,10 +45,6 @@ final class HashedPassword
     private static function hash(string $plainPassword): string
     {
         Assertion::minLength($plainPassword, 6, 'Min 6 characters password');
-
-        if (self::isTestSuite()) {
-            return $plainPassword;
-        }
 
         /** @var string|bool|null $hashedPassword */
         $hashedPassword = \password_hash($plainPassword, PASSWORD_BCRYPT, ['cost' => self::COST]);
@@ -71,10 +64,5 @@ final class HashedPassword
     public function __toString(): string
     {
         return $this->hashedPassword;
-    }
-
-    private static function isTestSuite(): bool
-    {
-        return \getenv('APP_ENV') === 'test';
     }
 }

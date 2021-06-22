@@ -15,7 +15,6 @@ services:
       dockerfile: etc/artifact/Dockerfile
       context: .
       target: php-dev
-    command: ["sleep", "1"]
     volumes:
       - ./:/app:rw,delegated
       # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host

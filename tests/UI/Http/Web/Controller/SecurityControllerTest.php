@@ -16,7 +16,10 @@ class SecurityControllerTest extends WebTestCase
      */
     public function sign_in_after_create_user(): void
     {
-        $client = $this->createUser('jorge@gmail.com');
+
+        $client = $this->createUser('jorge@gmail.com', 'crqs-demo');
+
+        self::ensureKernelShutdown();
 
         $crawler = $client->request('GET', '/sign-in');
 
@@ -31,6 +34,7 @@ class SecurityControllerTest extends WebTestCase
 
         self::assertSame('/profile', \parse_url($crawler->getUri(), \PHP_URL_PATH));
         self::assertSame(1, $crawler->filter('html:contains("Hi jorge@gmail.com")')->count());
+
     }
 
     /**
@@ -41,6 +45,8 @@ class SecurityControllerTest extends WebTestCase
     public function logout_should_remove_session_and_profile_redirect_sign_in(): void
     {
         $client = $this->createUser('jorge@gmail.com');
+
+        self::ensureKernelShutdown();
 
         $crawler = $client->request('GET', '/sign-in');
 

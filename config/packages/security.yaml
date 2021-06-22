@@ -1,8 +1,10 @@
 security:
-    encoders:
-        bcrypt:
-            algorithm: bcrypt
-            cost: 12
+    enable_authenticator_manager: true
+
+    password_hashers:
+        hasher:
+            id: App\User\Infrastructure\Auth\PasswordHasher
+
     providers:
         users:
             id: 'App\User\Infrastructure\Auth\AuthProvider'
@@ -15,22 +17,18 @@ security:
         api_healthz:
             pattern:  ^/api/healthz
             stateless: true
-            anonymous: true
 
         api_doc:
             pattern:  ^/api/doc
             stateless: true
-            anonymous: true
 
         api_auth:
             pattern:  ^/api/auth
             stateless: true
-            anonymous: true
 
         api_signup:
             pattern:  ^/api/signup
             stateless: true
-            anonymous: true
 
         api_secured:
             pattern:  ^/api
@@ -43,14 +41,12 @@ security:
         secured_area:
             pattern: ^/
             provider: users
-            anonymous: ~
-            guard:
-              entry_point: 'App\User\Infrastructure\Auth\Guard\LoginAuthenticator'
-              authenticators:
-                - 'App\User\Infrastructure\Auth\Guard\LoginAuthenticator'
+            custom_authenticators:
+            - 'App\User\Infrastructure\Auth\Guard\LoginAuthenticator'
             form_login:
               login_path: /sign-in
               check_path: sign-in
+            entry_point: form_login
             logout:
               path: /logout
               target: /

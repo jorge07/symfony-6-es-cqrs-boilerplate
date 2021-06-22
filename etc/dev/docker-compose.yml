@@ -9,10 +9,10 @@ services:
   php:
     ports:
       - "2323:22"
+#      - "9003:9003"
     # Allows to debug php script run inside PHP container
     environment:
       PHP_IDE_CONFIG: serverName=es.local
-
   blackfire:
     image: blackfire/blackfire
     env_file:
