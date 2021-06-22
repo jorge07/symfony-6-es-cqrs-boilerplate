@@ -18,6 +18,9 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
+use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Throwable;
 
@@ -41,16 +44,6 @@ final class LoginAuthenticator extends AbstractLoginFormAuthenticator
         $this->bus = $commandBus;
         $this->router = $router;
         $this->queryBus = $queryBus;
-    }
-
-    /**
-     * Does the authenticator support the given Request?
-     *
-     * If this returns false, the authenticator will be skipped.
-     */
-    public function supports(Request $request): bool
-    {
-        return $request->getPathInfo() === $this->router->generate(self::LOGIN) && $request->isMethod('POST');
     }
 
     private function getCredentials(Request $request): array
@@ -89,7 +82,12 @@ final class LoginAuthenticator extends AbstractLoginFormAuthenticator
 
             $this->bus->handle($signInCommand);
 
-            return $this->queryBus->ask(new GetAuthUserByEmailQuery($email));
+            return new Passport(
+                new UserBadge($email, function (string $email) {
+                    return $this->queryBus->ask(new GetAuthUserByEmailQuery($email));
+                }),
+                new PasswordCredentials($plainPassword)
+            );
         } catch (InvalidCredentialsException | InvalidArgumentException $exception) {
             throw new AuthenticationException();
         }

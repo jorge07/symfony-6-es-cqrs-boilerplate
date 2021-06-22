@@ -8,9 +8,10 @@ use App\User\Domain\ValueObject\Auth\HashedPassword;
 use App\User\Domain\ValueObject\Email;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherAwareInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-final class Auth implements UserInterface, PasswordHasherAwareInterface
+final class Auth implements UserInterface, PasswordHasherAwareInterface, PasswordAuthenticatedUserInterface
 {
     private UuidInterface $uuid;
 
@@ -64,7 +65,7 @@ final class Auth implements UserInterface, PasswordHasherAwareInterface
 
     public function getPasswordHasherName(): string
     {
-        return 'bcrypt';
+        return 'hasher';
     }
 
     public function uuid(): UuidInterface
