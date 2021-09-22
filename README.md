@@ -54,7 +54,7 @@ A boilerplate for DDD, CQRS, Event Sourcing applications using Symfony as framew
 
 ## Stack
 
-- PHP 80.1
+- PHP 8+
 - Mysql 8.0
 - Elastic & Kibana 7.11.0
 - RabbitMQ 3
