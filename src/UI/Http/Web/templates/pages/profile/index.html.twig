@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="columns is-centered">
+        <div class="column is-half">
+            <h1 class="title">Tasks</h1>
+            {% for task in tasks %}
+                <div key="{{ task.uuid }}" class="card">
+                    <div class="card-content">
+                        <p class="title">
+                            {{ task.title|e }}
+                        </p>
+                        <p class="subtitle">
+                            Created at <time datetime="{{ task.createdAt }}">{{ task.createdAt | date("F jS \\a\\t g:ia") }}</time>
+
+                        </p>
+                    </div>
+                    <footer class="card-footer">
+                        {% if task.completedAt %}
+                        <p class="card-footer-item">
+                          <span>
+                            Completed at  <time datetime="{{ task.completedAt }}">{{ task.completedAt | date("F jS \\a\\t g:ia") }}</time>
+                          </span>
+                        </p>
+                        {% endif %}
+                        <a href="/profile/task/edit/{{ task.uuid }}" class="card-footer-item">Edit</a>
+                    </footer>
+{#                    <footer class="card-footer">#}
+{#                        <a href="#" class="card-footer-item">Save</a>#}
+{#                        <a href="#" class="card-footer-item">Edit</a>#}
+{#                        <a href="#" class="card-footer-item">Delete</a>#}
+{#                    </footer>#}
+                </div>
+                <br/>
+            {% else %}
+                <h3 class="title">No tasks</h3>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+{% endblock body %}

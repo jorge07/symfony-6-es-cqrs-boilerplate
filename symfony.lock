@@ -458,6 +458,9 @@
             "ref": "cc1afd81841db36fbef982fe56b48ade6716fac4"
         }
     },
+    "symfony/form": {
+        "version": "v5.3.8"
+    },
     "symfony/framework-bundle": {
         "version": "3.3",
         "recipe": {
@@ -528,6 +531,9 @@
     },
     "symfony/polyfill-intl-grapheme": {
         "version": "v1.17.0"
+    },
+    "symfony/polyfill-intl-icu": {
+        "version": "v1.23.0"
     },
     "symfony/polyfill-intl-normalizer": {
         "version": "v1.17.0"

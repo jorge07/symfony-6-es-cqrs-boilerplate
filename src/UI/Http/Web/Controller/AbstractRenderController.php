@@ -10,26 +10,27 @@ use App\Shared\Application\Query\Collection;
 use App\Shared\Application\Query\Item;
 use App\Shared\Application\Query\QueryBusInterface;
 use App\Shared\Application\Query\QueryInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Throwable;
 use Twig;
 
 abstract class AbstractRenderController
 {
-    private CommandBusInterface $commandBus;
-
-    private QueryBusInterface $queryBus;
-
-    private Twig\Environment $template;
-
     public function __construct(
-        Twig\Environment $template,
-        CommandBusInterface $commandBus,
-        QueryBusInterface $queryBus
+        private UrlGeneratorInterface $urlGenerator,
+        private CommandBusInterface $commandBus,
+        private QueryBusInterface $queryBus,
+        private Twig\Environment $template
     ) {
-        $this->template = $template;
-        $this->commandBus = $commandBus;
-        $this->queryBus = $queryBus;
+    }
+
+    protected function redirect(string $routeName, array $parameters = []): RedirectResponse
+    {
+        return new RedirectResponse(
+            $this->urlGenerator->generate($routeName, $parameters)
+        );
     }
 
     /**

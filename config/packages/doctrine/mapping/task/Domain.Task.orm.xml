@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\Task\Domain\Task" table="tasks">
+        <indexes>
+            <index columns="uuid,user_uuid"/>
+        </indexes>
+
+        <id name="uuid" type="uuid_binary" column="uuid"/>
+        <field name="title" column="title" />
+        <field name="createdAt" column="created_at" type="datetime_immutable" />
+        <field name="completedAt" column="completed_at" type="datetime_immutable" nullable="true" />
+        <field name="userId" column="user_uuid" type="uuid_binary" />
+    </entity>
+</doctrine-mapping>

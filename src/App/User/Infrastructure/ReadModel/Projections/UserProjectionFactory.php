@@ -45,6 +45,6 @@ final class UserProjectionFactory extends Projector
         $userReadModel->changeEmail($emailChanged->email);
         $userReadModel->changeUpdatedAt($emailChanged->updatedAt);
 
-        $this->repository->apply();
+        $this->repository->save();
     }
 }

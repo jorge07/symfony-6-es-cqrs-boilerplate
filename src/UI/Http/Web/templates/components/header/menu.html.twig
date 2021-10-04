@@ -11,19 +11,22 @@
     </div>
     <div id="nav" class="navbar-menu">
         <div class="navbar-start">
+            {% if is_granted('ROLE_USER') %}
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
-                    Docs
+                    Tasks
                 </a>
                 <div class="navbar-dropdown is-boxed">
-                    <a class="navbar-item" href="/">
-                        Overview
+                    <a class="navbar-item is-active" href="/profile/task/create">
+                        New
                     </a>
-                    <a class="navbar-item" href="/">
-                        Modifiers
+                    <a class="navbar-item" href="/profile">
+                        List
                     </a>
                 </div>
             </div>
+            {% endif %}
+
         </div>
 
         <div class="navbar-end">

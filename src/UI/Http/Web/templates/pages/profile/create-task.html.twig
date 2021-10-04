@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="columns is-centered">
+        <div class="column is-half">
+            {{ form_start(form) }}
+            {% if error is defined %}
+                <div class="column notification is-danger">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <div class="column">
+                {{ form_row(form.uuid) }}
+                {{ form_row(form.userId) }}
+                <div class="field">
+                    <div class="control">
+                        {{ form_widget(form.title, {'attr': {'class': 'input', 'placeholder': 'Title'}}) }}
+                        <small>{{ form_help(form.title) }}</small>
+                    </div>
+                </div>
+                <div class="field">
+                    {{ form_row(form.completedAt) }}
+                </div>
+                <div class="field">
+                    <button class="button is-primary" type="submit">
+                        Create
+                    </button>
+                </div>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock body %}

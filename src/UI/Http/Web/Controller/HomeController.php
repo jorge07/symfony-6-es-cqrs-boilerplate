@@ -25,6 +25,6 @@ class HomeController extends AbstractRenderController
      */
     public function get(): Response
     {
-        return $this->render('home/index.html.twig');
+        return $this->render('pages/home/index.html.twig');
     }
 }

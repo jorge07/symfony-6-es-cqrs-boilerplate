@@ -27,8 +27,7 @@ class SignUpHandlerTest extends ApplicationTestCase
         $email = 'asd@asd.asd';
 
         $command = new SignUpCommand($uuid->toString(), $email, 'password');
-        $this
-            ->handle($command);
+        $this->handle($command);
 
         /** @var EventCollectorListener $collector */
         $collector = $this->service(EventCollectorListener::class);

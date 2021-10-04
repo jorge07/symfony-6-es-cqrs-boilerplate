@@ -23,3 +23,9 @@ doctrine:
                 dir: '%kernel.project_dir%/config/packages/doctrine/mapping/user'
                 prefix: 'App\User'
                 alias: App
+            Task:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/config/packages/doctrine/mapping/task'
+                prefix: 'App\Task'
+                alias: App

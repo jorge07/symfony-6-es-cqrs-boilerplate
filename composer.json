@@ -3,8 +3,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.0",
-        "ext-json": "*",
         "ext-amqp": "*",
+        "ext-json": "*",
         "beberlei/assert": "^3.3",
         "broadway/broadway": "^2.4",
         "broadway/broadway-bundle": "^0.5",
@@ -19,6 +19,7 @@
         "symfony/asset": "^5.3",
         "symfony/console": "^5.3",
         "symfony/flex": "^1.12",
+        "symfony/form": "^5.3",
         "symfony/framework-bundle": "^5.3",
         "symfony/messenger": "^5.3",
         "symfony/monolog-bundle": "^3.6",

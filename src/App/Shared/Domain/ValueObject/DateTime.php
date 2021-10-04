@@ -46,4 +46,9 @@ final class DateTime extends DateTimeImmutable
     {
         return $this->format(self::FORMAT);
     }
+
+    public function __toString(): string
+    {
+        return $this->toString();
+    }
 }

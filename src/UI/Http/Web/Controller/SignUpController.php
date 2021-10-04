@@ -33,7 +33,7 @@ class SignUpController extends AbstractRenderController
      */
     public function get(): Response
     {
-        return $this->render('signup/index.html.twig');
+        return $this->render('pages/signup/index.html.twig');
     }
 
     /**
@@ -61,11 +61,11 @@ class SignUpController extends AbstractRenderController
 
             $this->handle(new SignUpCommand($uuid,(string) $email,(string) $password));
 
-            return $this->render('signup/user_created.html.twig', ['uuid' => $uuid, 'email' => $email]);
+            return $this->render('pages/signup/user_created.html.twig', ['uuid' => $uuid, 'email' => $email]);
         } catch (EmailAlreadyExistException $exception) {
-            return $this->render('signup/index.html.twig', ['error' => $exception->getMessage()], Response::HTTP_CONFLICT);
+            return $this->render('pages/signup/index.html.twig', ['error' => $exception->getMessage()], Response::HTTP_CONFLICT);
         } catch (InvalidArgumentException $exception) {
-            return $this->render('signup/index.html.twig', ['error' => $exception->getMessage()], Response::HTTP_BAD_REQUEST);
+            return $this->render('pages/signup/index.html.twig', ['error' => $exception->getMessage()], Response::HTTP_BAD_REQUEST);
         }
     }
 }

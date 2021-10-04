@@ -43,16 +43,13 @@ abstract class MysqlRepository
      */
     abstract protected function setEntityManager(): void;
 
-    /**
-     * @param mixed $model
-     */
-    public function register($model): void
+    public function register(object $model): void
     {
         $this->entityManager->persist($model);
-        $this->apply();
+        $this->save();
     }
 
-    public function apply(): void
+    public function save(): void
     {
         $this->entityManager->flush();
     }
