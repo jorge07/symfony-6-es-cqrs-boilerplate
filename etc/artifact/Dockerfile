@@ -1,16 +1,16 @@
 ARG PHP_VERSION=8.0.1
 
-FROM jorge07/alpine-php:${PHP_VERSION} as php-base
-RUN  echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 # List your dependencies here
-ARG PHP_MODULES="php-pdo@cast php-pdo_mysql@cast php8-pecl-amqp@cast"
-RUN apk add -U --no-cache ${PHP_MODULES}
+ARG PHP_MODULES="php-pdo@cast php-pdo_mysql@cast php-pecl-amqp@cast"
+
+FROM jorge07/alpine-php:${PHP_VERSION} as php-base
+RUN echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+    && apk add -U --no-cache ${PHP_MODULES}
 
 FROM jorge07/alpine-php:${PHP_VERSION}-dev as php-dev
-RUN  echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
-# List your dependencies here
-ARG PHP_MODULES="php-pdo@cast php-pdo_mysql@cast php8-pecl-amqp@cast"
-RUN apk add -U --no-cache ${PHP_MODULES}
+
+RUN echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+    && apk add -U --no-cache ${PHP_MODULES} 
 
 ENV PHP_INI_DIR /etc/php8
 
