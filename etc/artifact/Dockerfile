@@ -1,21 +1,21 @@
-ARG PHP_VERSION=8.0.1
+ARG PHP_VERSION=8.0.13
+
 
 FROM jorge07/alpine-php:${PHP_VERSION} as php-base
-RUN  echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 # List your dependencies here
-ARG PHP_MODULES="php-pdo@cast php-pdo_mysql@cast php8-pecl-amqp@cast"
-RUN apk add -U --no-cache ${PHP_MODULES}
+ARG PHP_MODULES="php8-pdo php8-pdo_mysql php8-pecl-amqp php8-tokenizer"
+RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+    && apk add -U --no-cache ${PHP_MODULES}
 
 FROM jorge07/alpine-php:${PHP_VERSION}-dev as php-dev
-RUN  echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
-# List your dependencies here
-ARG PHP_MODULES="php-pdo@cast php-pdo_mysql@cast php8-pecl-amqp@cast"
-RUN apk add -U --no-cache ${PHP_MODULES}
+# Install your project DEVELOPMENT dependencies here
+ARG PHP_MODULES="php8-pdo php8-pdo_mysql php8-pecl-amqp php8-tokenizer php8-posix php8-simplexml php8-xmlwriter"
+RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+    && apk add -U --no-cache ${PHP_MODULES} 
 
 ENV PHP_INI_DIR /etc/php8
 
-# Install your project DEVELOPMENT dependencies here
-RUN apk add -U sqlite php8-posix@cast \
+RUN apk add -U sqlite \
 	&& version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/alpine/amd64/$version \
     && mkdir -p /tmp/blackfire \
