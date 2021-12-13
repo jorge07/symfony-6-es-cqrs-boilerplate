@@ -103,6 +103,7 @@ services:
     environment:
       - "discovery.type=single-node"
       - "cluster.name=sf-events"
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
 
   start_dependencies:
     image: dadarek/wait-for-dependencies
