@@ -8,7 +8,7 @@ We've 3 different type of bus:
 
 - Command: `public function handle(CommandInterface $command): void`
 - Query: `public function handle(QueryInterface $query): Item|Collection|string|int|null`
-- Async Event: `public function handle(EventInterface $command): void`
+- Async Event: `public function handle(EventInterface $event): void`
 	
 To define a new use case just implement the required interfaces.
 
