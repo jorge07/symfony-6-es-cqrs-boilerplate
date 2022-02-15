@@ -2,7 +2,7 @@ framework:
     messenger:
         default_bus: messenger.bus.command
         failure_transport: failed
-
+        reset_on_message: true
         buses:
             messenger.bus.command:
                 default_middleware: false
