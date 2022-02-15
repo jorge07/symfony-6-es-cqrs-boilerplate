@@ -21,7 +21,6 @@ use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
-use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Throwable;
 
 final class LoginAuthenticator extends AbstractLoginFormAuthenticator
@@ -65,12 +64,10 @@ final class LoginAuthenticator extends AbstractLoginFormAuthenticator
     }
 
     /**
-     * @param Request $request
-     * @return PassportInterface
      * @throws AssertionFailedException
      * @throws Throwable
      */
-    public function authenticate(Request $request): PassportInterface
+    public function authenticate(Request $request): Passport
     {
         $credentials = $this->getCredentials($request);
 

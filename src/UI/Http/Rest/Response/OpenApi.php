@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class OpenApi extends JsonResponse
 {
-    private function __construct($data = null, int $status = self::HTTP_OK, array $headers = [], bool $json = false)
+    private function __construct(mixed $data = null, int $status = self::HTTP_OK, array $headers = [], bool $json = false)
     {
         parent::__construct($data, $status, $headers, $json);
     }

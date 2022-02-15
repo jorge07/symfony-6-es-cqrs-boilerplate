@@ -2,12 +2,11 @@
     "type": "project",
     "license": "MIT",
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "ext-amqp": "*",
         "ext-json": "*",
         "beberlei/assert": "^3.3",
-        "broadway/broadway": "^2.4",
-        "broadway/broadway-bundle": "^0.5",
+        "broadway/broadway-bundle": "^0.6.1",
         "broadway/event-store-dbal": "^0.5",
         "doctrine/doctrine-bundle": "^2.5",
         "doctrine/doctrine-migrations-bundle": "^3.2",
@@ -17,33 +16,34 @@
         "nelmio/api-doc-bundle": "^4.1|4.x-dev",
         "ramsey/uuid": "^4.1",
         "ramsey/uuid-doctrine": "^1.6",
-        "sensio/framework-extra-bundle": "^5.6",
-        "symfony/amqp-messenger": "^5.4",
-        "symfony/asset": "^5.4",
-        "symfony/console": "^5.4",
+        "sensio/framework-extra-bundle": "^v6.2.6",
+        "symfony/amqp-messenger": "^6.0",
+        "symfony/asset": "^6.0",
+        "symfony/cache": "^6.0",
+        "symfony/console": "^6.0",
         "symfony/flex": "^1.12",
-        "symfony/framework-bundle": "^5.4",
-        "symfony/messenger": "^5.4",
+        "symfony/framework-bundle": "^6.0",
+        "symfony/messenger": "^6.0",
         "symfony/monolog-bundle": "^3.6",
-        "symfony/proxy-manager-bridge": "^5.4",
-        "symfony/security-bundle": "^5.4",
-        "symfony/twig-bundle": "^5.4",
-        "symfony/yaml": "^5.4"
+        "symfony/proxy-manager-bridge": "^6.0",
+        "symfony/security-bundle": "^6.0",
+        "symfony/twig-bundle": "^6.0",
+        "symfony/yaml": "^6.0"
     },
     "require-dev": {
         "blackfire/php-sdk": "^1.24",
         "dama/doctrine-test-bundle": "^6.5",
-        "phpstan/phpstan": "^0.12.81",
+        "phpstan/phpstan": "^1.4.6",
         "phpunit/phpunit": "v9.3",
         "roave/security-advisories": "dev-master",
-        "sylius-labs/coding-standard": "^3.2.2",
-        "symfony/browser-kit": "^5.4",
-        "symfony/css-selector": "^5.4",
-        "symfony/dotenv": "^5.4",
-        "symfony/phpunit-bridge": "^5.4",
-        "symfony/stopwatch": "^5.4",
-        "symfony/web-profiler-bundle": "^5.4",
-        "vimeo/psalm": "^3.18"
+        "sylius-labs/coding-standard": "^v4.2.0",
+        "symfony/browser-kit": "^6.0",
+        "symfony/css-selector": "^6.0",
+        "symfony/dotenv": "^6.0",
+        "symfony/phpunit-bridge": "^6.0",
+        "symfony/stopwatch": "^6.0",
+        "symfony/web-profiler-bundle": "^6.0",
+        "vimeo/psalm": "^4.20"
     },
     "config": {
         "preferred-install": {
@@ -89,7 +89,7 @@
         "symfony": {
             "id": "01C1QKYZ4DSB74RHER7JCF8Q1K",
             "allow-contrib": false,
-            "require": "^5.4"
+            "require": "^6.0"
         }
     },
     "name": "jorge07/symfony-5-es-cqrs-boilerplate",

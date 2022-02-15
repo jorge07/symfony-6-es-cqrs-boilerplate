@@ -74,9 +74,9 @@ final class UserChangeEmailController extends CommandController
     {
         $this->validateUuid($uuid);
 
-        $email = $request->get('email');
+        $email = (string) $request->request->get('email');
 
-        Assertion::notNull($email, "Email can\'t be null");
+        Assertion::notEmpty($email, "Email can\'t be empty");
 
         $command = new ChangeEmailCommand($uuid, $email);
 

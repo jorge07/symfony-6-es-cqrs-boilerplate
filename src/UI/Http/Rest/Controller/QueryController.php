@@ -27,11 +27,9 @@ abstract class QueryController
     }
 
     /**
-     * @return Item|Collection|string|null
-     *
      * @throws Throwable
      */
-    protected function ask(QueryInterface $query)
+    protected function ask(QueryInterface $query): mixed
     {
         return $this->queryBus->ask($query);
     }

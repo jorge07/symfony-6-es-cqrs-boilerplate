@@ -53,8 +53,8 @@ class GetEventsController extends QueryController
      */
     public function __invoke(Request $request): OpenApi
     {
-        $page = $request->get('page', 1);
-        $limit = $request->get('limit', 50);
+        $page = $request->query->get('page', 1);
+        $limit = $request->query->get('limit', 50);
 
         Assertion::numeric($page, 'Page number must be an integer');
         Assertion::numeric($limit, 'Limit results must be an integer');

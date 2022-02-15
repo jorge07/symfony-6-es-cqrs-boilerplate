@@ -53,7 +53,7 @@ abstract class ApplicationTestCase extends KernelTestCase
      */
     protected function service(string $serviceId)
     {
-        return self::$container->get($serviceId);
+        return $this->getContainer()->get($serviceId);
     }
 
     protected function fireTerminateEvent(): void

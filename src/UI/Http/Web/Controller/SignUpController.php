@@ -51,7 +51,7 @@ class SignUpController extends AbstractRenderController
      */
     public function post(Request $request): Response
     {
-        $email =$request->request->get('email');
+        $email = $request->request->get('email');
         $password = $request->request->get('password');
         $uuid = Uuid::uuid4()->toString();
 

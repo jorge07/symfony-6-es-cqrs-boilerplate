@@ -48,7 +48,11 @@ framework:
                         users:
                             binding_keys: ['#.User.#']
             failed:
-                dsn: "%env(MESSENGER_TRANSPORT_DSN)%?queue_name=failed"
+                dsn: "%env(MESSENGER_TRANSPORT_DSN)%"
+                options:
+                    queues:
+                        failed:
+                            binding_keys: ['#']
 
         routing:
             'Broadway\Domain\DomainMessage': events

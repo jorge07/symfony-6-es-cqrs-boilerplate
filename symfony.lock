@@ -41,6 +41,9 @@
     "composer/ca-bundle": {
         "version": "1.2.8"
     },
+    "composer/pcre": {
+        "version": "1.0.1"
+    },
     "composer/semver": {
         "version": "1.5.1"
     },

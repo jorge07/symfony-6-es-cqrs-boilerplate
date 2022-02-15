@@ -31,7 +31,7 @@ class ChangeEmailControllerTest extends JsonApiTestCase
         self::assertSame(Response::HTTP_OK, $this->cli->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
-        $eventCollector = self::$container->get(EventCollectorListener::class);
+        $eventCollector = $this->getContainer()->get(EventCollectorListener::class);
 
         /** @var DomainMessage[] $events */
         $events = $eventCollector->popEvents();
@@ -53,7 +53,7 @@ class ChangeEmailControllerTest extends JsonApiTestCase
         self::assertSame(Response::HTTP_FORBIDDEN, $this->cli->getResponse()->getStatusCode());
 
         /** @var EventCollectorListener $eventCollector */
-        $eventCollector = self::$container->get(EventCollectorListener::class);
+        $eventCollector = $this->getContainer()->get(EventCollectorListener::class);
 
         /** @var DomainMessage[] $events */
         $events = $eventCollector->popEvents();

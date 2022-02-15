@@ -32,7 +32,7 @@ final class Item
     {
         $path = \explode('\\', \get_class($model));
 
-        return (string) \array_pop($path);
+        return \array_pop($path);
     }
 
     public static function fromSerializable(SerializableReadModel $serializableReadModel, array $relations = []): self

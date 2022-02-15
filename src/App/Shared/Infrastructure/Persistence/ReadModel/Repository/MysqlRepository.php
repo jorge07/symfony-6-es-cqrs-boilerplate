@@ -43,10 +43,7 @@ abstract class MysqlRepository
      */
     abstract protected function setEntityManager(): void;
 
-    /**
-     * @param mixed $model
-     */
-    public function register($model): void
+    public function register(object $model): void
     {
         $this->entityManager->persist($model);
         $this->apply();
@@ -58,12 +55,10 @@ abstract class MysqlRepository
     }
 
     /**
-     * @return mixed
-     *
      * @throws NotFoundException
      * @throws NonUniqueResultException
      */
-    protected function oneOrException(QueryBuilder $queryBuilder, int $hydration = AbstractQuery::HYDRATE_OBJECT)
+    protected function oneOrException(QueryBuilder $queryBuilder, mixed $hydration = AbstractQuery::HYDRATE_OBJECT): mixed
     {
         $model = $queryBuilder
             ->getQuery()

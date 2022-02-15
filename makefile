@@ -32,7 +32,7 @@ erase: ## stop and delete containers, clean volumes.
 
 .PHONY: build
 build: ## build environment and initialize composer and project dependencies
-		$(compose) build --parallel
+		$(compose) build --no-cache --parallel
 
 		if [ env = "prod" ]; then \
 			echo Building in $(env) mode; \
@@ -87,7 +87,7 @@ cs-check: ## executes coding standards in dry run mode
 
 .PHONY: layer
 layer: ## Check issues with layers
-		$(compose) run --rm code sh -lc 'bin/deptrac.phar analyze --formatter-graphviz=0'
+		$(compose) run --rm code sh -lc 'bin/deptrac.phar analyze'
 
 .PHONY: db
 db: ## recreate database

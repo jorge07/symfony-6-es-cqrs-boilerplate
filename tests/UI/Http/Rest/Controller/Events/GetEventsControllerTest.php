@@ -26,23 +26,23 @@ class GetEventsControllerTest extends JsonApiTestCase
         parent::setUp();
 
         /** @var ElasticSearchEventRepository $eventReadStore */
-        $eventReadStore = self::$container->get(ElasticSearchEventRepository::class);
+        $eventReadStore = $this->getContainer()->get(ElasticSearchEventRepository::class);
 
         $eventReadStore->reboot();
 
         $this->createUser();
         $this->auth();
         $this->fireTerminateEvent();
-        $eventDispatcher = self::$container->get('event_dispatcher');
+        $eventDispatcher = $this->getContainer()->get('event_dispatcher');
         $eventDispatcher->addSubscriber(new StopWorkerOnMessageLimitListener(2));
         $this->worker = new Worker(
             [
-                'events' => self::$container->get('messenger.transport.events'),
-                'users' => self::$container->get('messenger.transport.users'),
+                'events' => $this->getContainer()->get('messenger.transport.events'),
+                'users' => $this->getContainer()->get('messenger.transport.users'),
             ],
-            self::$container->get('messenger.bus.event.async'),
+            $this->getContainer()->get('messenger.bus.event.async'),
             $eventDispatcher,
-            self::$container->get('logger')
+            $this->getContainer()->get('logger')
         );
 
         $this->worker->run();
@@ -115,14 +115,14 @@ class GetEventsControllerTest extends JsonApiTestCase
     private function refreshIndex(): void
     {
         /** @var ElasticSearchEventRepository $eventReadStore */
-        $eventReadStore = self::$container->get(ElasticSearchEventRepository::class);
+        $eventReadStore = $this->getContainer()->get(ElasticSearchEventRepository::class);
         $eventReadStore->refresh();
     }
 
     protected function tearDown(): void
     {
         /** @var ElasticSearchEventRepository $eventReadStore */
-        $eventReadStore = self::$container->get(ElasticSearchEventRepository::class);
+        $eventReadStore = $this->getContainer()->get(ElasticSearchEventRepository::class);
         $eventReadStore->delete();
         if ($this->worker) {
             $this->worker->stop();

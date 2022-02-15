@@ -1,5 +1,5 @@
 parameters:
 	checkMissingIterableValueType: false
 	checkGenericClassInNonGenericObjectType: false
-	excludes_analyse:
+	excludePaths:
 		- src/Infrastructure/Shared/Persistence/Doctrine/Migrations/*

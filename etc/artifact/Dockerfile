@@ -3,7 +3,7 @@ ARG PHP_VERSION=8.1.2
 
 FROM jorge07/alpine-php:${PHP_VERSION} as php-base
 # List your dependencies here
-ARG PHP_MODULES="php81-pdo php81-pdo_mysql php81-pecl-amqp php81-tokenize  php81-simplexmlr"
+ARG PHP_MODULES="php81-pdo php81-pdo_mysql php81-pecl-amqp php81-tokenizer php81-simplexml"
 RUN echo "http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
     && apk add -U --no-cache ${PHP_MODULES}
 

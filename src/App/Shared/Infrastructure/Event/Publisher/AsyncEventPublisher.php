@@ -24,9 +24,9 @@ final class AsyncEventPublisher implements EventSubscriberInterface, EventListen
         $this->bus = $bus;
     }
 
-    public function handle(DomainMessage $message): void
+    public function handle(DomainMessage $domainMessage): void
     {
-        $this->messages[] = $message;
+        $this->messages[] = $domainMessage;
     }
 
     public static function getSubscribedEvents(): array

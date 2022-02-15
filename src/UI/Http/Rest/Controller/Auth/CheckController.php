@@ -62,13 +62,13 @@ final class CheckController extends CommandQueryController
      */
     public function __invoke(Request $request): OpenApi
     {
-        $username = $request->get('_username');
+        $username = (string) $request->request->get('_username');
 
-        Assertion::notNull($username, 'Username cant\'t be empty');
+        Assertion::notEmpty($username, 'Username cant\'t be empty');
 
         $signInCommand = new SignInCommand(
             $username,
-            $request->get('_password')
+            (string) $request->request->get('_password')
         );
 
         $this->handle($signInCommand);

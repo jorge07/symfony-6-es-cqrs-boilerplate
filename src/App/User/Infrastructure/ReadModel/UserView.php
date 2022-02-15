@@ -26,9 +26,9 @@ class UserView implements SerializableReadModel
 
     private Credentials $credentials;
 
-    private DateTime $createdAt;
+    public DateTime $createdAt;
 
-    private ?DateTime $updatedAt;
+    public ?DateTime $updatedAt;
 
     private function __construct(
         UuidInterface $uuid,
@@ -54,8 +54,6 @@ class UserView implements SerializableReadModel
     /**
      * @throws DateTimeException
      * @throws AssertionFailedException
-     *
-     * @return UserView
      */
     public static function deserialize(array $data): self
     {

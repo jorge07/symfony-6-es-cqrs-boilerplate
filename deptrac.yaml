@@ -1,0 +1,69 @@
+parameters:
+  formatters:
+    graphviz:
+      groups:
+        App:
+          - Application
+          - Domain
+          - Infrastructure
+          - Auth
+          - UI
+          - UIHealth
+  paths:
+    - ./src
+  exclude_files:
+  layers:
+    - name: Domain
+      collectors:
+        - type: className
+          regex: .*\\Domain\\.*
+    - name: Application
+      collectors:
+        - type: className
+          regex: .*Application\\.*
+    - name: Infrastructure
+      collectors:
+        - type: bool
+          must:
+            - type: className
+              regex: .*Infrastructure\\.*
+          must_not:
+            - type: className
+              regex: .*User\\Infrastructure\\Auth\\Auth
+    - name: Auth
+      collectors:
+        - type: className
+          regex: .*User\\Infrastructure\\Auth\\Auth;
+    - name: UI
+      collectors:
+        - type: bool
+          must:
+            - type: className
+              regex: UI\\.*
+          must_not:
+            - type: className
+              regex: UI\\Http\\Rest\\Controller\\Healthz\\.*
+    - name: UIHealth
+      collectors:
+        - type: className
+          regex: UI\\Http\\Rest\\Controller\\Healthz\\.*
+  ruleset:
+    Domain:
+    Auth:
+      - Domain
+      - Infrastructure
+    Application:
+      - Domain
+      - Infrastructure
+      - Auth
+    Infrastructure:
+      - Domain
+      - Application
+      - Auth
+    UI:
+      - Auth
+      - Domain
+      - Application
+    UIHealth: # Allow access to infra for health checks
+      - Infrastructure
+      - UI

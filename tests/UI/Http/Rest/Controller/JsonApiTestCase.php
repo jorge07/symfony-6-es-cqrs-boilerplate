@@ -50,7 +50,7 @@ abstract class JsonApiTestCase extends WebTestCase
         );
 
         /** @var MessengerCommandBus $commandBus */
-        $commandBus = self::$container->get(MessengerCommandBus::class);
+        $commandBus = $this->getContainer()->get(MessengerCommandBus::class);
 
         $commandBus->handle($signUp);
 
