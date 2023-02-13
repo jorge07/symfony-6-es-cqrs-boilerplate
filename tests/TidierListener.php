@@ -30,7 +30,7 @@ final class TidierListener implements TestListener
     {
         $refl = new \ReflectionObject($target);
         foreach ($refl->getProperties() as $prop) {
-            if (!$prop->isStatic() && 0 !== \strncmp($prop->getDeclaringClass()->getName(), 'PHPUnit_', 8)) {
+            if (!$prop->isStatic() && !str_starts_with($prop->getDeclaringClass()->getName(), 'PHPUnit_')) {
                 $prop->setAccessible(true);
                 $prop->setValue($target, null);
             }

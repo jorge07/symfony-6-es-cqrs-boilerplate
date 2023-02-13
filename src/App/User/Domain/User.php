@@ -30,9 +30,9 @@ class User extends EventSourcedAggregateRoot
 
     private HashedPassword $hashedPassword;
 
-    private ?DateTime $createdAt;
+    private ?DateTime $createdAt = null;
 
-    private ?DateTime $updatedAt;
+    private ?DateTime $updatedAt = null;
 
     /**
      * @throws DateTimeException

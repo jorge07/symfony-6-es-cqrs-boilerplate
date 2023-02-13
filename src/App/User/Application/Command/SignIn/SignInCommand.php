@@ -13,15 +13,12 @@ final class SignInCommand implements CommandInterface
     /** @psalm-readonly */
     public Email $email;
 
-    /** @psalm-readonly */
-    public string $plainPassword;
-
     /**
      * @throws AssertionFailedException
      */
-    public function __construct(string $email, string $plainPassword)
+    public function __construct(string $email, /** @psalm-readonly */
+    public string $plainPassword)
     {
         $this->email = Email::fromString($email);
-        $this->plainPassword = $plainPassword;
     }
 }

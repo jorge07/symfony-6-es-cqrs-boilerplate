@@ -12,15 +12,12 @@ use Throwable;
 
 abstract class CommandQueryController extends QueryController
 {
-    private CommandBusInterface $commandBus;
-
     public function __construct(
-        CommandBusInterface $commandBus,
+        private readonly CommandBusInterface $commandBus,
         QueryBusInterface $queryBus,
         UrlGeneratorInterface $router
     ) {
         parent::__construct($queryBus, $router);
-        $this->commandBus = $commandBus;
     }
 
     /**

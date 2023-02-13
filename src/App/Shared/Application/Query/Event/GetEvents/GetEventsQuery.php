@@ -8,15 +8,12 @@ use App\Shared\Application\Query\QueryInterface;
 
 final class GetEventsQuery implements QueryInterface
 {
-    /** @psalm-readonly */
-    public int $page;
-
-    /** @psalm-readonly */
-    public int $limit;
-
-    public function __construct(int $page = 1, int $limit = 50)
+    public function __construct(
+        /** @psalm-readonly */
+        public int $page = 1,
+        /** @psalm-readonly */
+        public int $limit = 50
+    )
     {
-        $this->page = $page;
-        $this->limit = $limit;
     }
 }

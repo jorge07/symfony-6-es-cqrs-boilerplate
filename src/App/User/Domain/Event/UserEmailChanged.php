@@ -15,17 +15,8 @@ use Ramsey\Uuid\UuidInterface;
 
 final class UserEmailChanged implements Serializable
 {
-    public UuidInterface $uuid;
-
-    public Email $email;
-
-    public DateTime $updatedAt;
-
-    public function __construct(UuidInterface $uuid, Email $email, DateTime $updatedAt)
+    public function __construct(public UuidInterface $uuid, public Email $email, public DateTime $updatedAt)
     {
-        $this->email = $email;
-        $this->uuid = $uuid;
-        $this->updatedAt = $updatedAt;
     }
 
     /**

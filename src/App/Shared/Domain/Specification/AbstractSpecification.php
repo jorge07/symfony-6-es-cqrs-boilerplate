@@ -6,8 +6,5 @@ namespace App\Shared\Domain\Specification;
 
 abstract class AbstractSpecification
 {
-    /**
-     * @param mixed $value
-     */
-    abstract public function isSatisfiedBy($value): bool;
+    abstract public function isSatisfiedBy(mixed $value): bool;
 }

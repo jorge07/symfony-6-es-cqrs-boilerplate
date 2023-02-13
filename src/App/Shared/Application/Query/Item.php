@@ -8,29 +8,18 @@ use Broadway\ReadModel\SerializableReadModel;
 
 final class Item
 {
-    /** @psalm-readonly */
-    public string $id;
-
-    /** @psalm-readonly */
-    public string $type;
-
-    /** @psalm-readonly */
-    public array $resource;
-
-    /** @psalm-readonly */
-    public array $relationships = [];
-
-    private function __construct(string $id, string $type, array $payload, array $relations = [])
+    private function __construct(
+        public readonly string $id,
+        public readonly string $type,
+        public readonly array $resource,
+        public readonly array $relationships = []
+    )
     {
-        $this->id = $id;
-        $this->type = $type;
-        $this->resource = $payload;
-        $this->relationships = $relations;
     }
 
     private static function type(SerializableReadModel $model): string
     {
-        $path = \explode('\\', \get_class($model));
+        $path = \explode('\\', $model::class);
 
         return \array_pop($path);
     }

@@ -1,6 +1,4 @@
 security:
-    enable_authenticator_manager: true
-
     password_hashers:
         hasher:
             id: App\User\Infrastructure\Auth\PasswordHasher

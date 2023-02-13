@@ -18,17 +18,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 final class ContainerAwareFactory implements MigrationFactory
 {
-    private ?ContainerInterface $container;
-
-    private Connection $connection;
-
-    private LoggerInterface $logger;
-
-    public function __construct(Connection $connection, LoggerInterface $logger, ContainerInterface $container)
+    public function __construct(private readonly Connection $connection, private readonly LoggerInterface $logger, private readonly ?\Symfony\Component\DependencyInjection\ContainerInterface $container)
     {
-        $this->connection = $connection;
-        $this->logger = $logger;
-        $this->container = $container;
     }
 
     public function createVersion(string $migrationClassName): AbstractMigration

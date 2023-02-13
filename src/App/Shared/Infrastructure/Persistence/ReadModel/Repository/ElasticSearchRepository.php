@@ -12,7 +12,7 @@ use Psr\Log\LoggerInterface;
 
 abstract class ElasticSearchRepository
 {
-    private Client $client;
+    private readonly Client $client;
 
     public function __construct(array $elasticConfig, LoggerInterface $elasticsearchLogger = null)
     {
@@ -103,7 +103,7 @@ abstract class ElasticSearchRepository
             $response = $this->client->cluster()->health();
 
             return $response['status'] !== 'red';
-        } catch (\Throwable $err) {
+        } catch (\Throwable) {
             return false;
         }
     }

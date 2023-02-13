@@ -9,12 +9,7 @@ use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
 final class PasswordHasher implements PasswordHasherInterface {
 
-    private string $hasher;
-
-    public function __construct()
-    {
-        $this->hasher = HashedPassword::class;
-    }
+    private string $hasher = HashedPassword::class;
 
     public function hash(string $plainPassword): string 
     {

@@ -54,9 +54,7 @@ class OpenApi extends JsonResponse
          *
          * @return array
          */
-        $transformer = function ($data): array {
-            return $data instanceof Item ? self::model($data) : $data;
-        };
+        $transformer = fn($data): array => $data instanceof Item ? self::model($data) : $data;
 
         $resources = \array_map($transformer, $collection->data);
 

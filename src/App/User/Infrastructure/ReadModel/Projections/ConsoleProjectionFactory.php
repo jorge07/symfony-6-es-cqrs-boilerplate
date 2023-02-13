@@ -8,8 +8,7 @@ use App\User\Domain\Event\UserSignedIn;
 use App\Shared\Infrastructure\Bus\AsyncEvent\MessengerAsyncEventBus;
 use Broadway\Domain\DomainMessage;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
-
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 /**
  * Class ConsoleProjectionFactory
  *
@@ -30,28 +29,19 @@ use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
  *
  * @see MessengerAsyncEventBus::handle
  */
-final class ConsoleProjectionFactory implements MessageSubscriberInterface
+#[AsMessageHandler(bus: 'messenger.bus.event.async', fromTransport: 'users', priority: 10)]
+final class ConsoleProjectionFactory
 {
-    private LoggerInterface $logger;
-
-    public function __construct(LoggerInterface $logger)
+    public function __construct(private readonly LoggerInterface $logger)
     {
-        $this->logger = $logger;
     }
-
     public function __invoke(DomainMessage $message): void
     {
-        if ($message->getPayload() instanceof UserSignedIn) {
-            $this->onUserSignedIn($message->getPayload());
+        if (!$message->getPayload() instanceof UserSignedIn) {
+            return;
         }
-    }
 
-    public static function getHandledMessages(): iterable
-    {
-        yield DomainMessage::class => [
-            'from_transport' => 'users',
-            'bus' => 'messenger.bus.event.async',
-        ];
+        $this->onUserSignedIn($message->getPayload());
     }
 
     private function onUserSignedIn(UserSignedIn $event): void

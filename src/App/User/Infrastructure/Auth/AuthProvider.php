@@ -15,11 +15,8 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 final class AuthProvider implements UserProviderInterface
 {
-    private MysqlReadModelUserRepository $userReadModelRepository;
-
-    public function __construct(MysqlReadModelUserRepository $userReadModelRepository)
+    public function __construct(private readonly MysqlReadModelUserRepository $userReadModelRepository)
     {
-        $this->userReadModelRepository = $userReadModelRepository;
     }
 
     public function loadUserByIdentifier(string $identifier): UserInterface
@@ -43,7 +40,7 @@ final class AuthProvider implements UserProviderInterface
      *
      * @return Auth|UserInterface
      */
-    public function loadUserByUsername(string $email)
+    public function loadUserByUsername(string $email): \App\User\Infrastructure\Auth\Auth|\Symfony\Component\Security\Core\User\UserInterface
     {
         [$uuid, $email, $hashedPassword] = $this->userReadModelRepository->getCredentialsByEmail(
             Email::fromString($email)

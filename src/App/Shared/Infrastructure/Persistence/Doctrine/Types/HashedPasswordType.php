@@ -49,7 +49,7 @@ final class HashedPasswordType extends StringType
 
         try {
             $hashedPassword = HashedPassword::fromHash($value);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             throw ConversionException::conversionFailedFormat($value, $this->getName(), $platform->getDateTimeFormatString());
         }
 

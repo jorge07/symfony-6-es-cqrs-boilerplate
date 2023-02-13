@@ -8,13 +8,10 @@ use Assert\Assertion;
 use Assert\AssertionFailedException;
 use JsonSerializable;
 
-final class Email implements JsonSerializable
+final class Email implements JsonSerializable, \Stringable
 {
-    private string $email;
-
-    private function __construct(string $email)
+    private function __construct(private readonly string $email)
     {
-        $this->email = $email;
     }
 
     /**

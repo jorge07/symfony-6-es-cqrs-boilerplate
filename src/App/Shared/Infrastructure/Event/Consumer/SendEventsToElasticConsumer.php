@@ -6,27 +6,17 @@ namespace App\Shared\Infrastructure\Event\Consumer;
 
 use App\Shared\Infrastructure\Event\ReadModel\ElasticSearchEventRepository;
 use Broadway\Domain\DomainMessage;
-use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-class SendEventsToElasticConsumer implements MessageSubscriberInterface
+#[AsMessageHandler(bus: 'messenger.bus.event.async', fromTransport: 'events', priority: 10)]
+class SendEventsToElasticConsumer
 {
-    private ElasticSearchEventRepository $eventElasticRepository;
-
-    public function __construct(ElasticSearchEventRepository $eventElasticRepository)
+    public function __construct(private readonly ElasticSearchEventRepository $eventElasticRepository)
     {
-        $this->eventElasticRepository = $eventElasticRepository;
     }
 
     public function __invoke(DomainMessage $event): void
     {
         $this->eventElasticRepository->store($event);
-    }
-
-    public static function getHandledMessages(): iterable
-    {
-        yield DomainMessage::class => [
-            'from_transport' => 'events',
-            'bus' => 'messenger.bus.event.async',
-        ];
     }
 }

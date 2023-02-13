@@ -12,11 +12,8 @@ use Assert\AssertionFailedException;
 
 final class GetEventsHandler implements QueryHandlerInterface
 {
-    private ElasticSearchEventRepository $eventRepository;
-
-    public function __construct(ElasticSearchEventRepository $eventRepository)
+    public function __construct(private readonly ElasticSearchEventRepository $eventRepository)
     {
-        $this->eventRepository = $eventRepository;
     }
 
     /**

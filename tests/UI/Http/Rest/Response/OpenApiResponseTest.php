@@ -34,7 +34,7 @@ class OpenApiResponseTest extends TestCase
             Item::fromSerializable(self::createUserView(Uuid::uuid4(), Email::fromString('asd2@asd.asd'))),
         ];
 
-        $response = \json_decode(OpenApi::collection(new Collection(1, 10, \count($users), $users))->getContent(), true);
+        $response = \json_decode(OpenApi::collection(new Collection(1, 10, \count($users), $users))->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
         self::assertArrayHasKey('data', $response);
         self::assertArrayHasKey('meta', $response);
@@ -56,7 +56,7 @@ class OpenApiResponseTest extends TestCase
     {
         $userView = self::createUserView(Uuid::uuid4(), Email::fromString('demo@asd.asd'));
 
-        $response = \json_decode(OpenApi::one(Item::fromSerializable($userView))->getContent(), true);
+        $response = \json_decode(OpenApi::one(Item::fromSerializable($userView))->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
         self::assertArrayHasKey('data', $response);
         self::assertSame('UserView', $response['data']['type']);

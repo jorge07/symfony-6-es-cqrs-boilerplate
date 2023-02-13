@@ -49,7 +49,7 @@ final class EmailType extends StringType
 
         try {
             $email = Email::fromString($value);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             throw ConversionException::conversionFailedFormat($value, $this->getName(), $platform->getDateTimeFormatString());
         }
 

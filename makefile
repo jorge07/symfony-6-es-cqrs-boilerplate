@@ -61,15 +61,11 @@ phpunit: db ## execute project unit tests
 
 .PHONY: coverage
 coverage:
-		$(compose) run --rm php sh -lc "wget -q https://github.com/php-coveralls/php-coveralls/releases/download/v2.2.0/php-coveralls.phar; \
-			chmod +x php-coveralls.phar; \
-			export COVERALLS_RUN_LOCALLY=1; \
-			export COVERALLS_EVENT_TYPE='manual'; \
-			export CI_NAME='github-actions'; \
-			php ./php-coveralls.phar -v; \
-		"
+		$(compose) run --rm php sh -lc "composer global require php-coveralls/php-coveralls \
+		php-coveralls --coverage_clover=build/logs/clover.xml -v;"
+
 .PHONY: phpstan
-phpstan: ## executes php analizers
+phpstan: ## executes php analyzers
 		$(compose) run --rm code sh -lc './vendor/bin/phpstan analyse -l 6 -c phpstan.neon src tests'
 
 .PHONY: psalm
@@ -97,6 +93,7 @@ db: ## recreate database
 .PHONY: dmd
 dmd: ## Generate migrations diff file
 		$(compose) exec -T php sh -lc './bin/console d:m:diff'
+
 .PHONY: schema-validate
 schema-validate: ## validate database schema
 		$(compose) exec -T php sh -lc './bin/console d:s:v'

@@ -29,20 +29,8 @@ final class LoginAuthenticator extends AbstractLoginFormAuthenticator
 
     private const SUCCESS_REDIRECT = 'profile';
 
-    private MessengerCommandBus $bus;
-
-    private MessengerQueryBus $queryBus;
-
-    private UrlGeneratorInterface $router;
-
-    public function __construct(
-        MessengerCommandBus $commandBus,
-        MessengerQueryBus $queryBus,
-        UrlGeneratorInterface $router
-    ) {
-        $this->bus = $commandBus;
-        $this->router = $router;
-        $this->queryBus = $queryBus;
+    public function __construct(private readonly MessengerCommandBus $bus, private readonly MessengerQueryBus $queryBus, private readonly UrlGeneratorInterface $router)
+    {
     }
 
     private function getCredentials(Request $request): array
@@ -80,12 +68,10 @@ final class LoginAuthenticator extends AbstractLoginFormAuthenticator
             $this->bus->handle($signInCommand);
 
             return new Passport(
-                new UserBadge($email, function (string $email) {
-                    return $this->queryBus->ask(new GetAuthUserByEmailQuery($email));
-                }),
+                new UserBadge($email, fn(string $email) => $this->queryBus->ask(new GetAuthUserByEmailQuery($email))),
                 new PasswordCredentials($plainPassword)
             );
-        } catch (InvalidCredentialsException | InvalidArgumentException $exception) {
+        } catch (InvalidCredentialsException | InvalidArgumentException) {
             throw new AuthenticationException();
         }
     }

@@ -6,6 +6,7 @@ namespace Tests\App\Application\Query\Event\GetEvents;
 
 use App\Shared\Application\Query\Collection;
 use App\Shared\Application\Query\Event\GetEvents\GetEventsQuery;
+use App\Shared\Application\Query\Item;
 use App\Shared\Infrastructure\Event\Consumer\SendEventsToElasticConsumer;
 use App\Shared\Infrastructure\Event\ReadModel\ElasticSearchEventRepository;
 use App\User\Application\Command\SignUp\SignUpCommand;
@@ -20,6 +21,11 @@ use Throwable;
 final class GetEventsTest extends ApplicationTestCase
 {
 
+    /**
+     * @throws \App\Shared\Domain\Exception\DateTimeException
+     * @throws \Assert\AssertionFailedException
+     * @throws \Throwable
+     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -69,9 +75,12 @@ final class GetEventsTest extends ApplicationTestCase
         $response = $this->ask(new GetEventsQuery());
 
         self::assertInstanceOf(Collection::class, $response);
+
+        $item = $response->data[0];
+
         self::assertSame(1, $response->total);
-        self::assertSame('App.User.Domain.Event.UserWasCreated', $response->data[0]['type']);
-        self::assertSame('asd@asd.asd', $response->data[0]['payload']['credentials']['email']);
+        self::assertSame('App.User.Domain.Event.UserWasCreated', $item['type']);
+        self::assertSame('asd@asd.asd', $item['payload']['credentials']['email']);
     }
 
     protected function tearDown(): void

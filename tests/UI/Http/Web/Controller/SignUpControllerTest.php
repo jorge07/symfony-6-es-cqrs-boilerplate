@@ -74,8 +74,6 @@ class SignUpControllerTest extends WebTestCase
         $form->get('email')->setValue($email);
         $form->get('password')->setValue($password);
 
-        $crawler = $client->submit($form);
-
-        return $crawler;
+        return $client->submit($form);
     }
 }

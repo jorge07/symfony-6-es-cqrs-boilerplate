@@ -15,11 +15,8 @@ final class MessengerAsyncEventBus
 {
     use MessageBusExceptionTrait;
 
-    private MessageBusInterface $messageBus;
-
-    public function __construct(MessageBusInterface $messageBus)
+    public function __construct(private readonly MessageBusInterface $messageBus)
     {
-        $this->messageBus = $messageBus;
     }
 
     /**

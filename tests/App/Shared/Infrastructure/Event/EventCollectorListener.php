@@ -23,6 +23,5 @@ class EventCollectorListener implements EventListener
         return $events;
     }
 
-    /** @var array */
-    private $publishedEvents = [];
+    private array $publishedEvents = [];
 }

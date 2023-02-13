@@ -21,13 +21,9 @@ use Throwable;
 
 final class UserChangeEmailController extends CommandController
 {
-    private Session $session;
-
-    public function __construct(Session $session, CommandBusInterface $commandBus)
+    public function __construct(private readonly Session $session, CommandBusInterface $commandBus)
     {
         parent::__construct($commandBus);
-
-        $this->session = $session;
     }
 
     /**

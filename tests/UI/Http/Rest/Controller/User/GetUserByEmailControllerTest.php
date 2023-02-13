@@ -79,7 +79,7 @@ class GetUserByEmailControllerTest extends JsonApiTestCase
 
         self::assertSame(Response::HTTP_OK, $this->cli->getResponse()->getStatusCode());
 
-        $response = \json_decode($this->cli->getResponse()->getContent(), true);
+        $response = \json_decode($this->cli->getResponse()->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
         self::assertArrayHasKey('data', $response);
         self::assertArrayHasKey('id', $response['data']);

@@ -10,16 +10,8 @@ use App\User\Domain\Specification\UniqueEmailSpecificationInterface;
 
 final class ChangeEmailHandler implements CommandHandlerInterface
 {
-    private UserRepositoryInterface $userRepository;
-
-    private UniqueEmailSpecificationInterface $uniqueEmailSpecification;
-
-    public function __construct(
-        UserRepositoryInterface $userRepository,
-        UniqueEmailSpecificationInterface $uniqueEmailSpecification
-    ) {
-        $this->userRepository = $userRepository;
-        $this->uniqueEmailSpecification = $uniqueEmailSpecification;
+    public function __construct(private readonly UserRepositoryInterface $userRepository, private readonly UniqueEmailSpecificationInterface $uniqueEmailSpecification)
+    {
     }
 
     public function __invoke(ChangeEmailCommand $command): void

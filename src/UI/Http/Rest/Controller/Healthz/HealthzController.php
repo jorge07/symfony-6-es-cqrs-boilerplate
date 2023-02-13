@@ -13,16 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class HealthzController
 {
-    private ElasticSearchEventRepository $elasticSearchEventRepository;
-
-    private MysqlReadModelUserRepository $mysqlReadModelUserRepository;
-
-    public function __construct(
-        ElasticSearchEventRepository $elasticSearchEventRepository,
-        MysqlReadModelUserRepository $mysqlReadModelUserRepository)
+    public function __construct(private readonly ElasticSearchEventRepository $elasticSearchEventRepository, private readonly MysqlReadModelUserRepository $mysqlReadModelUserRepository)
     {
-        $this->elasticSearchEventRepository = $elasticSearchEventRepository;
-        $this->mysqlReadModelUserRepository = $mysqlReadModelUserRepository;
     }
 
     /**

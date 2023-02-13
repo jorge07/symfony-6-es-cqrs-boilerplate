@@ -10,16 +10,8 @@ use App\User\Domain\Repository\GetUserCredentialsByEmailInterface;
 
 final class GetTokenHandler implements QueryHandlerInterface
 {
-    private GetUserCredentialsByEmailInterface $userCredentialsByEmail;
-
-    private AuthenticationProvider $authenticationProvider;
-
-    public function __construct(
-        GetUserCredentialsByEmailInterface $userCredentialsByEmail,
-        AuthenticationProvider $authenticationProvider
-    ) {
-        $this->authenticationProvider = $authenticationProvider;
-        $this->userCredentialsByEmail = $userCredentialsByEmail;
+    public function __construct(private readonly GetUserCredentialsByEmailInterface $userCredentialsByEmail, private readonly AuthenticationProvider $authenticationProvider)
+    {
     }
 
     public function __invoke(GetTokenQuery $query): string

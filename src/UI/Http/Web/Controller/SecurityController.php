@@ -39,7 +39,7 @@ class SecurityController extends AbstractRenderController
      *     name="logout"
      * )
      */
-    public function logout(): void
+    public function logout(): never
     {
         throw new AuthenticationException('I shouldn\'t be here..');
     }

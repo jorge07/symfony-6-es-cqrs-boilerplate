@@ -13,11 +13,8 @@ use Doctrine\ORM\NonUniqueResultException;
 
 final class UniqueEmailSpecification extends AbstractSpecification implements UniqueEmailSpecificationInterface
 {
-    private CheckUserByEmailInterface $checkUserByEmail;
-
-    public function __construct(CheckUserByEmailInterface $checkUserByEmail)
+    public function __construct(private readonly CheckUserByEmailInterface $checkUserByEmail)
     {
-        $this->checkUserByEmail = $checkUserByEmail;
     }
 
     /**
@@ -38,7 +35,7 @@ final class UniqueEmailSpecification extends AbstractSpecification implements Un
             if ($this->checkUserByEmail->existsEmail($value)) {
                 throw new EmailAlreadyExistException();
             }
-        } catch (NonUniqueResultException $e) {
+        } catch (NonUniqueResultException) {
             throw new EmailAlreadyExistException();
         }
 

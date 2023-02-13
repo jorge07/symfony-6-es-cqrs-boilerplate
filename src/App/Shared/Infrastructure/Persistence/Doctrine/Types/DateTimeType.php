@@ -27,7 +27,13 @@ class DateTimeType extends DateTimeImmutableType
      * {@inheritdoc}
      *
      * @throws ConversionException
-     */
+     *
+     * @param T $value
+     *
+     * @return (T is null ? null : string)
+     *
+     * @template T
+     **/
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         if (null === $value) {
@@ -49,6 +55,12 @@ class DateTimeType extends DateTimeImmutableType
      * {@inheritdoc}
      *
      * @throws ConversionException
+     *
+     * @param T $value
+     *
+     * @return (T is null ? null : DateTimeImmutable)
+     *
+     * @template T
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
@@ -58,7 +70,7 @@ class DateTimeType extends DateTimeImmutableType
 
         try {
             $dateTime = DateTime::fromString($value);
-        } catch (DateTimeException $e) {
+        } catch (DateTimeException) {
             throw ConversionException::conversionFailedFormat($value, $this->getName(), $platform->getDateTimeFormatString());
         }
 

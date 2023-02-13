@@ -16,20 +16,8 @@ use Twig;
 
 abstract class AbstractRenderController
 {
-    private CommandBusInterface $commandBus;
-
-    private QueryBusInterface $queryBus;
-
-    private Twig\Environment $template;
-
-    public function __construct(
-        Twig\Environment $template,
-        CommandBusInterface $commandBus,
-        QueryBusInterface $queryBus
-    ) {
-        $this->template = $template;
-        $this->commandBus = $commandBus;
-        $this->queryBus = $queryBus;
+    public function __construct(private readonly Twig\Environment $template, private readonly CommandBusInterface $commandBus, private readonly QueryBusInterface $queryBus)
+    {
     }
 
     /**

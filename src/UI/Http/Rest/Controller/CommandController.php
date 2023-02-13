@@ -10,11 +10,8 @@ use Throwable;
 
 abstract class CommandController
 {
-    private CommandBusInterface $commandBus;
-
-    public function __construct(CommandBusInterface $commandBus)
+    public function __construct(private readonly CommandBusInterface $commandBus)
     {
-        $this->commandBus = $commandBus;
     }
 
     /**

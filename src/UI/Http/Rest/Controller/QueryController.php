@@ -14,16 +14,14 @@ use Throwable;
 
 abstract class QueryController
 {
-    private const CACHE_MAX_AGE = 31536000; // Year.
+    private const CACHE_MAX_AGE = 31_536_000;
 
-    private QueryBusInterface $queryBus;
-
-    private UrlGeneratorInterface $router;
-
-    public function __construct(QueryBusInterface $queryBus, UrlGeneratorInterface $router)
+    public function __construct(
+        // Year.
+        private readonly QueryBusInterface $queryBus,
+        private readonly UrlGeneratorInterface $router
+    )
     {
-        $this->queryBus = $queryBus;
-        $this->router = $router;
     }
 
     /**

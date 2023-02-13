@@ -11,19 +11,10 @@ use Symfony\Component\PasswordHasher\Hasher\PasswordHasherAwareInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-final class Auth implements UserInterface, PasswordHasherAwareInterface, PasswordAuthenticatedUserInterface
+final class Auth implements UserInterface, PasswordHasherAwareInterface, PasswordAuthenticatedUserInterface, \Stringable
 {
-    private UuidInterface $uuid;
-
-    private Email $email;
-
-    private HashedPassword $hashedPassword;
-
-    private function __construct(UuidInterface $uuid, Email $email, HashedPassword $hashedPassword)
+    private function __construct(private readonly UuidInterface $uuid, private readonly Email $email, private readonly HashedPassword $hashedPassword)
     {
-        $this->uuid = $uuid;
-        $this->email = $email;
-        $this->hashedPassword = $hashedPassword;
     }
 
     public static function create(UuidInterface $uuid, Email $email, HashedPassword $hashedPassword): self

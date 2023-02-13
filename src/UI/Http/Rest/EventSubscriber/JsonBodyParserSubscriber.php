@@ -41,19 +41,19 @@ class JsonBodyParserSubscriber implements EventSubscriberInterface
 
     private function isJsonRequest(Request $request): bool
     {
-        return 'json' === $request->getContentType();
+        return 'json' === $request->getContentTypeFormat();
     }
 
     private function transformJsonBody(Request $request): bool
     {
         try {
             $data = \json_decode(
-                (string) $request->getContent(),
+                $request->getContent(),
                 true,
                 512,
                 JSON_THROW_ON_ERROR
             );
-        } catch (Throwable $exception) {
+        } catch (Throwable) {
             return false;
         }
 

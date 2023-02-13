@@ -28,7 +28,7 @@ abstract class JsonApiTestCase extends WebTestCase
 
     private ?string $token = null;
 
-    protected ?UuidInterface $userUuid;
+    protected ?UuidInterface $userUuid = null;
 
     protected function setUp(): void
     {
@@ -65,7 +65,7 @@ abstract class JsonApiTestCase extends WebTestCase
             [],
             [],
             $this->headers(),
-            (string) \json_encode($params)
+            (string) \json_encode($params, JSON_THROW_ON_ERROR)
         );
     }
 
@@ -90,7 +90,7 @@ abstract class JsonApiTestCase extends WebTestCase
         /** @var string $content */
         $content = $this->cli->getResponse()->getContent();
 
-        $response = \json_decode($content, true);
+        $response = \json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 
         $this->token = $response['token'];
     }

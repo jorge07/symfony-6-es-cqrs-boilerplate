@@ -16,11 +16,8 @@ abstract class MysqlRepository
 {
     protected EntityRepository $repository;
 
-    protected EntityManagerInterface $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(protected EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
         $this->setEntityManager();
     }
 
@@ -81,7 +78,7 @@ abstract class MysqlRepository
             $connection->executeQuery($dummySelectSQL);
 
             return true;
-        } catch (Throwable $exception) {
+        } catch (Throwable) {
             $connection->close();
 
             return false;

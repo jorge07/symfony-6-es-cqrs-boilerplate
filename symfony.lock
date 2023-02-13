@@ -368,15 +368,6 @@
     "sebastian/version": {
         "version": "2.0.1"
     },
-    "sensio/framework-extra-bundle": {
-        "version": "4.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "4.0",
-            "ref": "aaddfdf43cdecd4cf91f992052d76c2cadc04543"
-        }
-    },
     "slevomat/coding-standard": {
         "version": "5.0.4"
     },
@@ -552,9 +543,6 @@
     },
     "symfony/polyfill-php80": {
         "version": "v1.16.0"
-    },
-    "symfony/polyfill-php81": {
-        "version": "v1.23.0"
     },
     "symfony/process": {
         "version": "v4.4.4"

@@ -17,17 +17,8 @@ use Ramsey\Uuid\UuidInterface;
 
 final class UserWasCreated implements Serializable
 {
-    public UuidInterface $uuid;
-
-    public Credentials $credentials;
-
-    public DateTime $createdAt;
-
-    public function __construct(UuidInterface $uuid, Credentials $credentials, DateTime $createdAt)
+    public function __construct(public UuidInterface $uuid, public Credentials $credentials, public DateTime $createdAt)
     {
-        $this->uuid = $uuid;
-        $this->credentials = $credentials;
-        $this->createdAt = $createdAt;
     }
 
     /**

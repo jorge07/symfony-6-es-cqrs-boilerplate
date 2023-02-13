@@ -10,12 +10,8 @@ use App\User\Infrastructure\Auth\Auth;
 
 final class GetAuthUserByEmailHandler implements QueryHandlerInterface
 {
-    private GetUserCredentialsByEmailInterface $userCredentialsByEmail;
-
-    public function __construct(
-        GetUserCredentialsByEmailInterface $userCredentialsByEmail
-    ) {
-        $this->userCredentialsByEmail = $userCredentialsByEmail;
+    public function __construct(private readonly GetUserCredentialsByEmailInterface $userCredentialsByEmail)
+    {
     }
 
     public function __invoke(GetAuthUserByEmailQuery $query): Auth

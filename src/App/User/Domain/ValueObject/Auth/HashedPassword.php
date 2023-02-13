@@ -10,15 +10,12 @@ use const PASSWORD_BCRYPT;
 use function password_verify;
 use RuntimeException;
 
-final class HashedPassword
+final class HashedPassword implements \Stringable
 {
-    private string $hashedPassword;
-
     public const COST = 12;
 
-    private function __construct(string $hashedPassword)
+    private function __construct(private readonly string $hashedPassword)
     {
-        $this->hashedPassword = $hashedPassword;
     }
 
     /**

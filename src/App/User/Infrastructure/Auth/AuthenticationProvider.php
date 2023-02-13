@@ -11,11 +11,8 @@ use Ramsey\Uuid\UuidInterface;
 
 final class AuthenticationProvider
 {
-    private JWTTokenManagerInterface $JWTManager;
-
-    public function __construct(JWTTokenManagerInterface $JWTManager)
+    public function __construct(private readonly JWTTokenManagerInterface $JWTManager)
     {
-        $this->JWTManager = $JWTManager;
     }
 
     public function generateToken(UuidInterface $uuid, Email $email, HashedPassword $hashedPassword): string

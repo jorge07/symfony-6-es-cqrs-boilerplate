@@ -17,11 +17,8 @@ final class AsyncEventPublisher implements EventSubscriberInterface, EventListen
     /** @var DomainMessage[] */
     private array $messages = [];
 
-    private MessengerAsyncEventBus $bus;
-
-    public function __construct(MessengerAsyncEventBus $bus)
+    public function __construct(private readonly MessengerAsyncEventBus $bus)
     {
-        $this->bus = $bus;
     }
 
     public function handle(DomainMessage $domainMessage): void

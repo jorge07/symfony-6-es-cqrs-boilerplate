@@ -13,11 +13,8 @@ use Doctrine\ORM\NonUniqueResultException;
 
 final class FindByEmailHandler implements QueryHandlerInterface
 {
-    private MysqlReadModelUserRepository $repository;
-
-    public function __construct(MysqlReadModelUserRepository $repository)
+    public function __construct(private readonly MysqlReadModelUserRepository $repository)
     {
-        $this->repository = $repository;
     }
 
     /**
