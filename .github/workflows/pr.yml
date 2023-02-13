@@ -25,7 +25,7 @@ jobs:
       run: make env=ci cs-check;make env=ci phpstan;make env=ci layer;make env=ci psalm
 
     - name: Tests
-      run: make env=ci xon;make env=ci conf="--coverage-clover clover.xml" phpunit
+      run: make env=ci xon;make env=ci conf="--coverage-clover build/logs/clover.xml" phpunit
 
     - name: ARTIFACT
       run: make env=ci artifact

@@ -27,11 +27,6 @@ final class UserChangeEmailController extends CommandController
     }
 
     /**
-     * @Route(
-     *     "/users/{uuid}/email",
-     *     name="user_change_email",
-     *     methods={"POST"}
-     * )
      *
      * @OA\Response(
      *     response=201,
@@ -60,12 +55,12 @@ final class UserChangeEmailController extends CommandController
      * )
      *
      * @OA\Tag(name="User")
-     *
      * @Security(name="Bearer")
      *
      * @throws AssertionFailedException
      * @throws Throwable
      */
+    #[Route(path: '/users/{uuid}/email', name: 'user_change_email', methods: ['POST'])]
     public function __invoke(string $uuid, Request $request): JsonResponse
     {
         $this->validateUuid($uuid);

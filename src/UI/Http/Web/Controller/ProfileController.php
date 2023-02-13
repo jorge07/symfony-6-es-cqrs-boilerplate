@@ -13,16 +13,12 @@ use Twig\Error\SyntaxError;
 class ProfileController extends AbstractRenderController
 {
     /**
-     * @Route(
-     *     "/profile",
-     *     name="profile",
-     *     methods={"GET"}
-     * )
      *
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
      */
+    #[Route(path: '/profile', name: 'profile', methods: ['GET'])]
     public function profile(): Response
     {
         return $this->render('profile/index.html.twig');

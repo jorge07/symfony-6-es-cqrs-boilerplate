@@ -19,11 +19,6 @@ use Throwable;
 class GetEventsController extends QueryController
 {
     /**
-     * @Route(
-     *     path="/events",
-     *     name="events",
-     *     methods={"GET"}
-     * )
      *
      * @OA\Response(
      *     response=200,
@@ -47,10 +42,23 @@ class GetEventsController extends QueryController
      * @OA\Tag(name="Events")
      *
      * @Security(name="Bearer")
+     * )
+     * @OA\Response(
+     *     response=409,
+     *     description="Conflict"
+     * )
+     *
+     * @OA\Parameter(ref="#/components/parameters/page")
+     * @OA\Parameter(ref="#/components/parameters/limit")
+     *
+     * @OA\Tag(name="Events")
+     *
+     * @Security(name="Bearer")
      *
      * @throws AssertionFailedException
      * @throws Throwable
      */
+    #[Route(path: '/events', name: 'events', methods: ['GET'])]
     public function __invoke(Request $request): OpenApi
     {
         $page = $request->query->get('page', 1);

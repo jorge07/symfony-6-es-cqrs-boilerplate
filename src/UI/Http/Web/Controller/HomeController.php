@@ -13,16 +13,12 @@ use Twig\Error\SyntaxError;
 class HomeController extends AbstractRenderController
 {
     /**
-     * @Route(
-     *     "/",
-     *     name="home",
-     *     methods={"GET"}
-     * )
      *
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
      */
+    #[Route(path: '/', name: 'home', methods: ['GET'])]
     public function get(): Response
     {
         return $this->render('home/index.html.twig');

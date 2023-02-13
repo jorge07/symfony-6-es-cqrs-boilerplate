@@ -15,16 +15,12 @@ use Twig\Error\SyntaxError;
 class SecurityController extends AbstractRenderController
 {
     /**
-     * @Route(
-     *     "/sign-in",
-     *     name="login",
-     *     methods={"GET", "POST"}
-     * )
      *
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
      */
+    #[Route(path: '/sign-in', name: 'login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authUtils): Response
     {
         return $this->render('signin/login.html.twig', [
@@ -33,12 +29,7 @@ class SecurityController extends AbstractRenderController
         ]);
     }
 
-    /**
-     * @Route(
-     *     "/logout",
-     *     name="logout"
-     * )
-     */
+    #[Route(path: '/logout', name: 'logout')]
     public function logout(): never
     {
         throw new AuthenticationException('I shouldn\'t be here..');

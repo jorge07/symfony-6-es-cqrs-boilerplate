@@ -61,8 +61,9 @@ phpunit: db ## execute project unit tests
 
 .PHONY: coverage
 coverage:
-		$(compose) run --rm php sh -lc "composer global require php-coveralls/php-coveralls \
-		php-coveralls --coverage_clover=build/logs/clover.xml -v;"
+		$(compose) run --rm php sh -lc "git config --global --add safe.directory /app; \
+		composer global require php-coveralls/php-coveralls; \
+		../root/.composer/vendor/bin/php-coveralls --coverage_clover=/app/build/logs/clover.xml -v "
 
 .PHONY: phpstan
 phpstan: ## executes php analyzers
@@ -93,6 +94,10 @@ db: ## recreate database
 .PHONY: dmd
 dmd: ## Generate migrations diff file
 		$(compose) exec -T php sh -lc './bin/console d:m:diff'
+
+.PHONY: rector
+rector: ## rector
+		$(compose) exec -T php sh -lc './vendor/bin/rector process'
 
 .PHONY: schema-validate
 schema-validate: ## validate database schema

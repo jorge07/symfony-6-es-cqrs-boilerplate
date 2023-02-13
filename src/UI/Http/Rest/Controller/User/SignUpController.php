@@ -17,11 +17,6 @@ use Throwable;
 final class SignUpController extends CommandController
 {
     /**
-     * @Route(
-     *     "/signup",
-     *     name="user_create",
-     *     methods={"POST"}
-     * )
      *
      * @OA\Response(
      *     response=201,
@@ -50,6 +45,7 @@ final class SignUpController extends CommandController
      * @throws AssertionFailedException
      * @throws Throwable
      */
+    #[Route(path: '/signup', name: 'user_create', methods: ['POST'])]
     public function __invoke(Request $request): OpenApi
     {
         $uuid = (string) $request->request->get('uuid');

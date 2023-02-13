@@ -30,8 +30,6 @@
         "symfony/yaml": "^6.0"
     },
     "require-dev": {
-        "php-coveralls/php-coveralls": "^2.5",
-        "phpunit/phpcov": "^2.0",
         "blackfire/php-sdk": "^1.24",
         "dama/doctrine-test-bundle": "^6.5",
         "phpstan/phpstan": "^1.4.6",

@@ -22,13 +22,13 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(InlineConstructorDefaultToPropertyRector::class);
     // define sets of rules
     $rectorConfig->sets([
-        LevelSetList::UP_TO_PHP_81,
-        SetList::DEAD_CODE,
-        SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
-        SymfonySetList::SYMFONY_CODE_QUALITY,
-        SymfonySetList::SYMFONY_62,
-        SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
-        DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
-        SensiolabsSetList::FRAMEWORK_EXTRA_61,
+//        LevelSetList::UP_TO_PHP_81,
+//        SetList::DEAD_CODE,
+//        SymfonySetList::SYMFONY_CONSTRUCTOR_INJECTION,
+//        SymfonySetList::SYMFONY_CODE_QUALITY,
+//        SymfonySetList::SYMFONY_62,
+//        SymfonySetList::ANNOTATIONS_TO_ATTRIBUTES,
+//        DoctrineSetList::ANNOTATIONS_TO_ATTRIBUTES,
+//        SensiolabsSetList::FRAMEWORK_EXTRA_61,
     ]);
 };

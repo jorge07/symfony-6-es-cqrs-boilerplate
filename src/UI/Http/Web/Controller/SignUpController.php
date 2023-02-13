@@ -21,27 +21,18 @@ use Twig\Error\SyntaxError;
 class SignUpController extends AbstractRenderController
 {
     /**
-     * @Route(
-     *     "/sign-up",
-     *     name="sign-up",
-     *     methods={"GET"}
-     * )
      *
      * @throws LoaderError
      * @throws RuntimeError
      * @throws SyntaxError
      */
+    #[Route(path: '/sign-up', name: 'sign-up', methods: ['GET'])]
     public function get(): Response
     {
         return $this->render('signup/index.html.twig');
     }
 
     /**
-     * @Route(
-     *     "/sign-up",
-     *     name="sign-up-post",
-     *     methods={"POST"}
-     * )
      *
      * @throws AssertionFailedException
      * @throws Throwable
@@ -49,6 +40,7 @@ class SignUpController extends AbstractRenderController
      * @throws RuntimeError
      * @throws SyntaxError
      */
+    #[Route(path: '/sign-up', name: 'sign-up-post', methods: ['POST'])]
     public function post(Request $request): Response
     {
         $email = $request->request->get('email');
