@@ -1,30 +1,34 @@
-# Symfony 5 ES CQRS Boilerplate
+# Symfony 6 ES CQRS Boilerplate
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 A boilerplate for DDD, CQRS, Event Sourcing applications using Symfony as framework and running with PHP 8.
 
-![push](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/workflows/push/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/jorge07/symfony-5-es-cqrs-boilerplate/badge.svg?branch=symfony-5)](https://coveralls.io/github/jorge07/symfony-5-es-cqrs-boilerplate)
+![push](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/workflows/push/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/jorge07/symfony-6-es-cqrs-boilerplate/badge.svg?branch=symfony-6)](https://coveralls.io/github/jorge07/symfony-5-es-cqrs-boilerplate)
 
-> Symfony 4 still available in [symfony-4 branch](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/tree/symfony-4)
+> This is a long living repository that started at v4 and v5 versions are available in the following branches:
+> 
+> [symfony-5 branch](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/tree/symfony-5)
+>
+> [symfony-4 branch](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/tree/symfony-4)
 
 ## Documentation
 
-[Buses](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/tree/master/doc/GetStarted/Buses.md)
+[Buses](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/tree/master/doc/GetStarted/Buses.md)
 
-[Creating an Application Use Case](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/tree/master/doc/GetStarted/UseCases.md)
+[Creating an Application Use Case](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/tree/master/doc/GetStarted/UseCases.md)
 
-[Adding Projections](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/tree/master/doc/GetStarted/Projections.md)
+[Adding Projections](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/tree/master/doc/GetStarted/Projections.md)
 
-[Async executions](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/tree/master/doc/GetStarted/Async.md)
+[Async executions](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/tree/master/doc/GetStarted/Async.md)
 
-[UI workflow](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/blob/master/doc/Workflow.md)
+[UI workflow](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/blob/master/doc/Workflow.md)
 
-[Xdebug configuration](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/blob/master/doc/GetStarted/Xdebug.md)
+[Xdebug configuration](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/blob/master/doc/GetStarted/Xdebug.md)
 
-[Kubernetes Deployment](https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/blob/master/doc/Deployment.md)
+[Kubernetes Deployment](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/blob/master/doc/Deployment.md)
 
 ## Architecture
 
@@ -128,11 +132,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="http://tacon.eu"><img src="https://avatars2.githubusercontent.com/u/2017676?v=4" width="100px;" alt=""/><br /><sub><b>Luis</b></sub></a><br /><a href="https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/commits?author=Lutacon" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/cv65kr"><img src="https://avatars0.githubusercontent.com/u/9404962?v=4" width="100px;" alt=""/><br /><sub><b>Kajetan</b></sub></a><br /><a href="https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/commits?author=cv65kr" title="Code">💻</a></td>
-    <td align="center"><a href="https://coderslab.pl"><img src="https://avatars0.githubusercontent.com/u/2781079?v=4" width="100px;" alt=""/><br /><sub><b>Krzysztof Kowalski</b></sub></a><br /><a href="https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/commits?author=kowalk" title="Code">💻</a></td>
-    <td align="center"><a href="http://patryk.it"><img src="https://avatars3.githubusercontent.com/u/17459288?v=4" width="100px;" alt=""/><br /><sub><b>Patryk Woziński</b></sub></a><br /><a href="https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/commits?author=patrykwozinski" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/jon-ht"><img src="https://avatars3.githubusercontent.com/u/17051512?v=4" width="100px;" alt=""/><br /><sub><b>jon-ht</b></sub></a><br /><a href="https://github.com/jorge07/symfony-5-es-cqrs-boilerplate/commits?author=jon-ht" title="Code">💻</a></td>
+    <td align="center"><a href="http://tacon.eu"><img src="https://avatars2.githubusercontent.com/u/2017676?v=4" width="100px;" alt=""/><br /><sub><b>Luis</b></sub></a><br /><a href="https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/commits?author=Lutacon" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/cv65kr"><img src="https://avatars0.githubusercontent.com/u/9404962?v=4" width="100px;" alt=""/><br /><sub><b>Kajetan</b></sub></a><br /><a href="https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/commits?author=cv65kr" title="Code">💻</a></td>
+    <td align="center"><a href="https://coderslab.pl"><img src="https://avatars0.githubusercontent.com/u/2781079?v=4" width="100px;" alt=""/><br /><sub><b>Krzysztof Kowalski</b></sub></a><br /><a href="https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/commits?author=kowalk" title="Code">💻</a></td>
+    <td align="center"><a href="http://patryk.it"><img src="https://avatars3.githubusercontent.com/u/17459288?v=4" width="100px;" alt=""/><br /><sub><b>Patryk Woziński</b></sub></a><br /><a href="https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/commits?author=patrykwozinski" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/jon-ht"><img src="https://avatars3.githubusercontent.com/u/17051512?v=4" width="100px;" alt=""/><br /><sub><b>jon-ht</b></sub></a><br /><a href="https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/commits?author=jon-ht" title="Code">💻</a></td>
   </tr>
 </table>
 
