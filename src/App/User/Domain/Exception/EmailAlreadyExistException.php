@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\User\Domain\Exception;
 
-class EmailAlreadyExistException extends \InvalidArgumentException implements \Throwable
+class EmailAlreadyExistException extends \LogicException
 {
     public function __construct()
     {
