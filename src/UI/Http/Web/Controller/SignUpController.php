@@ -29,7 +29,9 @@ class SignUpController extends AbstractRenderController
     #[Route(path: '/sign-up', name: 'sign-up', methods: ['GET'])]
     public function get(): Response
     {
-        return $this->render('signup/index.html.twig');
+        $uuid = Uuid::uuid4()->toString();
+
+        return $this->render('signup/index.html.twig', ['uuid' => $uuid]);
     }
 
     /**
@@ -43,11 +45,16 @@ class SignUpController extends AbstractRenderController
     #[Route(path: '/sign-up', name: 'sign-up-post', methods: ['POST'])]
     public function post(Request $request): Response
     {
+        $errorHTTPStatusCode = null;
+        $afterErrorUuid = Uuid::uuid4()->toString();
+
+
+        $uuid = $request->request->get('uuid');
         $email = $request->request->get('email');
         $password = $request->request->get('password');
-        $uuid = Uuid::uuid4()->toString();
 
         try {
+            Assertion::notNull($uuid, 'Missing uuid');
             Assertion::notNull($email, 'Email can\'t be null');
             Assertion::notNull($password, 'Password can\'t be null');
 
@@ -55,9 +62,13 @@ class SignUpController extends AbstractRenderController
 
             return $this->render('signup/user_created.html.twig', ['uuid' => $uuid, 'email' => $email]);
         } catch (EmailAlreadyExistException $exception) {
-            return $this->render('signup/index.html.twig', ['error' => $exception->getMessage()], Response::HTTP_CONFLICT);
+            $errorHTTPStatusCode = Response::HTTP_CONFLICT;
+
+            return $this->render('signup/index.html.twig', ['uuid' => $afterErrorUuid, 'error' => $exception->getMessage()], $errorHTTPStatusCode);
         } catch (InvalidArgumentException $exception) {
-            return $this->render('signup/index.html.twig', ['error' => $exception->getMessage()], Response::HTTP_BAD_REQUEST);
+            $errorHTTPStatusCode= Response::HTTP_BAD_REQUEST;
+
+            return $this->render('signup/index.html.twig', ['uuid' => $afterErrorUuid, 'error' => $exception->getMessage()], $errorHTTPStatusCode);
         }
     }
 }

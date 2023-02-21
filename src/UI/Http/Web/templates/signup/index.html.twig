@@ -8,6 +8,9 @@
                 <div class="notification is-danger">{{ error }}</div>
             {% endif %}
             <form name="signUp" action="{{ path('sign-up') }}" method="post">
+                <div class="control">
+                    <input class="input" name="uuid" type="hidden" value="{{ uuid }}" id="uuid">
+                </div>
                 <div class="field">
                     <label for="email">Email</label>
                     <div class="control">
