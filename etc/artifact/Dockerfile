@@ -1,19 +1,19 @@
-ARG PHP_VERSION=8.1.14
+ARG PHP_VERSION=8.2.8
 
 
 FROM jorge07/alpine-php:${PHP_VERSION} as php-base
 # List your dependencies here
-ARG PHP_MODULES="php81-pdo php81-pdo_mysql php81-mysqlnd php81-pecl-amqp php81-tokenizer php81-posix php81-simplexml php81-xmlwriter"
+ARG PHP_MODULES="php82-pdo php82-pdo_mysql php82-mysqlnd php82-pecl-amqp php82-tokenizer php82-posix php82-simplexml php82-xmlwriter"
 RUN apk add -U --no-cache ${PHP_MODULES}
 
 FROM jorge07/alpine-php:${PHP_VERSION}-dev as php-dev
 
-ARG PHP_MODULES="php81-pdo php81-pdo_mysql php81-mysqlnd php81-pecl-amqp php81-tokenizer php81-posix php81-simplexml php81-xmlwriter"
+ARG PHP_MODULES="php82-pdo php82-pdo_mysql php82-mysqlnd php82-pecl-amqp php82-tokenizer php82-posix php82-simplexml php82-xmlwriter"
 ARG PHP_DEV_MODULES=""
 
 RUN apk add -U --no-cache ${PHP_MODULES} ${PHP_DEV_MODULES}
 
-ENV PHP_INI_DIR /etc/php81
+ENV PHP_INI_DIR /etc/php82
 
 RUN apk add -U sqlite \
 	&& version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \

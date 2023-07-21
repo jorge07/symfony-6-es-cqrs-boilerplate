@@ -4,7 +4,7 @@ doctrine:
         url: '%env(resolve:DATABASE_URL)%'
         driver:   pdo_mysql
         charset: utf8mb4
-        server_version: '8.0'
+        server_version: '8.0.33'
         types:
           uuid_binary: Ramsey\Uuid\Doctrine\UuidBinaryType
           datetime_immutable: App\Shared\Infrastructure\Persistence\Doctrine\Types\DateTimeType

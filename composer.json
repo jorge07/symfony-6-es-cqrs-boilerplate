@@ -16,18 +16,18 @@
         "nelmio/api-doc-bundle": "^4.1|4.x-dev",
         "ramsey/uuid": "^4.1",
         "ramsey/uuid-doctrine": "^1.6",
-        "symfony/amqp-messenger": "^6.0",
-        "symfony/asset": "^6.0",
-        "symfony/cache": "^6.0",
-        "symfony/console": "^6.0",
+        "symfony/amqp-messenger": "^6.3",
+        "symfony/asset": "^6.3",
+        "symfony/cache": "^6.3",
+        "symfony/console": "^6.3",
         "symfony/flex": "^1.12",
-        "symfony/framework-bundle": "^6.0",
-        "symfony/messenger": "^6.0",
+        "symfony/framework-bundle": "^6.3",
+        "symfony/messenger": "^6.3",
         "symfony/monolog-bundle": "^3.6",
-        "symfony/proxy-manager-bridge": "^6.0",
-        "symfony/security-bundle": "^6.0",
-        "symfony/twig-bundle": "^6.0",
-        "symfony/yaml": "^6.0"
+        "symfony/proxy-manager-bridge": "^6.3",
+        "symfony/security-bundle": "^6.3",
+        "symfony/twig-bundle": "^6.3",
+        "symfony/yaml": "^6.3"
     },
     "require-dev": {
         "blackfire/php-sdk": "^1.24",
@@ -37,12 +37,12 @@
         "rector/rector": "^0.15.13",
         "roave/security-advisories": "dev-master",
         "sylius-labs/coding-standard": "^v4.2.0",
-        "symfony/browser-kit": "^6.0",
-        "symfony/css-selector": "^6.0",
-        "symfony/dotenv": "^6.0",
-        "symfony/phpunit-bridge": "^6.0",
-        "symfony/stopwatch": "^6.0",
-        "symfony/web-profiler-bundle": "^6.0",
+        "symfony/browser-kit": "^6.3",
+        "symfony/css-selector": "^6.3",
+        "symfony/dotenv": "^6.3",
+        "symfony/phpunit-bridge": "^6.3",
+        "symfony/stopwatch": "^6.3",
+        "symfony/web-profiler-bundle": "^6.3",
         "vimeo/psalm": "^4.20"
     },
     "config": {
@@ -89,7 +89,7 @@
         "symfony": {
             "id": "01C1QKYZ4DSB74RHER7JCF8Q1K",
             "allow-contrib": false,
-            "require": "^6.0"
+            "require": "^6.3"
         }
     },
     "name": "jorge07/symfony-5-es-cqrs-boilerplate",
