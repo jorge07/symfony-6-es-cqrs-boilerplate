@@ -50,10 +50,10 @@ final class GetUserByEmailController extends QueryController
     {
         Assertion::email($email, "Email can\'t be empty or invalid");
 
-        $command = new FindByEmailQuery($email);
+        $query = new FindByEmailQuery($email);
 
         /** @var Item $user */
-        $user = $this->ask($command);
+        $user = $this->ask($query);
 
         return $this->json($user);
     }
