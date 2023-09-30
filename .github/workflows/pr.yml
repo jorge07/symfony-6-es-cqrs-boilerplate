@@ -12,6 +12,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
+    - name: Platform
+      run: uname -m
+
     - name: Build
       run: make env=ci start;make env=ci xoff
 

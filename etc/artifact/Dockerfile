@@ -1,4 +1,4 @@
-ARG PHP_VERSION=8.2.8
+ARG PHP_VERSION=8.2.11
 
 
 FROM jorge07/alpine-php:${PHP_VERSION} as php-base
