@@ -5,8 +5,7 @@
 
 A boilerplate for DDD, CQRS, Event Sourcing applications using Symfony as framework and running with PHP 8.
 
-![push](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/workflows/push/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/jorge07/symfony-6-es-cqrs-boilerplate/badge.svg?branch=symfony-6)](https://coveralls.io/github/jorge07/symfony-5-es-cqrs-boilerplate)
+[![push](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/actions/workflows/push.yml/badge.svg)](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/actions/workflows/push.yml)
 
 > This is a long living repository that started at v4 and was upgraded to each mayor since then. You can find v4 and v5 versions at the following branches:
 > 
