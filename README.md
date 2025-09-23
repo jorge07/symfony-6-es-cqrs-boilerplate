@@ -3,7 +3,16 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-A boilerplate for DDD, CQRS, Event Sourcing applications using Symfony as framework and running with PHP 8.
+A comprehensive boilerplate demonstrating **Domain-Driven Design (DDD)**, **Command Query Responsibility Segregation (CQRS)**, and **Event Sourcing** patterns using Symfony as the framework and PHP 8.
+
+This project showcases:
+- 🏗️ **Clean Architecture** with clear separation of concerns
+- 📦 **Bounded Contexts** for domain organization  
+- ⚡ **Event Sourcing** for complete audit trails and temporal queries
+- 🔄 **CQRS** for optimized read and write operations
+- 🚌 **Message Buses** for command, query, and event handling
+- 🔀 **Async Processing** with RabbitMQ for scalable event handling
+- 🧪 **Comprehensive Testing** strategies for all architectural layers
 
 [![push](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/actions/workflows/push.yml/badge.svg)](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/actions/workflows/push.yml)
 
@@ -15,19 +24,42 @@ A boilerplate for DDD, CQRS, Event Sourcing applications using Symfony as framew
 
 ## Documentation
 
-[Buses](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/tree/master/doc/GetStarted/Buses.md)
+### 📚 Core Concepts
 
-[Creating an Application Use Case](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/tree/master/doc/GetStarted/UseCases.md)
+**Domain-Driven Design (DDD)**
+- [DDD Overview](doc/DDD/README.md) - Introduction to Domain-Driven Design concepts
+- [DDD Objectives and Reasoning](doc/DDD/Objectives.md) - Why use DDD and its benefits
+- [Bounded Context](doc/DDD/BoundedContext.md) - Context boundaries and integration patterns
+- [Value Objects vs Entities](doc/DDD/ValueObjectsVsEntities.md) - Core building blocks explained
+- [Aggregates and Aggregate Root](doc/DDD/Aggregates.md) - Consistency boundaries and business logic
+- [Layered Architecture](doc/DDD/LayeredArchitecture.md) - Clean architecture with dependency inversion
+- [Anti-Corruption Layer](doc/DDD/AntiCorruptionLayer.md) - Protecting domain from external systems
 
-[Adding Projections](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/tree/master/doc/GetStarted/Projections.md)
+**CQRS and Event Sourcing**
+- [CQRS Overview](doc/CQRS/README.md) - Command Query Responsibility Segregation patterns
+- [CQRS Implementation](doc/CQRS/CQRSOverview.md) - Detailed CQRS explanation with examples
+- [Command Bus](doc/CQRS/CommandBus.md) - Write operations and business logic execution
+- [Event Sourcing](doc/CQRS/EventSourcing.md) - Storing state as sequence of events
+- [Application Workflow](doc/CQRS/ApplicationWorkflow.md) - Complete request flow through the system
+- [Symfony Messenger Integration](doc/CQRS/SymfonyMessenger.md) - Message bus implementation
 
-[Async executions](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/tree/master/doc/GetStarted/Async.md)
+### 🚀 Getting Started
 
-[UI workflow](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/blob/master/doc/Workflow.md)
+- [Command and Query Buses](doc/GetStarted/Buses.md) - Basic bus usage
+- [Creating Use Cases](doc/GetStarted/UseCases.md) - Step-by-step use case creation
+- [Adding Projections](doc/GetStarted/Projections.md) - Building read models
+- [Async Processing](doc/GetStarted/Async.md) - Background event processing
+- [UI Workflow](doc/Workflow.md) - Complete user interaction flow
 
-[Xdebug configuration](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/blob/master/doc/GetStarted/Xdebug.md)
+### 🔧 Advanced Topics
 
-[Kubernetes Deployment](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/blob/master/doc/Deployment.md)
+- [Testing Strategies](doc/Advanced/TestingStrategies.md) - Comprehensive testing approach
+- [Read and Write Models](doc/Advanced/ReadWriteModels.md) - Optimizing for different use cases
+
+### 🛠️ Development Setup
+
+- [Xdebug Configuration](doc/GetStarted/Xdebug.md) - Debugging setup
+- [Kubernetes Deployment](doc/Deployment.md) - Production deployment
 
 ## Architecture
 
