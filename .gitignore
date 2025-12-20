@@ -27,3 +27,10 @@ build/
 /.phpunit.result.cache
 ###< friendsofphp/php-cs-fixer ###
 etc/artifact/chart/charts/
+
+###> docusaurus ###
+docs-site/node_modules/
+docs-site/build/
+docs-site/.docusaurus/
+docs-site/.cache-loader/
+###< docusaurus ###
