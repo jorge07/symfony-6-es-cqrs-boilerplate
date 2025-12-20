@@ -24,6 +24,10 @@ This project showcases:
 
 ## Documentation
 
+📖 **[View the full documentation site](https://jorge07.github.io/symfony-6-es-cqrs-boilerplate/)**
+
+The documentation is also available in this repository:
+
 ### 📚 Core Concepts
 
 **Domain-Driven Design (DDD)**
