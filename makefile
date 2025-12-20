@@ -1,6 +1,6 @@
 env=dev
 docker-os=
-compose=docker-compose -f docker-compose.yml -f etc/$(env)/docker-compose.yml
+compose=docker compose -f docker-compose.yml -f etc/$(env)/docker-compose.yml
 
 ifeq ($(docker-os), windows)
 	ifeq ($(env), dev)
@@ -28,7 +28,7 @@ rebuild: start ## same as start
 erase: ## stop and delete containers, clean volumes.
 		touch .env.blackfire
 		$(compose) stop
-		docker-compose rm -v -f
+		docker compose rm -v -f
 
 .PHONY: build
 build: ## build environment and initialize composer and project dependencies
@@ -45,7 +45,7 @@ build: ## build environment and initialize composer and project dependencies
 
 .PHONY: artifact
 artifact: ## build production artifact
-		docker-compose -f etc/artifact/docker-compose.yml build
+		docker compose -f etc/artifact/docker-compose.yml build
 
 .PHONY: composer-update
 composer-update: ## Update project dependencies
@@ -124,7 +124,7 @@ logs: ## look for 's' service logs, make s=php logs
 .PHONY: minikube
 minikube:
 		@eval $$(minikube docker-env); \
-		docker-compose -f etc/artifact/docker-compose.yml build --parallel; \
+		docker compose -f etc/artifact/docker-compose.yml build --parallel; \
 		helm dep up etc/artifact/chart; \
 		helm upgrade -i cqrs etc/artifact/chart
 
