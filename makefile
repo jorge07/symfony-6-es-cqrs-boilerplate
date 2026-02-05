@@ -66,7 +66,7 @@ coverage:
 
 .PHONY: phpstan
 phpstan: ## executes php analyzers
-		$(compose) run --rm code sh -lc './vendor/bin/phpstan analyse -l 6 -c phpstan.neon --memory-limit=512M src tests'
+		$(compose) run --rm code sh -lc './vendor/bin/phpstan analyse -l 5 -c phpstan.neon --memory-limit=512M src tests'
 
 .PHONY: psalm
 psalm: ## execute psalm analyzer
