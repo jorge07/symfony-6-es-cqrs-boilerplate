@@ -41,7 +41,7 @@ class OpenApi extends JsonResponse
         return new self(
             null,
             self::HTTP_CREATED,
-            ($location) ? ['location' => $location] : []
+            ($location !== null) ? ['location' => $location] : []
         );
     }
 
