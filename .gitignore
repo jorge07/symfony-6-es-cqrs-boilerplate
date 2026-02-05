@@ -1,5 +1,6 @@
 ###> symfony/framework-bundle ###
-.env
+.env.local
+.env.*.local
 .env.blackfire
 /public/bundles/
 /var/
