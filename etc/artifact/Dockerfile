@@ -68,12 +68,13 @@ WORKDIR /app
 
 ENV APP_ENV prod
 ENV APP_SECRET default-secret
-# Database config for cache:clear (not used at runtime, just for building)
+# Config for cache:clear (not used at runtime, just for building)
 ENV DATABASE_HOST localhost
 ENV DATABASE_PORT 3306
 ENV DATABASE_NAME api
 ENV DATABASE_USER root
 ENV DATABASE_PASSWORD password
+ENV DEFAULT_URI http://localhost
 
 COPY composer.json /app
 
