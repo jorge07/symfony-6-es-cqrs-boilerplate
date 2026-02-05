@@ -1,0 +1,9 @@
+parameters:
+    level: 4
+    paths:
+        - src/
+        - tests/
+    excludePaths:
+        - src/Infrastructure/Shared/Persistence/Doctrine/Migrations/*
+        - src/App/Shared/Infrastructure/Persistence/Doctrine/Migrations/*
+    reportUnmatchedIgnoredErrors: false

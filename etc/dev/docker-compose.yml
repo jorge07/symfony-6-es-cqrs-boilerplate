@@ -31,6 +31,3 @@ services:
   elasticsearch:
     ports:
       - "9200:9200"
-
-volumes:
-  db_data:
