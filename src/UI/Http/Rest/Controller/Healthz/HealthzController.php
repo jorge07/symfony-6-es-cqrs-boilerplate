@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use UI\Http\Rest\Response\OpenApi;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 final class HealthzController
 {
