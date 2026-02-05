@@ -1,22 +1,51 @@
-ARG PHP_VERSION=8.2.11
+ARG PHP_VERSION=8.2
 
 
-FROM jorge07/alpine-php:${PHP_VERSION} AS php-base
-# Enable Alpine testing repository and install PHP extensions
-# PHP 8.2 packages are in the testing repository
-ARG PHP_MODULES="php82-pdo php82-pdo_mysql php82-mysqlnd php82-pecl-amqp php82-tokenizer php82-posix php82-simplexml php82-xmlwriter"
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-    && apk add -U --no-cache ${PHP_MODULES} sqlite
+FROM php:${PHP_VERSION}-cli-alpine AS php-base
+# Install required PHP extensions
+RUN apk add -U --no-cache \
+        sqlite \
+        rabbitmq-c-dev \
+        libzip-dev \
+        icu-dev \
+        libxml2-dev \
+    && docker-php-ext-install \
+        pdo \
+        pdo_mysql \
+        intl \
+        zip \
+        simplexml \
+        opcache \
+    && pecl install amqp \
+    && docker-php-ext-enable amqp
 
-FROM jorge07/alpine-php:${PHP_VERSION}-dev AS php-dev
+FROM php:${PHP_VERSION}-cli-alpine AS php-dev
 
-ENV PHP_INI_DIR /etc/php82
+# Install composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Enable Alpine testing repository and install PHP extensions
-# PHP 8.2 packages are in the testing repository
-ARG PHP_MODULES="php82-pdo php82-pdo_mysql php82-mysqlnd php82-pecl-amqp php82-tokenizer php82-posix php82-simplexml php82-xmlwriter"
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-    && apk add -U --no-cache ${PHP_MODULES} sqlite \
+# Install required PHP extensions and dev tools
+RUN apk add -U --no-cache \
+        sqlite \
+        git \
+        bash \
+        rabbitmq-c-dev \
+        libzip-dev \
+        icu-dev \
+        libxml2-dev \
+        linux-headers \
+        $PHPIZE_DEPS \
+    && docker-php-ext-install \
+        pdo \
+        pdo_mysql \
+        intl \
+        zip \
+        simplexml \
+        opcache \
+        pcntl \
+        posix \
+    && pecl install amqp xdebug \
+    && docker-php-ext-enable amqp xdebug \
     && php -m
 
 FROM php-dev AS builder
@@ -28,8 +57,7 @@ ENV APP_SECRET default-secret
 
 COPY composer.json /app
 
-RUN composer update --no-ansi --no-scripts --no-dev --no-interaction --no-progress --optimize-autoloader \
-    --ignore-platform-reqs
+RUN composer update --no-ansi --no-scripts --no-dev --no-interaction --no-progress --optimize-autoloader
 
 COPY bin /app/bin
 COPY config /app/config
