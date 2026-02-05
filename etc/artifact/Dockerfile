@@ -1,20 +1,16 @@
 ARG PHP_VERSION=8.2.11
 
 
-FROM jorge07/alpine-php:${PHP_VERSION} as php-base
-# List your dependencies here
-ARG PHP_MODULES="php82-pdo php82-pdo_mysql php82-mysqlnd php82-pecl-amqp php82-tokenizer php82-posix php82-simplexml php82-xmlwriter"
-RUN apk add -U --no-cache ${PHP_MODULES}
+FROM jorge07/alpine-php:${PHP_VERSION} AS php-base
+# PHP modules are already included in the base image
+# Only add additional packages if needed
+RUN apk add -U --no-cache sqlite
 
-FROM jorge07/alpine-php:${PHP_VERSION}-dev as php-dev
-
-ARG PHP_MODULES="php82-pdo php82-pdo_mysql php82-mysqlnd php82-pecl-amqp php82-tokenizer php82-posix php82-simplexml php82-xmlwriter"
-ARG PHP_DEV_MODULES=""
-
-RUN apk add -U --no-cache ${PHP_MODULES} ${PHP_DEV_MODULES}
+FROM jorge07/alpine-php:${PHP_VERSION}-dev AS php-dev
 
 ENV PHP_INI_DIR /etc/php82
 
+# PHP modules are already included in the base image
 RUN apk add -U sqlite \
 	&& version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/alpine/amd64/$version \
@@ -28,7 +24,7 @@ RUN apk add -U sqlite \
     && mv /tmp/blackfire/blackfire /usr/bin/blackfire \
     && rm -Rf /tmp/blackfire
 
-FROM php-dev as builder
+FROM php-dev AS builder
 
 WORKDIR /app
 
@@ -48,7 +44,7 @@ COPY public /app/public
 
 RUN composer run-script post-install-cmd
 
-FROM php-base as php
+FROM php-base AS php
 
 ENV APP_ENV prod
 
@@ -56,7 +52,7 @@ WORKDIR /app
 
 COPY --from=builder /app /app
 
-FROM nginx:1.17-alpine as nginx
+FROM nginx:1.17-alpine AS nginx
 
 ENV APP_ENV prod
 
