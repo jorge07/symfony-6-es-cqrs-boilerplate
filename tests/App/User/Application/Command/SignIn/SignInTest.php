@@ -61,7 +61,7 @@ final class SignInTest extends ApplicationTestCase
         $this->handle($command);
     }
 
-    public function invalidCredentials(): array
+    public static function invalidCredentials(): array
     {
         return [
           [

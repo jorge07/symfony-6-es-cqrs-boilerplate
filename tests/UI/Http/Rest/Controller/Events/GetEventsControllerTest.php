@@ -15,7 +15,7 @@ use Throwable;
 
 class GetEventsControllerTest extends JsonApiTestCase
 {
-    private ?Worker $worker;
+    private ?Worker $worker = null;
 
     /**
      * @throws AssertionFailedException

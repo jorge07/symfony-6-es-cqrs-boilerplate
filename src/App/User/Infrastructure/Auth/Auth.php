@@ -44,11 +44,6 @@ final class Auth implements UserInterface, PasswordHasherAwareInterface, Passwor
         ];
     }
 
-    public function getSalt(): ?string
-    {
-        return null;
-    }
-
     public function eraseCredentials(): void
     {
         // noop

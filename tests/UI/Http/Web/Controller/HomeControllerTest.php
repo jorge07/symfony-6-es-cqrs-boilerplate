@@ -15,6 +15,7 @@ class HomeControllerTest extends WebTestCase
      */
     public function home_should_have_link_to_sign_up(): void
     {
+        self::ensureKernelShutdown();
         $client = self::createClient();
 
         $crawler = $client->request('GET', '/');
@@ -30,6 +31,7 @@ class HomeControllerTest extends WebTestCase
      */
     public function sign_up_button_should_redirect_to_sign_up_page(): void
     {
+        self::ensureKernelShutdown();
         $client = self::createClient();
 
         $crawler = $client->request('GET', '/');

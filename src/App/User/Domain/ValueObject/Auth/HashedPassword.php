@@ -8,7 +8,6 @@ use Assert\Assertion;
 use Assert\AssertionFailedException;
 use const PASSWORD_BCRYPT;
 use function password_verify;
-use RuntimeException;
 
 final class HashedPassword implements \Stringable
 {
@@ -43,14 +42,7 @@ final class HashedPassword implements \Stringable
     {
         Assertion::minLength($plainPassword, 6, 'Min 6 characters password');
 
-        /** @var string|bool|null $hashedPassword */
-        $hashedPassword = \password_hash($plainPassword, PASSWORD_BCRYPT, ['cost' => self::COST]);
-
-        if (\is_bool($hashedPassword)) {
-            throw new RuntimeException('Server error hashing password');
-        }
-
-        return (string) $hashedPassword;
+        return \password_hash($plainPassword, PASSWORD_BCRYPT, ['cost' => self::COST]);
     }
 
     public function toString(): string
