@@ -7,7 +7,7 @@ namespace App\User\Infrastructure\ReadModel\Projections;
 use App\Shared\Domain\Exception\DateTimeException;
 use App\User\Domain\Event\UserEmailChanged;
 use App\User\Domain\Event\UserWasCreated;
-use App\Shared\Infrastructure\Persistence\ReadModel\Exception\NotFoundException;
+use App\Shared\Domain\Exception\NotFoundException;
 use App\User\Infrastructure\ReadModel\Mysql\MysqlReadModelUserRepository;
 use App\User\Infrastructure\ReadModel\UserView;
 use Assert\AssertionFailedException;

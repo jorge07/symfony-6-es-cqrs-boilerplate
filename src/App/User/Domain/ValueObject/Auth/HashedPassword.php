@@ -45,6 +45,11 @@ final class HashedPassword implements \Stringable
         return \password_hash($plainPassword, PASSWORD_BCRYPT, ['cost' => self::COST]);
     }
 
+    public function equals(self $other): bool
+    {
+        return $this->hashedPassword === $other->hashedPassword;
+    }
+
     public function toString(): string
     {
         return $this->hashedPassword;

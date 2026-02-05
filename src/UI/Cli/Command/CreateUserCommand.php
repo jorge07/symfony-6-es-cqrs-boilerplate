@@ -56,6 +56,6 @@ class CreateUserCommand extends Command
         $output->writeln("Uuid: $uuid");
         $output->writeln("Email: $email");
 
-        return 1;
+        return Command::SUCCESS;
     }
 }

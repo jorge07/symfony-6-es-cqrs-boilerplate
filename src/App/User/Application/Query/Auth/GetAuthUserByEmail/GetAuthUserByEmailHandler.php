@@ -16,8 +16,8 @@ final class GetAuthUserByEmailHandler implements QueryHandlerInterface
 
     public function __invoke(GetAuthUserByEmailQuery $query): Auth
     {
-        [$uuid, $email, $hashedPassword] = $this->userCredentialsByEmail->getCredentialsByEmail($query->email);
+        $credentials = $this->userCredentialsByEmail->getCredentialsByEmail($query->email);
 
-        return Auth::create($uuid, $email, $hashedPassword);
+        return Auth::create($credentials->uuid, $credentials->email, $credentials->password);
     }
 }

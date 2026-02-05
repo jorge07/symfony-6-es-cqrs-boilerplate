@@ -6,14 +6,14 @@ namespace App\User\Application\Query\User\FindByEmail;
 
 use App\Shared\Application\Query\Item;
 use App\Shared\Application\Query\QueryHandlerInterface;
-use App\Shared\Infrastructure\Persistence\ReadModel\Exception\NotFoundException;
-use App\User\Infrastructure\ReadModel\Mysql\MysqlReadModelUserRepository;
+use App\Shared\Domain\Exception\NotFoundException;
+use App\User\Domain\Repository\UserReadModelRepositoryInterface;
 use App\User\Infrastructure\ReadModel\UserView;
 use Doctrine\ORM\NonUniqueResultException;
 
 final class FindByEmailHandler implements QueryHandlerInterface
 {
-    public function __construct(private readonly MysqlReadModelUserRepository $repository)
+    public function __construct(private readonly UserReadModelRepositoryInterface $repository)
     {
     }
 

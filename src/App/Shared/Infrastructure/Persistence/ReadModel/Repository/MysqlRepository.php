@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Persistence\ReadModel\Repository;
 
-use App\Shared\Infrastructure\Persistence\ReadModel\Exception\NotFoundException;
+use App\Shared\Domain\Exception\NotFoundException;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;

@@ -30,7 +30,7 @@ final class SignInHandler implements CommandHandlerInterface
 
     private function uuidFromEmail(Email $email): UuidInterface
     {
-        $uuid = $this->userCollection->existsEmail($email);
+        $uuid = $this->userCollection->findUuidByEmail($email);
 
         if (null === $uuid) {
             throw new InvalidCredentialsException();

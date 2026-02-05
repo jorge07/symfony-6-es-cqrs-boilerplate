@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\User\Domain\Exception;
 
-class ForbiddenException extends \RuntimeException
+use App\Shared\Domain\Exception\DomainException;
+
+class ForbiddenException extends DomainException
 {
 }

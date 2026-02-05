@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\User\Domain\Exception;
 
-class EmailAlreadyExistException extends \LogicException
+use App\Shared\Domain\Exception\DomainException;
+
+class EmailAlreadyExistException extends DomainException
 {
     public function __construct()
     {

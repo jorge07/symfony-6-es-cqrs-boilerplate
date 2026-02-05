@@ -13,7 +13,7 @@ use Ramsey\Uuid\UuidInterface;
 
 final class UserSignedIn implements Serializable
 {
-    public function __construct(public UuidInterface $uuid, public Email $email)
+    public function __construct(public readonly UuidInterface $uuid, public readonly Email $email)
     {
     }
 

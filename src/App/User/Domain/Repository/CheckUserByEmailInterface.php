@@ -9,5 +9,5 @@ use Ramsey\Uuid\UuidInterface;
 
 interface CheckUserByEmailInterface
 {
-    public function existsEmail(Email $email): ?UuidInterface;
+    public function findUuidByEmail(Email $email): ?UuidInterface;
 }

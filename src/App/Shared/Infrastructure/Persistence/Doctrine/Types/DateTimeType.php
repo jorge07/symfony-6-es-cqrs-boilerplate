@@ -18,7 +18,7 @@ class DateTimeType extends DateTimeImmutableType
      *
      * @throws \Throwable
      */
-    public function getSQLDeclaration(array $column, AbstractPlatform $platform)
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
         return $platform->getDateTimeTypeDeclarationSQL($column);
     }
@@ -34,7 +34,7 @@ class DateTimeType extends DateTimeImmutableType
      *
      * @template T
      **/
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         if (null === $value) {
             return null;
@@ -62,7 +62,7 @@ class DateTimeType extends DateTimeImmutableType
      *
      * @template T
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?DateTimeImmutable
     {
         if (null === $value || $value instanceof DateTime) {
             return $value;

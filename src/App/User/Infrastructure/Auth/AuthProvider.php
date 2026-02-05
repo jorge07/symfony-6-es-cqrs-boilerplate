@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\User\Infrastructure\Auth;
 
 use App\User\Domain\ValueObject\Email;
-use App\Shared\Infrastructure\Persistence\ReadModel\Exception\NotFoundException;
+use App\Shared\Domain\Exception\NotFoundException;
 use App\User\Infrastructure\ReadModel\Mysql\MysqlReadModelUserRepository;
 use Assert\AssertionFailedException;
 use Doctrine\ORM\NonUniqueResultException;
@@ -25,11 +25,11 @@ final class AuthProvider implements UserProviderInterface
     public function loadUserByIdentifier(string $identifier): Auth
     {
         try {
-            [$uuid, $email, $hashedPassword] = $this->userReadModelRepository->getCredentialsByEmail(
+            $credentials = $this->userReadModelRepository->getCredentialsByEmail(
                 Email::fromString($identifier)
             );
 
-            return Auth::create($uuid, $email, $hashedPassword);
+            return Auth::create($credentials->uuid, $credentials->email, $credentials->password);
         } catch (NotFoundException) {
             throw new UserNotFoundException();
         }
@@ -43,11 +43,11 @@ final class AuthProvider implements UserProviderInterface
      */
     public function loadUserByUsername(string $email): Auth
     {
-        [$uuid, $email, $hashedPassword] = $this->userReadModelRepository->getCredentialsByEmail(
+        $credentials = $this->userReadModelRepository->getCredentialsByEmail(
             Email::fromString($email)
         );
 
-        return Auth::create($uuid, $email, $hashedPassword);
+        return Auth::create($credentials->uuid, $credentials->email, $credentials->password);
     }
 
     /**
