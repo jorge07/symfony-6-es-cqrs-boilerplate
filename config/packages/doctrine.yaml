@@ -1,8 +1,13 @@
 doctrine:
     dbal:
         schema_filter: ~^(?!event)~ # this will ignore broadway event store table
-        url: '%env(resolve:DATABASE_URL)%'
-        driver:   pdo_mysql
+        # Using explicit pdo_mysql driver - do not rely on URL scheme
+        driver: pdo_mysql
+        host: '%env(string:DATABASE_HOST)%'
+        port: '%env(int:DATABASE_PORT)%'
+        dbname: '%env(string:DATABASE_NAME)%'
+        user: '%env(string:DATABASE_USER)%'
+        password: '%env(string:DATABASE_PASSWORD)%'
         charset: utf8mb4
         server_version: '8.0.33'
         types:
