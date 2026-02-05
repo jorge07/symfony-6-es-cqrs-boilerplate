@@ -13,6 +13,7 @@ services:
       dockerfile: etc/artifact/Dockerfile
       context: .
       target: php-dev
+    command: ["sleep", "infinity"]
     volumes:
       - ./:/app:rw,delegated
       # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
@@ -26,6 +27,7 @@ services:
       dockerfile: etc/artifact/Dockerfile
       context: .
       target: php-dev
+    command: ["sleep", "infinity"]
     environment:
       - XDEBUG_MODE=debug
       - XDEBUG_CLIENT_HOST=host.docker.internal
