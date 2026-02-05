@@ -16,7 +16,7 @@ jobs:
       run: uname -m
 
     - name: Build
-      run: make env=ci start;make env=ci xoff
+      run: make env=ci start
 
     - name: DDD LAYERS
       run: make env=ci layer
@@ -28,7 +28,7 @@ jobs:
       run: make env=ci cs-check;make env=ci phpstan;make env=ci layer;make env=ci psalm
 
     - name: Tests
-      run: make env=ci xon;make env=ci conf="--coverage-clover build/logs/clover.xml" phpunit
+      run: make env=ci conf="--coverage-clover build/logs/clover.xml" phpunit
 
     - name: ARTIFACT
       run: make env=ci artifact
