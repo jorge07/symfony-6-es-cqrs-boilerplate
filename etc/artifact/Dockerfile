@@ -2,17 +2,17 @@ ARG PHP_VERSION=8.2.11
 
 
 FROM jorge07/alpine-php:${PHP_VERSION} AS php-base
-# The base image includes PHP 8.2 with most extensions compiled-in
-# Add PDO packages for database connectivity
-RUN apk add -U --no-cache sqlite php82-pdo php82-pdo_mysql 2>/dev/null || apk add -U --no-cache sqlite
+# Install PHP extensions needed for the application
+ARG PHP_MODULES="php82-pdo php82-pdo_mysql php82-mysqlnd php82-pecl-amqp php82-tokenizer php82-posix php82-simplexml php82-xmlwriter"
+RUN apk add -U --no-cache ${PHP_MODULES} sqlite
 
 FROM jorge07/alpine-php:${PHP_VERSION}-dev AS php-dev
 
 ENV PHP_INI_DIR /etc/php82
 
-# The base image includes PHP 8.2 with most extensions compiled-in
-# Add PDO packages for database connectivity
-RUN apk add -U --no-cache sqlite php82-pdo php82-pdo_mysql 2>/dev/null || apk add -U --no-cache sqlite && php -m
+# Install PHP extensions needed for the application
+ARG PHP_MODULES="php82-pdo php82-pdo_mysql php82-mysqlnd php82-pecl-amqp php82-tokenizer php82-posix php82-simplexml php82-xmlwriter"
+RUN apk add -U --no-cache ${PHP_MODULES} sqlite && php -m
 
 FROM php-dev AS builder
 
@@ -23,7 +23,6 @@ ENV APP_SECRET default-secret
 
 COPY composer.json /app
 
-# Ignore platform requirements - extensions are available at runtime
 RUN composer update --no-ansi --no-scripts --no-dev --no-interaction --no-progress --optimize-autoloader \
     --ignore-platform-reqs
 
