@@ -19,7 +19,7 @@ doctrine:
         mappings:
             User:
                 is_bundle: false
-                type: xml
-                dir: '%kernel.project_dir%/config/packages/doctrine/mapping/user'
+                type: attribute
+                dir: '%kernel.project_dir%/src/App/User'
                 prefix: 'App\User'
                 alias: App
