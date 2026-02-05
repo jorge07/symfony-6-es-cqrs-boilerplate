@@ -10,6 +10,7 @@ doctrine:
         password: '%env(string:DATABASE_PASSWORD)%'
         charset: utf8mb4
         server_version: '8.0.33'
+        use_savepoints: true
         types:
           uuid_binary: Ramsey\Uuid\Doctrine\UuidBinaryType
           datetime_immutable: App\Shared\Infrastructure\Persistence\Doctrine\Types\DateTimeType

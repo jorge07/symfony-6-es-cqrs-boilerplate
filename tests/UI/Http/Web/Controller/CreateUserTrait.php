@@ -10,6 +10,7 @@ trait CreateUserTrait
 {
     private function createUser(string $email, string $password = 'crqs-demo'): KernelBrowser
     {
+        self::ensureKernelShutdown();
         $client = self::createClient();
 
         $crawler = $client->request('GET', '/sign-up');

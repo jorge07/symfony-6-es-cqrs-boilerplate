@@ -32,6 +32,7 @@ abstract class JsonApiTestCase extends WebTestCase
 
     protected function setUp(): void
     {
+        self::ensureKernelShutdown();
         $this->cli = static::createClient();
     }
 

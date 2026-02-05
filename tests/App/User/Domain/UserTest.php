@@ -42,7 +42,7 @@ class UserTest extends TestCase implements UniqueEmailSpecificationInterface
         );
 
         self::assertSame($emailString, $user->email());
-        self::assertNotNull($user->uuid());
+        self::assertNotEmpty($user->uuid());
 
         $events = $user->getUncommittedEvents();
 
@@ -151,7 +151,7 @@ class UserTest extends TestCase implements UniqueEmailSpecificationInterface
             $this
         );
 
-        self::assertNotNull($user->createdAt());
+        self::assertNotEmpty($user->createdAt());
         self::assertNull($user->updatedAt());
 
         $initialUpdatedAt = $user->updatedAt();
