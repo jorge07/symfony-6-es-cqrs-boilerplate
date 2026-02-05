@@ -7,6 +7,7 @@ namespace App\User\Infrastructure\Auth\Guard;
 use App\User\Application\Command\SignIn\SignInCommand;
 use App\User\Application\Query\Auth\GetAuthUserByEmail\GetAuthUserByEmailQuery;
 use App\User\Domain\Exception\InvalidCredentialsException;
+use App\User\Infrastructure\Auth\Auth;
 use App\Shared\Infrastructure\Bus\Command\MessengerCommandBus;
 use App\Shared\Infrastructure\Bus\Query\MessengerQueryBus;
 use Assert\AssertionFailedException;
@@ -68,7 +69,7 @@ final class LoginAuthenticator extends AbstractLoginFormAuthenticator
             $this->bus->handle($signInCommand);
 
             return new Passport(
-                new UserBadge($email, fn(string $email) => $this->queryBus->ask(new GetAuthUserByEmailQuery($email))),
+                new UserBadge($email, fn(string $email): Auth => $this->queryBus->ask(new GetAuthUserByEmailQuery($email))),
                 new PasswordCredentials($plainPassword)
             );
         } catch (InvalidCredentialsException | InvalidArgumentException) {
