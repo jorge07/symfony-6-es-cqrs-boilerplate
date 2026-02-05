@@ -35,9 +35,9 @@ build: ## build environment and initialize composer and project dependencies
 
 		if [ env = "prod" ]; then \
 			echo Building in $(env) mode; \
-			$(compose) run --rm php sh -lc 'xoff;COMPOSER_MEMORY_LIMIT=-1 composer update --no-ansi --no-dev --no-interaction --no-plugins --no-progress --no-scripts --optimize-autoloader'; \
+			$(compose) run --rm php sh -lc 'xoff;COMPOSER_MEMORY_LIMIT=-1 composer update --no-ansi --no-dev --no-interaction --no-plugins --no-progress --no-scripts --optimize-autoloader --ignore-platform-req=ext-amqp --ignore-platform-req=ext-simplexml'; \
 		else \
-			$(compose) run --rm php sh -lc 'xoff;COMPOSER_MEMORY_LIMIT=-1 composer update'; \
+			$(compose) run --rm php sh -lc 'xoff;COMPOSER_MEMORY_LIMIT=-1 composer update --ignore-platform-req=ext-amqp --ignore-platform-req=ext-simplexml'; \
 		fi
 
 .PHONY: build-ci
