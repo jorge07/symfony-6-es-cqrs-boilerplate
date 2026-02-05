@@ -10,6 +10,7 @@
         "broadway/event-store-dbal": "^0.6",
         "doctrine/doctrine-bundle": "^2.11",
         "doctrine/doctrine-migrations-bundle": "^3.3",
+        "doctrine/instantiator": "^2.0.0 <2.1.0",
         "doctrine/orm": "^2.17",
         "elasticsearch/elasticsearch": "^7.11",
         "lexik/jwt-authentication-bundle": "^3.0",
