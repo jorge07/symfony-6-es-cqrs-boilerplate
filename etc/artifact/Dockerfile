@@ -2,16 +2,39 @@ ARG PHP_VERSION=8.2.11
 
 
 FROM jorge07/alpine-php:${PHP_VERSION} AS php-base
-# PHP modules are already included in the base image
-# Only add additional packages if needed
-RUN apk add -U --no-cache sqlite
+# Install additional PHP extensions needed by the application
+# Pin to Alpine 3.18 repos which have PHP 8.2 packages
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.18/main" > /etc/apk/repositories \
+    && echo "https://dl-cdn.alpinelinux.org/alpine/v3.18/community" >> /etc/apk/repositories \
+    && apk add -U --no-cache \
+        php82-pdo \
+        php82-pdo_mysql \
+        php82-mysqlnd \
+        php82-pecl-amqp \
+        php82-simplexml \
+        php82-xmlwriter \
+        php82-posix \
+        php82-tokenizer \
+        sqlite
 
 FROM jorge07/alpine-php:${PHP_VERSION}-dev AS php-dev
 
 ENV PHP_INI_DIR /etc/php82
 
-# PHP modules are already included in the base image
-RUN apk add -U --no-cache sqlite
+# Install additional PHP extensions needed by the application
+# Pin to Alpine 3.18 repos which have PHP 8.2 packages
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.18/main" > /etc/apk/repositories \
+    && echo "https://dl-cdn.alpinelinux.org/alpine/v3.18/community" >> /etc/apk/repositories \
+    && apk add -U --no-cache \
+        php82-pdo \
+        php82-pdo_mysql \
+        php82-mysqlnd \
+        php82-pecl-amqp \
+        php82-simplexml \
+        php82-xmlwriter \
+        php82-posix \
+        php82-tokenizer \
+        sqlite
 
 FROM php-dev AS builder
 
