@@ -27,11 +27,6 @@ final class Auth implements UserInterface, PasswordHasherAwareInterface, Passwor
         return $this->email->toString();
     }
 
-    public function getUsername(): string
-    {
-        return $this->email->toString();
-    }
-
     public function getPassword(): string
     {
         return $this->hashedPassword->toString();

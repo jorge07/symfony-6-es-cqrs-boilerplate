@@ -10,8 +10,7 @@ use Assert\AssertionFailedException;
 
 final class GetTokenQuery implements QueryInterface
 {
-    /** @psalm-readonly */
-    public Email $email;
+    public readonly Email $email;
 
     /**
      * @throws AssertionFailedException

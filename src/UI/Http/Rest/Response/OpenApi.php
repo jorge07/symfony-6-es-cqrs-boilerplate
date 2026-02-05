@@ -36,7 +36,7 @@ class OpenApi extends JsonResponse
         );
     }
 
-    public static function created(string $location = null): self
+    public static function created(?string $location = null): self
     {
         return new self(
             null,

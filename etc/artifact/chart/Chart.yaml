@@ -10,12 +10,12 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
     conditions: rabbitmq.selfHosted
   - name: traefik
-    version: 1.86.2
-    repository: https://kubernetes-charts.storage.googleapis.com/
+    version: 28.3.0
+    repository: https://traefik.github.io/charts
     conditions: traefik.selfHosted
   - name: mysql
-    version: 1.6.3
-    repository: https://kubernetes-charts.storage.googleapis.com/
+    version: 11.1.17
+    repository: https://charts.bitnami.com/bitnami
     conditions: mysql.selfHosted
   - name: elasticsearch
     version: 7.6.2

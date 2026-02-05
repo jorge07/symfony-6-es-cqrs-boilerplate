@@ -17,9 +17,9 @@ if (!isset($_SERVER['APP_ENV'])) {
     (new Dotenv())->load(__DIR__ . '/../.env');
 }
 
-if ($_SERVER['APP_DEBUG'] ?? ('prod' !== ($_SERVER['APP_ENV'] ?? 'dev'))) {
-    umask(0000);
+$debug = (bool) ($_SERVER['APP_DEBUG'] ?? ('prod' !== ($_SERVER['APP_ENV'] ?? 'dev')));
 
+if ($debug) {
     Debug::enable();
 }
 
@@ -31,7 +31,7 @@ if ($trustedHosts = $_SERVER['TRUSTED_HOSTS'] ?? false) {
     Request::setTrustedHosts(explode(',', (string) $trustedHosts));
 }
 
-$kernel = new Kernel($_SERVER['APP_ENV'] ?? 'dev', (bool) $_SERVER['APP_DEBUG']) ?? false;
+$kernel = new Kernel($_SERVER['APP_ENV'] ?? 'dev', $debug);
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();

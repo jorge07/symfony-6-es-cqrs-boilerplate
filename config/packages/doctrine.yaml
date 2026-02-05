@@ -14,8 +14,8 @@ doctrine:
         types:
           uuid_binary: Ramsey\Uuid\Doctrine\UuidBinaryType
           datetime_immutable: App\Shared\Infrastructure\Persistence\Doctrine\Types\DateTimeType
-          email: App\Shared\Infrastructure\Persistence\Doctrine\Types\EmailType
-          hashed_password: App\Shared\Infrastructure\Persistence\Doctrine\Types\HashedPasswordType
+          email: App\User\Infrastructure\Persistence\Doctrine\Types\EmailType
+          hashed_password: App\User\Infrastructure\Persistence\Doctrine\Types\HashedPasswordType
         mapping_types:
           uuid_binary: binary
     orm:

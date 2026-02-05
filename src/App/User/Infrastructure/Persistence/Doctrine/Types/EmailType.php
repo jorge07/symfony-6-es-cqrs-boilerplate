@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Persistence\Doctrine\Types;
+namespace App\User\Infrastructure\Persistence\Doctrine\Types;
 
 use App\User\Domain\ValueObject\Email;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
@@ -15,13 +15,9 @@ final class EmailType extends StringType
     private const TYPE = 'email';
 
     /**
-     * @param mixed $value
-     *
-     * @return mixed|string|null
-     *
      * @throws ConversionException
      */
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         if (null === $value) {
             return null;
@@ -35,13 +31,9 @@ final class EmailType extends StringType
     }
 
     /**
-     * @param Email|string|null $value
-     *
-     * @return Email|null
-     *
      * @throws ConversionException
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?Email
     {
         if (null === $value || $value instanceof Email) {
             return $value;
@@ -50,24 +42,18 @@ final class EmailType extends StringType
         try {
             $email = Email::fromString($value);
         } catch (Throwable) {
-            throw ConversionException::conversionFailedFormat($value, $this->getName(), $platform->getDateTimeFormatString());
+            throw ConversionException::conversionFailedFormat($value, $this->getName(), 'a valid email address');
         }
 
         return $email;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function requiresSQLCommentHint(AbstractPlatform $platform)
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {
         return true;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return self::TYPE;
     }

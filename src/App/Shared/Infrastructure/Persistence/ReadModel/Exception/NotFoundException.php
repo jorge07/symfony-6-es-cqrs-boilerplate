@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Persistence\ReadModel\Exception;
 
-final class NotFoundException extends \Exception
+use App\Shared\Domain\Exception\NotFoundException as DomainNotFoundException;
+
+/**
+ * @deprecated Use App\Shared\Domain\Exception\NotFoundException instead.
+ */
+final class NotFoundException extends DomainNotFoundException
 {
-    public function __construct()
-    {
-        parent::__construct('Resource not found');
-    }
 }

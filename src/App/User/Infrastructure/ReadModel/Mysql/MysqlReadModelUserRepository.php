@@ -6,8 +6,10 @@ namespace App\User\Infrastructure\ReadModel\Mysql;
 
 use App\User\Domain\Repository\CheckUserByEmailInterface;
 use App\User\Domain\Repository\GetUserCredentialsByEmailInterface;
+use App\User\Domain\Repository\UserReadModelRepositoryInterface;
+use App\User\Domain\ValueObject\Auth\UserCredentials;
 use App\User\Domain\ValueObject\Email;
-use App\Shared\Infrastructure\Persistence\ReadModel\Exception\NotFoundException;
+use App\Shared\Domain\Exception\NotFoundException;
 use App\Shared\Infrastructure\Persistence\ReadModel\Repository\MysqlRepository;
 use App\User\Infrastructure\ReadModel\UserView;
 use Doctrine\ORM\AbstractQuery;
@@ -16,7 +18,7 @@ use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\QueryBuilder;
 use Ramsey\Uuid\UuidInterface;
 
-final class MysqlReadModelUserRepository extends MysqlRepository implements CheckUserByEmailInterface, GetUserCredentialsByEmailInterface
+final class MysqlReadModelUserRepository extends MysqlRepository implements CheckUserByEmailInterface, GetUserCredentialsByEmailInterface, UserReadModelRepositoryInterface
 {
     protected function setEntityManager(): void
     {
@@ -51,7 +53,7 @@ final class MysqlReadModelUserRepository extends MysqlRepository implements Chec
     /**
      * @throws NonUniqueResultException
      */
-    public function existsEmail(Email $email): ?UuidInterface
+    public function findUuidByEmail(Email $email): ?UuidInterface
     {
         $userId = $this->getUserByEmailQueryBuilder($email)
             ->select('user.uuid')
@@ -99,10 +101,8 @@ final class MysqlReadModelUserRepository extends MysqlRepository implements Chec
     /**
      * @throws NotFoundException
      * @throws NonUniqueResultException
-     *
-     * @return array{0: \Ramsey\Uuid\UuidInterface, 1: Email, 2: \App\User\Domain\ValueObject\Auth\HashedPassword}
      */
-    public function getCredentialsByEmail(Email $email): array
+    public function getCredentialsByEmail(Email $email): UserCredentials
     {
         $qb = $this->repository
             ->createQueryBuilder('user')
@@ -111,10 +111,10 @@ final class MysqlReadModelUserRepository extends MysqlRepository implements Chec
 
         $user = $this->oneOrException($qb, AbstractQuery::HYDRATE_ARRAY);
 
-        return [
+        return new UserCredentials(
             $user['uuid'],
             $user['credentials.email'],
             $user['credentials.password'],
-        ];
+        );
     }
 }

@@ -84,6 +84,13 @@ class User extends EventSourcedAggregateRoot
     }
 
     /**
+     * Event is recorded for audit/tracking purposes; no aggregate state change needed.
+     */
+    protected function applyUserSignedIn(UserSignedIn $event): void
+    {
+    }
+
+    /**
      * @throws AssertionFailedException
      */
     protected function applyUserEmailChanged(UserEmailChanged $event): void
@@ -114,24 +121,24 @@ class User extends EventSourcedAggregateRoot
         $this->updatedAt = $updatedAt;
     }
 
-    public function createdAt(): string
+    public function createdAt(): DateTime
     {
-        return $this->createdAt->toString();
+        return $this->createdAt;
     }
 
-    public function updatedAt(): ?string
+    public function updatedAt(): ?DateTime
     {
-        return isset($this->updatedAt) ? $this->updatedAt->toString() : null;
+        return $this->updatedAt;
     }
 
-    public function email(): string
+    public function email(): Email
     {
-        return $this->email->toString();
+        return $this->email;
     }
 
-    public function uuid(): string
+    public function uuid(): UuidInterface
     {
-        return $this->uuid->toString();
+        return $this->uuid;
     }
 
     public function getAggregateRootId(): string
