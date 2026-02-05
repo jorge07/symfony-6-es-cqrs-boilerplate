@@ -23,7 +23,7 @@ use Ramsey\Uuid\UuidInterface;
 #[ORM\Table(name: 'users')]
 class UserView implements SerializableReadModel
 {
-    final public const TYPE = 'UserView';
+    final public const string TYPE = 'UserView';
 
     #[ORM\Id]
     #[ORM\Column(name: 'uuid', type: 'uuid_binary')]
