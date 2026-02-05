@@ -7,7 +7,7 @@
         "ext-json": "*",
         "beberlei/assert": "^3.3",
         "broadway/broadway-bundle": "^0.7.0",
-        "broadway/event-store-dbal": "^0.7",
+        "broadway/event-store-dbal": "^0.6",
         "doctrine/doctrine-bundle": "^2.11",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^2.17",
@@ -30,7 +30,7 @@
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^8.0",
-        "phpstan/phpstan": "^1.10",
+        "phpstan/phpstan": "^2.0",
         "phpunit/phpunit": "^10.5",
         "rector/rector": "^2.0",
         "roave/security-advisories": "dev-master",
