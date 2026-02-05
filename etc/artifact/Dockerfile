@@ -3,14 +3,16 @@ ARG PHP_VERSION=8.2.11
 
 FROM jorge07/alpine-php:${PHP_VERSION} AS php-base
 # The base image includes PHP 8.2 with most extensions compiled-in
-RUN apk add -U --no-cache sqlite
+# Add simplexml and xmlwriter for Doctrine and PHPUnit
+RUN apk add -U --no-cache sqlite php82-simplexml php82-xmlwriter
 
 FROM jorge07/alpine-php:${PHP_VERSION}-dev AS php-dev
 
 ENV PHP_INI_DIR /etc/php82
 
 # The base image includes PHP 8.2 with most extensions compiled-in
-RUN apk add -U --no-cache sqlite && php -m
+# Add simplexml and xmlwriter for Doctrine and PHPUnit
+RUN apk add -U --no-cache sqlite php82-simplexml php82-xmlwriter && php -m
 
 FROM php-dev AS builder
 
