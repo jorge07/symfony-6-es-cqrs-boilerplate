@@ -2,25 +2,27 @@ ARG PHP_VERSION=8.2
 
 
 FROM php:${PHP_VERSION}-cli-alpine AS php-base
-# Install required PHP extensions
+# Install system dependencies
 RUN apk add -U --no-cache \
         sqlite \
         rabbitmq-c-dev \
         libzip-dev \
         icu-dev \
         libxml2-dev \
-        mariadb-dev \
-        $PHPIZE_DEPS \
-    && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
-    && docker-php-ext-install \
+        mysql-client \
+        $PHPIZE_DEPS
+
+# Install PHP extensions - simplexml and xml are bundled with PHP, just need to enable them
+RUN docker-php-ext-install -j$(nproc) \
         pdo \
         pdo_mysql \
         intl \
         zip \
-        simplexml \
+        xml \
         opcache \
     && pecl install amqp \
-    && docker-php-ext-enable amqp
+    && docker-php-ext-enable amqp \
+    && php -m | grep -E "pdo_mysql|PDO" && echo "PDO MySQL extension verified"
 
 FROM php:${PHP_VERSION}-cli-alpine AS php-dev
 
@@ -29,7 +31,7 @@ WORKDIR /app
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Install required PHP extensions and dev tools
+# Install system dependencies
 RUN apk add -U --no-cache \
         sqlite \
         git \
@@ -39,21 +41,26 @@ RUN apk add -U --no-cache \
         icu-dev \
         libxml2-dev \
         linux-headers \
-        mariadb-dev \
-        $PHPIZE_DEPS \
-    && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
-    && docker-php-ext-install \
+        mysql-client \
+        $PHPIZE_DEPS
+
+# Install PHP extensions
+RUN docker-php-ext-install -j$(nproc) \
         pdo \
         pdo_mysql \
         intl \
         zip \
-        simplexml \
+        xml \
         opcache \
         pcntl \
         posix \
     && pecl install amqp xdebug \
-    && docker-php-ext-enable amqp xdebug \
-    && php -m | grep -i pdo
+    && docker-php-ext-enable amqp xdebug
+
+# Verify PDO MySQL is available - fail build if not
+RUN php -m | grep pdo_mysql || (echo "ERROR: pdo_mysql extension not found!" && exit 1) \
+    && php -r "new PDO('mysql:host=localhost', 'test', 'test');" 2>&1 | grep -v "Connection refused" || true \
+    && echo "PHP extensions verified successfully"
 
 FROM php-dev AS builder
 
