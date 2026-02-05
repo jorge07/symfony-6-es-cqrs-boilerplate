@@ -26,7 +26,6 @@ rebuild: start ## same as start
 
 .PHONY: erase
 erase: ## stop and delete containers, clean volumes.
-		touch .env.blackfire
 		$(compose) stop
 		docker compose rm -v -f
 
