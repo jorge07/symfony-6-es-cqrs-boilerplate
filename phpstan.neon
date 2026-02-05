@@ -5,13 +5,4 @@ parameters:
 		# Temporarily exclude files with minor type issues for Symfony 7 upgrade
 		- tests/UI/Http/Web/Controller/CreateUserTrait.php
 		- tests/bootstrap.php
-	ignoreErrors:
-		# Temporary ignores for Symfony 7 upgrade - minor type issues
-		- '#PHPDoc tag @var with type bool\|string\|null is not subtype of native type non-empty-string#'
-		- '#Method App\\User\\Infrastructure\\Auth\\Auth::getSalt\(\) never returns string so it can be removed from the return type#'
-		- '#Method App\\User\\Infrastructure\\Auth\\Guard\\LoginAuthenticator::onAuthenticationSuccess\(\) never returns null so it can be removed from the return type#'
-		- '#Call to static method PHPUnit\\Framework\\Assert::assertNotNull\(\) with string will always evaluate to true#'
-		- '#Property .+::\$worker .+ is never assigned null so it can be removed from the property type#'
-		# Generic array types - to be fixed in follow-up PR
-		- '#has no value type specified in iterable type array#'
-		- '#return type has no value type specified in iterable type#'
+	reportUnmatchedIgnoredErrors: false
