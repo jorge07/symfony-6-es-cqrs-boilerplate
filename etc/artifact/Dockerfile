@@ -21,6 +21,8 @@ RUN apk add -U --no-cache \
 
 FROM php:${PHP_VERSION}-cli-alpine AS php-dev
 
+WORKDIR /app
+
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
