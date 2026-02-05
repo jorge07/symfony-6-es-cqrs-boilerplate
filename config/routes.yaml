@@ -1,8 +1,8 @@
 api_controllers:
     resource: '../src/UI/Http/Rest/Controller/'
-    type: annotation
+    type: attribute
     prefix: /api
 
 web_controllers:
     resource: '../src/UI/Http/Web/Controller/'
-    type: annotation
+    type: attribute
