@@ -88,6 +88,8 @@ layer: ## Check issues with layers
 .PHONY: db
 db: ## recreate database
 		$(compose) exec -T php sh -lc 'php -m | grep -E "pdo|PDO" && echo "PDO modules available"'
+		$(compose) exec -T php sh -lc 'php -r "var_dump(PDO::getAvailableDrivers());" && echo "Direct PDO check passed"'
+		$(compose) exec -T php sh -lc 'rm -rf var/cache/* && ./bin/console cache:clear --no-warmup 2>/dev/null || true'
 		$(compose) exec -T php sh -lc './bin/console d:d:d --force --if-exists'
 		$(compose) exec -T php sh -lc './bin/console d:d:c --if-not-exists'
 		$(compose) exec -T php sh -lc './bin/console d:m:m -n'
