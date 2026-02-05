@@ -22,8 +22,6 @@ class SecurityControllerTest extends WebTestCase
         self::ensureKernelShutdown();
 
         $crawler = $client->request('GET', '/sign-in');
-
-//        dd($crawler->html());
         $form = $crawler->selectButton('Sign in')->form();
 
         $form->get('_email')->setValue('jorge@gmail.com');

@@ -1,3 +1,17 @@
+x-app-volumes: &app-volumes
+  - ./:/app:rw,delegated
+  # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
+  - /app/var/
+  - /app/var/cache/
+  - /app/var/logs/
+  - /app/var/sessions/
+
+x-app-build: &app-build
+  build:
+    dockerfile: etc/artifact/Dockerfile
+    context: .
+    target: php-dev
+
 services:
 
   nginx:
@@ -9,69 +23,33 @@ services:
       - php
 
   code:
-    build:
-      dockerfile: etc/artifact/Dockerfile
-      context: .
-      target: php-dev
+    <<: *app-build
     command: ["sleep", "infinity"]
-    volumes:
-      - ./:/app:rw,delegated
-      # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
-      - /app/var/
-      - /app/var/cache/
-      - /app/var/logs/
-      - /app/var/sessions/
+    volumes: *app-volumes
 
   php:
-    build:
-      dockerfile: etc/artifact/Dockerfile
-      context: .
-      target: php-dev
-    command: ["sleep", "infinity"]
+    <<: *app-build
     environment:
       - XDEBUG_MODE=debug
       - XDEBUG_CLIENT_HOST=host.docker.internal
-    volumes:
-      - ./:/app:rw,delegated
-      # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
-      - /app/var/
-      - /app/var/cache/
-      - /app/var/logs/
-      - /app/var/sessions/
+    volumes: *app-volumes
     depends_on:
       - mysql
       - rmq
       - elasticsearch
 
   workers_events:
-    build:
-      dockerfile: etc/artifact/Dockerfile
-      context: .
-      target: php-dev
-    volumes:
-      - ./:/app:rw,delegated
-      # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
-      - /app/var/
-      - /app/var/cache/
-      - /app/var/logs/
-      - /app/var/sessions/
+    <<: *app-build
+    volumes: *app-volumes
     command: ['/app/bin/console', 'messenger:consume', 'events', '-vv']
     depends_on:
       - mysql
       - rmq
       - elasticsearch
+
   workers_users:
-    build:
-      dockerfile: etc/artifact/Dockerfile
-      context: .
-      target: php-dev
-    volumes:
-      - ./:/app:rw,delegated
-      # If you develop on Linux, comment out the following volumes to just use bind-mounted project directory from host
-      - /app/var/
-      - /app/var/cache/
-      - /app/var/logs/
-      - /app/var/sessions/
+    <<: *app-build
+    volumes: *app-volumes
     command: ['/app/bin/console', 'messenger:consume', 'users', '-vv']
     depends_on:
       - mysql
