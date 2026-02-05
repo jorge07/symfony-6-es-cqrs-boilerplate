@@ -53,5 +53,5 @@ security:
         - { path: ^/api/auth,    roles: PUBLIC_ACCESS }
         - { path: ^/api/signup,  roles: PUBLIC_ACCESS }
         - { path: ^/api/doc,     roles: PUBLIC_ACCESS }
-        - { path: ^/api/,        roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/,        roles: IS_AUTHENTICATED }
         - { path: ^/,            roles: PUBLIC_ACCESS }
