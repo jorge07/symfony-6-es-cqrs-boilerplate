@@ -17,7 +17,7 @@ final class EmailType extends StringType
     /**
      * @throws ConversionException
      */
-    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
+    public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): ?string
     {
         if (null === $value) {
             return null;
@@ -33,7 +33,7 @@ final class EmailType extends StringType
     /**
      * @throws ConversionException
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform): ?Email
+    public function convertToPHPValue(mixed $value, AbstractPlatform $platform): ?Email
     {
         if (null === $value || $value instanceof Email) {
             return $value;
@@ -46,11 +46,6 @@ final class EmailType extends StringType
         }
 
         return $email;
-    }
-
-    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
-    {
-        return true;
     }
 
     public function getName(): string
