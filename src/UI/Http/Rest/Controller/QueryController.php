@@ -14,7 +14,7 @@ use Throwable;
 
 abstract class QueryController
 {
-    private const int CACHE_MAX_AGE = 31_536_000;
+    private const CACHE_MAX_AGE = 31_536_000;
 
     public function __construct(
         // Year.

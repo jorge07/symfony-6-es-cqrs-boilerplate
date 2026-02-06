@@ -14,8 +14,8 @@ export compose env docker-os
 start: erase build start-deps up db ## clean current environment, recreate dependencies and spin up again
 
 .PHONY: start-deps
-start-deps:  ## Start all dependencies and wait for healthchecks
-		$(compose) up -d --wait mysql rmq elasticsearch
+start-deps:  ## Start all dependencies and wait for it
+		$(compose) run --rm start_dependencies
 
 .PHONY: stop
 stop: ## stop environment
