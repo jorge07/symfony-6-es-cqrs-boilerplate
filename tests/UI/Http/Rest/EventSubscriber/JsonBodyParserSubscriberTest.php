@@ -27,7 +27,7 @@ class JsonBodyParserSubscriberTest extends TestCase
         $requestEvent = new RequestEvent(
             $this->createMock(HttpKernelInterface::class),
             $request,
-            HttpKernelInterface::MAIN_REQUEST
+            HttpKernelInterface::MASTER_REQUEST
         );
 
         $jsonBodyParserSubscriber->onKernelRequest($requestEvent);
