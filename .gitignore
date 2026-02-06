@@ -1,49 +1,38 @@
-.php-version
-
 ###> symfony/framework-bundle ###
-/.env.local
-/.env.local.php
-/.env.*.local
-/config/secrets/prod/prod.decrypt.private.php
+.env.local
+.env.*.local
+.env.blackfire
 /public/bundles/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
 
-###> phpstan/phpstan ###
-phpstan.neon
-###< phpstan/phpstan ###
-
-###> phpunit/phpunit ###
-/.phpunit.cache/
-/.phpunit.result.cache
-/phpunit.xml
-###< phpunit/phpunit ###
-
-###> friendsofphp/php-cs-fixer ###
-/.php-cs-fixer.php
-/.php-cs-fixer.cache
-###< friendsofphp/php-cs-fixer ###
-
-###> squizlabs/php_codesniffer ###
-/.phpcs-cache
-/phpcs.xml
-###< squizlabs/php_codesniffer ###
-
-###> lexik/jwt-authentication-bundle ###
-/config/jwt/*.pem
-###< lexik/jwt-authentication-bundle ###
-
-# IDE
 /.idea/
-
-# OS
-.DS_Store
-
-# Build
-/build/
-/report/
 .deptrac.cache
 
-# Helm
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.cache/
+###< phpunit/phpunit ###
+
+/report/
+build/
+
+###> friendsofphp/php-cs-fixer ###
+/.php_cs
+/.php_cs.cache
+/.phpunit.result.cache
+###< friendsofphp/php-cs-fixer ###
 etc/artifact/chart/charts/
+
+###> docusaurus ###
+docs-site/node_modules/
+docs-site/build/
+docs-site/.docusaurus/
+docs-site/.cache-loader/
+###< docusaurus ###

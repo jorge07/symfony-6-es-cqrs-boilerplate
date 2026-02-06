@@ -35,10 +35,12 @@ build: ## build environment and initialize composer and project dependencies
 
 		if [ env = "prod" ]; then \
 			echo Building in $(env) mode; \
-			$(compose) run --rm php sh -lc 'COMPOSER_MEMORY_LIMIT=-1 composer install --no-ansi --no-dev --no-interaction --no-plugins --no-progress --no-scripts --optimize-autoloader --ignore-platform-reqs'; \
+			$(compose) run --rm php sh -lc 'COMPOSER_MEMORY_LIMIT=-1 composer update --no-ansi --no-dev --no-interaction --no-plugins --no-progress --no-scripts --optimize-autoloader --ignore-platform-reqs'; \
 		else \
-			$(compose) run --rm php sh -lc 'COMPOSER_MEMORY_LIMIT=-1 composer install --ignore-platform-reqs'; \
+			$(compose) run --rm php sh -lc 'COMPOSER_MEMORY_LIMIT=-1 composer update --ignore-platform-reqs'; \
 		fi
+
+.PHONY: build-ci
 
 .PHONY: artifact
 artifact: ## build production artifact
@@ -64,7 +66,7 @@ coverage:
 
 .PHONY: phpstan
 phpstan: ## executes php analyzers
-		$(compose) run --rm code sh -lc './vendor/bin/phpstan analyse --memory-limit=512M'
+		$(compose) run --rm code sh -lc './vendor/bin/phpstan analyse -l 4 -c phpstan.neon --memory-limit=512M src tests'
 
 .PHONY: psalm
 psalm: ## execute psalm analyzer
@@ -76,7 +78,7 @@ cs: ## executes coding standards
 
 .PHONY: cs-check
 cs-check: ## executes coding standards in dry run mode
-# Disabled until ECS upgrade
+# Disabled until Sylius upgrade
 # 		$(compose) run --rm code sh -lc './vendor/bin/ecs check src tests'
 
 .PHONY: layer
@@ -85,6 +87,9 @@ layer: ## Check issues with layers
 
 .PHONY: db
 db: ## recreate database
+		$(compose) exec -T php sh -lc 'php -m | grep -E "pdo|PDO" && echo "PDO modules available"'
+		$(compose) exec -T php sh -lc 'php -r "var_dump(PDO::getAvailableDrivers());" && echo "Direct PDO check passed"'
+		$(compose) exec -T php sh -lc 'rm -rf var/cache/* && ./bin/console cache:clear --no-warmup 2>/dev/null || true'
 		$(compose) exec -T php sh -lc './bin/console d:d:d --force --if-exists'
 		$(compose) exec -T php sh -lc './bin/console d:d:c --if-not-exists'
 		$(compose) exec -T php sh -lc './bin/console d:m:m -n'
@@ -92,6 +97,9 @@ db: ## recreate database
 dmd: ## Generate migrations diff file
 		$(compose) exec -T php sh -lc './bin/console d:m:diff'
 
+.PHONY: rector
+rector: ## rector
+		$(compose) exec -T php sh -lc './vendor/bin/rector process'
 
 .PHONY: schema-validate
 schema-validate: ## validate database schema

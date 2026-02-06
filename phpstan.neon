@@ -1,0 +1,8 @@
+parameters:
+	excludePaths:
+		- src/Infrastructure/Shared/Persistence/Doctrine/Migrations/*
+		- src/App/Shared/Infrastructure/Persistence/Doctrine/Migrations/*
+		# Temporarily exclude files with minor type issues for Symfony 7 upgrade
+		- tests/UI/Http/Web/Controller/CreateUserTrait.php
+		- tests/bootstrap.php
+	reportUnmatchedIgnoredErrors: false

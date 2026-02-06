@@ -15,6 +15,7 @@
     <env name="SHELL_VERBOSITY" value="-1"/>
     <!-- Deprecations disabled as not breaking the app -->
     <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
+    <!-- define your env variables for the test env here -->
     <!-- ###+ lexik/jwt-authentication-bundle ### -->
     <env name="JWT_SECRET_KEY" value="%kernel.project_dir%/config/packages/jwt/private.pem"/>
     <env name="JWT_PUBLIC_KEY" value="%kernel.project_dir%/config/packages/jwt/public.pem"/>
@@ -31,9 +32,6 @@
     <env name="DATABASE_USER" value="root"/>
     <env name="DATABASE_PASSWORD" value="api"/>
     <!-- ###- doctrine/doctrine-bundle ### -->
-    <!-- ###+ symfony/routing ### -->
-    <env name="DEFAULT_URI" value="http://localhost"/>
-    <!-- ###- symfony/routing ### -->
   </php>
   <testsuites>
     <testsuite name="Api Test Suite">

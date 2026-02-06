@@ -30,7 +30,7 @@ class UserView implements SerializableReadModel
     private readonly UuidInterface $uuid;
 
     #[ORM\Embedded(class: Credentials::class)]
-    private Credentials $credentials;
+    private readonly Credentials $credentials;
 
     #[ORM\Column(name: 'created_at', type: 'datetime_immutable')]
     public DateTime $createdAt;
@@ -92,14 +92,9 @@ class UserView implements SerializableReadModel
         return (string) $this->credentials->email;
     }
 
-    public function hashedPassword(): HashedPassword
-    {
-        return $this->credentials->password;
-    }
-
     public function changeEmail(Email $email): void
     {
-        $this->credentials = new Credentials($email, $this->credentials->password);
+        $this->credentials->email = $email;
     }
 
     public function changeUpdatedAt(DateTime $updatedAt): void
