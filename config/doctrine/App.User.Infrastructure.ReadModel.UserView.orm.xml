@@ -4,10 +4,10 @@
                   xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
                   https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Infrastructure\ReadModel\UserView" table="users">
+    <entity name="App\User\Infrastructure\ReadModel\UserView" table="users">
         <id name="uuid" type="uuid_binary" column="uuid"/>
 
-        <embedded name="credentials" class="Domain\ValueObject\Auth\Credentials" use-column-prefix="false"/>
+        <embedded name="credentials" class="App\User\Domain\ValueObject\Auth\Credentials" use-column-prefix="false"/>
 
         <field name="createdAt" type="datetime_immutable" column="created_at"/>
         <field name="updatedAt" type="datetime_immutable" column="updated_at" nullable="true"/>
