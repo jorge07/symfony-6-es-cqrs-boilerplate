@@ -9,9 +9,6 @@ RUN apk add -U --no-cache \
         libzip-dev \
         icu-dev \
         libxml2-dev \
-        mariadb-dev \
-        $PHPIZE_DEPS \
-    && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
     && docker-php-ext-install \
         pdo \
         pdo_mysql \
@@ -39,9 +36,7 @@ RUN apk add -U --no-cache \
         icu-dev \
         libxml2-dev \
         linux-headers \
-        mariadb-dev \
         $PHPIZE_DEPS \
-    && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
     && docker-php-ext-install \
         pdo \
         pdo_mysql \
@@ -53,7 +48,7 @@ RUN apk add -U --no-cache \
         posix \
     && pecl install amqp xdebug \
     && docker-php-ext-enable amqp xdebug \
-    && php -m | grep -i pdo
+    && php -m
 
 FROM php-dev AS builder
 
