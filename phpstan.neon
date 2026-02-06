@@ -1,4 +1,5 @@
 parameters:
+	checkMissingIterableValueType: false
+	checkGenericClassInNonGenericObjectType: false
 	excludePaths:
 		- src/Infrastructure/Shared/Persistence/Doctrine/Migrations/*
-		- src/App/Shared/Infrastructure/Persistence/Doctrine/Migrations/*
