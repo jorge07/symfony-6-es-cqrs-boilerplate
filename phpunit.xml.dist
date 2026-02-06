@@ -25,13 +25,6 @@
     <!-- ###+ symfony/messenger ### -->
     <env name="MESSENGER_TRANSPORT_DSN" value="in-memory://" force="true"/>
     <!-- ###- symfony/messenger ### -->
-    <!-- ###+ doctrine/doctrine-bundle ### -->
-    <env name="DATABASE_HOST" value="mysql"/>
-    <env name="DATABASE_PORT" value="3306"/>
-    <env name="DATABASE_NAME" value="api"/>
-    <env name="DATABASE_USER" value="root"/>
-    <env name="DATABASE_PASSWORD" value="api"/>
-    <!-- ###- doctrine/doctrine-bundle ### -->
   </php>
   <testsuites>
     <testsuite name="Api Test Suite">
