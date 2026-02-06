@@ -21,8 +21,10 @@ ENV APP_ENV prod
 ENV APP_SECRET default-secret
 
 COPY composer.json /app
+COPY composer.lock /app
+COPY symfony.lock /app
 
-RUN composer update --no-ansi --no-scripts --no-dev --no-interaction --no-progress --optimize-autoloader
+RUN composer install --no-ansi --no-scripts --no-dev --no-interaction --no-progress --optimize-autoloader
 
 COPY bin /app/bin
 COPY config /app/config
