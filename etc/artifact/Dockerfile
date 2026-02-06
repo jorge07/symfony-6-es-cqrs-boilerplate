@@ -2,22 +2,17 @@ ARG PHP_VERSION=8.2.11
 
 
 FROM jorge07/alpine-php:${PHP_VERSION} AS php-base
-# Enable Alpine testing repository and install PHP extensions
-# PHP 8.2 packages are in the testing repository
+# Install PHP extensions needed for the application
 ARG PHP_MODULES="php82-pdo php82-pdo_mysql php82-mysqlnd php82-pecl-amqp php82-tokenizer php82-posix php82-simplexml php82-xmlwriter"
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-    && apk add -U --no-cache ${PHP_MODULES} sqlite
+RUN apk add -U --no-cache ${PHP_MODULES} sqlite
 
 FROM jorge07/alpine-php:${PHP_VERSION}-dev AS php-dev
 
 ENV PHP_INI_DIR /etc/php82
 
-# Enable Alpine testing repository and install PHP extensions
-# PHP 8.2 packages are in the testing repository
+# Install PHP extensions needed for the application
 ARG PHP_MODULES="php82-pdo php82-pdo_mysql php82-mysqlnd php82-pecl-amqp php82-tokenizer php82-posix php82-simplexml php82-xmlwriter"
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-    && apk add -U --no-cache ${PHP_MODULES} sqlite \
-    && php -m
+RUN apk add -U --no-cache ${PHP_MODULES} sqlite && php -m
 
 FROM php-dev AS builder
 
