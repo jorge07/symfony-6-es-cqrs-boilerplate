@@ -52,7 +52,7 @@ composer-update: ## Update project dependencies
 
 .PHONY: up
 up: ## spin up environment
-		$(compose) up -d --force-recreate
+		$(compose) up -d
 
 .PHONY: phpunit
 phpunit: db ## execute project unit tests
@@ -87,7 +87,6 @@ layer: ## Check issues with layers
 
 .PHONY: db
 db: ## recreate database
-		$(compose) exec -T php sh -lc 'php -m | grep -E "pdo|PDO" && echo "PDO modules available"'
 		$(compose) exec -T php sh -lc './bin/console d:d:d --force --if-exists'
 		$(compose) exec -T php sh -lc './bin/console d:d:c --if-not-exists'
 		$(compose) exec -T php sh -lc './bin/console d:m:m -n'
