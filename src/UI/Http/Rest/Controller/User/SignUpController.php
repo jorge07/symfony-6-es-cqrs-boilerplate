@@ -12,7 +12,7 @@ use Assert\Assertion;
 use Assert\AssertionFailedException;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Throwable;
 
 final class SignUpController extends CommandController

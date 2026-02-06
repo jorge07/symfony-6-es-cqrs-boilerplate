@@ -14,7 +14,7 @@ use Assert\AssertionFailedException;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Throwable;
 
 class GetEventsController extends QueryController
