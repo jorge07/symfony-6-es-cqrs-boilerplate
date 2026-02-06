@@ -20,8 +20,7 @@ services:
       - ./etc/dev/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - ./public:/app/public:ro
     depends_on:
-      php:
-        condition: service_healthy
+      - php
 
   code:
     <<: *app-build
@@ -34,12 +33,6 @@ services:
       - XDEBUG_MODE=debug
       - XDEBUG_CLIENT_HOST=host.docker.internal
     volumes: *app-volumes
-    healthcheck:
-      test: ["CMD-SHELL", "php-fpm83 -t || exit 1"]
-      interval: 5s
-      timeout: 3s
-      retries: 10
-      start_period: 30s
     depends_on:
       mysql:
         condition: service_healthy
