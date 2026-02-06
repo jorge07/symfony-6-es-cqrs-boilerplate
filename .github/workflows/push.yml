@@ -3,7 +3,7 @@ name: push
 on:
   push:
     branches:
-      - symfony-6
+      - symfony-5
 
 jobs:
   build:
@@ -24,9 +24,6 @@ jobs:
 
     - name: Build
       run: make env=ci start
-
-    - name: Clear cache
-      run: docker compose -f docker-compose.yml -f etc/ci/docker-compose.yml exec -T php sh -lc './bin/console cache:clear --no-warmup'
 
     - name: DDD LAYERS
       run: make env=ci layer
