@@ -29,7 +29,7 @@
         <div class="navbar-end">
             <div class="navbar-item">
                 {% if is_granted('ROLE_USER') %}
-                    <span class="tag is-white">{{ app.user.userIdentifier }}</span>
+                    <span class="tag is-white">{{ app.user.username }}</span>
                     <a class="button is-danger" href="{{ path('logout') }}">Exit</a>
                 {% else %}
                     <div class="field is-grouped">

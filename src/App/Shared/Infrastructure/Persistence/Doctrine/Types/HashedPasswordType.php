@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\User\Infrastructure\Persistence\Doctrine\Types;
+namespace App\Shared\Infrastructure\Persistence\Doctrine\Types;
 
 use App\User\Domain\ValueObject\Auth\HashedPassword;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
@@ -15,9 +15,13 @@ final class HashedPasswordType extends StringType
     private const TYPE = 'hashed_password';
 
     /**
+     * @param mixed $value
+     *
+     * @return mixed|string|null
+     *
      * @throws ConversionException
      */
-    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
+    public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         if (null === $value) {
             return null;
@@ -31,9 +35,13 @@ final class HashedPasswordType extends StringType
     }
 
     /**
+     * @param HashedPassword|string|null $value
+     *
+     * @return HashedPassword|null
+     *
      * @throws ConversionException
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform): ?HashedPassword
+    public function convertToPHPValue($value, AbstractPlatform $platform)
     {
         if (null === $value || $value instanceof HashedPassword) {
             return $value;
@@ -42,18 +50,24 @@ final class HashedPasswordType extends StringType
         try {
             $hashedPassword = HashedPassword::fromHash($value);
         } catch (Throwable) {
-            throw ConversionException::conversionFailedFormat($value, $this->getName(), 'a valid hashed password');
+            throw ConversionException::conversionFailedFormat($value, $this->getName(), $platform->getDateTimeFormatString());
         }
 
         return $hashedPassword;
     }
 
-    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
+    /**
+     * {@inheritdoc}
+     */
+    public function requiresSQLCommentHint(AbstractPlatform $platform)
     {
         return true;
     }
 
-    public function getName(): string
+    /**
+     * @return string
+     */
+    public function getName()
     {
         return self::TYPE;
     }

@@ -13,7 +13,8 @@
     <env name="APP_DEBUG" value="1"/>
     <env name="APP_SECRET" value="s$cretf0rt3st"/>
     <env name="SHELL_VERBOSITY" value="-1"/>
-    <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak"/>
+    <!-- Deprecations disabled as not breaking the app -->
+    <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
     <!-- ###+ lexik/jwt-authentication-bundle ### -->
     <env name="JWT_SECRET_KEY" value="%kernel.project_dir%/config/packages/jwt/private.pem"/>
     <env name="JWT_PUBLIC_KEY" value="%kernel.project_dir%/config/packages/jwt/public.pem"/>
@@ -44,8 +45,8 @@
       <directory>./src/</directory>
     </include>
     <exclude>
-      <directory>./src/App/Shared/Infrastructure/Persistence/Doctrine/Migrations</directory>
-      <file>./src/App/Shared/Infrastructure/Kernel.php</file>
+      <directory>./src/Infrastructure/Shared/Persistence/Doctrine/Migrations</directory>
+      <file>./src/Infrastructure/Kernel.php</file>
     </exclude>
   </source>
   <extensions>

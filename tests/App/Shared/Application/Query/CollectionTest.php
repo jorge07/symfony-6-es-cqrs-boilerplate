@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\App\Shared\Application\Query;
 
 use App\Shared\Application\Query\Collection;
-use App\Shared\Domain\Exception\NotFoundException;
+use App\Shared\Infrastructure\Persistence\ReadModel\Exception\NotFoundException;
 use PHPUnit\Framework\TestCase;
 
 class CollectionTest extends TestCase

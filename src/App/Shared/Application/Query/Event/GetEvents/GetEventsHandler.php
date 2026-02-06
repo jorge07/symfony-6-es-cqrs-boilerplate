@@ -6,13 +6,13 @@ namespace App\Shared\Application\Query\Event\GetEvents;
 
 use App\Shared\Application\Query\Collection;
 use App\Shared\Application\Query\QueryHandlerInterface;
-use App\Shared\Domain\Exception\NotFoundException;
-use App\Shared\Domain\Repository\EventRepositoryInterface;
+use App\Shared\Infrastructure\Event\ReadModel\ElasticSearchEventRepository;
+use App\Shared\Infrastructure\Persistence\ReadModel\Exception\NotFoundException;
 use Assert\AssertionFailedException;
 
 final class GetEventsHandler implements QueryHandlerInterface
 {
-    public function __construct(private readonly EventRepositoryInterface $eventRepository)
+    public function __construct(private readonly ElasticSearchEventRepository $eventRepository)
     {
     }
 

@@ -12,7 +12,7 @@ trait MessageBusExceptionTrait
     /**
      * @throws Throwable
      */
-    public function throwException(HandlerFailedException $exception): never
+    public function throwException(HandlerFailedException $exception): void
     {
         while ($exception instanceof HandlerFailedException) {
             /** @var Throwable $exception */

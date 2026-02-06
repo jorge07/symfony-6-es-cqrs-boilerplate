@@ -7,9 +7,8 @@
   max_connect_errors       = 1000000
   max_connections          = 900
 
-  character-set-server           = utf8mb4
-  collation-server               = utf8mb4_unicode_ci
-  sql_mode                       = "STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"
+  character-set-server           = utf8
+  sql_mode                       = ""
   innodb                         = FORCE
   default-storage-engine         = InnoDB
   max_allowed_packet             = 256M

@@ -10,7 +10,8 @@ use Assert\AssertionFailedException;
 
 final class GetAuthUserByEmailQuery implements QueryInterface
 {
-    public readonly Email $email;
+    /** @psalm-readonly */
+    public Email $email;
 
     /**
      * @throws AssertionFailedException

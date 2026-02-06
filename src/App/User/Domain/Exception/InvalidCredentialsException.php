@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\User\Domain\Exception;
 
-use App\Shared\Domain\Exception\DomainException;
-
-class InvalidCredentialsException extends DomainException
+class InvalidCredentialsException extends \RuntimeException
 {
 }

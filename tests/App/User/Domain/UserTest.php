@@ -41,8 +41,8 @@ class UserTest extends TestCase implements UniqueEmailSpecificationInterface
             $this
         );
 
-        self::assertSame($emailString, $user->email()->toString());
-        self::assertNotEmpty($user->uuid()->toString());
+        self::assertSame($emailString, $user->email());
+        self::assertNotEmpty($user->uuid());
 
         $events = $user->getUncommittedEvents();
 
@@ -79,7 +79,7 @@ class UserTest extends TestCase implements UniqueEmailSpecificationInterface
 
         $user->changeEmail(Email::fromString($newEmail), $this);
 
-        self::assertSame($user->email()->toString(), $newEmail, 'Emails should be equals');
+        self::assertSame($user->email(), $newEmail, 'Emails should be equals');
 
         $events = $user->getUncommittedEvents();
 
@@ -151,7 +151,7 @@ class UserTest extends TestCase implements UniqueEmailSpecificationInterface
             $this
         );
 
-        self::assertNotEmpty($user->createdAt()->toString());
+        self::assertNotEmpty($user->createdAt());
         self::assertNull($user->updatedAt());
 
         $initialUpdatedAt = $user->updatedAt();
@@ -159,6 +159,6 @@ class UserTest extends TestCase implements UniqueEmailSpecificationInterface
         $newEmail = 'weba@aso.maximo';
         $user->changeEmail(Email::fromString($newEmail), $this);
 
-        self::assertNotSame($user->updatedAt()->toString(), $initialUpdatedAt);
+        self::assertNotSame($user->updatedAt(), $initialUpdatedAt);
     }
 }

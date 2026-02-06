@@ -36,8 +36,8 @@ final class HealthzController
         $mysql = null;
 
         if (
-            (true === ($elastic = $this->elasticSearchEventRepository->isHealthy())) &&
-            (true === ($mysql = $this->mysqlReadModelUserRepository->isHealthy()))
+            true === $elastic = $this->elasticSearchEventRepository->isHealthly() &&
+            true === $mysql = $this->mysqlReadModelUserRepository->isHealthy()
         ) {
             return OpenApi::empty(200);
         }

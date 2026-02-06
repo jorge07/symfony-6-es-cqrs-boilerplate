@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\User\Infrastructure\Auth;
 
-use App\User\Application\Query\Auth\AuthenticationProviderInterface;
 use App\User\Domain\ValueObject\Auth\HashedPassword;
 use App\User\Domain\ValueObject\Email;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Ramsey\Uuid\UuidInterface;
 
-final class AuthenticationProvider implements AuthenticationProviderInterface
+final class AuthenticationProvider
 {
     public function __construct(private readonly JWTTokenManagerInterface $JWTManager)
     {

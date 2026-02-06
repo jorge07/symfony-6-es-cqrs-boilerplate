@@ -12,9 +12,11 @@ use Ramsey\Uuid\UuidInterface;
 
 final class ChangeEmailCommand implements CommandInterface
 {
-    public readonly UuidInterface $userUuid;
+    /** @psalm-readonly */
+    public UuidInterface $userUuid;
 
-    public readonly Email $email;
+    /** @psalm-readonly */
+    public Email $email;
 
     /**
      * @throws AssertionFailedException

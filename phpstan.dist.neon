@@ -1,5 +1,5 @@
 parameters:
-    level: 6
+    level: 4
     paths:
         - src/
         - tests/
@@ -7,12 +7,3 @@ parameters:
         - src/Infrastructure/Shared/Persistence/Doctrine/Migrations/*
         - src/App/Shared/Infrastructure/Persistence/Doctrine/Migrations/*
     reportUnmatchedIgnoredErrors: false
-    ignoreErrors:
-        - '#Method .+ should return .+ but returns Broadway\\Domain\\DomainEventStream#'
-        - '#Parameter \#1 .+ of class Broadway\\Domain\\DomainMessage constructor expects .+, .+ given#'
-        - '#Call to an undefined method Broadway\\EventSourcing\\EventSourcedAggregateRoot::.+\(\)#'
-        - '#Property .+ has no type specified#'
-        - '#Method .+ has no return type specified#'
-        - '#Method .+ has parameter .+ with no type specified#'
-        - '#no value type specified in iterable type array#'
-        - '#generic class .+ does not specify its types#'

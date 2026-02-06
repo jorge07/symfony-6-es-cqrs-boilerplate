@@ -10,12 +10,14 @@ use Assert\AssertionFailedException;
 
 final class SignInCommand implements CommandInterface
 {
-    public readonly Email $email;
+    /** @psalm-readonly */
+    public Email $email;
 
     /**
      * @throws AssertionFailedException
      */
-    public function __construct(string $email, public readonly string $plainPassword)
+    public function __construct(string $email, /** @psalm-readonly */
+    public string $plainPassword)
     {
         $this->email = Email::fromString($email);
     }

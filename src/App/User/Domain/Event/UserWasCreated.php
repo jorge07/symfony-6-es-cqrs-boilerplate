@@ -17,7 +17,7 @@ use Ramsey\Uuid\UuidInterface;
 
 final class UserWasCreated implements Serializable
 {
-    public function __construct(public readonly UuidInterface $uuid, public readonly Credentials $credentials, public readonly DateTime $createdAt)
+    public function __construct(public UuidInterface $uuid, public Credentials $credentials, public DateTime $createdAt)
     {
     }
 

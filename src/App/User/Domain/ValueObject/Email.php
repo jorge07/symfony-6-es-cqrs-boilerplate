@@ -34,11 +34,6 @@ final class Email implements JsonSerializable, \Stringable
         return $this->email;
     }
 
-    public function equals(self $other): bool
-    {
-        return $this->email === $other->email;
-    }
-
     public function jsonSerialize(): string
     {
         return $this->toString();

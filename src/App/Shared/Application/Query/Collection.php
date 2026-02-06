@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Application\Query;
 
-use App\Shared\Domain\Exception\NotFoundException;
+use App\Shared\Infrastructure\Persistence\ReadModel\Exception\NotFoundException;
 
 class Collection
 {

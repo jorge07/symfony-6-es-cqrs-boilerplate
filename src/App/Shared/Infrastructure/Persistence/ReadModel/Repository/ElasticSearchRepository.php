@@ -14,7 +14,7 @@ abstract class ElasticSearchRepository
 {
     private readonly Client $client;
 
-    public function __construct(array $elasticConfig, ?LoggerInterface $elasticsearchLogger = null)
+    public function __construct(array $elasticConfig, LoggerInterface $elasticsearchLogger = null)
     {
         $defaultConfig = [];
 
@@ -97,7 +97,7 @@ abstract class ElasticSearchRepository
         ];
     }
 
-    public function isHealthy(): bool
+    public function isHealthly(): bool
     {
         try {
             $response = $this->client->cluster()->health();

@@ -12,7 +12,7 @@ parameters:
     InvalidArgumentException: 400
     App\User\Domain\Exception\InvalidCredentialsException: 401
     App\User\Domain\Exception\ForbiddenException: 403
-    App\Shared\Domain\Exception\NotFoundException: 404
+    App\Shared\Infrastructure\Persistence\ReadModel\Exception\NotFoundException: 404
     Broadway\Repository\AggregateNotFoundException: 404
 
 services:
@@ -23,7 +23,7 @@ services:
         bind:
           $elasticConfig: '%elastic%'
           $eventBus: '@broadway.event_handling.event_bus'
-          $eventStore: '@broadway.event_store.dbal'
+          $eventStore: '@Broadway\EventStore\Dbal\DBALEventStore'
 
     _instanceof:
         App\Shared\Application\Command\CommandHandlerInterface:
@@ -65,10 +65,17 @@ services:
         arguments:
           - '@messenger.bus.event.async'
 
-    ### Interface bindings
-    App\User\Domain\Repository\UserReadModelRepositoryInterface: '@App\User\Infrastructure\ReadModel\Mysql\MysqlReadModelUserRepository'
-    App\Shared\Domain\Repository\EventRepositoryInterface: '@App\Shared\Infrastructure\Event\ReadModel\ElasticSearchEventRepository'
-    App\User\Application\Query\Auth\AuthenticationProviderInterface: '@App\User\Infrastructure\Auth\AuthenticationProvider'
+    ### Event Store
+
+    Broadway\EventStore\Dbal\DBALEventStore:
+        public: true
+        arguments:
+          - '@doctrine.dbal.default_connection'
+          - '@broadway.serializer.payload'
+          - '@broadway.serializer.metadata'
+          - 'events'
+          - true
+          - '@broadway.uuid.converter'
 
     ### UI
 

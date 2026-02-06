@@ -3,9 +3,6 @@ framework:
         default_bus: messenger.bus.command
         failure_transport: failed
         buses:
-            # Default middleware is disabled on command/query buses intentionally.
-            # These buses follow CQRS: one command = one handler, one query = one handler.
-            # Validation and routing middleware are not needed; only handle_message is used.
             messenger.bus.command:
                 default_middleware: false
                 middleware:

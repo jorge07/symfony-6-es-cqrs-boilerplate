@@ -9,8 +9,10 @@ use App\Shared\Application\Query\QueryInterface;
 final class GetEventsQuery implements QueryInterface
 {
     public function __construct(
-        public readonly int $page = 1,
-        public readonly int $limit = 50
+        /** @psalm-readonly */
+        public int $page = 1,
+        /** @psalm-readonly */
+        public int $limit = 50
     )
     {
     }
