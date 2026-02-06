@@ -17,7 +17,7 @@ final class HashedPasswordType extends StringType
     /**
      * @throws ConversionException
      */
-    public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): ?string
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         if (null === $value) {
             return null;
@@ -33,7 +33,7 @@ final class HashedPasswordType extends StringType
     /**
      * @throws ConversionException
      */
-    public function convertToPHPValue(mixed $value, AbstractPlatform $platform): ?HashedPassword
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?HashedPassword
     {
         if (null === $value || $value instanceof HashedPassword) {
             return $value;
@@ -46,6 +46,11 @@ final class HashedPasswordType extends StringType
         }
 
         return $hashedPassword;
+    }
+
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
+    {
+        return true;
     }
 
     public function getName(): string

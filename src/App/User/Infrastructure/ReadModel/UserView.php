@@ -12,22 +12,30 @@ use App\User\Domain\ValueObject\Email;
 use Assert\AssertionFailedException;
 use Broadway\ReadModel\SerializableReadModel;
 use Broadway\Serializer\Serializable;
+use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 /**
  * @psalm-suppress MissingConstructor
  */
+#[ORM\Entity]
+#[ORM\Table(name: 'users')]
 class UserView implements SerializableReadModel
 {
     final public const string TYPE = 'UserView';
 
+    #[ORM\Id]
+    #[ORM\Column(name: 'uuid', type: 'uuid_binary')]
     private readonly UuidInterface $uuid;
 
+    #[ORM\Embedded(class: Credentials::class)]
     private Credentials $credentials;
 
+    #[ORM\Column(name: 'created_at', type: 'datetime_immutable')]
     public DateTime $createdAt;
 
+    #[ORM\Column(name: 'updated_at', type: 'datetime_immutable', nullable: true)]
     public ?DateTime $updatedAt;
 
     private function __construct(UuidInterface $uuid, Credentials $credentials, DateTime $createdAt, ?DateTime $updatedAt)
