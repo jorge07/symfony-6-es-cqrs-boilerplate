@@ -11,7 +11,18 @@ FROM jorge07/alpine-php:${PHP_VERSION}-dev AS php-dev
 ENV PHP_INI_DIR /etc/php82
 
 # PHP modules are already included in the base image
-RUN apk add -U --no-cache sqlite
+RUN apk add -U sqlite \
+	&& version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
+    && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/alpine/amd64/$version \
+    && mkdir -p /tmp/blackfire \
+    && tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp/blackfire \
+    && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get ('extension_dir');")/blackfire.so \
+    && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8707\n" > $PHP_INI_DIR/conf.d/blackfire.ini \
+    && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz \
+    && mkdir -p /tmp/blackfire \
+    && curl -A "Docker" -L https://blackfire.io/api/v1/releases/client/linux_static/amd64 | tar zxp -C /tmp/blackfire \
+    && mv /tmp/blackfire/blackfire /usr/bin/blackfire \
+    && rm -Rf /tmp/blackfire
 
 FROM php-dev AS builder
 
