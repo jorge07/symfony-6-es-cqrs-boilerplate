@@ -1,1 +1,1 @@
-# CI docker-compose override (empty, uses base config)
+version: '3.7'
