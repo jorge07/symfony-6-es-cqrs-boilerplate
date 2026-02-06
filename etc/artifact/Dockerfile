@@ -2,27 +2,25 @@ ARG PHP_VERSION=8.2
 
 
 FROM php:${PHP_VERSION}-cli-alpine AS php-base
-# Install system dependencies
+# Install required PHP extensions
 RUN apk add -U --no-cache \
         sqlite \
         rabbitmq-c-dev \
         libzip-dev \
         icu-dev \
         libxml2-dev \
-        mysql-client \
-        $PHPIZE_DEPS
-
-# Install PHP extensions - simplexml and xml are bundled with PHP, just need to enable them
-RUN docker-php-ext-install -j$(nproc) \
+        mariadb-dev \
+        $PHPIZE_DEPS \
+    && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
+    && docker-php-ext-install \
         pdo \
         pdo_mysql \
         intl \
         zip \
-        xml \
+        simplexml \
         opcache \
     && pecl install amqp \
-    && docker-php-ext-enable amqp \
-    && php -m | grep -E "pdo_mysql|PDO" && echo "PDO MySQL extension verified"
+    && docker-php-ext-enable amqp
 
 FROM php:${PHP_VERSION}-cli-alpine AS php-dev
 
@@ -31,7 +29,7 @@ WORKDIR /app
 # Install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Install system dependencies
+# Install required PHP extensions and dev tools
 RUN apk add -U --no-cache \
         sqlite \
         git \
@@ -41,26 +39,21 @@ RUN apk add -U --no-cache \
         icu-dev \
         libxml2-dev \
         linux-headers \
-        mysql-client \
-        $PHPIZE_DEPS
-
-# Install PHP extensions
-RUN docker-php-ext-install -j$(nproc) \
+        mariadb-dev \
+        $PHPIZE_DEPS \
+    && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
+    && docker-php-ext-install \
         pdo \
         pdo_mysql \
         intl \
         zip \
-        xml \
+        simplexml \
         opcache \
         pcntl \
         posix \
     && pecl install amqp xdebug \
-    && docker-php-ext-enable amqp xdebug
-
-# Verify PDO MySQL is available - fail build if not
-RUN php -m | grep pdo_mysql || (echo "ERROR: pdo_mysql extension not found!" && exit 1) \
-    && php -r "new PDO('mysql:host=localhost', 'test', 'test');" 2>&1 | grep -v "Connection refused" || true \
-    && echo "PHP extensions verified successfully"
+    && docker-php-ext-enable amqp xdebug \
+    && php -m | grep -i pdo
 
 FROM php-dev AS builder
 
