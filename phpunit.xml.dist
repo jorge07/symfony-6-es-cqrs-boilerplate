@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- https://phpunit.de/manual/current/en/appendixes.configuration.html -->
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
-         colors="true"
-         bootstrap="vendor/autoload.php"
-         cacheDirectory=".phpunit.cache"
->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" colors="true" bootstrap="vendor/autoload.php">
+  <coverage processUncoveredFiles="true">
+    <include>
+      <directory>./src/</directory>
+    </include>
+    <exclude>
+      <directory>./src/Infrastructure/Shared/Persistence/Doctrine/Migrations</directory>
+      <file>./src/Infrastructure/Kernel.php</file>
+    </exclude>
+    <report>
+      <html outputDirectory="report/html"/>
+    </report>
+  </coverage>
   <php>
     <ini name="error_reporting" value="-1"/>
     <env name="KERNEL_CLASS" value="App\Shared\Infrastructure\Kernel"/>
@@ -31,16 +38,10 @@
       <directory>tests/</directory>
     </testsuite>
   </testsuites>
-  <source>
-    <include>
-      <directory>./src/</directory>
-    </include>
-    <exclude>
-      <directory>./src/Infrastructure/Shared/Persistence/Doctrine/Migrations</directory>
-      <file>./src/Infrastructure/Kernel.php</file>
-    </exclude>
-  </source>
-  <extensions>
-    <bootstrap class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
-  </extensions>
+  <logging/>
+  <listeners>
+<!--    <listener class="Tests\TidierListener"/>-->
+    <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
+    <listener class="\DAMA\DoctrineTestBundle\PHPUnit\PHPUnitListener"/>
+  </listeners>
 </phpunit>

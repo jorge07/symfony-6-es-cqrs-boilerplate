@@ -16,6 +16,9 @@ parameters:
     Broadway\Repository\AggregateNotFoundException: 404
 
 services:
+    # Needed since Since symfony/dependency-injection 5.1
+    Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
+
     _defaults:
         autowire: true
         autoconfigure: true

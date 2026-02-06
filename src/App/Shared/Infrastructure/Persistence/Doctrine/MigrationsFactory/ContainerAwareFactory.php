@@ -4,25 +4,22 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Persistence\Doctrine\MigrationsFactory;
 
-use Broadway\EventStore\Dbal\DBALEventStore;
 use Doctrine\DBAL\Connection;
 use Doctrine\Migrations\AbstractMigration;
 use Doctrine\Migrations\Version\MigrationFactory;
-use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Custom migration factory that injects services into migrations that need them.
- * This replaces the deprecated ContainerAwareInterface pattern.
+ * Class ContainerAwareFactory
+ *
+ * @desciption If you know a better way to do that let me know because I've lost an important amount of time...
  */
 final class ContainerAwareFactory implements MigrationFactory
 {
-    public function __construct(
-        private readonly Connection $connection,
-        private readonly LoggerInterface $logger,
-        private readonly EntityManagerInterface $entityManager,
-        private readonly DBALEventStore $eventStore,
-    ) {
+    public function __construct(private readonly Connection $connection, private readonly LoggerInterface $logger, private readonly ?\Symfony\Component\DependencyInjection\ContainerInterface $container)
+    {
     }
 
     public function createVersion(string $migrationClassName): AbstractMigration
@@ -32,8 +29,8 @@ final class ContainerAwareFactory implements MigrationFactory
             $this->logger
         );
 
-        if ($instance instanceof ServiceAwareMigrationInterface) {
-            $instance->setServices($this->entityManager, $this->eventStore);
+        if ($instance instanceof ContainerAwareInterface) {
+            $instance->setContainer($this->container);
         }
 
         return $instance;
