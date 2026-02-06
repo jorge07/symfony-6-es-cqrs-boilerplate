@@ -12,6 +12,3 @@ parameters:
 		- '#Method App\\User\\Infrastructure\\Auth\\Guard\\LoginAuthenticator::onAuthenticationSuccess\(\) never returns null so it can be removed from the return type#'
 		- '#Call to static method PHPUnit\\Framework\\Assert::assertNotNull\(\) with string will always evaluate to true#'
 		- '#Property .+::\$worker .+ is never assigned null so it can be removed from the property type#'
-		# Generic array types - to be fixed in follow-up PR
-		- '#has no value type specified in iterable type array#'
-		- '#return type has no value type specified in iterable type#'
