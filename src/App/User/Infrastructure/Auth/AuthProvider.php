@@ -22,7 +22,7 @@ final class AuthProvider implements UserProviderInterface
     {
     }
 
-    public function loadUserByIdentifier(string $identifier): Auth
+    public function loadUserByIdentifier(string $identifier): UserInterface
     {
         try {
             [$uuid, $email, $hashedPassword] = $this->userReadModelRepository->getCredentialsByEmail(
@@ -33,15 +33,17 @@ final class AuthProvider implements UserProviderInterface
         } catch (NotFoundException) {
             throw new UserNotFoundException();
         }
-    }
 
+    }
     /**
      * @throws NotFoundException
      * @throws AssertionFailedException
      * @throws NonUniqueResultException
      * @throws \Throwable
+     *
+     * @return Auth|UserInterface
      */
-    public function loadUserByUsername(string $email): Auth
+    public function loadUserByUsername(string $email): \App\User\Infrastructure\Auth\Auth|\Symfony\Component\Security\Core\User\UserInterface
     {
         [$uuid, $email, $hashedPassword] = $this->userReadModelRepository->getCredentialsByEmail(
             Email::fromString($email)
@@ -55,7 +57,7 @@ final class AuthProvider implements UserProviderInterface
      * @throws AssertionFailedException
      * @throws NonUniqueResultException
      */
-    public function refreshUser(UserInterface $user): Auth
+    public function refreshUser(UserInterface $user): UserInterface
     {
         return $this->loadUserByUsername($user->getUserIdentifier());
     }
