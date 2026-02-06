@@ -9,6 +9,8 @@ A boilerplate demonstrating **Domain-Driven Design (DDD)**, **Command Query Resp
 
 > This is a long living repository that started at v4 and was upgraded to each major version since then. You can find older versions at the following branches:
 >
+> [symfony-6 branch](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/tree/symfony-6)
+>
 > [symfony-5 branch](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/tree/symfony-5)
 >
 > [symfony-4 branch](https://github.com/jorge07/symfony-6-es-cqrs-boilerplate/tree/symfony-4)
